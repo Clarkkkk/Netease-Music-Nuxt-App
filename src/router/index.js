@@ -1,27 +1,50 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Discover from '@/views/Discover.vue';
+import DiscoverHome from '@/views/Discover/DiscoverHome.vue';
 
-Vue.use(VueRouter)
+
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    name: 'discover',
+    component: Discover,
+    children: [
+      {
+        path: '',
+        component: DiscoverHome
+      },
+      {
+        path: 'search',
+        name: 'discover-search',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch.vue'),
+        children: [
+          {
+            path: '',
+            name: 'discover-search-default',
+            component: () =>
+              import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch/Default.vue')
+          },
+          {
+            path: 'result/:searchText',
+            name: 'discover-search-result',
+            props: true,
+            component: () =>
+              import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch/Result.vue')
+          }
+        ]
+      },
+
+    ]
   }
-]
+];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
-})
+});
 
-export default router
+export default router;
