@@ -2,7 +2,7 @@
   <div id="app-banner">
     <transition-group
       name="banner"
-      class="app-banner-transition-group"
+      class="transition-group"
     >
       <div
         class="pic-container"
@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app-banner {
   width: 100%;
   height: 100%;
@@ -93,7 +93,7 @@ export default {
   justify-content: space-around;
 }
 
-.app-banner-transition-group {
+.transition-group {
   grid-row: start / end;
   grid-column: start / end;
   width: 300%;

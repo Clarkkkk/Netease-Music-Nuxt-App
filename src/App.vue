@@ -1,16 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+    <audio-player/>
   </div>
 </template>
 
 <script>
-
+import AudioPlayer from '@/components/AudioPlayer.vue';
+export default {
+  components: {
+    AudioPlayer
+  }
+};
 </script>
 
 <style>
 body {
   margin: 0;
+  overflow-x: hidden;
   font-size: 14px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

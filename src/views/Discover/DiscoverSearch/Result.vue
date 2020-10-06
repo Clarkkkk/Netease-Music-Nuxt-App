@@ -1,28 +1,21 @@
 <template>
   <div id="discover-search-result">
     <search-bar
-      class="discover-search-result-header"
+      class="header"
       :value="searchText"
       @click="backToSearch"
     >
       <template v-slot:left>
-        <div
-          class="discover-search-result-back"
-          @click="backToSearch"
-        >
-          <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-          </svg>
-        </div>
+        <back-button/>
       </template>
     </search-bar>
 
-    <div class="discover-search-result-multimatch">
+    <div class="multimatch">
       <span>你可能感兴趣</span>
       <div
         v-for="item in matchResult"
         :key="item.id"
-        class="discover-search-result-multimatch-item"
+        class="multimatch-item"
       >
         <img :src="item.picUrl" alt="封面图片">
         <span>{{ item.type + '：' + item.name }}</span>
@@ -30,7 +23,7 @@
       </div>
     </div>
 
-    <div class="discover-search-result-mixed">
+    <div class="mixed">
       <span>单曲</span>
       <song-entry
         v-for="song in mixedResult.songs"
@@ -38,6 +31,7 @@
         :song-name="song.name"
         :song-artists="song.ar"
         :song-album="song.al.name"
+        :song-id="song.id"
       ></song-entry>
       <span>{{ mixedResult.moreText }}</span>
     </div>
@@ -48,6 +42,7 @@
 import fetchJSON from '@/functions/fetchJSON.js';
 import SearchBar from '@/components/SearchBar.vue';
 import SongEntry from '@/components/SongEntry.vue';
+import BackButton from '@/components/BackButton.vue';
 export default {
   props: ['searchText'],
   data: function() {
@@ -60,7 +55,8 @@ export default {
 
   components: {
     SearchBar,
-    SongEntry
+    SongEntry,
+    BackButton
   },
 
   created: function() {
@@ -95,38 +91,28 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #discover-search-result {
   display: grid;
   grid-template-rows:
-    [start app-header-start] 3rem [app-header-end list-start] 1fr [list-end end];
+    [start header-start] 3rem [header-end list-start] 1fr [list-end end];
   align-items: center;
   justify-items: center;
 }
 
-.discover-search-result-header {
-  grid-row: app-header-start / app-header-end;
+.header {
+  grid-row: header-start / header-end;
   display: grid;
   grid-template-columns:
-    [start left-start] 2rem [left-end search-start] 1fr
+    [start back-start] 2rem [back-end search-start] 1fr
     [search-end end];
-  grid-template-rows: 1fr;
-  align-items: center;
-  justify-items: center;
-}
-
-.discover-search-result-back {
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.5rem;
-  display: grid;
+  grid-template-rows: [start] 1fr [end];
   align-items: center;
   justify-items: center;
 }
 
 /* multimatch result */
-.discover-search-result-multimatch {
+.multimatch {
   grid-row: list-start / list-end;
   /* needs further editing */
   display: none;
@@ -136,13 +122,13 @@ export default {
   width: 100%;
 }
 
-.discover-search-result-multimatch-item {
+.multimatch-item {
   display: grid;
   grid-template-rows: [start title-start] 1fr [title-end author-start] 1fr [author-end end];
   grid-template-columns: [start pic-start] 4rem [pic-end text-start] 1fr [text-end end];
 }
 
-.discover-search-result-multimatch-item img {
+.multimatch-item img {
   grid-row: start / end;
   grid-column: pic-start / pic-end;
   width:100%;
@@ -150,7 +136,7 @@ export default {
 /* multimatch result */
 
 /* mixed result */
-.discover-search-result-mixed {
+.mixed {
   grid-row: list-start / list-end;
   width: 100%;
   display: grid;
@@ -158,7 +144,7 @@ export default {
   grid-auto-rows: max-content;
 }
 
-.discover-search-result-mixed > span:first-child {
+.mixed > span:first-child {
   padding: 0 1rem;
   font-size: 1.2rem;
   height: 3rem;
@@ -168,7 +154,7 @@ export default {
   user-select: none;
 }
 
-.discover-search-result-mixed > span:last-child {
+.mixed > span:last-child {
   text-align: center;
   height: 3rem;
   line-height: 3rem;

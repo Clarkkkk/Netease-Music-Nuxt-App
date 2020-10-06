@@ -2,20 +2,17 @@
   <div id="search-bar">
     <slot name="left"></slot>
     <div
-      class="search-bar-input-area"
+      class="input-area"
     >
       <input
         type="search"
-        class="search-bar-input"
+        class="input"
         ref="input"
         v-bind="$attrs"
         :value="value"
         v-on="inputListeners"
       >
-      <svg width="1em" height="1em" viewBox="0 0 16 16" class="search-bar-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-      </svg>
+      <svg-icon icon="search" class="icon"/>
     </div>
     <slot name="right"></slot>
   </div>
@@ -44,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #search-bar {
   width: 100%;
   height: 100%;
@@ -52,7 +49,7 @@ export default {
   color: white;
 }
 
-.search-bar-input-area {
+.input-area {
   grid-column: search-start / search-end;
   height: 2rem;
   width: 98%;
@@ -65,7 +62,7 @@ export default {
   justify-items: center;
 }
 
-.search-bar-input {
+.input {
   grid-column: input-start / input-end;
   margin: 0;
   border: none;
@@ -78,16 +75,16 @@ export default {
   color: white;
 }
 
-.search-bar-input[cursor="pointer"] {
+.input[cursor="pointer"] {
   cursor: pointer;
 }
 
-.search-bar-input:focus, .search-bar-input:active {
+.input:focus, .input:active {
   border: none;
   outline: none;
 }
 
-.search-bar-icon {
+.icon {
   grid-column: icon-start / icon-end;
   color: #ffffff80;
 }

@@ -1,17 +1,18 @@
 <template>
-  <div class="song-entry">
-    <span class="song-entry-name">
+  <div class="song-entry" @click="play">
+    <span class="name">
       {{ songName }}
     </span>
-    <span class="song-entry-info">
+    <span class="info">
       {{ songInfoString }}
     </span>
   </div>
 </template>
 
 <script>
+import fetchJSON from '@/functions/fetchJSON.js';
 export default {
-  props: ['songName', 'songArtists', 'songAlbum'],
+  props: ['songName', 'songArtists', 'songAlbum', 'songId'],
   computed: {
     songArtistString: function() {
       const artists = [];
@@ -28,11 +29,26 @@ export default {
         return this.songArtistString;
       }
     }
+  },
+  methods: {
+    play() {
+      fetchJSON('/check/music?id=' + this.songId)
+        .then((result) => {
+          console.log(result);
+          if (result.success) {
+            console.log(this.songId);
+            this.$store.commit('addToPlay', this.songId);
+            this.$router.push('/playing');
+          } else {
+            this.noCopyright();
+          }
+        });
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .song-entry {
   width: 100%;
   height: 100%;
@@ -46,13 +62,13 @@ export default {
   cursor: pointer;
 }
 
-.song-entry-name {
+.name {
   grid-row: name-start / name-end;
   font-size: 1rem;
   color: black;
 }
 
-.song-entry-info {
+.info {
   grid-row: info-start / info-end;
   font-size: 0.8rem;
   color: #666;

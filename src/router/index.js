@@ -39,6 +39,12 @@ const routes = [
       },
 
     ]
+  },
+  {
+    path: '/playing',
+    name: 'playing',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '@/views/Playing.vue')
   }
 ];
 

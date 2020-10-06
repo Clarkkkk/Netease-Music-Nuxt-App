@@ -1,7 +1,7 @@
 <template>
   <div id="discover-home">
     <search-bar
-      class="discover-home-header"
+      class="header"
       cursor="pointer"
       @click="search"
     >
@@ -31,14 +31,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #discover-home {
   display: grid;
   grid-template-rows: [start app-header-start] 3rem
     [app-header-end app-banner-start] 20rem [app-banner-end];
 }
 
-.discover-home-header {
+.header {
   width: 100%;
   height: 100%;
   background-color: var(--app-color);
@@ -55,10 +55,5 @@ export default {
 
 header.discover-home {
   grid-column: left-start / left-end;
-}
-
-.discover-home-search-icon {
-  color: #ffffff80;
-  margin-right: 1rem;
 }
 </style>

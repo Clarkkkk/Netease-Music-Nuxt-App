@@ -1,7 +1,7 @@
 <template>
   <div id="discover-search-default">
     <search-bar
-      class="discover-search-header"
+      class="header"
       v-model="searchText"
       focus="true"
       @keydown.enter="search"
@@ -9,19 +9,19 @@
       <template v-slot:right>
         <input
           type="button"
-          class="discover-search-cancel"
+          class="cancel"
           value="取消"
           @click="searchCancel"
         >
       </template>
     </search-bar>
 
-    <div class="discover-search-hot-title" v-show="!typing">
+    <div class="hot-title" v-show="!typing">
       热搜榜
     </div>
-    <div class="discover-search-hot" v-show="!typing">
+    <div class="hot" v-show="!typing">
       <div
-        class="discover-search-hot-item"
+        class="hot-item"
         v-show="!typing"
         v-for="item in searchHotData"
         :key="item.score"
@@ -32,23 +32,20 @@
     </div>
 
     <div
-      class="discover-search-text"
+      class="text"
       v-show="typing"
     >
       搜索「{{ searchText }}」
     </div>
-    <div class="discover-search-advice" v-show="typing">
+    <div class="advice" v-show="typing">
       <div
-        class="discover-search-advice-item"
+        class="advice-item"
         v-show="typing"
         v-for="item in searchAdviceData"
         :key="item.keyword"
         @click="search(item.keyword)"
       >
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="discover-search-advice-item-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-          <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-        </svg>
+        <svg-icon icon="search" class="advice-item-icon"/>
         {{ item.keyword }}
       </div>
     </div>
@@ -110,17 +107,18 @@ export default {
     },
 
     search(text) {
-      if (text) {
+      console.log(text);
+      if (typeof text === 'string') {
         this.searchText = text;
       }
       this.$router.push('/search/result/' + this.searchText);
-      console.log(this.searchText);
+      console.log('search:' + this.searchText);
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 #discover-search-default {
   display: grid;
   grid-template-rows:
@@ -131,7 +129,7 @@ export default {
 }
 
 /* header */
-.discover-search-header {
+.header {
   grid-row: app-header-start / app-header-end;
   display: grid;
   grid-template-columns:
@@ -141,7 +139,7 @@ export default {
   justify-items: center;
 }
 
-.discover-search-cancel {
+.cancel {
   grid-column: right-start / right-end;
   border: none;
   outline: none;
@@ -153,7 +151,7 @@ export default {
 /* header */
 
 /* hot list */
-.discover-search-hot-title {
+.hot-title {
   grid-row: title-start / title-end;
   padding: 0 1rem;
   justify-self: start;
@@ -164,14 +162,14 @@ export default {
   user-select: none;
 }
 
-.discover-search-hot {
+.hot {
   grid-row: list-start / list-end;
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
 }
 
-.discover-search-hot-item {
+.hot-item {
   margin: 0.3rem;
   padding: 0.3rem 0.7rem;
   font-size: 1rem;
@@ -184,7 +182,7 @@ export default {
 /* hot list */
 
 /* search advice */
-.discover-search-text {
+.text {
   grid-row: title-start / title-end;
   height: 100%;
   width: 100%;
@@ -202,7 +200,7 @@ export default {
   align-items: center;
 }
 
-.discover-search-advice {
+.advice {
   grid-row: list-start / list-end;
   width: 100%;
   justify-self: start;
@@ -213,7 +211,7 @@ export default {
   justify-items: start;
 }
 
-.discover-search-advice-item {
+.advice-item {
   height: 100%;
   width: 100%;
   user-select: none;
@@ -226,7 +224,7 @@ export default {
   align-items: center;
 }
 
-.discover-search-advice-item-icon {
+.advice-item-icon {
   justify-self: center;
 }
 /* search advice */
