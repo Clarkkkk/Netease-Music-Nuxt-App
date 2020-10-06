@@ -37,10 +37,14 @@ export default {
           console.log(result);
           if (result.success) {
             console.log(this.songId);
-            this.$store.commit('addToPlay', this.songId);
+            this.$store.commit('addToPlay', {
+              id: this.songId,
+              name: this.songName,
+              artist: this.songArtistString
+            });
             this.$router.push('/playing');
           } else {
-            this.noCopyright();
+            alert('这首歌暂无版权');
           }
         });
     }

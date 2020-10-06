@@ -1,27 +1,26 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import arrayMove from '@/functions/arrayMove.js';
+import {getItem, setItem} from '@/functions/storage.js';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    playing: false,
-    playingID:
-      (window.localStorage.getItem('playingID') === null) ?
-        '' : window.localStorage.getItem('playingID'),
-    playingIndex:
-      (parseInt(window.localStorage.getItem('playingIndex')) === null) ?
-        -1 : parseInt(window.localStorage.getItem('playingIndex')),
-    playingList:
-      (JSON.parse(window.localStorage.getItem('playingList')) === null) ?
-        [] : JSON.parse(window.localStorage.getItem('playingList')),
-    mode:
-      (window.localStorage.getItem('mode') === null) ?
-        'list-loop' : window.localStorage.getItem('mode'),
+    playIndex: getItem('playIndex') ? -1 : parseInt(getItem('playIndex')),
+    playList: getItem('playList') ? [] : JSON.parse(getItem('playList')),
+    mode: getItem('mode') ? 'list-loop' : getItem('mode'),
     player: {},
+    playing: false,
+    waiting: false,
     duration: 0,
     currentTime: 0
+  },
+
+  getters: {
+    playID: function(state) {
+      return state.playList[state.playIndex].id;
+    }
   },
 
   mutations: {
@@ -31,6 +30,14 @@ const store = new Vuex.Store({
 
     paused(state) {
       state.playing = false;
+    },
+
+    waiting(state, isWaiting) {
+      if (isWaiting) {
+        state.waiting = true;
+      } else {
+        state.waiting = false;
+      }
     },
 
     setPlayer(state, player) {
@@ -47,64 +54,67 @@ const store = new Vuex.Store({
     },
 
     nextSong(state) {
-      const next = state.playingIndex + 1;
-      state.playingIndex = next < state.playingList.length ? next : 0;
-      state.playingID = state.playingList[state.playingIndex];
-      window.localStorage.setItem('playingIndex', state.playingIndex);
-      window.localStorage.setItem('playingID', state.playingID);
+      const next = state.playIndex + 1;
+      state.playIndex = next < state.playList.length ? next : 0;
+      setItem('playIndex', state.playIndex);
     },
 
     lastSong(state) {
-      const prev = state.playingIndex - 1;
-      state.playingIndex = prev < 0 ? state.playingList.length - 1 : prev;
-      state.playingID = state.playingList[state.playingIndex];
-      window.localStorage.setItem('playingIndex', state.playingIndex);
-      window.localStorage.setItem('playingID', state.playingID);
+      const prev = state.playIndex - 1;
+      state.playIndex = prev < 0 ? state.playList.length - 1 : prev;
+      setItem('playIndex', state.playIndex);
     },
 
-    addToPlay(state, id) {
-      const index = state.playingList.indexOf(id);
-      if (index === -1) {
-        state.playingList.splice(state.playingIndex, 0, id);
-        state.playingIndex++;
-        console.log(state.playingList);
-        state.playingID = state.playingList[state.playingIndex];
-      } else if (index !== state.playingIndex) {
-        state.playingList = arrayMove(index, state.playingIndex + 1, state.playingList);
-        state.playingIndex = state.playingList.indexOf(state.playingID) + 1;
-        state.playingID = state.playingList[state.playingIndex];
-        console.log(state.playingList);
-        console.log(state.playingID);
+    addToPlay(state, obj) {
+      let contain = false;
+      let index;
+      for (index = 0; index < state.playList.length; index++) {
+        if (state.playList[index].id === obj.id) {
+          contain = true;
+          break;
+        }
       }
-      window.localStorage.setItem('playingIndex', state.playingIndex);
-      window.localStorage.setItem('playingID', state.playingID);
-      window.localStorage.setItem('playingList', JSON.stringify(state.playingList));
+      if (!contain) {
+        state.playList.splice(state.playIndex, 0, obj);
+        state.playIndex++;
+        console.log(state.playList);
+      } else if (index !== state.playIndex) {
+        state.playList = arrayMove(index, state.playIndex + 1, state.playList);
+        state.playIndex = index < state.playIndex ? state.playIndex : state.playIndex + 1;
+        console.log(state.playList);
+      }
+      setItem('playIndex', state.playIndex);
+      // setItem('playID', state.playID);
+      setItem('playList', JSON.stringify(state.playList));
     },
 
-    addToPlayNext(state, id) {
-      const index = state.playingList.indexOf(id);
-      if (index === -1) {
-        state.playingList.splice(state.playingIndex, 0, id);
-      } else if (index !== state.playingIndex) {
-        state.playingList = arrayMove(index, state.playingIndex + 1, state.playingList);
+    addToPlayNext(state, obj) {
+      let contain = false;
+      let index;
+      for (index = 0; index < state.playList.length; index++) {
+        if (state.playList[index].id === obj.id) {
+          contain = true;
+          break;
+        }
       }
-      window.localStorage.setItem('playingList', JSON.stringify(state.playingList));
+      if (!contain) {
+        state.playList.splice(state.playIndex, 0, obj);
+      } else if (index !== state.playIndex) {
+        state.playList = arrayMove(index, state.playIndex + 1, state.playList);
+      }
+      setItem('playList', JSON.stringify(state.playList));
     },
 
     playTheList(state, list) {
-      state.playingList = list;
-      state.playingIndex = 0;
-      state.playingID = state.playingList[state.playingIndex];
-      window.localStorage.setItem('playingIndex', state.playingIndex);
-      window.localStorage.setItem('playingID', state.playingID);
-      window.localStorage.setItem('playingList', JSON.stringify(state.playingList));
+      state.playList = list;
+      state.playIndex = 0;
+      setItem('playIndex', state.playIndex);
+      setItem('playList', JSON.stringify(state.playList));
     },
 
-    playSongOfList(state, id) {
-      state.playingIndex = state.playingList.indexOf(id);
-      state.playingID = state.playingList[state.playingIndex];
-      window.localStorage.setItem('playingIndex', state.playingIndex);
-      window.localStorage.setItem('playingID', state.playingID);
+    playSongOfList(state, obj) {
+      state.playIndex = state.playList.indexOf(obj);
+      setItem('playIndex', state.playIndex);
     },
 
     switchMode(state) {
@@ -119,7 +129,7 @@ const store = new Vuex.Store({
         state.mode = 'list-loop';
         break;
       }
-      window.localStorage.setItem('mode', state.mode);
+      setItem('mode', state.mode);
     },
 
     playOrPause(state) {
