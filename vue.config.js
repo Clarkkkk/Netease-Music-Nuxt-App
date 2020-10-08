@@ -1,7 +1,5 @@
 const path = require('path');
 function resolve(dir) {
-  // 路径可能与你的项目不同
-  console.log('__dirname: ' + __dirname);
   return path.join(__dirname, dir);
 }
 
@@ -14,6 +12,14 @@ module.exports = {
       appleTouchIcon: 'img/icons/apple-touch-icon.png',
       maskIcon: 'img/icons/safari-pinned-tab.svg',
       msTileImage: 'img/icons/mstile-150x150.png'
+    }
+  },
+  css: {
+    loaderOptions: {
+      css: {
+        // 这里的选项会传递给 css-loader
+        esModule: false
+      }
     }
   },
   chainWebpack: (config) => {

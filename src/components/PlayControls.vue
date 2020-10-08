@@ -1,14 +1,14 @@
 <template>
-  <div id="playing-controls">
+  <div id="play-controls">
     <!-- oprations -->
-    <svg-icon icon="like" class="like"/>
-    <svg-icon icon="comment" class="comments"/>
-    <svg-icon icon="vertical-dots" class="info"/>
+    <app-icon icon="like" class="like"/>
+    <app-icon icon="comment" class="comments"/>
+    <app-icon icon="vertical-dots" class="info"/>
 
     <!-- progress bar -->
     <div class="progress-bar">
       <div class="time">
-        {{ currentTime }}
+        {{ playTime }}
       </div>
       <div class="progress-bar-groove">
         <div
@@ -17,7 +17,7 @@
         ></div>
       </div>
       <div class="time">
-        {{ duration }}
+        {{ playDuration }}
       </div>
     </div>
 
@@ -26,11 +26,11 @@
       class="mode"
       @click="$store.commit('switchMode')"
     >
-      <svg-icon v-if="mode==='list-loop'" icon="list-loop" />
-      <svg-icon v-else-if="mode==='song-loop'" icon="song-loop" />
-      <svg-icon v-else-if="mode==='random'" icon="random" />
+      <app-icon v-if="mode==='list-loop'" icon="list-loop" />
+      <app-icon v-else-if="mode==='song-loop'" icon="song-loop" />
+      <app-icon v-else-if="mode==='random'" icon="random" />
     </div>
-    <svg-icon
+    <app-icon
       icon="last-song"
       class="prev"
       @click="$store.commit('lastSong')"
@@ -39,46 +39,58 @@
       class="play"
       @click="$store.commit('playOrPause')"
     >
-      <svg-icon v-if="playing" icon="pause" />
-      <svg-icon v-else icon="play"/>
+      <app-icon v-if="playing" icon="pause" />
+      <app-icon v-else icon="play"/>
     </div>
-    <svg-icon
+    <app-icon
       icon="next-song"
       class="next"
       @click="$store.commit('nextSong')"
     />
-    <svg-icon icon="playlist" class="list"/>
+    <app-icon
+      icon="playlist"
+      class="list"
+      @click.native="showPlayList=true"
+    />
+    <transition>
+      <play-list
+        v-show="true"
+        :show.sync="showPlayList"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
+import {mapState, mapMutation} from 'vuex';
+import PlayList from '@/components/PlayList.vue';
 export default {
-  props: [],
   data: function() {
     return {
-      
+      showPlayList: false
     };
   },
+
   computed: {
-    mode: function() {
-      return this.$store.state.mode;
+    ...mapState(['mode', 'playing', 'currentTime', 'duration']),
+    playTime: function() {
+      return this.formatTime(this.currentTime);
     },
-    playing: function() {
-      return this.$store.state.playing;
-    },
-    currentTime: function() {
-      return this.formatTime(this.$store.state.currentTime);
-    },
-    duration: function() {
-      return this.formatTime(this.$store.state.duration);
+    playDuration: function() {
+      return this.formatTime(this.duration);
     },
     pointerPosition: function() {
-      const time = this.$store.state.currentTime;
-      const duration = this.$store.state.duration;
+      const time = this.currentTime;
+      const duration = this.duration;
       const percentage = isNaN(time / duration) ? 0 : time / duration;
       return `transform: translateX(calc(${percentage} * (70vw - 0.5rem))`;
     }
   },
+
+  components: {
+    PlayList,
+  },
+
   methods: {
     formatTime(time) {
       if (isNaN(time)) {
@@ -90,13 +102,13 @@ export default {
       const formatSecond = second < 10 ? '0' + second : second;
       const formatMinute = minute < 10 ? '0' + minute : minute;
       return formatMinute + ':' + formatSecond;
-    }
+    },
   }
 };
 </script>
 
 <style scoped>
-#playing-controls {
+#play-controls {
   grid-row: controls-start / controls-end;
   width: 100%;
   height: 100%;

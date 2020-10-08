@@ -1,5 +1,5 @@
 <template>
-  <div class="song-entry" @click="play">
+  <div class="app-song-entry" @click="play">
     <span class="name">
       {{ songName }}
     </span>
@@ -42,7 +42,7 @@ export default {
               name: this.songName,
               artist: this.songArtistString
             });
-            this.$router.push('/playing');
+            this.$router.push('/play');
           } else {
             alert('这首歌暂无版权');
           }
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-.song-entry {
+.app-song-entry {
   width: 100%;
   height: 100%;
   padding: 0.5rem 1rem;

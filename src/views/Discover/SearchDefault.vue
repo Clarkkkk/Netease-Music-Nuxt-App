@@ -1,6 +1,6 @@
 <template>
   <div id="discover-search-default">
-    <search-bar
+    <app-search-bar
       class="header"
       v-model="searchText"
       focus="true"
@@ -14,7 +14,7 @@
           @click="searchCancel"
         >
       </template>
-    </search-bar>
+    </app-search-bar>
 
     <div class="hot-title" v-show="!typing">
       热搜榜
@@ -45,7 +45,7 @@
         :key="item.keyword"
         @click="search(item.keyword)"
       >
-        <svg-icon icon="search" class="advice-item-icon"/>
+        <app-icon icon="search" class="advice-item-icon"/>
         {{ item.keyword }}
       </div>
     </div>
@@ -55,7 +55,7 @@
 <script>
 import debounce from '@/functions/debounce.js';
 import fetchJSON from '@/functions/fetchJSON.js';
-import SearchBar from '@/components/SearchBar.vue';
+import AppSearchBar from '@/components/AppSearchBar.vue';
 export default {
   name: 'discover-search-default',
   data: function() {
@@ -68,7 +68,7 @@ export default {
   },
 
   components: {
-    SearchBar
+    AppSearchBar
   },
 
   created: function() {

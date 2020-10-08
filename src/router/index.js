@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Discover from '@/views/Discover.vue';
-import DiscoverHome from '@/views/Discover/DiscoverHome.vue';
+import Home from '@/views/Discover/Home.vue';
 
 
 Vue.use(VueRouter);
@@ -9,31 +9,30 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'discover',
     component: Discover,
     children: [
       {
         path: '',
-        component: DiscoverHome
+        name: 'discover',
+        component: Home
       },
       {
         path: 'search',
-        name: 'discover-search',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch.vue'),
+          import(/* webpackChunkName: "about" */ '@/views/Discover/Search.vue'),
         children: [
           {
             path: '',
-            name: 'discover-search-default',
+            name: 'discover-search',
             component: () =>
-              import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch/Default.vue')
+              import(/* webpackChunkName: "about" */ '@/views/Discover/SearchDefault.vue')
           },
           {
             path: 'result/:searchText',
             name: 'discover-search-result',
             props: true,
             component: () =>
-              import(/* webpackChunkName: "about" */ '@/views/Discover/DiscoverSearch/Result.vue')
+              import(/* webpackChunkName: "about" */ '@/views/Discover/SearchResult.vue')
           }
         ]
       },
@@ -41,10 +40,10 @@ const routes = [
     ]
   },
   {
-    path: '/playing',
-    name: 'playing',
+    path: '/play',
+    name: 'play',
     component: () =>
-      import(/* webpackChunkName: "about" */ '@/views/Playing.vue')
+      import(/* webpackChunkName: "about" */ '@/views/Play.vue')
   }
 ];
 

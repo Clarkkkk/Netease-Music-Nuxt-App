@@ -1,6 +1,6 @@
 <template>
-  <div class="back-button" @click="back">
-    <svg-icon icon="go-back" />
+  <div class="app-back-button" @click="back">
+    <app-icon icon="go-back" />
   </div>
 </template>
 
@@ -14,8 +14,8 @@ export default {
 };
 </script>
 
-<style>
-.back-button {
+<style scoped>
+.app-back-button {
   grid-column: back-start / back-end;
   grid-row: start / end;
   cursor: pointer;

@@ -1,5 +1,5 @@
 <template>
-  <div id="app-banner">
+  <div id="discover-banner">
     <transition-group
       name="banner"
       class="transition-group"
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-#app-banner {
+#discover-banner {
   width: 100%;
   height: 100%;
   grid-row: app-banner-start / app-banner-end;

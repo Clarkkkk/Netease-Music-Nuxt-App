@@ -3,12 +3,12 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store.js';
-import SvgIcon from '@/components/SvgIcon.vue';
+import AppIcon from '@/components/AppIcon.vue';
 
 Vue.config.productionTip = false;
 
 
-Vue.component('svg-icon', SvgIcon);
+Vue.component('app-icon', AppIcon);
 const req = require.context('./assets/icons', false, /\.svg$/);
 req.keys().map(req);
 

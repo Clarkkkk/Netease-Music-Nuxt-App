@@ -1,5 +1,5 @@
 <template>
-  <div id="search-bar">
+  <div id="app-search-bar">
     <slot name="left"></slot>
     <div
       class="input-area"
@@ -12,7 +12,7 @@
         :value="value"
         v-on="inputListeners"
       >
-      <svg-icon icon="search" class="icon"/>
+      <app-icon icon="search" class="icon"/>
     </div>
     <slot name="right"></slot>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'search-bar',
+  name: 'app-search-bar',
   inheritAttrs: false,
   props: ['value', 'focus'],
   computed: {
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style scoped>
-#search-bar {
+#app-search-bar {
   width: 100%;
   height: 100%;
   background-color: var(--app-color);

@@ -1,10 +1,10 @@
 <template>
-  <div id="playing">
+  <div id="play">
     <img alt="背景图片" class="background" :src="picUrl">
 
     <div class="content">
       <div class="header">
-        <back-button/>
+        <app-back-button/>
         <div class="song-name">{{ songName }}</div>
         <div class="song-artist">{{ songArtist }}</div>
       </div>
@@ -17,15 +17,16 @@
           @dragstart="dragPrevent"
         >
       </div>
-      <playing-controls :playing="playing"/>
+      <play-controls :playing="playing"/>
     </div>
   </div>
 </template>
 
 <script>
-import BackButton from '@/components/BackButton.vue';
+import AppBackButton from '@/components/AppBackButton.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
-import PlayingControls from '@/components/PlayingControls.vue';
+import PlayControls from '@/components/PlayControls.vue';
+import {mapState, mapGetters} from 'vuex';
 export default {
   data: function() {
     return {
@@ -39,42 +40,37 @@ export default {
     picSrc: function() {
       return this.picUrl === '' ? require('@/assets/default-cover.png') : this.picUrl;
     },
-    playing: function() {
-      return this.$store.state.playing;
-    },
-    playingID: function() {
-      return this.$store.state.playingID;
-    },
-    playingList: function() {
-      return this.$store.state.playingList;
-    }
+    ...mapState(['playing', 'playList']),
+    ...mapGetters(['playID'])
   },
 
   components: {
-    BackButton,
-    PlayingControls
+    AppBackButton,
+    PlayControls,
   },
 
   created: function() {
-    this.getInfo(this.playingID);
+    this.getInfo(this.playID);
   },
 
   watch: {
-    playingID: function(newID) {
+    playID: function(newID) {
       this.getInfo(newID);
     }
   },
 
   methods: {
     getInfo(id) {
-      fetchJSON('/song/detail?ids=' + id)
-        .then((obj) => {
-          console.log(obj);
-          const data = obj.songs[0];
-          this.picUrl = data.al.picUrl;
-          this.songName = data.name;
-          this.songArtist = data.ar.name;
-        });
+      if (id) {
+        fetchJSON('/song/detail?ids=' + id)
+          .then((obj) => {
+            console.log(obj);
+            const data = obj.songs[0];
+            this.picUrl = data.al.picUrl;
+            this.songName = data.name;
+            this.songArtist = data.ar.name;
+          });
+      }
     },
 
     dragPrevent(event) {
@@ -85,7 +81,7 @@ export default {
 </script>
 
 <style scoped>
-#playing {
+#play {
   width: 100vw;
   height: 100vh;
   color: white;

@@ -3,15 +3,15 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    <audio-player/>
+    <app-audio-player/>
   </div>
 </template>
 
 <script>
-import AudioPlayer from '@/components/AudioPlayer.vue';
+import AppAudioPlayer from '@/components/AppAudioPlayer.vue';
 export default {
   components: {
-    AudioPlayer
+    AppAudioPlayer
   }
 };
 </script>

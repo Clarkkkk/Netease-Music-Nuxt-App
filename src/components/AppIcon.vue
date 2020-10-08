@@ -1,12 +1,12 @@
 <template>
-  <svg class="svg-icon">
+  <svg class="app-icon">
     <use v-bind:href="`#${icon}`" />
   </svg>
 </template>
 
 <script>
 export default {
-  name: 'SvgIcon',
+  name: 'AppIcon',
   props: {
     icon: {
       required: true,
@@ -17,17 +17,17 @@ export default {
 </script>
 
 <style>
-.svg-icon {
+.app-icon {
   height: 1em;
   width: 1em;
   fill: currentColor !important;
 }
 
-.svg-icon:hover {
+.app-icon:hover {
   filter: drop-shadow( 0 0 2px #ddd);
 }
 
-.svg-icon:active {
+.app-icon:active {
   filter: drop-shadow( 0 0 2px #bbb);
 }
 </style>

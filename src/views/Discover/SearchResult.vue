@@ -1,14 +1,14 @@
 <template>
   <div id="discover-search-result">
-    <search-bar
+    <app-search-bar
       class="header"
       :value="searchText"
       @click="backToSearch"
     >
       <template v-slot:left>
-        <back-button/>
+        <app-back-button/>
       </template>
-    </search-bar>
+    </app-search-bar>
 
     <div class="multimatch">
       <span>你可能感兴趣</span>
@@ -25,14 +25,14 @@
 
     <div class="mixed">
       <span>单曲</span>
-      <song-entry
+      <app-song-entry
         v-for="song in mixedResult.songs"
         :key="song.id"
         :song-name="song.name"
         :song-artists="song.ar"
         :song-album="song.al.name"
         :song-id="song.id"
-      ></song-entry>
+      ></app-song-entry>
       <span>{{ mixedResult.moreText }}</span>
     </div>
   </div>
@@ -40,9 +40,9 @@
 
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
-import SearchBar from '@/components/SearchBar.vue';
-import SongEntry from '@/components/SongEntry.vue';
-import BackButton from '@/components/BackButton.vue';
+import AppSearchBar from '@/components/AppSearchBar.vue';
+import AppSongEntry from '@/components/AppSongEntry.vue';
+import AppBackButton from '@/components/AppBackButton.vue';
 export default {
   props: ['searchText'],
   data: function() {
@@ -54,9 +54,9 @@ export default {
   },
 
   components: {
-    SearchBar,
-    SongEntry,
-    BackButton
+    AppSearchBar,
+    AppSongEntry,
+    AppBackButton
   },
 
   created: function() {

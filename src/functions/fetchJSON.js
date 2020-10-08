@@ -14,7 +14,8 @@ function fetchJSON(api) {
     .catch((err) => {
       if (retryCount > 10) {
         retryCount = 0;
-        throw new Error('请求超时，请重试。');
+        console.log('请求超时，请重试。');
+        console.log(err.message);
       } else {
         retryCount++;
         return new Promise((resolve) => {

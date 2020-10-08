@@ -1,6 +1,6 @@
 <template>
   <div id="discover-home">
-    <search-bar
+    <app-search-bar
       class="header"
       cursor="pointer"
       @click="search"
@@ -8,18 +8,18 @@
       <template v-slot:left>
         <header class="discover-home">网易云音乐</header>
       </template>
-    </search-bar>
-    <app-banner/>
+    </app-search-bar>
+    <discover-banner/>
   </div>
 </template>
 
 <script>
-import AppBanner from '@/components/AppBanner.vue';
-import SearchBar from '@/components/SearchBar.vue';
+import DiscoverBanner from '@/components/DiscoverBanner.vue';
+import AppSearchBar from '@/components/AppSearchBar.vue';
 export default {
   components: {
-    AppBanner,
-    SearchBar
+    DiscoverBanner,
+    AppSearchBar
   },
 
   methods: {

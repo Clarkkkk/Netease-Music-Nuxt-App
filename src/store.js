@@ -7,10 +7,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    playIndex: getItem('playIndex') ? -1 : parseInt(getItem('playIndex')),
-    playList: getItem('playList') ? [] : JSON.parse(getItem('playList')),
-    mode: getItem('mode') ? 'list-loop' : getItem('mode'),
+    playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
+    playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
+    mode: getItem('mode') ? getItem('mode') : 'list-loop',
     player: {},
+    play: false,
     playing: false,
     waiting: false,
     duration: 0,
@@ -19,11 +20,26 @@ const store = new Vuex.Store({
 
   getters: {
     playID: function(state) {
-      return state.playList[state.playIndex].id;
+      if (state.playIndex >= 0) {
+        return state.playList[state.playIndex].id;
+      } else {
+        return 0;
+      }
     }
   },
 
   mutations: {
+    setPlayer(state, player) {
+      state.player = player;
+      state.duration = player.duration;
+    },
+
+    play(state) {
+      if (state.playing) {
+        state.player.play();
+      }
+    },
+
     played(state) {
       state.playing = true;
     },
@@ -40,9 +56,10 @@ const store = new Vuex.Store({
       }
     },
 
-    setPlayer(state, player) {
-      state.player = player;
-      state.duration = player.duration;
+    ended(state) {
+      const next = state.playIndex + 1;
+      state.playIndex = next < state.playList.length ? next : 0;
+      setItem('playIndex', state.playIndex);
     },
 
     durationChange(state, duration) {
@@ -80,7 +97,7 @@ const store = new Vuex.Store({
         console.log(state.playList);
       } else if (index !== state.playIndex) {
         state.playList = arrayMove(index, state.playIndex + 1, state.playList);
-        state.playIndex = index < state.playIndex ? state.playIndex : state.playIndex + 1;
+        (index > state.playIndex) && state.playIndex++;
         console.log(state.playList);
       }
       setItem('playIndex', state.playIndex);
@@ -134,9 +151,9 @@ const store = new Vuex.Store({
 
     playOrPause(state) {
       if (state.playing) {
-        state.player.pause();
+        state.play = false;
       } else {
-        state.player.play();
+        state.play = true;
       }
     }
   }
