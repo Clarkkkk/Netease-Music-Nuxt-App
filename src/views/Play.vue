@@ -13,7 +13,7 @@
         <img
           alt="专辑图片"
           class="cover"
-          :src="picSrc"
+          :src="picUrl"
           @dragstart="dragPrevent"
         >
       </div>
@@ -30,16 +30,13 @@ import {mapState, mapGetters} from 'vuex';
 export default {
   data: function() {
     return {
-      picUrl: '',
+      picUrl: require('@/assets/default-cover.png'),
       songName: '',
       songArtist: '',
     };
   },
 
   computed: {
-    picSrc: function() {
-      return this.picUrl === '' ? require('@/assets/default-cover.png') : this.picUrl;
-    },
     ...mapState(['playing', 'playList']),
     ...mapGetters(['playID'])
   },
@@ -66,9 +63,13 @@ export default {
           .then((obj) => {
             console.log(obj);
             const data = obj.songs[0];
-            this.picUrl = data.al.picUrl;
+            if (data.al.picUrl) {
+              this.picUrl = data.al.picUrl;
+            } else {
+              this.picUrl = require('@/assets/default-cover.png');
+            }
             this.songName = data.name;
-            this.songArtist = data.ar.name;
+            this.songArtist = data.ar[0].name;
           });
       }
     },

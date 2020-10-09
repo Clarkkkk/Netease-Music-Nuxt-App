@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import arrayMove from '@/functions/arrayMove.js';
+import moveAfter from '@/functions/moveAfter.js';
 import {getItem, setItem} from '@/functions/storage.js';
 
 Vue.use(Vuex);
@@ -11,7 +11,6 @@ const store = new Vuex.Store({
     playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop',
     player: {},
-    play: false,
     playing: false,
     waiting: false,
     duration: 0,
@@ -32,12 +31,6 @@ const store = new Vuex.Store({
     setPlayer(state, player) {
       state.player = player;
       state.duration = player.duration;
-    },
-
-    play(state) {
-      if (state.playing) {
-        state.player.play();
-      }
     },
 
     played(state) {
@@ -84,24 +77,32 @@ const store = new Vuex.Store({
 
     addToPlay(state, obj) {
       let contain = false;
-      let index;
-      for (index = 0; index < state.playList.length; index++) {
+      let index = 0;
+      while (index < state.playList.length) {
         if (state.playList[index].id === obj.id) {
           contain = true;
           break;
         }
+        index++;
       }
+      console.log(state);
+      console.log(obj);
+      console.log(contain);
+      console.log(index);
       if (!contain) {
-        state.playList.splice(state.playIndex, 0, obj);
+        state.playList.splice(state.playIndex + 1, 0, obj);
         state.playIndex++;
+        console.log('!contain');
         console.log(state.playList);
       } else if (index !== state.playIndex) {
-        state.playList = arrayMove(index, state.playIndex + 1, state.playList);
+        state.playList = moveAfter(index, state.playIndex, state.playList);
         (index > state.playIndex) && state.playIndex++;
+        console.log('contain');
+        console.log(index);
+        console.log(state.playIndex);
         console.log(state.playList);
       }
       setItem('playIndex', state.playIndex);
-      // setItem('playID', state.playID);
       setItem('playList', JSON.stringify(state.playList));
     },
 
@@ -117,7 +118,7 @@ const store = new Vuex.Store({
       if (!contain) {
         state.playList.splice(state.playIndex, 0, obj);
       } else if (index !== state.playIndex) {
-        state.playList = arrayMove(index, state.playIndex + 1, state.playList);
+        state.playList = moveAfter(index, state.playIndex, state.playList);
       }
       setItem('playList', JSON.stringify(state.playList));
     },
@@ -130,6 +131,7 @@ const store = new Vuex.Store({
     },
 
     playSongOfList(state, obj) {
+      console.log('play song of list');
       state.playIndex = state.playList.indexOf(obj);
       setItem('playIndex', state.playIndex);
     },
@@ -150,11 +152,26 @@ const store = new Vuex.Store({
     },
 
     playOrPause(state) {
+      console.log(state);
       if (state.playing) {
-        state.play = false;
+        state.player.pause();
       } else {
-        state.play = true;
+        state.player.play();
       }
+    },
+
+    clear(state) {
+      state.playIndex = -1;
+      state.playing = false;
+      state.waiting = false;
+      state.duration = 0;
+      state.currentTime = 0;
+      while (state.playList.length > 0) {
+        state.playList.pop();
+      }
+      setItem('playIndex', state.playIndex);
+      setItem('playList', JSON.stringify(state.playList));
+      // console.log(state.playList);
     }
   }
 });

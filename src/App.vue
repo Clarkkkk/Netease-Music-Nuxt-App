@@ -24,6 +24,7 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
   --app-color: #e91a3d;
 }
 </style>

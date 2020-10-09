@@ -52,12 +52,13 @@
       class="list"
       @click.native="showPlayList=true"
     />
-    <transition>
+    <transition name="background">
       <play-list
-        v-show="true"
+        v-if="showPlayList"
         :show.sync="showPlayList"
       />
     </transition>
+
   </div>
 </template>
 
@@ -248,4 +249,11 @@ export default {
   cursor: pointer;
 }
 /* controls */
+.background-enter, .background-leave-to {
+  opacity: 0;
+}
+
+.background-enter-active, .background-leave-active {
+  transition: opacity 300ms;
+}
 </style>

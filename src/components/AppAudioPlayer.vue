@@ -43,20 +43,17 @@ export default {
   watch: {
     playID: function(newID) {
       console.log('playID changed.');
-      this.getUrl(newID)
-        .then(() => {
-          this.$refs.audio.play();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    play: function(toPlay) {
-      if (toPlay) {
-        this.$refs.audio.play();
+      if (newID) {
+        this.getUrl(newID)
+          .then(() => {
+            this.$refs.audio.play();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       } else {
         this.$refs.audio.pause();
+        this.src = '';
       }
     }
   },

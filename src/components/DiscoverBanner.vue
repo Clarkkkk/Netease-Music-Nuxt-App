@@ -84,6 +84,7 @@ export default {
 <style scoped>
 #discover-banner {
   width: 100%;
+  overflow: hidden;
   height: 100%;
   grid-row: app-banner-start / app-banner-end;
   display: grid;
