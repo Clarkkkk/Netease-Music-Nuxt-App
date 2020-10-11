@@ -8,10 +8,15 @@
         class="pic-container"
         :key="pic.bannerId"
         v-for="pic in loopPics"
+        @pointerdown="pointerDown"
+        @pointerup="pointerUp"
+        @pointermove="pointerMove"
+        ref="pics"
       >
         <img
           alt="轮播图片"
           :src="pic.pic"
+          @dragstart.prevent
         >
         <span
           class="type-title"
@@ -19,7 +24,6 @@
         >{{ pic.typeTitle }}</span>
       </div>
     </transition-group>
-
     <div class="dot-container">
       <div
         v-for="dot in dots"
@@ -41,7 +45,8 @@ export default {
       dots: [],
       currentIndex: 0,
       intervalID: 0,
-      amount: 0
+      amount: 0,
+      isPointerDown: false
     };
   },
 
@@ -58,6 +63,12 @@ export default {
         for (let i = 0; i < this.amount; i++) {
           this.dots[i] = i;
         }
+      })
+      .then(() => {
+        this.rect0 = this.$refs.pics[0].getBoundingClientRect();
+        this.rect1 = this.$refs.pics[1].getBoundingClientRect();
+        this.rect2 = this.$refs.pics[2].getBoundingClientRect();
+        this.bannerRect = this.$el.getBoundingClientRect();
       });
   },
 
@@ -67,15 +78,67 @@ export default {
 
   methods: {
     loop() {
-      setInterval(() => {
-        this.loopPics.push(this.banners.shift());
-        this.banners.push(this.loopPics.shift());
-        if (this.currentIndex < this.amount - 1) {
-          this.currentIndex++;
+      this.intervalID = setInterval(() => {
+        this.slideLeft();
+      }, 30000000);
+    },
+
+    slideLeft() {
+      this.loopPics.push(this.banners.shift());
+      this.banners.push(this.loopPics.shift());
+      this.currentIndex = ++this.currentIndex % this.amount;
+    },
+
+    slideRight() {
+      this.loopPics.unshift(this.banners.pop());
+      this.banners.unshift(this.loopPics.pop());
+      this.currentIndex = (this.currentIndex - 1 + this.amount) % this.amount;
+    },
+
+    pointerDown(event) {
+      this.isPointerDown = true;
+      event.target.setPointerCapture(event.pointerId);
+      console.log(event.target);
+      this.relativeX = event.clientX - this.rect1.left - event.offsetX;
+      this.mouseDownX = event.clientX;
+      for (const pic of this.$refs.pics) {
+        pic.style = `transform:translateX(${this.relativeX}px)`;
+      }
+      clearInterval(this.intervalID);
+    },
+
+    pointerUp(event) {
+      if (event.target.hasPointerCapture(event.pointerId)) {
+        this.isPointerDown = false;
+        const mouseMoveX = event.clientX - this.mouseDownX;
+        if (mouseMoveX > 50) {
+          this.slideRight();
+        } else if (mouseMoveX < -50) {
+          this.slideLeft();
         } else {
-          this.currentIndex = 0;
+          for (const pic of this.$refs.pics) {
+            pic.classList.add('banner-move');
+            pic.addEventListener('transitionend', () => {
+              pic.classList.remove('banner-move');
+            });
+          }
+          for (const pic of this.$refs.pics) {
+            pic.style = '';
+          }
         }
-      }, 8000);
+
+        this.loop();
+        console.log(event.target);
+      }
+    },
+
+    pointerMove(event) {
+      if (this.isPointerDown) {
+        const mouseMoveX = event.clientX - this.mouseDownX;
+        for (const pic of this.$refs.pics) {
+          pic.style = `transform:translateX(${this.relativeX + mouseMoveX}px)`;
+        }
+      }
     },
   }
 };
@@ -84,24 +147,26 @@ export default {
 <style scoped>
 #discover-banner {
   width: 100%;
+  max-width: 45rem;
   overflow: hidden;
-  height: 100%;
-  grid-row: app-banner-start / app-banner-end;
+  height: 40vw;
+  max-height: 18rem;
+  grid-row: banner;
+  place-self: center;
   display: grid;
   grid-template-columns: [start] 1fr [end];
-  grid-template-rows: [start] 1fr [dot-start] 2.5rem [dot-end end];
+  grid-template-rows: [start] 1fr [dot-start] 2rem [dot-end end];
   justify-items: center;
   justify-content: space-around;
+  user-select: none;
 }
 
 .transition-group {
   grid-row: start / end;
   grid-column: start / end;
-  width: 300%;
-  max-width: 160rem;
+  width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 1fr;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
@@ -110,8 +175,10 @@ export default {
 .pic-container {
   height: 90%;
   width: 90%;
+  grid-row: auto;
   border-radius: 1rem;
   display: grid;
+  overflow: hidden;
   grid-template-rows: [start] 1fr [title-start] max-content [title-end end];
   grid-template-columns: [start] 1fr [title-start] max-content [title-end end];
 }
@@ -122,7 +189,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 1rem;
+  touch-action: none;
 }
 
 .type-title {
@@ -130,8 +197,8 @@ export default {
   grid-column: title-start / title-end;
   background-color: #fc5244;
   color: white;
-  font-size: 1rem;
-  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 1rem 0 1rem 0;
   user-select: none;
 }
@@ -141,7 +208,7 @@ export default {
 }
 
 .banner-move {
-  transition: transform 300ms;
+  transition: transform 1000ms;
 }
 
 .banner-leave-active {
@@ -162,8 +229,8 @@ export default {
 }
 
 .dot {
-  height: 0.6rem;
-  width: 0.6rem;
+  height: 0.5rem;
+  width: 0.5rem;
   background-color: #ddd;
   border-radius: 50%;
   z-index: 10;

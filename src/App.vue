@@ -19,7 +19,7 @@ export default {
 <style>
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   font-size: 14px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

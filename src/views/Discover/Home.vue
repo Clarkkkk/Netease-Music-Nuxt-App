@@ -6,7 +6,7 @@
       @click="search"
     >
       <template v-slot:left>
-        <header class="discover-home">网易云音乐</header>
+        <header class="title">网易云音乐</header>
       </template>
     </app-search-bar>
     <discover-banner/>
@@ -34,8 +34,8 @@ export default {
 <style scoped>
 #discover-home {
   display: grid;
-  grid-template-rows: [start app-header-start] 3rem
-    [app-header-end app-banner-start] 20rem [app-banner-end];
+  grid-template-rows: [start header-start] 3rem
+    [header-end banner-start] min(42vw, 20rem) [banner-end];
 }
 
 .header {
@@ -43,7 +43,7 @@ export default {
   height: 100%;
   background-color: var(--app-color);
   color: white;
-  grid-row: app-header-start / app-header-end;
+  grid-row: header;
 
   display: grid;
   grid-template-columns: [start left-start] 6rem [left-end search-start]
@@ -53,7 +53,7 @@ export default {
   justify-items: center;
 }
 
-header.discover-home {
+.title {
   grid-column: left-start / left-end;
 }
 </style>
