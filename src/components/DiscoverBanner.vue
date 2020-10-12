@@ -44,37 +44,36 @@ export default {
       loopPics: [],
       dots: [],
       currentIndex: 0,
-      intervalID: 0,
-      amount: 0,
-      isPointerDown: false,
-      originalLeft: 0,
-      picReady: false,
     };
   },
 
   created: function() {
+    // properties that don't need to be reactive
+    this.intervalID = 0;
+    this.isPointerDown = false;
+    this.banners;
+    this.amount;
+    this.pointerDownX;
+    this.relativeX;
     fetchJSON('/banner?type=2')
       .then((res) => {
         console.log(res);
         this.banners = res.banners;
         this.amount = this.banners.length;
+        // the last pic on the left, the first pic in the middle
+        // and the second pic on the right
         this.loopPics.push(this.banners.pop());
         this.loopPics.push(this.banners.shift());
         this.loopPics.push(this.banners.shift());
-        console.log(this.loopPics);
         this.currentIndex = 0;
         for (let i = 0; i < this.amount; i++) {
           this.dots[i] = i;
         }
-        this.picReady = true;
-        return this.$nextTick();
-      })
-      .then(() => {
-        this.originalLeft = this.$refs.pics[1].getBoundingClientRect().left;
       });
   },
 
   mounted: function() {
+    // start to loop after all the elements are rendered
     this.$nextTick()
       .then(() => {
         this.loop();
@@ -84,8 +83,74 @@ export default {
   methods: {
     loop() {
       this.intervalID = setInterval(() => {
-        this.slide('right');
-      }, 8000);
+        this.slide('left');
+      }, 5000);
+    },
+
+    pointerDown(event) {
+      this.isPointerDown = true;
+      // record the position when pointer down
+      this.pointerDownX = event.clientX;
+      // bind the pointer events to the current element
+      event.target.setPointerCapture(event.pointerId);
+      // stop looping
+      clearInterval(this.intervalID);
+
+      // get the current position
+      const currentLeft = event.target.getBoundingClientRect().left;
+      // terminate all transitions
+      for (const pic of this.$refs.pics) {
+        // pic.style = '' is necessary for Firefox
+        // while it is not empty during transition
+        pic.style = '';
+        pic.dispatchEvent(new TransitionEvent('transitionend'));
+      }
+      // get the final position when transition ends
+      const targetLeft = event.target.getBoundingClientRect().left;
+      this.relativeX = currentLeft - targetLeft;
+      // move all the pics to where they were when pointer down
+      for (const pic of this.$refs.pics) {
+        pic.style = `transform:translateX(${this.relativeX}px)`;
+      }
+    },
+
+    pointerUp(event) {
+      // to prevent pointer up
+      // where the relativa pointer down is from else where
+      if (event.target.hasPointerCapture(event.pointerId)) {
+        this.isPointerDown = false;
+        const pointerMoveX = event.clientX - this.pointerDownX;
+        // slide left or right while the movement meets the condition
+        // otherwise just let go as normal
+        if (pointerMoveX > 50) {
+          this.slide('right');
+        } else if (pointerMoveX < -50) {
+          this.slide('left');
+        } else {
+          for (const pic of this.$refs.pics) {
+            pic.classList.add('banner-move');
+            pic.addEventListener('transitionend', function removeHandler() {
+              pic.classList.remove('banner-move');
+              pic.removeEventListener('transitionend', removeHandler);
+            });
+          }
+          for (const pic of this.$refs.pics) {
+            pic.style = '';
+          }
+        }
+        // resume to loop
+        this.loop();
+      }
+    },
+
+    pointerMove(event) {
+      if (this.isPointerDown) {
+        const currentX = event.clientX - this.pointerDownX + this.relativeX;
+        for (const pic of this.$refs.pics) {
+          pic.style =
+            `transform:translateX(${currentX}px)`;
+        }
+      }
     },
 
     slide(dir) {
@@ -104,7 +169,7 @@ export default {
         this.loopPics.push(this.banners.shift());
         this.banners.push(this.loopPics.shift());
       } else if (dir === 'right') {
-        // similar to the 'left' process but opposite in direction
+        // similar to the 'left' process but in opposite direction
         this.currentIndex = (this.currentIndex - 1 + this.amount) % this.amount;
         this.loopPics.unshift(this.banners.pop());
         this.banners.unshift(this.loopPics.pop());
@@ -125,86 +190,23 @@ export default {
           // flush the browser rendering to force reflow
           this._reflow = document.body.offsetHeight;
 
-          // add transition class and clear all styles to animate(play)
+          // add transition class and set the position to animate(play)
           movings.forEach((item) => {
             item.classList.add('banner-move');
             item.addEventListener('transitionend', removeMoveClass);
-            item.style = '';
+            // item.style = '' will get wrong behavior in Firefox
+            item.style.transform = 'translateX(0px)';
           });
         });
 
       // auxilary functions
       function removeMoveClass(event) {
-        console.log('banner-remove');
+        event.style = '';
         event.target.classList.remove('banner-move');
         event.target.removeEventListener('transitionend', removeMoveClass);
       }
       function getLeft(el) {
         return el.getBoundingClientRect().left;
-      }
-    },
-
-    pointerDown(event) {
-      // const offsetX = event.offsetX;
-      // console.log(offsetX);
-      const currentLeft = event.target.getBoundingClientRect().left;
-      console.log(currentLeft);
-      for (const pic of this.$refs.pics) {
-        pic.dispatchEvent(new TransitionEvent('transitionend'));
-      }
-      //console.log(event.target);
-      const targetLeft = event.target.getBoundingClientRect().left;
-      console.log(targetLeft);
-      //console.log(targetLeft);
-      this.isPointerDown = true;
-      event.target.setPointerCapture(event.pointerId);
-      //console.log(event.target);
-
-      //this.relativeX = event.clientX - targetLeft - offsetX;
-      this.relativeX = currentLeft - targetLeft;
-      //console.log(event.offsetX);
-      //console.log(offsetX);
-      //console.log(event.clientX);
-      //console.log(targetLeft);
-      console.log(this.relativeX);
-      this.mouseDownX = event.clientX;
-      for (const pic of this.$refs.pics) {
-        pic.style = `transform:translateX(${this.relativeX}px)`;
-      }
-      clearInterval(this.intervalID);
-    },
-
-    pointerUp(event) {
-      if (event.target.hasPointerCapture(event.pointerId)) {
-        this.isPointerDown = false;
-        const mouseMoveX = event.clientX - this.mouseDownX;
-        if (mouseMoveX > 50) {
-          this.slide('right');
-        } else if (mouseMoveX < -50) {
-          this.slide('left');
-        } else {
-          for (const pic of this.$refs.pics) {
-            pic.classList.add('banner-move');
-            pic.addEventListener('transitionend', () => {
-              pic.classList.remove('banner-move');
-            });
-          }
-          for (const pic of this.$refs.pics) {
-            pic.style = '';
-          }
-        }
-
-        this.loop();
-        console.log(event.target);
-      }
-    },
-
-    pointerMove(event) {
-      if (this.isPointerDown) {
-        const mouseMoveX = event.clientX - this.mouseDownX;
-        for (const pic of this.$refs.pics) {
-          pic.style = `transform:translateX(${this.relativeX + mouseMoveX}px)`;
-        }
       }
     },
   }
@@ -242,7 +244,6 @@ export default {
 .pic-container {
   height: 90%;
   width: 90%;
-  grid-row: auto;
   border-radius: 1rem;
   display: grid;
   overflow: hidden;
@@ -260,8 +261,8 @@ export default {
 }
 
 .type-title {
-  grid-row: title-start / title-end;
-  grid-column: title-start / title-end;
+  grid-row: title;
+  grid-column: title;
   background-color: #fc5244;
   color: white;
   font-size: 0.8rem;
@@ -275,18 +276,12 @@ export default {
 }
 
 .banner-move {
-  transition: transform 1000ms;
-}
-
-.banner-leave-active {
-  opacity: 0;
-  position: absolute;
+  transition: transform 500ms ease;
 }
 
 .dot-container {
-  grid-row: dot-start / dot-end;
+  grid-row: dot;
   grid-column: start / end;
-
   width: 30%;
   min-width: 10rem;
   display: grid;
@@ -298,7 +293,7 @@ export default {
 .dot {
   height: 0.5rem;
   width: 0.5rem;
-  background-color: #ddd;
+  background-color: #88888880;
   border-radius: 50%;
   z-index: 10;
   transition: background-color, 200ms;
