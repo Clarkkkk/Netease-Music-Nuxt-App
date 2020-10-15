@@ -63,7 +63,6 @@ export default {
         const wrapperStyle = this.scroll.plugins.scrollbar.indicators[0].wrapperStyle;
         barStyle.border = 'none';
         wrapperStyle.width = '5px';
-        console.log(barStyle);
       });
   },
 

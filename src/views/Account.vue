@@ -17,10 +17,11 @@ export default {
 
 <style scoped>
 #account {
+  height: 100vh;
   display: grid;
   grid-template-rows:
-    [header-start] 3rem [header-end login-start]
-    25rem [login-end];
+    [start header-start] 3rem [header-end login-start]
+    25rem [login-end] 1fr [end];
   grid-template-columns:
     [start] 1fr [login-start]
     minmax(min-content, 20rem) [login-end] 1fr [end];
