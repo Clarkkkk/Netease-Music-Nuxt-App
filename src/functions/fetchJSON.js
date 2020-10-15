@@ -1,5 +1,6 @@
 import store from '@/store.js';
 const requestURL = 'http://192.168.50.138:3000';
+const RETRY_TIMES = 1;
 let retryCount = 0;
 
 function fetchJSON(api, init) {
@@ -41,7 +42,7 @@ function fetchJSON(api, init) {
       }
     })
     .catch((err) => {
-      if (retryCount > 1) {
+      if (retryCount > RETRY_TIMES) {
         retryCount = 0;
         console.log('请求超时，请重试。');
         console.log(err.message);

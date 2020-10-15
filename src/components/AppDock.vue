@@ -1,5 +1,5 @@
 <template>
-  <div id="app-dock">
+  <div id="app-dock" v-show="show">
     <div
       :class="['category', {'active': active==='discover'}]"
       @click="click('discover')"
@@ -23,7 +23,8 @@
 export default {
   data: function() {
     return {
-      active: ''
+      active: '',
+      show: true
     };
   },
 
@@ -41,6 +42,11 @@ export default {
         this.active = 'account';
       } else {
         this.active = 'discover';
+      }
+      if (route.path.includes('play')) {
+        this.show = false;
+      } else {
+        this.show = true;
       }
     }
   },
