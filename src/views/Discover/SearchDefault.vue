@@ -99,10 +99,12 @@ export default {
 
     searchAdvice(text) {
       debounce(() => {
-        fetchJSON('/search/suggest?keywords=' + text + '&type=mobile')
-          .then((data) => {
-            this.searchAdviceData = data.result.allMatch;
-          });
+        fetchJSON('/search/suggest', {
+          keywords: text,
+          type: 'mobile'
+        }).then((data) => {
+          this.searchAdviceData = data.result.allMatch;
+        });
       });
     },
 

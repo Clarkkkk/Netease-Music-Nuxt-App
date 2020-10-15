@@ -5,7 +5,6 @@ const debounce = (fn, time = 500) => {
     clearTimeout(id);
   }
   id = setTimeout(() => {
-
     fn();
     id = 0;
   }, time);

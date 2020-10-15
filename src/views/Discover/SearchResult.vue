@@ -61,7 +61,7 @@ export default {
 
   created: function() {
     console.log('create');
-    fetchJSON('/search/multimatch?keywords=' + this.searchText)
+    fetchJSON('/search/multimatch', {keywords: this.searchText})
       .then((data) => {
         console.log(data);
         // 需要为不同的结果编写不同代码，待续
@@ -73,14 +73,16 @@ export default {
         }
       });
 
-    fetchJSON('/search?keywords=' + this.searchText + '&type=1018')
-      .then((data) => {
-        // 先写展示歌曲结果的部分
-        // const order = data.result.order;
-        // const song = data.result.song.songs;
+    fetchJSON('/search', {
+      keywords: this.searchText,
+      type: '1018'
+    }).then((data) => {
+      // 先写展示歌曲结果的部分
+      // const order = data.result.order;
+      // const song = data.result.song.songs;
 
-        this.mixedResult = data.result.song;
-      });
+      this.mixedResult = data.result.song;
+    });
   },
 
   methods: {

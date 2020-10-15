@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     play() {
-      fetchJSON('/check/music?id=' + this.songId)
+      fetchJSON('/check/music', {id: this.songId})
         .then((result) => {
           console.log(result);
           if (result.success) {

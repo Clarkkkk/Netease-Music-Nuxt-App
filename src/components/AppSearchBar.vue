@@ -1,8 +1,9 @@
 <template>
   <div id="app-search-bar">
     <slot name="left"></slot>
-    <div
+    <form
       class="input-area"
+      action=""
     >
       <input
         type="search"
@@ -13,7 +14,7 @@
         v-on="inputListeners"
       >
       <app-icon icon="search" class="icon"/>
-    </div>
+    </form>
     <slot name="right"></slot>
   </div>
 </template>

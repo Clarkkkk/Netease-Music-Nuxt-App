@@ -7,6 +7,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    login: getItem('login') ? JSON.parse(getItem('login')) : false,
+    userID: getItem('userID') ? getItem('userID') : '',
+    cookie: getItem('cookie') ? getItem('cookie') : '',
+
     playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
     playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop',
@@ -28,6 +32,24 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    login(state, res) {
+      state.login = true;
+      state.cookie = res.cookie;
+      state.userID = res.profile.userId;
+      setItem('login', JSON.stringify(state.login));
+      setItem('cookie', state.cookie);
+      setItem('userID', state.userID);
+    },
+
+    logout(state) {
+      state.login = false;
+      state.cookie = '';
+      state.userID = '';
+      setItem('login', JSON.stringify(state.login));
+      setItem('cookie', state.cookie);
+      setItem('userID', state.userID);
+    },
+
     setPlayer(state, player) {
       state.player = player;
       state.duration = player.duration;
@@ -138,15 +160,15 @@ const store = new Vuex.Store({
 
     switchMode(state) {
       switch (state.mode) {
-      case 'list-loop':
-        state.mode = 'song-loop';
-        break;
-      case 'song-loop':
-        state.mode = 'random';
-        break;
-      case 'random':
-        state.mode = 'list-loop';
-        break;
+        case 'list-loop':
+          state.mode = 'song-loop';
+          break;
+        case 'song-loop':
+          state.mode = 'random';
+          break;
+        case 'random':
+          state.mode = 'list-loop';
+          break;
       }
       setItem('mode', state.mode);
     },

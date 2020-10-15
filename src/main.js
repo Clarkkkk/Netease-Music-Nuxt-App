@@ -4,6 +4,7 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store.js';
 import AppIcon from '@/components/AppIcon.vue';
+import fetchJSON from '@/functions/fetchJSON.js';
 
 Vue.config.productionTip = false;
 
@@ -14,6 +15,13 @@ req.keys().map(req);
 new Vue({
   router,
   store,
+  created() {
+    document.documentElement.setAttribute('lang', 'zh-Hans');
+    fetchJSON('/login/status')
+      .then((res) => {
+        console.log(res);
+      });
+  },
   render: (h) => {
     console.log(App);
     return h(App);

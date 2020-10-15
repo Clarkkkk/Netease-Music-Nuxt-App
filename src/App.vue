@@ -4,14 +4,17 @@
       <router-view/>
     </keep-alive>
     <app-audio-player/>
+    <app-dock/>
   </div>
 </template>
 
 <script>
 import AppAudioPlayer from '@/components/AppAudioPlayer.vue';
+import AppDock from '@/components/AppDock.vue';
 export default {
   components: {
-    AppAudioPlayer
+    AppAudioPlayer,
+    AppDock
   }
 };
 </script>

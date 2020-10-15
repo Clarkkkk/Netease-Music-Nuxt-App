@@ -61,7 +61,7 @@ export default {
   methods: {
     getUrl(id) {
       if (id) {
-        return fetchJSON('/song/url?id=' + id)
+        return fetchJSON('/song/url', {id: id})
           .then((obj) => {
             console.log(obj);
             if (obj.code === 200 && obj.data[0]) {

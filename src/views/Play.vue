@@ -59,7 +59,7 @@ export default {
   methods: {
     getInfo(id) {
       if (id) {
-        fetchJSON('/song/detail?ids=' + id)
+        fetchJSON('/song/detail', {ids: id})
           .then((obj) => {
             console.log(obj);
             const data = obj.songs[0];

@@ -55,7 +55,7 @@ export default {
     this.amount;
     this.pointerDownX;
     this.relativeX;
-    fetchJSON('/banner?type=2')
+    fetchJSON('/banner', {type: '2'})
       .then((res) => {
         console.log(res);
         this.banners = res.banners;
