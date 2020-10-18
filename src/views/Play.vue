@@ -26,7 +26,7 @@
 import AppBackButton from '@/components/AppBackButton.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import PlayControls from '@/components/PlayControls.vue';
-import {mapState, mapGetters} from 'vuex';
+import {mapState, mapGetters, mapMutations} from 'vuex';
 export default {
   data: function() {
     return {
@@ -37,8 +37,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['playing', 'playList']),
-    ...mapGetters(['playID'])
+    ...mapState(['playing', 'playList', 'playCover']),
+    ...mapGetters(['playID', 'playName', 'playArtist'])
   },
 
   components: {
@@ -48,6 +48,9 @@ export default {
 
   created: function() {
     this.getInfo(this.playID);
+    this.picUrl = this.playCover;
+    this.songName = this.playName;
+    this.songSrtist = this.playArtist;
   },
 
   watch: {
@@ -57,6 +60,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['coverChange']),
     getInfo(id) {
       if (id) {
         fetchJSON('/song/detail', {ids: id})
@@ -65,6 +69,7 @@ export default {
             const data = obj.songs[0];
             if (data.al.picUrl) {
               this.picUrl = data.al.picUrl;
+              this.coverChange(this.picUrl);
             } else {
               this.picUrl = require('@/assets/default-cover.png');
             }

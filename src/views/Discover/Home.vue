@@ -8,6 +8,9 @@
       <template v-slot:left>
         <header class="title">网易云音乐</header>
       </template>
+      <template v-slot:right>
+        <app-play-indicator class="play-indicator"/>
+      </template>
     </app-search-bar>
     <div class="wrapper" ref="wrapper">
       <div class="contents">
@@ -45,9 +48,10 @@
 <script>
 import DiscoverBanner from '@/components/DiscoverBanner.vue';
 import AppSearchBar from '@/components/AppSearchBar.vue';
+import AppPlayIndicator from '@/components/AppPlayIndicator.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import BScroll from '@better-scroll/core';
-import MouseWheel from '@better-scroll/mouse-wheel'
+import MouseWheel from '@better-scroll/mouse-wheel';
 import ScrollBar from '@better-scroll/scroll-bar';
 BScroll.use(ScrollBar);
 BScroll.use(MouseWheel);
@@ -60,7 +64,8 @@ export default {
 
   components: {
     DiscoverBanner,
-    AppSearchBar
+    AppSearchBar,
+    AppPlayIndicator
   },
 
   methods: {
@@ -82,7 +87,7 @@ export default {
     fetchJSON('/recommend/resource')
       .then((res) => {
         console.log(res);
-        this.recommend = res.recommend.slice(0, 12);
+        this.recommend = res.recommend;
         console.log(this.recommend);
       });
   },
@@ -155,6 +160,10 @@ export default {
 
 .title {
   grid-column: left-start / left-end;
+}
+
+.play-indicator {
+  grid-column: right-start / right-end;
 }
 
 .features {

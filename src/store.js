@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     cookie: getItem('cookie') ? getItem('cookie') : '',
 
     playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
+    playCover: getItem('playCover') ? getItem('playCover') : '',
     playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop',
     player: {},
@@ -27,6 +28,22 @@ const store = new Vuex.Store({
         return state.playList[state.playIndex].id;
       } else {
         return 0;
+      }
+    },
+
+    playName: function(state) {
+      if (state.playIndex >= 0) {
+        return state.playList[state.playIndex].name;
+      } else {
+        return '';
+      }
+    },
+
+    playArtist: function(state) {
+      if (state.playIndex >= 0) {
+        return state.playList[state.playIndex].artist;
+      } else {
+        return '';
       }
     }
   },
@@ -85,6 +102,11 @@ const store = new Vuex.Store({
       state.currentTime = time;
     },
 
+    coverChange(state, url) {
+      state.playCover = url;
+      setItem('playCover', state.playCover);
+    },
+
     nextSong(state) {
       const next = state.playIndex + 1;
       state.playIndex = next < state.playList.length ? next : 0;
@@ -108,21 +130,16 @@ const store = new Vuex.Store({
         index++;
       }
       console.log(state);
-      console.log(obj);
-      console.log(contain);
-      console.log(index);
       if (!contain) {
         state.playList.splice(state.playIndex + 1, 0, obj);
         state.playIndex++;
         console.log('!contain');
-        console.log(state.playList);
+        // console.log(state.playList);
       } else if (index !== state.playIndex) {
         state.playList = moveAfter(index, state.playIndex, state.playList);
         (index > state.playIndex) && state.playIndex++;
         console.log('contain');
-        console.log(index);
-        console.log(state.playIndex);
-        console.log(state.playList);
+        // console.log(state.playList);
       }
       setItem('playIndex', state.playIndex);
       setItem('playList', JSON.stringify(state.playList));

@@ -1,0 +1,113 @@
+<script>
+import {mapState, mapGetters} from 'vuex';
+export default {
+  computed: {
+    ...mapState(['playCover', 'playing', 'duration', 'currentTime']),
+    ...mapGetters(['playID'])
+  },
+
+  mounted() {
+    console.log(this.playID);
+    if (this.duration) {
+      this.progress(this.currentTime / this.duration);
+    } else {
+      this.progress(0);
+    }
+  },
+
+  watch: {
+    currentTime: function(time) {
+      if (this.duration) {
+        this.progress(time / this.duration);
+      } else {
+        this.progress(0);
+      }
+    }
+  },
+
+  methods: {
+    progress(percentage) {
+      const style = this.$refs.indicator.style;
+      const length = this.$refs.indicator.getTotalLength();
+      const currentLength = length * percentage;
+      style.strokeDasharray = `${currentLength} ${length}`;
+    },
+
+    click() {
+      this.$router.push('/play');
+    }
+  }
+};
+</script>
+
+<template>
+  <div id="play-indicator" @click="click" v-show="playID">
+    <img
+      :class="['cover', {'rolling': playing}]"
+      :src="playCover"
+    />
+    <svg viewBox="0 0 100 100" class="svg">
+      <circle cx="50" cy="50" r="42" class="groove"/>
+      <circle cx="50" cy="50" r="42" ref="indicator" class="indicator"/>
+    </svg>
+  </div>
+</template>
+
+<style scoped>
+#play-indicator {
+  height: 70%;
+  width: 70%;
+  display: grid;
+  place-items: center;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  cursor: pointer;
+}
+
+.cover {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  border-radius: 50%;
+  height: 75%;
+  width: 75%;
+  animation: 30s linear infinite rolling;
+  animation-play-state: paused;
+}
+
+.cover.rolling {
+  animation-play-state: running;
+}
+
+@keyframes rolling {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.svg {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
+
+.indicator {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-dasharray: 0 1000;
+  stroke-linecap: round;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.groove {
+  fill: none;
+  stroke: #88888880;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+</style>
