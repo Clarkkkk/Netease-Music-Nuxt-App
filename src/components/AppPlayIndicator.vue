@@ -1,28 +1,39 @@
 <script>
 import {mapState, mapGetters} from 'vuex';
 export default {
+  data: function() {
+    return {
+      active: true,
+    };
+  },
+
   computed: {
     ...mapState(['playCover', 'playing', 'duration', 'currentTime']),
     ...mapGetters(['playID'])
   },
 
-  mounted() {
-    console.log(this.playID);
-    if (this.duration) {
-      this.progress(this.currentTime / this.duration);
-    } else {
-      this.progress(0);
-    }
-  },
-
   watch: {
     currentTime: function(time) {
+      if (!this.active) {
+        return;
+      }
       if (this.duration) {
         this.progress(time / this.duration);
       } else {
         this.progress(0);
       }
     }
+  },
+
+
+  activated() {
+    console.log('avtive');
+    this.active = true;
+  },
+
+  deactivated() {
+    console.log('not avtive');
+    this.active = false;
   },
 
   methods: {

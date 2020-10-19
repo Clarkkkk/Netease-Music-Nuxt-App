@@ -88,6 +88,10 @@ const store = new Vuex.Store({
       }
     },
 
+    seek(state, time) {
+      state.player.currentTime = time;
+    },
+
     ended(state) {
       const next = state.playIndex + 1;
       state.playIndex = next < state.playList.length ? next : 0;
@@ -108,6 +112,7 @@ const store = new Vuex.Store({
     },
 
     nextSong(state) {
+      console.log('next');
       const next = state.playIndex + 1;
       state.playIndex = next < state.playList.length ? next : 0;
       setItem('playIndex', state.playIndex);

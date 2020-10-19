@@ -11,6 +11,7 @@
     @pause="paused"
     @waiting="waiting(true)"
     @playing="waiting(false)"
+    @ended="ended"
   ></audio>
 </template>
 
@@ -77,7 +78,7 @@ export default {
     },
     ...mapMutations([
       'setPlayer', 'durationChange', 'timeUpdate',
-      'played', 'paused', 'waiting'
+      'played', 'paused', 'waiting', 'ended'
     ])
   }
 };

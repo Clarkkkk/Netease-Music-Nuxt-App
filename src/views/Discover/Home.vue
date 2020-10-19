@@ -74,7 +74,6 @@ export default {
     },
 
     formatNum(num) {
-      console.log(num);
       if (num >= 10000) {
         return Math.floor(num / 10000) + '万';
       } else {

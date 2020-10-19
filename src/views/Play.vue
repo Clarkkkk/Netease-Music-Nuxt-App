@@ -1,87 +1,56 @@
 <template>
   <div id="play">
-    <img alt="背景图片" class="background" :src="picUrl">
+    <img alt="背景图片" class="background" :src="playCover">
 
     <div class="content">
       <div class="header">
         <app-back-button/>
-        <div class="song-name">{{ songName }}</div>
-        <div class="song-artist">{{ songArtist }}</div>
+        <div class="song-name">{{ playName }}</div>
+        <div class="song-artist">{{ playArtist }}</div>
       </div>
 
-      <div :class="['cover-frame', {'rolling': playing}]">
-        <img
-          alt="专辑图片"
-          class="cover"
-          :src="picUrl"
-          @dragstart="dragPrevent"
-        >
-      </div>
-      <play-controls :playing="playing"/>
+      <play-cover/>
+      <play-interactions/>
+      <play-progress-bar/>
+      <play-controls :showPlayList.sync="showPlayList"/>
+
+      <transition name="list">
+        <play-list
+          v-if="showPlayList"
+          :show.sync="showPlayList"
+        />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
 import AppBackButton from '@/components/AppBackButton.vue';
-import fetchJSON from '@/functions/fetchJSON.js';
+import PlayCover from '@/components/PlayCover.vue';
+import PlayInteractions from '@/components/PlayInteractions.vue';
+import PlayProgressBar from '@/components/PlayProgressBar.vue';
 import PlayControls from '@/components/PlayControls.vue';
-import {mapState, mapGetters, mapMutations} from 'vuex';
+import PlayList from '@/components/PlayList.vue';
+import {mapState, mapGetters} from 'vuex';
 export default {
   data: function() {
     return {
-      picUrl: require('@/assets/default-cover.png'),
-      songName: '',
-      songArtist: '',
+      showPlayList: false
     };
   },
 
   computed: {
-    ...mapState(['playing', 'playList', 'playCover']),
-    ...mapGetters(['playID', 'playName', 'playArtist'])
+    ...mapGetters(['playID', 'playName', 'playArtist']),
+    ...mapState(['playCover', 'playing'])
   },
 
   components: {
     AppBackButton,
+    PlayCover,
+    PlayInteractions,
+    PlayProgressBar,
     PlayControls,
-  },
-
-  created: function() {
-    this.getInfo(this.playID);
-    this.picUrl = this.playCover;
-    this.songName = this.playName;
-    this.songSrtist = this.playArtist;
-  },
-
-  watch: {
-    playID: function(newID) {
-      this.getInfo(newID);
-    }
-  },
-
-  methods: {
-    ...mapMutations(['coverChange']),
-    getInfo(id) {
-      if (id) {
-        fetchJSON('/song/detail', {ids: id})
-          .then((obj) => {
-            console.log(obj);
-            const data = obj.songs[0];
-            if (data.al.picUrl) {
-              this.picUrl = data.al.picUrl;
-              this.coverChange(this.picUrl);
-            } else {
-              this.picUrl = require('@/assets/default-cover.png');
-            }
-            this.songName = data.name;
-            this.songArtist = data.ar[0].name;
-          });
-      }
-    },
-
-    dragPrevent(event) {
-      event.preventDefault();
-    }
+    PlayList
   }
 };
 </script>
@@ -94,7 +63,7 @@ export default {
   background-color: #666;
 }
 
-.background{
+.background {
   position: fixed;
   left: 0;
   top: 0;
@@ -115,16 +84,21 @@ export default {
   left: 0;
   top: 0;
   display: grid;
-  grid-template-rows:
-    [start header-start] 4rem [header-end] 1fr [cover-start]
-    70vmin [cover-end] 1fr [controls-start] 10rem [controls-end end];
-  align-items: center;
-  justify-items: center;
+  grid-template-areas:
+    "header"
+    "..."
+    "cover"
+    "..."
+    "interactions"
+    "progress-bar"
+    "controls";
+  grid-template-rows: [start] 4rem 1fr 70vmin 1fr 3rem 2rem 5rem [end];
+  place-items: center;
 }
 
 /* header */
 .header {
-  grid-row: header-start / header-end;
+  grid-row: header;
   width: 100%;
   display: grid;
   grid-template-columns:
@@ -139,53 +113,24 @@ export default {
 }
 
 .song-name {
-  grid-row: name-start / name-end;
-  grid-column: info-start / info-end;
+  grid-row: name;
+  grid-column: info;
   font-size: 1.2rem;
   font-weight: bold;
 }
 
 .song-artist {
-  grid-row: artist-start / artist-end;
-  grid-column: info-start / info-end;
+  grid-row: artist;
+  grid-column: info;
   font-size: 0.8rem;
 }
 /* header */
 
-/* rolling cover */
-.cover-frame {
-  grid-row: cover-start / cover-end;
-  background-color: #ffffff30;
-  width: 64vmin;
-  height: 64vmin;
-  border-radius: 32vmin;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  box-shadow: 0 0 20px #00000020;
-  animation: 30s linear infinite rolling;
-  animation-play-state: paused;
+.list-enter, .list-leave-to {
+  opacity: 0;
 }
 
-.cover {
-  object-fit: cover;
-  height: 60vmin;
-  width: 60vmin;
-  border-radius: 30vmin;
-  box-shadow: 0 0 10px #00000040;
+.list-enter-active, .list-leave-active {
+  transition: opacity 300ms;
 }
-
-.cover-frame.rolling {
-  animation-play-state: running;
-}
-
-@keyframes rolling {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-/* rolling cover */
 </style>
