@@ -115,6 +115,8 @@ const store = new Vuex.Store({
       console.log('next');
       const next = state.playIndex + 1;
       state.playIndex = next < state.playList.length ? next : 0;
+      console.log(state.playIndex);
+      console.log(state.playList);
       setItem('playIndex', state.playIndex);
     },
 
@@ -206,6 +208,7 @@ const store = new Vuex.Store({
 
     clear(state) {
       state.playIndex = -1;
+      state.playCover = '';
       state.playing = false;
       state.waiting = false;
       state.duration = 0;
@@ -215,7 +218,7 @@ const store = new Vuex.Store({
       }
       setItem('playIndex', state.playIndex);
       setItem('playList', JSON.stringify(state.playList));
-      // console.log(state.playList);
+      setItem('playCover', state.playCover);
     }
   }
 });
