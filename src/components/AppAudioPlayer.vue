@@ -31,7 +31,6 @@ export default {
   },
 
   created: function() {
-    console.log(this.playID);
     if (this.playID) {
       this.getUrl(this.playID);
     }
@@ -43,14 +42,10 @@ export default {
 
   watch: {
     playID: function(newID, old) {
-      console.log('playID changed.');
-      console.log('new:' + newID);
-      console.log('old:' + old);
       if (newID) {
         this.getUrl(newID)
           .then(() => {
             this.$refs.audio.play();
-            console.log(this.src);
           })
           .catch((e) => {
             console.log(e);
@@ -67,10 +62,8 @@ export default {
       if (id) {
         return fetchJSON('/song/url', {id: id})
           .then((obj) => {
-            console.log(obj);
             if (obj.code === 200 && obj.data[0]) {
               this.src = obj.data[0].url;
-              console.log(this.src);
             } else {
               throw (new Error('url not exited: ' + JSON.stringify(obj)));
             }

@@ -7,14 +7,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  computed: {
-
-  }
-};
-</script>
-
 <style scoped>
 #account {
   height: 100vh;

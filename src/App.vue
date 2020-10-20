@@ -29,5 +29,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
   --app-color: #e91a3d;
+  --app-color-rgb: 233, 26 ,61;
 }
 </style>
