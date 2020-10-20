@@ -77,8 +77,8 @@ export default {
 
 <style scoped>
 #app-dock {
-  position: fixed;
-  z-index: 10000;
+  position: absolute;
+  z-index: 11000;
   bottom: 0;
   height: 2.5rem;
   width: 100%;

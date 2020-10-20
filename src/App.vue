@@ -31,4 +31,9 @@ body {
   --app-color: #e91a3d;
   --app-color-rgb: 233, 26 ,61;
 }
+
+#app {
+  height: 100vh;
+  width: 100vw;
+}
 </style>

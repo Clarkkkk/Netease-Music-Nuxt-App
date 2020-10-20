@@ -100,6 +100,7 @@ export default {
   background-color:transparent;
   box-shadow: 0 0 15px #00000080;
   border-radius: 1.2rem;
+  transform: translate3d(0, 0, 0);
   box-sizing: border-box;
   color: #222;
   overflow: hidden;
@@ -119,6 +120,7 @@ export default {
   align-items: center;
   background-color: #ffffffc0;
   backdrop-filter: blur(20px);
+  border-radius: 1.2rem 1.2rem 0 0;
   border-bottom: 1px solid #00000010;
   z-index: 10;
   user-select: none;
@@ -151,6 +153,7 @@ export default {
   grid-row: wrapper;
   padding: 0 1rem;
   box-sizing: border-box;
+  border-radius: 0 0 1.2rem 1.2rem;
   background-color: #ffffffc0;
   backdrop-filter: blur(20px);
   height: 100%;
@@ -204,6 +207,7 @@ export default {
 .list-enter-active {
   transition: transform 300ms ease;
 }
+
 .list-leave-active {
   transition: transform 300ms ease;
 }

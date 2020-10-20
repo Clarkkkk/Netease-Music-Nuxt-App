@@ -245,15 +245,15 @@ export default {
 }
 
 .list-container {
-  height: 100%;
-  width: 100%;
+  height: 29vw;
+  width: 29vw;
   display: grid;
   grid-template-rows:
-    [img-start] 1fr [img-end text-start]
+    [img-start] minmax(25vw, 1fr) [img-end text-start]
     1rem [text-end];
   grid-template-columns:
     [start] 0.5rem [img-start]
-    1fr [img-end] 0.5rem [end];
+    minmax(25vw, 1fr) [img-end] 0.5rem [end];
 }
 
 .list-img {

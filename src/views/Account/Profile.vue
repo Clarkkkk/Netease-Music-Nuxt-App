@@ -1,15 +1,16 @@
 <template>
   <div id="profile" ref="wrapper">
-    <div class="content">
-      <div
-        class="card"
-        ref="card"
-      >
-        <img class="avatar" :src="avtSrc" ref="avatar">
-        <span class="nickname" ref="nickname">{{ nickname }}</span>
-        <span class="level" ref="level">{{ 'LV. ' + level }}</span>
-      </div>
+    <img class="background" ref="bg" :src="bgSrc">
+    <div
+      class="card"
+      ref="card"
+    >
+      <img class="avatar" :src="avtSrc" ref="avatar">
+      <span class="nickname" ref="nickname">{{ nickname }}</span>
+      <span class="level" ref="level">{{ 'LV. ' + level }}</span>
+    </div>
 
+    <div class="content">
       <div class="features">
         <div class="feature-container">
           <app-icon icon="bar-chart"/>
@@ -25,8 +26,8 @@
 
       <div class="lists-container">
         <nav class="nav">
-          <span @click="navTo('created')">创建歌单</span>
-          <span @click="navTo('saved')">收藏歌单</span>
+          <span @tap="navTo('created')">创建歌单</span>
+          <span @tap="navTo('saved')">收藏歌单</span>
         </nav>
         <div class="lists">
           <div class="title" ref="created">创建歌单</div>
@@ -57,7 +58,6 @@
       </div>
 
     </div>
-    <img class="background" ref="bg" :src="bgSrc">
   </div>
 </template>
 
@@ -115,7 +115,8 @@ export default {
           mouseWheel: true,
           scrollbar: true,
           probeType: 3,
-          tap: 'tap'
+          tap: 'tap',
+          specifiedIndexAsContent: 2
         });
         const barStyle =
           this.scroll.plugins.scrollbar.indicators[0].elStyle;
@@ -133,17 +134,16 @@ export default {
             const bgOpacity = progress;
             self.$refs.card.style =
               `background-color: rgba(var(--app-color-rgb), ${bgOpacity});
-              height: calc(15rem + ${pos.y}px);
-              min-height: 3rem;
-              transform: translateY(${-pos.y}px)`;
+              height: ${15 - 12 * progress}rem;`;
             self.$refs.avatar.style =
-              `height: calc(6rem + ${pos.y}px);
-              min-height: 2.2rem;
+              `height: ${5.4 - 3.2 * progress}rem;
               transform: translateY(${-progress * 2.5}rem)`;
             self.$refs.nickname.style =
               `transform: translateX(${progress * 3}rem)
                 translateY(${-progress * 6.5}rem)`;
-            self.$refs.level.style = `opacity: ${1 - progress}`;
+            self.$refs.level.style =
+              `opacity: ${1 - progress};
+              transform: translateY(${-progress * 6.5}rem)`;
           }
         }
         this.scroll.on('scroll', onScroll);
@@ -157,6 +157,7 @@ export default {
 
   methods: {
     navTo(position) {
+      console.log(position);
       if (position === 'created') {
         this.scroll.scrollToElement(this.$refs.created, 300);
       } else if (position === 'saved') {
@@ -171,21 +172,28 @@ export default {
 #profile {
   grid-row: start / end;
   grid-column: start / end;
-  height: 100%;
+  height: 100vh;
   width: 100%;
+  display: grid;
+  grid-template-rows:
+    [start card-start] 15rem [card-end content-start]
+    1fr [content-end];
+  grid-template-columns: [start] 100% [end];
+  transform: translate3d(0px, 0px, 0px);
 }
 
 .content {
+  grid-row: content;
+  grid-column: start / end;
   min-height: 101%;
+  height: min-content;
   width: 100%;
-  overflow: hidden;
   display: grid;
   grid-template-rows:
-    [start card-start] 15rem [card-end features-start]
-    min-content [list-start] min-content [list-end];
+    [start features-start]
+    min-content [features-end list-start] min-content [list-end];
   grid-template-columns: [start] 1fr [end];
-  position: relative;
-  z-index: 10;
+  z-index: 0;
 }
 
 .background {
@@ -200,6 +208,7 @@ export default {
 
 /* brief info card */
 .card {
+  position: sticky;
   grid-row: card;
   grid-column: start / end;
   height: 100%;
@@ -213,6 +222,8 @@ export default {
     6rem [avatar-end name-start] 2rem
     [name-end info-start] 2rem [info-end];
   align-items: center;
+  z-index: 10;
+  transform: translate3d(0px, 0px, 2px);
 }
 
 .avatar {
