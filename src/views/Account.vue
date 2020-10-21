@@ -17,7 +17,6 @@
   grid-template-columns:
     [start] 1fr [login-start]
     minmax(min-content, 20rem) [login-end] 1fr [end];
-  place-items: center;
 }
 
 .header {

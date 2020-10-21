@@ -37,6 +37,12 @@ const routes = [
               import(/* webpackChunkName: "about" */ '@/views/Discover/SearchResult.vue')
           }
         ]
+      },
+      {
+        path: 'recommendation',
+        name: 'discover-recommendation',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/Discover/HomeRecommend.vue')
       }
     ]
   },

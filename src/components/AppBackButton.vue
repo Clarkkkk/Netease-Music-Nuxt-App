@@ -1,5 +1,5 @@
 <template>
-  <div class="app-back-button" @click="back">
+  <div class="app-back-button" @tap="back" @click="back">
     <app-icon icon="go-back" />
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .app-back-button {
-  grid-column: back-start / back-end;
+  grid-column: back;
   grid-row: start / end;
   cursor: pointer;
   width: 2rem;

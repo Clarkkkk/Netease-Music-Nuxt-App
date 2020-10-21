@@ -172,7 +172,7 @@ export default {
 #profile {
   grid-row: start / end;
   grid-column: start / end;
-  height: 100vh;
+  height: calc(100vh - 2.5rem);
   width: 100%;
   display: grid;
   grid-template-rows:
@@ -180,20 +180,6 @@ export default {
     1fr [content-end];
   grid-template-columns: [start] 100% [end];
   transform: translate3d(0px, 0px, 0px);
-}
-
-.content {
-  grid-row: content;
-  grid-column: start / end;
-  min-height: 101%;
-  height: min-content;
-  width: 100%;
-  display: grid;
-  grid-template-rows:
-    [start features-start]
-    min-content [features-end list-start] min-content [list-end];
-  grid-template-columns: [start] 1fr [end];
-  z-index: 0;
 }
 
 .background {
@@ -262,6 +248,20 @@ export default {
   padding: 0.1rem;
 }
 /* brief info card */
+
+.content {
+  grid-row: content;
+  grid-column: start / end;
+  min-height: 101%;
+  height: min-content;
+  width: 100%;
+  display: grid;
+  grid-template-rows:
+    [start features-start]
+    min-content [features-end list-start] min-content [list-end];
+  grid-template-columns: [start] 1fr [end];
+  z-index: 0;
+}
 
 /* middle buttons */
 .features {

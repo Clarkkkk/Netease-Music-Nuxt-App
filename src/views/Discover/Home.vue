@@ -16,14 +16,14 @@
       <div class="contents">
         <discover-banner/>
         <div class="features">
-          <div class="feature-container">
+          <div class="feature-container" @tap="tap('recommendation')">
             <div class="calendar-container">
               <app-icon icon="calendar"/>
               <span>17</span>
             </div>
             <span>每日推荐</span>
           </div>
-          <div class="feature-container">
+          <div class="feature-container" @tap="tap('radio')">
             <app-icon icon="radio"/>
             <span>私人FM</span>
           </div>
@@ -71,6 +71,10 @@ export default {
   methods: {
     search() {
       this.$router.push('search');
+    },
+
+    tap(to) {
+      this.$router.push(to);
     },
 
     formatNum(num) {

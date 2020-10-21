@@ -56,7 +56,7 @@ export default {
 .app-song-entry {
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 1rem;
   box-sizing: border-box;
   display: grid;
   grid-template-rows: [start name-start] 1.2fr [name-end info-start] 1fr [info-end end];
@@ -67,14 +67,22 @@ export default {
 }
 
 .name {
-  grid-row: name-start / name-end;
+  width: 100%;
+  height: 100%;
+  grid-row: name;
   font-size: 1rem;
   color: black;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .info {
-  grid-row: info-start / info-end;
+  width: 100%;
+  height: 100%;
+  grid-row: info;
   font-size: 0.8rem;
   color: #666;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
