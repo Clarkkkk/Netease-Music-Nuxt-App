@@ -34,6 +34,7 @@
             class="list-container"
             v-for="list in recommend"
             :key="list.id"
+            @tap="tap('songlist/' + list.id)"
           >
             <img class="list-img" :src="list.picUrl">
             <span class="list-count">{{ formatNum(list.playcount) }}</span>

@@ -1,10 +1,14 @@
 <template>
   <div id="app-song-list" ref="wrapper">
-    <div class=fixed-container  :style="`background-image: ${cover}`">
+
+    <div class=fixed-container>
+      <div class="background" ref="background">
+        <img :src="cover" v-if="cover">
+      </div>
       <div class="header">
         <app-back-button/>
         <div class="title">
-          <slot name="title">歌单</slot>
+          {{ title ? title : '歌单' }}
         </div>
         <div class="right">
           <slot name="right"></slot>
@@ -12,14 +16,20 @@
       </div>
 
       <div class="info" ref="info">
-        <div class="cover">
-          <slot name="cover"></slot>
+        <div class="cover" v-if="cover">
+          <img :src="cover">
         </div>
-        <div class="name">
-          <slot name="name"></slot>
+        <div class="name" v-if="name">
+          {{ name }}
         </div>
-        <div class="creator">
-          <slot name="creator"></slot>
+        <div class="creator" v-if="creator">
+          {{ creator }}
+        </div>
+        <div class="description" v-if="description">
+          {{ description }}
+        </div>
+        <div class="date" v-if="date">
+          {{ date }}
         </div>
       </div>
 
@@ -53,13 +63,29 @@ import ScrollBar from '@better-scroll/scroll-bar';
 BScroll.use(ScrollBar);
 BScroll.use(MouseWheel);
 export default {
-  props: ['list', 'cover'],
+  props: ['list', 'cover', 'title',
+    'name', 'creator', 'description', 'date', 'tags'],
+
+  computed: {
+    background: function() {
+      if (this.cover) {
+        return `background-image: url(${this.cover})`;
+      } else {
+        return `background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)`;
+      }
+    }
+  },
+
   components: {
     AppBackButton,
     AppSongEntry
   },
 
   mounted() {
+    if (!this.cover) {
+      this.$refs.background.style.backgroundImage =
+        'linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)';
+    }
     this.$nextTick()
       .then(() => {
         this.scroll = new BScroll(this.$refs.wrapper, {
@@ -80,6 +106,8 @@ export default {
           const percentage = (-pos.y) / 200 > 1 ? 1 : (-pos.y) / 200;
           self.$refs.info.style.opacity = `${1 - percentage}`;
           self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
+          self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
+          self.$refs.background.style.minHeight = `3rem`;
         }
       })
       .catch((e) => {
@@ -113,16 +141,37 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 20;
   display: grid;
   grid-template-rows:
-    [header-start] 3rem [header-end info-start]
+    [start header-start] 3rem [header-end info-start]
     min-content [info-end button-start] 3rem
-    [button-end];
+    [button-end end];
+  grid-template-columns: [start] 100% [end];
 }
 
+.background {
+  grid-row: start / info-end;
+  grid-column: start / end;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15rem;
+  overflow: hidden;
+}
+
+.background > img {
+  object-fit: cover;
+  transform: scale(1.1);
+  filter: blur(30px) saturate(1.2);
+  opacity: 0.8;
+}
+
+/* filter build another stack context, z-index is required */
 .header {
   grid-row: header;
+  grid-column: start / end;
   height: 100%;
   width: 100%;
   display: grid;
@@ -133,6 +182,7 @@ export default {
   place-items: center;
   color: white;
   user-select: none;
+  z-index: 10;
 }
 
 .title {
@@ -142,33 +192,45 @@ export default {
 }
 
 .info {
-  position: sticky;
   grid-row: info;
+  grid-column: start / end;
+  z-index: 10;
   height: 12rem;
   width: 100%;
   display: grid;
   padding: 0 1rem;
   box-sizing: border-box;
+  overflow: hidden;
   grid-template-rows:
     [start] 1fr [cover-start name-start]
-    2rem [name-end creator-start] 1.5rem
-    [creator-end] min-content [cover-end end];
+    min-content [name-end creator-start] 2rem
+    [creator-end des-start] 3rem [des-end]
+    min-content [cover-end] 1fr [end];
   grid-template-columns:
     [cover-start] min-content [cover-end info-start]
     1fr [info-end];
+  gap: 0 1rem;
+  align-items: center;
 }
 
 .cover {
   grid-row: cover;
   grid-column: cover;
-  border-radius: 1rem;
+  height: 8rem;
+  width: 8rem;
   object-fit: cover;
+}
+
+.cover > img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.3rem;
 }
 
 .name {
   grid-row: name;
   grid-column: info;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: white;
 }
@@ -176,7 +238,27 @@ export default {
 .creator {
   grid-row: creator;
   grid-column: info;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  color: #eee;
+}
+
+.description {
+  font-size: 0.7rem;
+  line-height: 1rem;
+  grid-row: des;
+  grid-column: info;
+  color: #eee;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.date {
+  grid-row: span 1 / cover-end;
+  grid-column: info;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: white;
 }
 
@@ -184,6 +266,7 @@ export default {
   background-color: white;
   position: sticky;
   grid-row: button;
+  grid-column: start / end;
   height: 100%;
   width: 100%;
   display: grid;
@@ -207,6 +290,7 @@ export default {
   display: grid;
   grid-template-rows: [placeholder-start] min-content [placeholder-end];
   grid-auto-rows: 3rem;
+  grid-template-columns: [start] 100% [end];
 }
 
 .placeholder {

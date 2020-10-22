@@ -43,6 +43,13 @@ const routes = [
         name: 'discover-recommendation',
         component: () =>
           import(/* webpackChunkName: "about" */ '@/views/Discover/HomeRecommend.vue')
+      },
+      {
+        path: 'songlist/:listId',
+        name: 'discover-songlist',
+        props: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/Discover/HomeSongList.vue')
       }
     ]
   },

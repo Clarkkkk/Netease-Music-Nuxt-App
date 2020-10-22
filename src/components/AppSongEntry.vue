@@ -60,7 +60,7 @@ export default {
   box-sizing: border-box;
   display: grid;
   grid-template-rows: [start name-start] 1.2fr [name-end info-start] 1fr [info-end end];
-  grid-template-columns: [start] 1fr [end];
+  grid-template-columns: [start] 100% [end];
   justify-items: start;
   border-bottom: 1px solid #eee;
   cursor: pointer;
@@ -70,19 +70,23 @@ export default {
   width: 100%;
   height: 100%;
   grid-row: name;
+  grid-column: start / end;
   font-size: 1rem;
   color: black;
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .info {
   width: 100%;
   height: 100%;
   grid-row: info;
+  grid-column: start / end;
   font-size: 0.8rem;
   color: #666;
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

@@ -2,14 +2,9 @@
   <div id="home-recommend">
     <app-song-list
       :list="songList"
-      :cover="background"
+      :title="'每日推荐'"
+      :date="dateString"
     >
-      <template v-slot:title>
-        每日推荐
-      </template>
-      <template v-slot:name>
-        {{ dateString }}
-      </template>
     </app-song-list>
   </div>
 </template>
