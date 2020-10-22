@@ -51,11 +51,7 @@ import DiscoverBanner from '@/components/DiscoverBanner.vue';
 import AppSearchBar from '@/components/AppSearchBar.vue';
 import AppPlayIndicator from '@/components/AppPlayIndicator.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
-import BScroll from '@better-scroll/core';
-import MouseWheel from '@better-scroll/mouse-wheel';
-import ScrollBar from '@better-scroll/scroll-bar';
-BScroll.use(ScrollBar);
-BScroll.use(MouseWheel);
+import createScroll from '@/functions/createScroll.js';
 export default {
   data: function() {
     return {
@@ -106,19 +102,7 @@ export default {
   mounted() {
     this.$nextTick()
       .then(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollY: true,
-          mouseWheel: true,
-          scrollbar: true,
-          tap: 'tap',
-        });
-        const barStyle = this.scroll.plugins.scrollbar.indicators[0].elStyle;
-        const wrapperStyle = this.scroll.plugins.scrollbar.indicators[0].wrapperStyle;
-        barStyle.border = 'none';
-        wrapperStyle.width = '5px';
-      })
-      .catch((e) => {
-        console.log(e);
+        this.scroll = createScroll(0, this.$refs.wrapper);
       });
   },
 

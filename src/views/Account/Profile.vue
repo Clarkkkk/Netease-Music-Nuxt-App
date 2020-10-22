@@ -16,7 +16,7 @@
           <app-icon icon="bar-chart"/>
           <span>听歌排行</span>
         </div>
-        <div class="feature-container">
+        <div class="feature-container" @tap="routeTo('favorite')">
           <div class="icon-container">
             <app-icon icon="like-fill"/>
           </div>
@@ -54,8 +54,7 @@
 
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
-import BScroll from '@better-scroll/core';
-import ScrollBar from '@better-scroll/scroll-bar';
+import createScroll from '@/functions/createScroll.js';
 import ProfileSongLists from '@/components/ProfileSongLists.vue';
 export default {
   data: function() {
@@ -65,6 +64,7 @@ export default {
       listenSongs: '',
       avtSrc: '',
       bgSrc: '',
+      favoriteList: [],
       createdLists: [],
       savedLists: [],
       listsType: 'createdLists'
@@ -101,6 +101,7 @@ export default {
       }).then((res) => {
         if (res.code === 200) {
           const createdCount = res.createdPlaylistCount;
+          this.favoriteList = this.allList[0];
           this.createdLists =
             this.allList.slice(1, createdCount);
           this.savedLists =
@@ -112,21 +113,7 @@ export default {
   mounted() {
     this.$nextTick()
       .then(() => {
-        BScroll.use(ScrollBar);
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollY: true,
-          mouseWheel: true,
-          scrollbar: true,
-          probeType: 3,
-          tap: 'tap',
-          specifiedIndexAsContent: 2
-        });
-        const barStyle =
-          this.scroll.plugins.scrollbar.indicators[0].elStyle;
-        const wrapperStyle =
-          this.scroll.plugins.scrollbar.indicators[0].wrapperStyle;
-        barStyle.border = 'none';
-        wrapperStyle.width = '5px';
+        this.scroll = createScroll(2, this.$refs.wrapper, onScroll);
         const self = this;
         function onScroll(pos) {
           if (pos.y > 0) {
@@ -149,7 +136,6 @@ export default {
               transform: translateY(${-progress * 6.5}rem)`;
           }
         }
-        this.scroll.on('scroll', onScroll);
       });
   },
 
@@ -162,6 +148,15 @@ export default {
     navTo(position) {
       console.log(position);
       this.listsType = position;
+    },
+
+    routeTo(page) {
+      if (page === 'favorite') {
+        this.$router.push({
+          name: 'account-favorite',
+          params: {listId: this.favoriteList.id}
+        });
+      }
     }
   }
 };

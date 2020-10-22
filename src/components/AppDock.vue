@@ -14,7 +14,7 @@
     >
       <app-icon v-if="active==='account'" icon="person-fill"/>
       <app-icon v-else icon="person"/>
-      <span>账号</span>
+      <span>我的</span>
     </div>
   </div>
 </template>

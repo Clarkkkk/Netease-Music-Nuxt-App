@@ -93,6 +93,18 @@ const routes = [
         },
         component: () =>
           import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+      },
+      {
+        path: 'favorite-songs',
+        name: 'account-favorite',
+        props: (route) => {
+          return {
+            listId: route.params.listId,
+            type: 'songlist'
+          };
+        },
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
       }
     ]
   },

@@ -60,7 +60,7 @@ export default {
   border-bottom: 1px solid #eee;
   box-sizing: border-box;
   grid-template-rows:
-    [start name-start] 1.5fr [name-end info-start]
+    [start name-start] 1.2fr [name-end info-start]
     1fr [info-end end];
   grid-template-columns:
     [start pic-start] 3rem [pic-end text-start]
@@ -81,7 +81,8 @@ export default {
 .list-name {
   grid-row: name;
   grid-column: text;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  line-height: 0.9rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -91,5 +92,6 @@ export default {
   grid-row: info;
   grid-column: text;
   font-size: 0.7rem;
+  line-height: 0.7rem;
 }
 </style>

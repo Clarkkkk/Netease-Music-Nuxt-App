@@ -33,7 +33,7 @@
 
 <script>
 import {mapState, mapGetters, mapMutations} from 'vuex';
-import BScroll from 'better-scroll';
+import createScroll from '@/functions/createScroll.js';
 export default {
   data: function() {
     return {
@@ -53,17 +53,12 @@ export default {
         this.showList = true;
       })
       .then(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollY: true,
-          mouseWheel: true,
-          scrollbar: true,
-          tap: 'tap'
-        });
-        const barStyle = this.scroll.plugins.scrollbar.indicators[0].elStyle;
-        const wrapperStyle = this.scroll.plugins.scrollbar.indicators[0].wrapperStyle;
-        barStyle.border = 'none';
-        wrapperStyle.width = '5px';
+        this.scroll = createScroll(0, this.$refs.wrapper);
       });
+  },
+
+  update() {
+    this.scroll.refresh();
   },
 
   methods: {

@@ -59,6 +59,7 @@ export default {
       .then((res) => {
         console.log(res);
         this.banners = res.banners;
+        console.log(this.banners);
         this.amount = this.banners.length;
         // the last pic on the left, the first pic in the middle
         // and the second pic on the right
@@ -69,6 +70,11 @@ export default {
         for (let i = 0; i < this.amount; i++) {
           this.dots[i] = i;
         }
+      });
+    fetchJSON('/personal_fm')
+      .then((res) => {
+        console.log('fm');
+        console.log(res);
       });
   },
 
