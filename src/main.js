@@ -16,10 +16,10 @@ new Vue({
   store,
   created() {
     document.documentElement.setAttribute('lang', 'zh-Hans');
-    fetchJSON('/login/status')
+    /* fetchJSON('/login/status')
       .then((res) => {
         console.log(res);
-      });
+      }); */
   },
   render: (h) => {
     console.log(App);

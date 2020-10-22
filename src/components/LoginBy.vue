@@ -42,6 +42,7 @@
         placeholder="密码"
         @blur="$event.target.required=true"
         @focus="$event.target.value=''"
+        @keydown.enter="login"
         v-model="password"
       >
       <span class="notice">密码不能为空</span>

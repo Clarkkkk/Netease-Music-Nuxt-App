@@ -88,12 +88,19 @@ export default {
   },
 
   created() {
-    fetchJSON('/recommend/resource')
-      .then((res) => {
-        console.log(res);
-        this.recommend = res.recommend;
-        console.log(this.recommend);
-      });
+    if (this.$store.state.login) {
+      fetchJSON('/recommend/resource')
+        .then((res) => {
+          this.recommend = res.recommend;
+          console.log(this.recommend);
+        });
+    } else {
+      fetchJSON('/personalized')
+        .then((res) => {
+          this.recommend = res.result;
+          console.log(this.recommend);
+        });
+    }
   },
 
   mounted() {

@@ -45,6 +45,7 @@ export default {
 #login {
   grid-row: login;
   grid-column: login;
+  align-self: center;
   width: 100%;
   height: 65%;
   background: white;

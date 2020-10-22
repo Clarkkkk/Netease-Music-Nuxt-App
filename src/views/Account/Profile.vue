@@ -26,35 +26,26 @@
 
       <div class="lists-container">
         <nav class="nav">
-          <span @tap="navTo('created')">创建歌单</span>
-          <span @tap="navTo('saved')">收藏歌单</span>
+          <span
+            :class="{active: listsType === 'createdLists'}"
+            @tap="navTo('createdLists')"
+          >
+            创建歌单
+          </span>
+          <span
+            :class="{active: listsType === 'savedLists'}"
+            @tap="navTo('savedLists')"
+          >
+            收藏歌单
+          </span>
         </nav>
-        <div class="lists">
-          <div class="title" ref="created">创建歌单</div>
-          <div
-            v-for="list in createdLists"
-            :key="list.id"
-            class="list"
-          >
-            <img :src="list.coverImgUrl">
-            <span class="list-name">{{ list.name }}</span>
-            <span class="list-info">{{ list.trackCount + '首'}}</span>
-          </div>
-        </div>
-        <div class="lists">
-          <div class="title" ref="saved">收藏歌单</div>
-          <div
-            v-for="list in savedLists"
-            :key="list.id"
-            class="list"
-          >
-            <img :src="list.coverImgUrl">
-            <span class="list-name">{{ list.name }}</span>
-            <span class="list-info">
-              {{ list.trackCount + '首，来自 ' + list.creator.nickname }}
-            </span>
-          </div>
-        </div>
+        <keep-alive>
+          <profile-song-lists
+            :key="listsType"
+            :lists="lists"
+            :type="listsType"
+          />
+        </keep-alive>
       </div>
 
     </div>
@@ -65,6 +56,7 @@
 import fetchJSON from '@/functions/fetchJSON.js';
 import BScroll from '@better-scroll/core';
 import ScrollBar from '@better-scroll/scroll-bar';
+import ProfileSongLists from '@/components/ProfileSongLists.vue';
 export default {
   data: function() {
     return {
@@ -74,8 +66,19 @@ export default {
       avtSrc: '',
       bgSrc: '',
       createdLists: [],
-      savedLists: []
+      savedLists: [],
+      listsType: 'createdLists'
     };
+  },
+
+  computed: {
+    lists: function() {
+      return this[this.listsType];
+    }
+  },
+
+  components: {
+    ProfileSongLists
   },
 
   created() {
@@ -90,12 +93,12 @@ export default {
 
     fetchJSON('/user/playlist', {uid: this.$store.state.userID})
       .then((res) => {
+        console.log(res);
         if (res.code === 200) {
           this.allList = res.playlist;
         }
         return fetchJSON('/user/subcount');
       }).then((res) => {
-        console.log(res);
         if (res.code === 200) {
           const createdCount = res.createdPlaylistCount;
           this.createdLists =
@@ -158,11 +161,7 @@ export default {
   methods: {
     navTo(position) {
       console.log(position);
-      if (position === 'created') {
-        this.scroll.scrollToElement(this.$refs.created, 300);
-      } else if (position === 'saved') {
-        this.scroll.scrollToElement(this.$refs.saved, 300);
-      }
+      this.listsType = position;
     }
   }
 };
@@ -266,9 +265,9 @@ export default {
 /* middle buttons */
 .features {
   grid-row: features;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   box-sizing: border-box;
-  height: 5.5rem;
+  height: 6.5rem;
   width: 100%;
   display: grid;
   grid-template-columns: 40vw 40vw;
@@ -317,9 +316,11 @@ export default {
 /* middle buttons */
 
 /* song lists */
-.list-container {
+.lists-container {
   grid-row: list;
   display: grid;
+  padding: 1rem;
+  box-sizing: border-box;
   grid-template-rows:
     [start nav-start] 3rem [nav-end created-start]
     min-content [created-end saved-start] min-content [saved-end];
@@ -336,52 +337,8 @@ export default {
   cursor: pointer;
 }
 
-.lists {
-  grid-row: created;
-  display: grid;
-  grid-template-rows: [title-start] 3rem [title-end];
-  grid-auto-rows: 4rem;
-  align-items: center;
-}
-
-.title {
-  grid-row: title;
-  color: #888;
-  font-size: 0.7rem;
-}
-
-.list {
-  height: 4rem;
-  display: grid;
-  grid-template-rows:
-    [start name-start] 1.5fr [name-end info-start]
-    1fr [info-end end];
-  grid-template-columns:
-    [start pic-start] 4rem [pic-end text-start]
-    1fr [text-end];
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.list > img {
-  grid-row: start / end;
-  grid-column: pic;
-  height: 90%;
-  width: 90%;
-  border-radius: 0.2rem;
-}
-
-.list-name {
-  grid-row: name;
-  grid-column: text;
-  font-size: 1rem;
-}
-
-.list-info {
-  grid-row: info;
-  grid-column: text;
-  font-size: 0.7rem;
+.active {
+  border-bottom: 2px solid var(--app-color);
 }
 /* song lists */
 </style>

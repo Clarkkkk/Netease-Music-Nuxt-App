@@ -1,5 +1,5 @@
 <template>
-  <div id="app-song-list" ref="wrapper">
+  <div id="song-list" ref="wrapper">
 
     <div class=fixed-container>
       <div class="background" ref="background">
@@ -28,8 +28,8 @@
         <div class="description" v-if="description">
           {{ description }}
         </div>
-        <div class="date" v-if="date">
-          {{ date }}
+        <div class="date" v-if="type==='recommendation'">
+          {{ dateString }}
         </div>
       </div>
 
@@ -57,28 +57,91 @@
 <script>
 import AppBackButton from '@/components/AppBackButton.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
-import BScroll from '@better-scroll/core';
-import MouseWheel from '@better-scroll/mouse-wheel';
-import ScrollBar from '@better-scroll/scroll-bar';
-BScroll.use(ScrollBar);
-BScroll.use(MouseWheel);
+import fetchJSON from '@/functions/fetchJSON.js';
+import createScroll from '@/functions/createScroll.js';
 export default {
-  props: ['list', 'cover', 'title',
-    'name', 'creator', 'description', 'date', 'tags'],
+  data: function() {
+    return {
+      title: '',
+      name: '',
+      creator: '',
+      description: '',
+      cover: '',
+      tags: [],
+      list: []
+    };
+  },
+
+  props: ['type', 'listId'],
 
   computed: {
-    background: function() {
-      if (this.cover) {
-        return `background-image: url(${this.cover})`;
-      } else {
-        return `background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)`;
+    dateString: function() {
+      const today = new Date();
+      const hours = today.getHours();
+      let greetings = '你好';
+      if (hours >= 6 && hours <= 12) {
+        greetings = '早上好';
+      } else if (hours >= 13 && hours <= 18) {
+        greetings = '下午好';
+      } else if (hours >= 19 && hours <= 24) {
+        greetings = '晚上好';
+      } else if (hours >= 0 && hours <= 5) {
+        greetings = '早点睡哦';
       }
+      return `${today.getMonth()}月${today.getDate()}日，${greetings}`;
     }
   },
 
   components: {
     AppBackButton,
     AppSongEntry
+  },
+
+  created() {
+    if (this.type === 'recommendation') {
+      this.title = '每日推荐';
+      fetchJSON('/recommend/songs')
+        .then((res) => {
+          if (res.code === 200) {
+            // extract useful information and map it to songList
+            this.list = res.data.dailySongs.map((song) => {
+              return {
+                id: song.id,
+                name: song.name,
+                artists: song.ar,
+                album: song.al.name
+              };
+            });
+          }
+        });
+    } else if (this.type === 'songlist') {
+      fetchJSON('/playlist/detail', {id: this.listId})
+        .then((res) => {
+          console.log(res);
+          if (res.code === 200) {
+            this.name = res.playlist.name;
+            this.creator = res.playlist.creator.nickname;
+            this.description = res.playlist.description;
+            this.cover = res.playlist.coverImgUrl;
+            this.tags = res.playlist.tags;
+            const ids = res.playlist.trackIds.map((item) => item.id).join(',');
+            return fetchJSON('/song/detail', {ids: ids});
+          }
+        }).then((res) => {
+          console.log(res);
+          if (res.code === 200) {
+            // extract useful information and map it to songList
+            this.list = res.songs.map((song) => {
+              return {
+                id: song.id,
+                name: song.name,
+                artists: song.ar,
+                album: song.al.name
+              };
+            });
+          }
+        });
+    }
   },
 
   mounted() {
@@ -88,26 +151,13 @@ export default {
     }
     this.$nextTick()
       .then(() => {
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          scrollY: true,
-          mouseWheel: true,
-          scrollbar: true,
-          probeType: 3,
-          tap: 'tap',
-          specifiedIndexAsContent: 1
-        });
-        const barStyle = this.scroll.plugins.scrollbar.indicators[0].elStyle;
-        const wrapperStyle = this.scroll.plugins.scrollbar.indicators[0].wrapperStyle;
-        barStyle.border = 'none';
-        wrapperStyle.width = '5px';
-        this.scroll.on('scroll', onScroll);
+        this.scroll = createScroll(1, this.$refs.wrapper, onScroll);
         const self = this;
         function onScroll(pos) {
-          const percentage = (-pos.y) / 200 > 1 ? 1 : (-pos.y) / 200;
+          const percentage = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
           self.$refs.info.style.opacity = `${1 - percentage}`;
           self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
           self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
-          self.$refs.background.style.minHeight = `3rem`;
         }
       })
       .catch((e) => {
@@ -128,7 +178,8 @@ export default {
 </script>
 
 <style scoped>
-#app-song-list {
+#song-list {
+  grid-column: start / end;
   width: 100%;
   height: calc(100vh - 2.5rem);
   overflow: hidden;
@@ -158,11 +209,13 @@ export default {
   left: 0;
   width: 100%;
   height: 15rem;
+  min-height: 3rem;
   overflow: hidden;
 }
 
 .background > img {
   object-fit: cover;
+  width: 100%;
   transform: scale(1.1);
   filter: blur(30px) saturate(1.2);
   opacity: 0.8;

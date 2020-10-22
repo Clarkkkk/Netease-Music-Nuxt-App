@@ -41,22 +41,27 @@ const routes = [
       {
         path: 'recommendation',
         name: 'discover-recommendation',
+        props: {type: 'recommendation'},
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Discover/HomeRecommend.vue')
+          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
       },
       {
         path: 'songlist/:listId',
         name: 'discover-songlist',
-        props: true,
+        props: (route) => {
+          return {
+            listId: route.params.listId,
+            type: 'songlist'
+          };
+        },
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Discover/HomeSongList.vue')
+          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
       }
     ]
   },
   {
     path: '/account',
     component: Account,
-
     children: [
       {
         path: 'login',
@@ -70,14 +75,24 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ '@/views/Account/Profile.vue'),
         beforeEnter: (to, from, next) => {
-          console.log(store.state.login);
-          console.log(store.state.cookie);
           if (store.state.login) {
             next();
           } else {
             next({name: 'login'});
           }
+        }
+      },
+      {
+        path: 'songlist/:listId',
+        name: 'account-songlist',
+        props: (route) => {
+          return {
+            listId: route.params.listId,
+            type: 'songlist'
+          };
         },
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
       }
     ]
   },
