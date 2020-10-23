@@ -110,7 +110,8 @@ export default {
                 id: song.id,
                 name: song.name,
                 artist: arString,
-                album: song.al.name
+                album: song.al.name,
+                cover: song.al.picUrl
               };
             });
           }
@@ -138,7 +139,8 @@ export default {
                 id: song.id,
                 name: song.name,
                 artist: arString,
-                album: song.al.name
+                album: song.al.name,
+                cover: song.al.picUrl
               };
             });
           }

@@ -8,8 +8,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['playCover', 'playing', 'duration', 'currentTime']),
-    ...mapGetters(['playID'])
+    ...mapState(['playing', 'duration', 'currentTime']),
+    ...mapGetters(['playID', 'playCover']),
+    picUrl() {
+      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+    }
   },
 
   watch: {
@@ -55,7 +58,7 @@ export default {
   <div id="play-indicator" @click="click" v-show="playID">
     <img
       :class="['cover', {'rolling': playing}]"
-      :src="playCover"
+      :src="picUrl"
     />
     <svg viewBox="0 0 100 100" class="svg">
       <circle cx="50" cy="50" r="42" class="groove"/>

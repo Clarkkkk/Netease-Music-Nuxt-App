@@ -12,7 +12,7 @@
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
 export default {
-  props: ['songName', 'songArtist', 'songAlbum', 'songId'],
+  props: ['songName', 'songArtist', 'songAlbum', 'songId', 'songCover'],
   computed: {
     songInfoString: function() {
       if (this.songAlbum) {
@@ -32,7 +32,9 @@ export default {
             this.$store.commit('addToPlay', {
               id: this.songId,
               name: this.songName,
-              artist: this.songArtist
+              artist: this.songArtist,
+              album: this.songAlbum,
+              cover: this.songCover
             });
             this.$router.push('/play');
           } else {

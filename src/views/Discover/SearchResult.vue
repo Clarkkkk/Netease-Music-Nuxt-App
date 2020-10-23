@@ -32,6 +32,7 @@
         :song-artists="song.ar"
         :song-album="song.al.name"
         :song-id="song.id"
+        :song-cover="song.al.picUrl"
       ></app-song-entry>
       <span>{{ mixedResult.moreText }}</span>
     </div>
@@ -80,6 +81,7 @@ export default {
       // 先写展示歌曲结果的部分
       // const order = data.result.order;
       // const song = data.result.song.songs;
+      console.log(data);
       this.mixedResult = data.result.song;
     });
   },

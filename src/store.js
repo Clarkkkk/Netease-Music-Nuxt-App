@@ -12,7 +12,6 @@ const store = new Vuex.Store({
     cookie: getItem('cookie') ? getItem('cookie') : '',
 
     playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
-    playCover: getItem('playCover') ? getItem('playCover') : '',
     playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop',
     player: {},
@@ -42,6 +41,14 @@ const store = new Vuex.Store({
     playArtist: function(state) {
       if (state.playIndex >= 0) {
         return state.playList[state.playIndex].artist;
+      } else {
+        return '';
+      }
+    },
+
+    playCover: function(state) {
+      if (state.playIndex >= 0) {
+        return state.playList[state.playIndex].cover;
       } else {
         return '';
       }
@@ -104,11 +111,6 @@ const store = new Vuex.Store({
 
     timeUpdate(state, time) {
       state.currentTime = time;
-    },
-
-    coverChange(state, url) {
-      state.playCover = url;
-      setItem('playCover', state.playCover);
     },
 
     nextSong(state) {
@@ -193,6 +195,9 @@ const store = new Vuex.Store({
         case 'random':
           state.mode = 'list-loop';
           break;
+        default:
+          state.mode = 'list-loop';
+          break;
       }
       setItem('mode', state.mode);
     },
@@ -208,7 +213,6 @@ const store = new Vuex.Store({
 
     clear(state) {
       state.playIndex = -1;
-      state.playCover = '';
       state.playing = false;
       state.waiting = false;
       state.duration = 0;
@@ -218,7 +222,6 @@ const store = new Vuex.Store({
       }
       setItem('playIndex', state.playIndex);
       setItem('playList', JSON.stringify(state.playList));
-      setItem('playCover', state.playCover);
     }
   }
 });

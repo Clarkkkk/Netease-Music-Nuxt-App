@@ -13,48 +13,17 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapMutations} from 'vuex';
-import fetchJSON from '@/functions/fetchJSON.js';
+import {mapState, mapGetters} from 'vuex';
 export default {
-  data: function() {
-    return {
-      picUrl: ''
-    };
-  },
-
   computed: {
-    ...mapState(['playing', 'playCover']),
-    ...mapGetters(['playID'])
-  },
-
-  created() {
-    this.picUrl =
-      this.playCover ? this.playCover : require('@/assets/default-cover.png');
-  },
-
-  watch: {
-    playID: function(newID) {
-      console.log(this.playID);
-      console.log(newID);
-      if (!newID) {
-        return;
-      }
-      fetchJSON('/song/detail', {ids: newID})
-        .then((obj) => {
-          const data = obj.songs[0];
-          if (data.al.picUrl) {
-            this.picUrl = data.al.picUrl;
-            this.coverChange(this.picUrl);
-          } else {
-            this.picUrl = require('@/assets/default-cover.png');
-          }
-        });
+    ...mapState(['playing']),
+    ...mapGetters(['playID', 'playCover']),
+    picUrl() {
+      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
     }
   },
 
   methods: {
-    ...mapMutations(['coverChange']),
-
     dragPrevent(event) {
       event.preventDefault();
     }

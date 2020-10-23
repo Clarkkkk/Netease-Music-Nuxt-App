@@ -1,6 +1,6 @@
 <template>
   <div id="play">
-    <img alt="背景图片" class="background" :src="playCover">
+    <img alt="背景图片" class="background" :src="picUrl">
 
     <div class="content">
       <div class="header">
@@ -40,8 +40,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['playID', 'playName', 'playArtist']),
-    ...mapState(['playCover', 'playing'])
+    ...mapGetters(['playID', 'playName', 'playArtist', 'playCover']),
+    ...mapState(['playing']),
+    picUrl() {
+      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+    }
   },
 
   components: {
