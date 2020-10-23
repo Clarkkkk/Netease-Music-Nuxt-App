@@ -49,6 +49,7 @@
         :songArtist="song.artist"
         :songId="song.id"
         :songAlbum="song.album"
+        :songCover="song.cover"
       />
     </div>
   </div>
@@ -119,7 +120,6 @@ export default {
     } else if (this.type === 'songlist') {
       fetchJSON('/playlist/detail', {id: this.listId})
         .then((res) => {
-          console.log(res);
           if (res.code === 200) {
             this.name = res.playlist.name;
             this.creator = res.playlist.creator.nickname;
@@ -130,7 +130,6 @@ export default {
             return fetchJSON('/song/detail', {ids: ids});
           }
         }).then((res) => {
-          console.log(res);
           if (res.code === 200) {
             // extract useful information and map it to songList
             this.list = res.songs.map((song) => {

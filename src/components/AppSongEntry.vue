@@ -28,7 +28,7 @@ export default {
         .then((result) => {
           console.log(result);
           if (result.success) {
-            console.log(this.songId);
+            console.log(this.songCover);
             this.$store.commit('addToPlay', {
               id: this.songId,
               name: this.songName,

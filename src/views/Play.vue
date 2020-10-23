@@ -5,7 +5,14 @@
     <div class="content">
       <div class="header">
         <app-back-button/>
-        <div class="song-name">{{ playName }}</div>
+        <div class="song-name" ref="nameContainer">
+          <div class="song-name-text" ref="nameText">
+            {{ playName }}
+          </div>
+          <div class="song-name-clone" ref="nameTextClone">
+            {{ playName }}
+          </div>
+        </div>
         <div class="song-artist">{{ playArtist }}</div>
       </div>
 
@@ -45,6 +52,32 @@ export default {
     picUrl() {
       return this.playCover ? this.playCover : require('@/assets/default-cover.png');
     }
+  },
+
+  mounted() {
+    this.$nextTick()
+      .then(() => {
+        const boxWidth = this.$refs.nameContainer.clientWidth;
+        const textWidth = this.$refs.nameText.clientWidth;
+        const text = this.$refs.nameText;
+        const clone = this.$refs.nameTextClone;
+        console.log(boxWidth);
+        console.log(textWidth);
+        if (boxWidth < textWidth) {
+          (function loop() {
+            text.classList.remove('loop');
+            clone.classList.remove('loop');
+            text.style.transform = `translateX(0px)`;
+            clone.style.transform = `translateX(${textWidth}px)`;
+            document.body.offsetWidth;
+            text.classList.add('loop');
+            clone.classList.add('loop');
+            text.style.transform = `translateX(${-textWidth}px)`;
+            clone.style.transform = `translateX(0px)`;
+            setTimeout(loop, 12000);
+          })();
+        }
+      });
   },
 
   components: {
@@ -121,7 +154,32 @@ export default {
   font-size: 1.2rem;
   line-height: 1.2rem;
   height: 1.2rem;
+  width: 100%;
+  overflow: hidden;
   font-weight: bold;
+  display: grid;
+  grid-template-columns: [start] 100% [end];
+  grid-template-rows: [start] 100% [end];
+}
+
+.song-name-text {
+  grid-row: start / end;
+  grid-column: start / end;
+  white-space: nowrap;
+  padding-right: 3rem;
+  width: max-content;
+}
+
+.song-name-clone {
+  grid-row: start / end;
+  grid-column: start / end;
+  white-space: nowrap;
+  padding-right: 3rem;
+  width: max-content;
+}
+
+.loop {
+  transition: transform 8000ms linear 2000ms;
 }
 
 .song-artist {

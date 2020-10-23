@@ -60,6 +60,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'setPlayer', 'durationChange', 'timeUpdate',
+      'played', 'paused', 'waiting', 'ended'
+    ]),
     getUrl(id) {
       if (id) {
         return fetchJSON('/song/url', {id: id})
@@ -75,10 +79,6 @@ export default {
           });
       }
     },
-    ...mapMutations([
-      'setPlayer', 'durationChange', 'timeUpdate',
-      'played', 'paused', 'waiting', 'ended'
-    ])
   }
 };
 </script>
