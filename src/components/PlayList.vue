@@ -68,12 +68,16 @@ export default {
       this.$nextTick(() => {
         this.$emit('update:show', false);
       });
+    },
+    afterLeave() {
+      this.$emit('update:show', false);
     }
   }
 };
 </script>
 
 <style scoped>
+/* The shadow background */
 #playing-list {
   position: fixed;
   top: 0;
@@ -89,10 +93,10 @@ export default {
 }
 
 .container {
-  grid-row: container-start / container-end;
+  grid-row: container;
   height: 100%;
   width: 100%;
-  background-color:transparent;
+  background-color: transparent;
   box-shadow: 0 0 15px #00000080;
   border-radius: 1.2rem;
   transform: translate3d(0, 0, 0);
@@ -101,12 +105,15 @@ export default {
   overflow: hidden;
   display: grid;
   grid-template-rows:
-    [start header-start] 3.5rem [header-end wrapper-start] 1fr [wrapper-end end];
+    [start header-start] 3.5rem [header-end wrapper-start] 21.5rem [wrapper-end end];
+  grid-template-columns: [start] 100% [end];
   align-items: center;
 }
 
+/* header */
 .header {
   grid-row: header;
+  grid-column: start / end;
   height: 100%;
   width: 100%;
   padding: 0 1rem;
@@ -142,10 +149,13 @@ export default {
   box-sizing: border-box;
   padding: 0.9rem;
 }
+/* header */
 
+/* The list */
 .wrapper {
   z-index: 0;
   grid-row: wrapper;
+  grid-column: start / end;
   padding: 0 1rem;
   box-sizing: border-box;
   border-radius: 0 0 1.2rem 1.2rem;
@@ -157,17 +167,19 @@ export default {
 }
 
 .content {
-  height: 101%;
+  min-height: 101%;
   width: 100%;
-  overflow-y: hidden;
   display: grid;
   align-items: center;
-  grid-template-rows: repeat(auto-fit, 2.5rem);
+  grid-auto-rows: 2.5rem;
+  grid-template-columns: [start] 100% [end];
 }
 
 .entry {
+  grid-column: start / end;
   font-size: 1rem;
   height: 100%;
+  width: 100%;
   border-bottom: 1px solid #00000010;
   display: grid;
   align-items: center;
@@ -175,7 +187,7 @@ export default {
   cursor: pointer;
   grid-template-columns:
     [start icon-start] min-content [icon-end info-start]
-    minmax(max-content, 70%) [info-end] 1fr [end];
+    1fr [info-end end];
 }
 
 .entry > .icon {
@@ -185,7 +197,7 @@ export default {
 
 .entry > .song-info {
   grid-column: info;
-  width: 80%;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -194,7 +206,9 @@ export default {
 .playing {
   color: var(--app-color);
 }
+/* The list */
 
+/* transition */
 .list-enter, .list-leave-to {
   transform: translateY(25rem);
 }
@@ -206,4 +220,5 @@ export default {
 .list-leave-active {
   transition: transform 300ms ease;
 }
+/* transition */
 </style>

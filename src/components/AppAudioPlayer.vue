@@ -42,6 +42,8 @@ export default {
 
   watch: {
     playID: function(newID, old) {
+      console.log(old);
+      console.log(newID);
       if (newID) {
         this.getUrl(newID)
           .then(() => {

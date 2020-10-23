@@ -14,7 +14,7 @@
       <play-progress-bar/>
       <play-controls :showPlayList.sync="showPlayList"/>
 
-      <transition name="list">
+      <transition name="play-list">
         <play-list
           v-if="showPlayList"
           :show.sync="showPlayList"
@@ -116,6 +116,8 @@ export default {
   grid-row: name;
   grid-column: info;
   font-size: 1.2rem;
+  line-height: 1.2rem;
+  height: 1.2rem;
   font-weight: bold;
 }
 
@@ -126,11 +128,11 @@ export default {
 }
 /* header */
 
-.list-enter, .list-leave-to {
+.play-list-enter, .play-list-leave-to {
   opacity: 0;
 }
 
-.list-enter-active, .list-leave-active {
+.play-list-enter-active, .play-list-leave-active {
   transition: opacity 300ms;
 }
 </style>

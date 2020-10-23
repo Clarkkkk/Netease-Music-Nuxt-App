@@ -4,15 +4,20 @@
       {{ playTime }}
     </div>
     <div
-      class="progress-bar-container"
+      class="container"
       ref="container"
       @pointerdown="pointerDown"
       @pointermove="pointerMove"
       @pointerup="pointerUp"
+      @pointercancel="pointerCancel"
     >
-      <div class="progress-bar-groove">
+      <div class="groove">
         <div
-          class="progress-bar-pointer smooth-move"
+          class="played-section"
+          ref="played"
+        ></div>
+        <div
+          :class="['pointer', {'pointer-down': isPointerDown}]"
           ref="pointer"
         ></div>
       </div>
@@ -58,6 +63,7 @@ export default {
         isNaN(current / this.duration) ? 0 : current / this.duration;
       this.$refs.pointer.style.transform =
         `translateX(calc(${percentage} * (70vw - 0.5rem))`;
+      this.$refs.played.style.width = `${percentage * 100}%`;
     }
   },
 
@@ -77,19 +83,22 @@ export default {
 
     pointerDown(event) {
       this.isPointerDown = true;
-      this.$refs.pointer.classList.remove('smooth-move');
       this.rect = this.$refs.container.getBoundingClientRect();
       const relativeLeft = event.clientX - this.rect.left;
+      const percentage = relativeLeft / (this.rect.right - this.rect.left);
       this.$refs.pointer.style.transform =
         `translateX(${relativeLeft}px`;
+      this.$refs.played.style.width = `${percentage * 100}%`;
       event.target.setPointerCapture(event.pointerId);
     },
 
     pointerMove(event) {
       if (this.isPointerDown) {
         const relativeLeft = event.clientX - this.rect.left;
+        const percentage = relativeLeft / (this.rect.right - this.rect.left);
         this.$refs.pointer.style.transform =
           `translateX(${relativeLeft}px`;
+        this.$refs.played.style.width = `${percentage * 100}%`;
       }
     },
 
@@ -99,6 +108,11 @@ export default {
       const percentage =
         (event.clientX - this.rect.left) / (this.rect.right - this.rect.left);
       this.seek(this.duration * percentage);
+    },
+
+    pointerCancel(event) {
+      console.log('canceled');
+      console.log(event);
     }
   }
 };
@@ -118,44 +132,58 @@ export default {
   user-select: none;
 }
 
-.progress-bar-container {
+.container {
   grid-column: bar;
   height: 1rem;
   display: grid;
   place-items: center;
   cursor: pointer;
+  touch-action: none;
 }
 
-.progress-bar-groove {
+.groove {
   width: 70vw;
   height: 0.1rem;
   border-radius: 0.1rem;
-  background-color: #888;
-  height: 0.1rem;
+  background-color: #dddddd80;
   display: grid;
+  grid-template-columns: [start] 100% [end];
+  grid-template-rows: [start] 100% [end];
   align-items: center;
   align-content: center;
+  justify-items: start;
 }
 
-.progress-bar-pointer {
+.pointer {
+  grid-row: start / end;
+  grid-column: start / end;
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
   background-color: white;
-  box-shadow: 0 0 4px #666;
+  box-shadow: 0 0 5px #666666a0;
   cursor: pointer;
+  touch-action: none;
   transition:
     height linear 100ms,
-    width linear 100ms;
+    width linear 100ms,
+    transform linear 200ms;
 }
 
-.smooth-move {
-  transition: transform linear 200ms;
+.played-section {
+  grid-row: start / end;
+  grid-column: start / end;
+  height: 0.1rem;
+  background-color: #ffffff80;
 }
 
-.progress-bar-pointer:hover, .progress-bar-pointer:focus {
+.pointer.pointer-down {
   height: 1rem;
   width: 1rem;
+  transition: none;
+  transition:
+    height linear 300ms,
+    width linear 300ms;
 }
 
 @keyframes progress {

@@ -34,6 +34,8 @@ export default {
 
   watch: {
     playID: function(newID) {
+      console.log(this.playID);
+      console.log(newID);
       if (!newID) {
         return;
       }

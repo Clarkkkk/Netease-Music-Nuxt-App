@@ -71,11 +71,6 @@ export default {
           this.dots[i] = i;
         }
       });
-    fetchJSON('/personal_fm')
-      .then((res) => {
-        console.log('fm');
-        console.log(res);
-      });
   },
 
   mounted: function() {

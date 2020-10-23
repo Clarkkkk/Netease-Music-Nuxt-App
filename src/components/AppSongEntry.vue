@@ -1,5 +1,5 @@
 <template>
-  <div class="app-song-entry" @click="play">
+  <div class="app-song-entry" @click="play" @tap="play">
     <span class="name">
       {{ songName }}
     </span>
@@ -12,21 +12,13 @@
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
 export default {
-  props: ['songName', 'songArtists', 'songAlbum', 'songId'],
+  props: ['songName', 'songArtist', 'songAlbum', 'songId'],
   computed: {
-    songArtistString: function() {
-      const artists = [];
-      for (const obj of this.songArtists) {
-        artists.push(obj.name);
-      }
-      return artists.join('/');
-    },
-
     songInfoString: function() {
       if (this.songAlbum) {
-        return this.songArtistString + ' - ' + this.songAlbum;
+        return this.songArtist + ' - ' + this.songAlbum;
       } else {
-        return this.songArtistString;
+        return this.songArtist;
       }
     }
   },
@@ -40,7 +32,7 @@ export default {
             this.$store.commit('addToPlay', {
               id: this.songId,
               name: this.songName,
-              artist: this.songArtistString
+              artist: this.songArtist
             });
             this.$router.push('/play');
           } else {

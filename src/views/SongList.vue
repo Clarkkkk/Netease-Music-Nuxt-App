@@ -46,7 +46,7 @@
         class="entry"
         :key="song.id"
         :songName="song.name"
-        :songArtists="song.artists"
+        :songArtist="song.artist"
         :songId="song.id"
         :songAlbum="song.album"
       />
@@ -105,10 +105,11 @@ export default {
           if (res.code === 200) {
             // extract useful information and map it to songList
             this.list = res.data.dailySongs.map((song) => {
+              const arString = song.ar.map((item) => item.name).join('/');
               return {
                 id: song.id,
                 name: song.name,
-                artists: song.ar,
+                artist: arString,
                 album: song.al.name
               };
             });
@@ -132,10 +133,11 @@ export default {
           if (res.code === 200) {
             // extract useful information and map it to songList
             this.list = res.songs.map((song) => {
+              const arString = song.ar.map((item) => item.name).join('/');
               return {
                 id: song.id,
                 name: song.name,
-                artists: song.ar,
+                artist: arString,
                 album: song.al.name
               };
             });
@@ -171,6 +173,7 @@ export default {
 
   methods: {
     playAll() {
+      this.$router.push('/play');
       this.$store.commit('playTheList', this.list);
     }
   }
