@@ -16,8 +16,8 @@
 import {mapState, mapGetters} from 'vuex';
 export default {
   computed: {
-    ...mapState(['playing']),
-    ...mapGetters(['playID', 'playCover']),
+    ...mapState('playStatus', ['playing']),
+    ...mapGetters('commonPlay', ['playID', 'playCover']),
     picUrl() {
       return this.playCover ? this.playCover : require('@/assets/default-cover.png');
     }

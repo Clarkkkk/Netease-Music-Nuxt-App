@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import store from './store.js';
-import AppIcon from '@/components/AppIcon.vue';
+import store from './store';
+import AppIcon from './components/AppIcon.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 
 Vue.config.productionTip = false;
@@ -22,7 +22,6 @@ new Vue({
       }); */
   },
   render: (h) => {
-    console.log(App);
     return h(App);
   }
 }).$mount('#app');

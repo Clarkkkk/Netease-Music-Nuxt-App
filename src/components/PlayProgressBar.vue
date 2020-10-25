@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
+import {createNamespacedHelpers} from 'vuex';
+const {mapState, mapMutations} = createNamespacedHelpers('playStatus');
 export default {
   data: function() {
     return {

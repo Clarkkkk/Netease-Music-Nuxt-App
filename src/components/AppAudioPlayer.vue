@@ -17,7 +17,8 @@
 
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
-import {mapState, mapGetters, mapMutations} from 'vuex';
+import {mapGetters, createNamespacedHelpers} from 'vuex';
+const {mapState, mapMutations} = createNamespacedHelpers('playStatus');
 export default {
   data: function() {
     return {
@@ -26,8 +27,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['mode', 'play']),
-    ...mapGetters(['playID'])
+    ...mapState(['mode']),
+    ...mapGetters(['currentSong']),
+    playID() {
+      return this.currentSong.id ? this.currentSong.id : 0;
+    },
   },
 
   created: function() {
@@ -41,8 +45,7 @@ export default {
   },
 
   watch: {
-    playID: function(newID, old) {
-      console.log(old);
+    playID: function(newID) {
       console.log(newID);
       if (newID) {
         this.getUrl(newID)

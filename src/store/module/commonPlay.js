@@ -1,116 +1,41 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
 import moveAfter from '@/functions/moveAfter.js';
 import {getItem, setItem} from '@/functions/storage.js';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
-    login: getItem('login') ? JSON.parse(getItem('login')) : false,
-    userID: getItem('userID') ? getItem('userID') : '',
-    cookie: getItem('cookie') ? getItem('cookie') : '',
-
     playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
     playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
-    mode: getItem('mode') ? getItem('mode') : 'list-loop',
-    player: {},
-    playing: false,
-    waiting: false,
-    duration: 0,
-    currentTime: 0
+    mode: getItem('mode') ? getItem('mode') : 'list-loop'
   },
 
   getters: {
     playID: function(state) {
-      if (state.playIndex >= 0) {
-        return state.playList[state.playIndex].id;
-      } else {
-        return 0;
-      }
+      return state.playIndex >= 0 ? state.playList[state.playIndex].id : 0;
     },
 
     playName: function(state) {
-      if (state.playIndex >= 0) {
-        return state.playList[state.playIndex].name;
-      } else {
-        return '';
-      }
+      return state.playIndex >= 0 ? state.playList[state.playIndex].name : '';
     },
 
     playArtist: function(state) {
-      if (state.playIndex >= 0) {
-        return state.playList[state.playIndex].artist;
-      } else {
-        return '';
-      }
+      return state.playIndex >= 0 ? state.playList[state.playIndex].artist : '';
     },
 
     playCover: function(state) {
-      if (state.playIndex >= 0) {
-        return state.playList[state.playIndex].cover;
-      } else {
-        return '';
-      }
+      return state.playIndex >= 0 ? state.playList[state.playIndex].cover : '';
+    },
+
+    currentSong(state) {
+      return state.playIndex >= 0 ? state.playList[state.playIndex] : {};
     }
   },
 
   mutations: {
-    login(state, res) {
-      state.login = true;
-      state.cookie = res.cookie;
-      state.userID = res.profile.userId;
-      setItem('login', JSON.stringify(state.login));
-      setItem('cookie', state.cookie);
-      setItem('userID', state.userID);
-    },
-
-    logout(state) {
-      state.login = false;
-      state.cookie = '';
-      state.userID = '';
-      setItem('login', JSON.stringify(state.login));
-      setItem('cookie', state.cookie);
-      setItem('userID', state.userID);
-    },
-
-    setPlayer(state, player) {
-      state.player = player;
-      state.duration = player.duration;
-    },
-
-    played(state) {
-      state.playing = true;
-    },
-
-    paused(state) {
-      state.playing = false;
-    },
-
-    waiting(state, isWaiting) {
-      if (isWaiting) {
-        state.waiting = true;
-      } else {
-        state.waiting = false;
-      }
-    },
-
-    seek(state, time) {
-      state.player.currentTime = time;
-    },
-
     ended(state) {
       const next = state.playIndex + 1;
       state.playIndex = next < state.playList.length ? next : 0;
       setItem('playIndex', state.playIndex);
-    },
-
-    durationChange(state, duration) {
-      state.duration = isNaN(duration) ? 0 : duration;
-    },
-
-    timeUpdate(state, time) {
-      state.currentTime = time;
     },
 
     nextSong(state) {
@@ -202,28 +127,20 @@ const store = new Vuex.Store({
       setItem('mode', state.mode);
     },
 
-    playOrPause(state) {
-      console.log(state);
-      if (state.playing) {
-        state.player.pause();
-      } else {
-        state.player.play();
-      }
-    },
-
     clear(state) {
       state.playIndex = -1;
-      state.playing = false;
-      state.waiting = false;
-      state.duration = 0;
-      state.currentTime = 0;
       while (state.playList.length > 0) {
         state.playList.pop();
       }
       setItem('playIndex', state.playIndex);
       setItem('playList', JSON.stringify(state.playList));
     }
-  }
-});
+  },
 
-export default store;
+  actions: {
+    clear({commit}) {
+      commit('clear');
+      commit('playStatus/clear', null, {root: true});
+    }
+  }
+};

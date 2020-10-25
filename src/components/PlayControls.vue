@@ -36,9 +36,13 @@
 import {mapState, mapMutations} from 'vuex';
 export default {
   prop: ['showPlayList'],
-  computed: mapState(['mode', 'playing']),
+  computed: {
+    ...mapState('commonPlay', ['mode']),
+    ...mapState('playStatus', ['playing'])
+  },
   methods: {
-    ...mapMutations(['switchMode', 'lastSong', 'nextSong', 'playOrPause']),
+    ...mapMutations('commonPlay', ['switchMode', 'lastSong', 'nextSong']),
+    ...mapMutations('playStatus', ['playOrPause'])
   }
 };
 </script>

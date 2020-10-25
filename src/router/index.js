@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Discover from '@/views/Discover.vue';
 import Home from '@/views/Discover/Home.vue';
 import Account from '@/views/Account.vue';
-import store from '@/store.js';
+import store from '@/store';
 
 
 Vue.use(VueRouter);
@@ -75,7 +75,9 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "about" */ '@/views/Account/Profile.vue'),
         beforeEnter: (to, from, next) => {
-          if (store.state.login) {
+          console.log(from);
+          console.log(store.state.auth);
+          if (store.state.auth.login || from.name === 'login') {
             next();
           } else {
             next({name: 'login'});
@@ -111,8 +113,28 @@ const routes = [
   {
     path: '/play',
     name: 'play',
+    beforeEnter: (to, from, next) => {
+      if (store.state.radio) {
+        store.commit('playRadio', false);
+        store.commit('radioPlay/clear');
+      }
+      next();
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ '@/views/Play.vue')
+  },
+  {
+    path: '/radio',
+    name: 'radio',
+    beforeEnter: (to, from, next) => {
+      if (!store.state.radio) {
+        store.commit('playRadio', true);
+        store.commit('commonPlay/clear');
+      }
+      next();
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ '@/views/Radio.vue')
   }
 ];
 

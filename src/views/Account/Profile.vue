@@ -82,7 +82,7 @@ export default {
   },
 
   created() {
-    fetchJSON('/user/detail', {uid: this.$store.state.userID})
+    fetchJSON('/user/detail', {uid: this.$store.state.auth.userID})
       .then((res) => {
         this.nickname = res.profile.nickname;
         this.level = res.level;
@@ -91,7 +91,7 @@ export default {
         this.bgSrc = res.profile.backgroundUrl;
       });
 
-    fetchJSON('/user/playlist', {uid: this.$store.state.userID})
+    fetchJSON('/user/playlist', {uid: this.$store.state.auth.userID})
       .then((res) => {
         console.log(res);
         if (res.code === 200) {

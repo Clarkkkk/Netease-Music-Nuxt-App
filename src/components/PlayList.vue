@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapMutations} from 'vuex';
+import {createNamespacedHelpers} from 'vuex';
+const {mapState, mapGetters, mapMutations} = createNamespacedHelpers('commonPlay');
 import createScroll from '@/functions/createScroll.js';
 export default {
   data: function() {

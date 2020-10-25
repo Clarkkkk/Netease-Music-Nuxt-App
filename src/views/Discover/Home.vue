@@ -23,7 +23,7 @@
             </div>
             <span>每日推荐</span>
           </div>
-          <div class="feature-container" @tap="tap('radio')">
+          <div class="feature-container" @tap="tap('/radio')">
             <app-icon icon="radio"/>
             <span>私人FM</span>
           </div>
@@ -84,7 +84,7 @@ export default {
   },
 
   created() {
-    if (this.$store.state.login) {
+    if (this.$store.state.auth.login) {
       fetchJSON('/recommend/resource')
         .then((res) => {
           this.recommend = res.recommend;

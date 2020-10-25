@@ -1,5 +1,5 @@
 /*  Simplied and enhanced version of fetch API  */
-import store from '@/store.js';
+import store from '@/store';
 const serverURL = 'http://192.168.50.138:3000';
 const RETRY_TIMES = 5;
 let retryCount = 0;
@@ -9,11 +9,11 @@ function fetchJSON(api, init) {
   const requestURL = serverURL + api + '?timestamp=' + Date.now();
   let requestBody;
   // if cookie is available, include it in the request
-  if (store.state.cookie) {
+  if (store.state.auth.cookie) {
     requestBody = JSON.stringify({
       ...init,
       credentials: 'include',
-      cookie: store.state.cookie,
+      cookie: store.state.auth.cookie,
     });
   } else {
     requestBody = JSON.stringify({
@@ -30,7 +30,7 @@ function fetchJSON(api, init) {
       if (body.ok) {
         return body.json();
       } else if (body.status === 301) {
-        store.commit('logout');
+        store.commit('auth/logout');
         console.log('Not loged in.');
       } else {
         throw new Error('Request failed: ' +

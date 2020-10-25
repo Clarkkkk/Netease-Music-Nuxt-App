@@ -29,7 +29,7 @@ export default {
           console.log(result);
           if (result.success) {
             console.log(this.songCover);
-            this.$store.commit('addToPlay', {
+            this.$store.commit('commonPlay/addToPlay', {
               id: this.songId,
               name: this.songName,
               artist: this.songArtist,

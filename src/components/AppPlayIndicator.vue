@@ -8,10 +8,15 @@ export default {
   },
 
   computed: {
-    ...mapState(['playing', 'duration', 'currentTime']),
-    ...mapGetters(['playID', 'playCover']),
+    ...mapState(['radio']),
+    ...mapGetters(['currentSong']),
+    ...mapState('playStatus', ['playing', 'duration', 'currentTime']),
+    playID() {
+      return this.currentSong.id ? this.currentSong.id : 0;
+    },
     picUrl() {
-      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+      return this.currentSong.cover ?
+        this.currentSong.cover : require('@/assets/default-cover.png');
     }
   },
 
@@ -48,7 +53,11 @@ export default {
     },
 
     click() {
-      this.$router.push('/play');
+      if (this.radio) {
+        this.$router.push('radio');
+      } else {
+        this.$router.push('/play');
+      }
     }
   }
 };

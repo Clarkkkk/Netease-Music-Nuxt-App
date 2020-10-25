@@ -175,7 +175,7 @@ export default {
   methods: {
     playAll() {
       this.$router.push('/play');
-      this.$store.commit('playTheList', this.list);
+      this.$store.commit('commonPlay/playTheList', this.list);
     }
   }
 };

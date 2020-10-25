@@ -43,7 +43,7 @@ export default {
       } else {
         this.active = 'discover';
       }
-      if (route.path.includes('play')) {
+      if (route.path.includes('play') || route.path.includes('radio')) {
         this.show = false;
       } else {
         this.show = true;

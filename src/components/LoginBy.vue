@@ -103,7 +103,7 @@ export default {
       fetchJSON(api, requestBody).then((res) => {
         console.log(res);
         if (res.code === 200) {
-          this.$store.commit('login', res);
+          this.$store.commit('auth/login', res);
           this.$router.push('/account');
         } else {
           alert(res.message);
