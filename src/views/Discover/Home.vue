@@ -36,7 +36,7 @@
             :key="list.id"
             @tap="tap('songlist/' + list.id)"
           >
-            <img class="list-img" :src="list.picUrl">
+            <img class="list-img fade-in" :src="list.picUrl">
             <span class="list-count">{{ formatNum(list.playcount) }}</span>
             <span class="list-name">{{ list.name }}</span>
           </div>

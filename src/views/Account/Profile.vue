@@ -1,11 +1,11 @@
 <template>
   <div id="profile" ref="wrapper">
-    <img class="background" ref="bg" :src="bgSrc">
+    <img class="background fade-in" ref="bg" :src="bgSrc">
     <div
       class="card"
       ref="card"
     >
-      <img class="avatar" :src="avtSrc" ref="avatar">
+      <img class="avatar fade-in" :src="avtSrc" ref="avatar">
       <span class="nickname" ref="nickname">{{ nickname }}</span>
       <span class="level" ref="level">{{ 'LV. ' + level }}</span>
     </div>
@@ -44,10 +44,10 @@
             :key="listsType"
             :lists="lists"
             :type="listsType"
+            :loading="loading"
           />
         </keep-alive>
       </div>
-
     </div>
   </div>
 </template>
@@ -62,12 +62,13 @@ export default {
       nickname: '',
       level: '',
       listenSongs: '',
-      avtSrc: '',
-      bgSrc: '',
+      avtSrc: require('@/assets/default-pic.jpg'),
+      bgSrc: require('@/assets/default-pic.jpg'),
       favoriteList: [],
       createdLists: [],
       savedLists: [],
-      listsType: 'createdLists'
+      listsType: 'createdLists',
+      loading: true
     };
   },
 
@@ -89,10 +90,8 @@ export default {
         this.listenSongs = res.listenSongs;
         this.avtSrc = res.profile.avatarUrl;
         this.bgSrc = res.profile.backgroundUrl;
-      });
-
-    fetchJSON('/user/playlist', {uid: this.$store.state.auth.userID})
-      .then((res) => {
+        return fetchJSON('/user/playlist', {uid: this.$store.state.auth.userID})
+      }).then((res) => {
         console.log(res);
         if (res.code === 200) {
           this.allList = res.playlist;
@@ -107,6 +106,7 @@ export default {
           this.savedLists =
             this.allList.slice(createdCount, this.allList.length);
         }
+        this.loading = false;
       });
   },
 
@@ -315,6 +315,7 @@ export default {
 /* song lists */
 .lists-container {
   grid-row: list;
+  grid-column: start / end;
   display: grid;
   padding: 1rem;
   box-sizing: border-box;

@@ -36,4 +36,18 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
+.fade-in {
+  animation: fadeIn 300ms ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 </style>

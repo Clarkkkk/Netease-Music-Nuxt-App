@@ -3,7 +3,7 @@
 
     <div class=fixed-container>
       <div class="background" ref="background">
-        <img :src="cover" v-if="cover">
+        <img class="fade-in" :src="cover" v-if="cover">
       </div>
       <div class="header">
         <app-back-button/>
@@ -17,7 +17,7 @@
 
       <div class="info" ref="info">
         <div class="cover" v-if="cover">
-          <img :src="cover">
+          <img :src="cover" class="fade-in">
         </div>
         <div class="name" v-if="name">
           {{ name }}
@@ -41,6 +41,7 @@
 
     <div class="list">
       <div class="placeholder"></div>
+      <app-loading-icon v-if="loading"/>
       <app-song-entry
         v-for="song in list"
         class="entry"
@@ -58,11 +59,13 @@
 <script>
 import AppBackButton from '@/components/AppBackButton.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
+import AppLoadingIcon from '@/components/AppLoadingIcon';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
   data: function() {
     return {
+      loading: true,
       title: '',
       name: '',
       creator: '',
@@ -95,7 +98,8 @@ export default {
 
   components: {
     AppBackButton,
-    AppSongEntry
+    AppSongEntry,
+    AppLoadingIcon
   },
 
   created() {
@@ -116,6 +120,7 @@ export default {
               };
             });
           }
+          this.loading = false;
         });
     } else if (this.type === 'songlist') {
       fetchJSON('/playlist/detail', {id: this.listId})
@@ -143,6 +148,7 @@ export default {
               };
             });
           }
+          this.loading = false;
         });
     }
   },
@@ -152,24 +158,33 @@ export default {
       this.$refs.background.style.backgroundImage =
         'linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)';
     }
-    this.$nextTick()
-      .then(() => {
-        this.scroll = createScroll(1, this.$refs.wrapper, onScroll);
-        const self = this;
-        function onScroll(pos) {
-          const percentage = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
-          self.$refs.info.style.opacity = `${1 - percentage}`;
-          self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
-          self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   },
 
   updated() {
-    this.scroll.refresh();
+    if (this.scroll) {
+      this.scroll.refresh();
+    }
+  },
+
+  watch: {
+    loading(isLoading) {
+      if (!isLoading) {
+        this.$nextTick()
+          .then(() => {
+            this.scroll = createScroll(1, this.$refs.wrapper, onScroll);
+            const self = this;
+            function onScroll(pos) {
+              const percentage = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
+              self.$refs.info.style.opacity = `${1 - percentage}`;
+              self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
+              self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+    }
   },
 
   methods: {

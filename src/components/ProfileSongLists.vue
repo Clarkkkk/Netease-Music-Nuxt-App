@@ -1,13 +1,14 @@
 <template>
   <div id="profile-song-lists">
     <div class="title">{{ titleString }}</div>
+    <app-loading-icon v-if="loading"/>
     <div
       v-for="list in lists"
       :key="list.id"
       class="list"
       @tap="tap(list.id)"
     >
-      <img :src="list.coverImgUrl">
+      <img class="fade-in" :src="list.coverImgUrl">
       <span class="list-name">{{ list.name }}</span>
       <span class="list-info">{{ list.trackCount + '首'}}</span>
     </div>
@@ -15,8 +16,13 @@
 </template>
 
 <script>
+import AppLoadingIcon from '@/components/AppLoadingIcon.vue';
 export default {
-  props: ['lists', 'type'],
+  props: ['lists', 'type', 'loading'],
+  components: {
+    AppLoadingIcon
+  },
+
   computed: {
     titleString: function() {
       if (this.type === 'createdLists') {
