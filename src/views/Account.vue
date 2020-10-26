@@ -1,6 +1,6 @@
 <template>
   <div id="account">
-    <div v-if="!$store.state.login" class="header">
+    <div v-if="!$store.state.auth.login" class="header">
       <span>未登录</span>
     </div>
     <router-view/>

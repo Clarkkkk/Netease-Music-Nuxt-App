@@ -107,6 +107,12 @@ const routes = [
         },
         component: () =>
           import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+      },
+      {
+        path: 'listening-rank',
+        name: 'account-rank',
+        component: () =>
+          import(/* webpackChunkName: "about" */ '@/views/Account/Rank.vue')
       }
     ]
   },

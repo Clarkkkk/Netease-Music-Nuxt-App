@@ -12,7 +12,7 @@
 
     <div class="content">
       <div class="features">
-        <div class="feature-container">
+        <div class="feature-container" @tap="routeTo('rank')">
           <app-icon icon="bar-chart"/>
           <span>听歌排行</span>
         </div>
@@ -156,6 +156,8 @@ export default {
           name: 'account-favorite',
           params: {listId: this.favoriteList.id}
         });
+      } else if (page === 'rank') {
+        this.$router.push({name: 'account-rank'});
       }
     }
   }

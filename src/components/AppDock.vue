@@ -62,7 +62,7 @@ export default {
           break;
         }
         case 'account': {
-          if (this.$store.state.login) {
+          if (this.$store.state.auth.login) {
             this.$router.push('/account');
           } else {
             this.$router.push('/account/login');
