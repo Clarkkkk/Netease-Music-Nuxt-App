@@ -1,4 +1,5 @@
 <template>
+
   <div id="play">
     <img alt="背景图片" class="background" :src="picUrl">
 
@@ -22,6 +23,7 @@
       </transition>
     </div>
   </div>
+
 </template>
 
 <script>

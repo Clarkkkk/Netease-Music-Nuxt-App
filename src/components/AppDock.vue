@@ -1,5 +1,5 @@
 <template>
-  <div id="app-dock" v-show="show">
+  <div id="app-dock" v-if="show">
     <div
       :class="['category', {'active': active==='discover'}]"
       @click="click('discover')"
@@ -58,14 +58,29 @@ export default {
       }
       switch (category) {
         case 'discover': {
-          this.$router.push('/');
+          this.$router.push({
+            name: 'discover',
+            params: {
+              dock: true
+            }
+          });
           break;
         }
         case 'account': {
           if (this.$store.state.auth.login) {
-            this.$router.push('/account');
+            this.$router.push({
+              name: 'account',
+              params: {
+                dock: true
+              }
+            });
           } else {
-            this.$router.push('/account/login');
+            this.$router.push({
+              name: 'login',
+              params: {
+                dock: true
+              }
+            });
           }
           break;
         }

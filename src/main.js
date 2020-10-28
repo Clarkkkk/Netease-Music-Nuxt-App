@@ -14,13 +14,6 @@ req.keys().map(req);
 new Vue({
   router,
   store,
-  created() {
-    document.documentElement.setAttribute('lang', 'zh-Hans');
-    /* fetchJSON('/login/status')
-      .then((res) => {
-        console.log(res);
-      }); */
-  },
   render: (h) => {
     return h(App);
   }

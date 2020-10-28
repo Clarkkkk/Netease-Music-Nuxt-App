@@ -21,20 +21,20 @@ const routes = [
       {
         path: 'search',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Discover/Search.vue'),
+          import(/* webpackChunkName: "search" */ '@/views/Discover/Search.vue'),
         children: [
           {
             path: '',
             name: 'discover-search',
             component: () =>
-              import(/* webpackChunkName: "about" */ '@/views/Discover/SearchDefault.vue')
+              import(/* webpackChunkName: "search" */ '@/views/Discover/SearchDefault.vue')
           },
           {
             path: 'result/:searchText',
             name: 'discover-search-result',
             props: true,
             component: () =>
-              import(/* webpackChunkName: "about" */ '@/views/Discover/SearchResult.vue')
+              import(/* webpackChunkName: "search" */ '@/views/Discover/SearchResult.vue')
           }
         ]
       },
@@ -43,7 +43,7 @@ const routes = [
         name: 'discover-recommendation',
         props: {type: 'recommendation'},
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+          import(/* webpackChunkName: "songlist" */ '@/views/SongList.vue')
       },
       {
         path: 'songlist/:listId',
@@ -55,7 +55,7 @@ const routes = [
           };
         },
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+          import(/* webpackChunkName: "songlist" */ '@/views/SongList.vue')
       }
     ]
   },
@@ -67,13 +67,21 @@ const routes = [
         path: 'login',
         name: 'login',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Account/Login.vue')
+          import(
+            /* webpackChunkName: "account" */
+            /* webpackPrefetch: true */
+            '@/views/Account/Login.vue'
+          )
       },
       {
         path: '',
         name: 'account',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Account/Profile.vue'),
+          import(
+            /* webpackChunkName: "account" */
+            /* webpackPrefetch: true */
+            '@/views/Account/Profile.vue'
+          ),
         beforeEnter: (to, from, next) => {
           console.log(from);
           console.log(store.state.auth);
@@ -94,7 +102,7 @@ const routes = [
           };
         },
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+          import(/* webpackChunkName: "songlist" */ '@/views/SongList.vue')
       },
       {
         path: 'favorite-songs',
@@ -106,13 +114,13 @@ const routes = [
           };
         },
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/SongList.vue')
+          import(/* webpackChunkName: "songlist" */ '@/views/SongList.vue')
       },
       {
         path: 'listening-rank',
         name: 'account-rank',
         component: () =>
-          import(/* webpackChunkName: "about" */ '@/views/Account/Rank.vue')
+          import('@/views/Account/Rank.vue')
       }
     ]
   },
@@ -127,7 +135,7 @@ const routes = [
       next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ '@/views/Play.vue')
+      import('@/views/Play.vue')
   },
   {
     path: '/radio',
@@ -140,13 +148,65 @@ const routes = [
       next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ '@/views/Radio.vue')
+      import('@/views/Radio.vue')
   }
 ];
 
 const router = new VueRouter({
   mode: 'history',
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(store);
+  console.log(store.getters);
+  console.log(store.getters['routeHistory/lastRoute']);
+  const state = store.state.routeHistory;
+  const transition = store.commit.bind(null, 'routeHistory/transition');
+  const push = store.commit.bind(null, 'routeHistory/push');
+  const pop = store.commit.bind(null, 'routeHistory/pop');
+  const clear = store.commit.bind(null, 'routeHistory/clear');
+
+  // route to the page directly by tapping dock
+  if (to.params.dock) {
+    console.log('dock');
+    transition('no-transition');
+    clear();
+    push(to.name);
+  // route to the play/radio page with 'expand' animation
+  } else if (to.params.indicator) {
+    console.log('expand');
+    transition('expand');
+    push(to.name);
+  // route back by tapping the back button component
+  } else if (to.params.back) {
+    console.log('back');
+    transition('slide-right');
+    pop();
+  // route back by system or browser
+  } else if (to.name === store.getters['routeHistory/lastRoute']) {
+    // slide back in Safari
+    if (state.isSafari && Date.now() - state.lastTouch < 377) {
+      console.log('safari');
+      transition('no-transition');
+      pop();
+    } else {
+      console.log('back');
+      transition('slide-right');
+      pop();
+    }
+  // route forward
+  } else if (state.history.length > 0) {
+    console.log('forward');
+    transition('slide-left');
+    push(to.name);
+  // the first route, or other exceptions
+  } else {
+    push(to.name);
+    console.log(store);
+  }
+  next();
 });
 
 export default router;

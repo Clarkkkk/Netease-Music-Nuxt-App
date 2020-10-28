@@ -3,14 +3,27 @@
     <div v-if="!$store.state.auth.login" class="header">
       <span>未登录</span>
     </div>
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view/>
+    </transition>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    transitionName() {
+      return this.$store.state.routeHistory.transitionName;
+    }
+  }
+}
+</script>
 
 <style scoped>
 #account {
   height: 100vh;
   display: grid;
+  background-color: white;
   grid-template-rows:
     [start header-start] 3rem [header-end login-start]
     25rem [login-end] 1fr [end];

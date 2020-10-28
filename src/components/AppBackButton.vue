@@ -8,7 +8,22 @@
 export default {
   methods: {
     back() {
-      this.$router.go(-1);
+      const lastRoute = this.$store.getters['routeHistory/lastRoute'];
+      if (lastRoute) {
+        this.$router.push({
+          name: lastRoute,
+          params: {
+            back: true
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'discover',
+          params: {
+            back: true
+          }
+        });
+      }
     }
   }
 };

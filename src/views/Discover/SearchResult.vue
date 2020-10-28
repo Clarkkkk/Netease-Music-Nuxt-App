@@ -26,13 +26,13 @@
     <div class="mixed">
       <span>单曲</span>
       <app-song-entry
-        v-for="song in mixedResult.songs"
+        v-for="song in mixedResult"
         :key="song.id"
         :song-name="song.name"
-        :song-artists="song.ar"
-        :song-album="song.al.name"
+        :song-artist="song.artist"
+        :song-album="song.album"
         :song-id="song.id"
-        :song-cover="song.al.picUrl"
+        :song-cover="song.cover"
       ></app-song-entry>
       <span>{{ mixedResult.moreText }}</span>
     </div>
@@ -82,13 +82,27 @@ export default {
       // const order = data.result.order;
       // const song = data.result.song.songs;
       console.log(data);
-      this.mixedResult = data.result.song;
+      this.mixedResult = data.result.song.songs.map((song) => {
+        const arString = song.ar.map((ar) => ar.name).join('/');
+        return {
+          id: song.id,
+          name: song.name,
+          artist: arString,
+          album: song.al.name,
+          cover: song.al.picUrl
+        };
+      });
     });
   },
 
   methods: {
     backToSearch() {
       this.$router.go(-1);
+    },
+
+    arString(ar) {
+      console.log(ar.join('/'));
+      return ar.join('/');
     }
   }
 };

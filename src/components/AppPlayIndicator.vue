@@ -4,6 +4,7 @@ export default {
   data: function() {
     return {
       active: true,
+      leave: false,
     };
   },
 
@@ -37,6 +38,7 @@ export default {
   activated() {
     console.log('avtive');
     this.active = true;
+    this.leave = false;
   },
 
   deactivated() {
@@ -53,27 +55,33 @@ export default {
     },
 
     click() {
-      if (this.radio) {
-        this.$router.push('radio');
-      } else {
-        this.$router.push('/play');
-      }
+      this.leave = true;
+      setTimeout(() => {
+        if (this.radio) {
+          this.$router.push({name: 'radio', params: {indicator: true}});
+        } else {
+          this.$router.push({name: 'play', params: {indicator: true}});
+        }
+      }, 100);
     }
   }
 };
 </script>
 
 <template>
-  <div id="play-indicator" @click="click" v-show="playID">
-    <img
-      :class="['cover', {'rolling': playing}]"
-      :src="picUrl"
-    />
-    <svg viewBox="0 0 100 100" class="svg">
-      <circle cx="50" cy="50" r="42" class="groove"/>
-      <circle cx="50" cy="50" r="42" ref="indicator" class="indicator"/>
-    </svg>
-  </div>
+  <transition name="indicator">
+    <div id="play-indicator" @click="click" v-if="!leave" v-show="playID">
+      <img
+        :class="['cover', {'rolling': playing}]"
+        :src="picUrl"
+        ref="cover"
+      />
+      <svg viewBox="0 0 100 100" class="svg">
+        <circle cx="50" cy="50" r="42" class="groove"/>
+        <circle cx="50" cy="50" r="42" ref="indicator" class="indicator"/>
+      </svg>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
@@ -85,6 +93,7 @@ export default {
   grid-template-rows: 100%;
   grid-template-columns: 100%;
   cursor: pointer;
+
 }
 
 .cover {
@@ -99,6 +108,15 @@ export default {
 
 .cover.rolling {
   animation-play-state: running;
+}
+
+.indicator-leave-active {
+  z-index: 10;
+  transition: transform 200ms ease-in;
+}
+
+.indicator-leave-to {
+  transform: translateX(-2vw) translateY(15vw);
 }
 
 @keyframes rolling {

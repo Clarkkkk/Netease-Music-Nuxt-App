@@ -75,6 +75,10 @@ export default {
   computed: {
     lists: function() {
       return this[this.listsType];
+    },
+
+    userID: function() {
+      return this.$store.state.auth.userID;
     }
   },
 
@@ -83,14 +87,14 @@ export default {
   },
 
   created() {
-    fetchJSON('/user/detail', {uid: this.$store.state.auth.userID})
+    fetchJSON('/user/detail', {uid: this.userID})
       .then((res) => {
         this.nickname = res.profile.nickname;
         this.level = res.level;
         this.listenSongs = res.listenSongs;
         this.avtSrc = res.profile.avatarUrl;
         this.bgSrc = res.profile.backgroundUrl;
-        return fetchJSON('/user/playlist', {uid: this.$store.state.auth.userID})
+        return fetchJSON('/user/playlist', {uid: this.userID});
       }).then((res) => {
         console.log(res);
         if (res.code === 200) {
@@ -170,12 +174,13 @@ export default {
   grid-column: start / end;
   height: calc(100vh - 2.5rem);
   width: 100%;
+  background-color: white;
   display: grid;
   grid-template-rows:
     [start card-start] 15rem [card-end content-start]
     1fr [content-end];
   grid-template-columns: [start] 100% [end];
-  transform: translate3d(0px, 0px, 0px);
+
 }
 
 .background {
@@ -190,7 +195,6 @@ export default {
 
 /* brief info card */
 .card {
-  position: sticky;
   grid-row: card;
   grid-column: start / end;
   height: 100%;
@@ -205,7 +209,7 @@ export default {
     [name-end info-start] 2rem [info-end];
   align-items: center;
   z-index: 10;
-  transform: translate3d(0px, 0px, 2px);
+  /*transform: translateZ(2px);*/
 }
 
 .avatar {

@@ -18,7 +18,7 @@
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
 import {mapGetters, createNamespacedHelpers} from 'vuex';
-const {mapState, mapMutations} = createNamespacedHelpers('playStatus');
+const {mapState, mapMutations, mapActions} = createNamespacedHelpers('playStatus');
 export default {
   data: function() {
     return {
@@ -30,7 +30,9 @@ export default {
     ...mapState(['mode']),
     ...mapGetters(['currentSong']),
     playID() {
-      return this.currentSong.id ? this.currentSong.id : 0;
+      if (this.currentSong) {
+        return this.currentSong.id ? this.currentSong.id : 0;
+      } else return 0;
     },
   },
 
@@ -65,8 +67,9 @@ export default {
   methods: {
     ...mapMutations([
       'setPlayer', 'durationChange', 'timeUpdate',
-      'played', 'paused', 'waiting', 'ended'
+      'played', 'paused', 'waiting'
     ]),
+    ...mapActions(['ended']),
     getUrl(id) {
       if (id) {
         return fetchJSON('/song/url', {id: id})
@@ -81,7 +84,7 @@ export default {
             console.log(e);
           });
       }
-    },
+    }
   }
 };
 </script>

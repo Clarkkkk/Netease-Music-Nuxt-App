@@ -34,11 +34,8 @@ export default {
     text() {
       this.$nextTick()
         .then(() => {
-          console.log('updated');
           this.boxWidth = this.$el.clientWidth;
           this.textWidth = this.$refs.text.clientWidth;
-          console.log(this.boxWidth);
-          console.log(this.textWidth);
           clearInterval(this.intervalID);
           if (this.boxWidth < this.textWidth) {
             this.animate();
@@ -50,7 +47,6 @@ export default {
 
   methods: {
     _animate() {
-      console.log(this);
       this.$refs.text.classList.remove('loop');
       this.$refs.clone.classList.remove('loop');
       this.$refs.text.style.transform = `translateX(0px)`;
@@ -70,11 +66,14 @@ export default {
   grid-row: loop-text;
   grid-column: loop-text;
   width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
   overflow: hidden;
   display: grid;
-  grid-template-columns: [start] 100% [end];
+  grid-template-columns: 1fr [start] min-content [end] 1fr;
   grid-template-rows: [start] 100% [end];
   justify-items: center;
+  justify-content: start;
 }
 
 .text {

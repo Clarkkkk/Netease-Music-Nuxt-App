@@ -1,7 +1,7 @@
 <template>
   <div id="play">
 
-    <img alt="背景图片" class="background" :src="picUrl">
+    <img alt="背景图片" class="background fade-in" :src="picUrl">
 
     <div class="content">
       <div class="header">
@@ -9,10 +9,10 @@
         <span class="title">私人FM</span>
       </div>
 
-      <img alt="封面图片" class="cover" :src="picUrl">
+      <img alt="封面图片" class="cover fade-in" :src="picUrl">
 
-      <app-loop-text :text="playName" class="song-name"/>
-      <div class="song-artist">{{ playArtist }}</div>
+      <app-loop-text :text="currentSong.name" class="song-name"/>
+      <div class="song-artist">{{ currentSong.artist }}</div>
 
       <play-progress-bar/>
       <radio-controls/>
@@ -31,16 +31,18 @@ import {mapState, mapGetters, mapMutations} from 'vuex';
 export default {
   computed: {
     ...mapState('playStatus', ['playing']),
-    ...mapGetters('radioPlay', ['playName', 'playArtist', 'playCover']),
+    ...mapGetters('radioPlay', ['currentSong']),
     ...mapState('radioPlay', ['radioIndex', 'radioList']),
     picUrl() {
-      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+      return this.currentSong.cover ?
+        this.currentSong.cover : require('@/assets/default-pic.jpg');
     }
   },
 
   created() {
     console.log(this.$store);
     this.updateList();
+    console.log(this.$store);
   },
 
   watch: {

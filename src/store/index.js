@@ -4,6 +4,7 @@ import auth from './module/auth.js';
 import commonPlay from './module/commonPlay.js';
 import radioPlay from './module/radioPlay.js';
 import playStatus from './module/playStatus.js';
+import routeHistory from './module/routeHistory.js';
 
 Vue.use(Vuex);
 
@@ -12,11 +13,12 @@ const store = new Vuex.Store({
     auth,
     commonPlay,
     radioPlay,
-    playStatus
+    playStatus,
+    routeHistory
   },
 
   state: {
-    radio: false
+    radio: false,
   },
 
   getters: {

@@ -1,21 +1,24 @@
 <template>
   <div id="discover">
-    <transition mode="out-in">
+    <transition :name="transitionName">
       <router-view></router-view>
     </transition>
   </div>
 </template>
 
-<style>
-.v-enter, .v-leave-to {
-  opacity: 0;
-};
-
-.v-enter-to, .v-leave {
-  opacity: 1;
+<script>
+export default {
+  computed: {
+    transitionName() {
+      return this.$store.state.routeHistory.transitionName;
+    }
+  }
 }
+</script>
 
-.v-leave-active, .v-enter-active {
-  transition: opacity 200ms;
+<style>
+#discover {
+  z-index: 0;
+  background-color:white;
 }
 </style>

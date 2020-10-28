@@ -122,6 +122,7 @@ export default {
   height: calc(100vh - 2.5rem);
   width: 100vw;
   display: grid;
+  background-color: white;
   grid-template-rows:
     [start header-start] 3rem [header-end nav-start]
     2.5rem [nav-end list-start] 1fr [list-end];

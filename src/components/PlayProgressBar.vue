@@ -17,7 +17,7 @@
           ref="played"
         ></div>
         <div
-          :class="['pointer', {'pointer-down': isPointerDown}]"
+          :class="['pointer', {'pointer-down': isPointerDown}, {'waiting': waiting}]"
           ref="pointer"
         ></div>
       </div>
@@ -39,7 +39,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['currentTime', 'duration']),
+    ...mapState(['currentTime', 'duration', 'waiting']),
     playTime: function() {
       return this.formatTime(this.currentTime);
     },
@@ -54,6 +54,7 @@ export default {
         this.rect = this.$refs.container.getBoundingClientRect();
       });
   },
+
 
   watch: {
     currentTime(current) {
@@ -168,7 +169,7 @@ export default {
   transition:
     height linear 100ms,
     width linear 100ms,
-    transform linear 200ms;
+    transform linear 500ms;
 }
 
 .played-section {
@@ -187,13 +188,17 @@ export default {
     width linear 300ms;
 }
 
-@keyframes progress {
+.pointer.waiting {
+  animation: waiting 1000ms alternate ease infinite;
+}
+
+@keyframes waiting {
   from {
-    transform: translateX(0);
+    background-color: white;
   }
 
   to {
-    transform: translateX(calc(70vw - 0.5rem));
+    background-color: var(--app-color);
   }
 }
 </style>

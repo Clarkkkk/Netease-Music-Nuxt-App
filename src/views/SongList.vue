@@ -1,10 +1,14 @@
 <template>
   <div id="song-list" ref="wrapper">
-
+    <div class="background-container" ref="backgroundBox">
+      <div
+        class="background fade-in"
+        ref="background"
+        :style="bgSrc"
+      ></div>
+    </div>
     <div class=fixed-container>
-      <div class="background" ref="background">
-        <img class="fade-in" :src="cover" v-if="cover">
-      </div>
+
       <div class="header">
         <app-back-button/>
         <div class="title">
@@ -70,7 +74,7 @@ export default {
       name: '',
       creator: '',
       description: '',
-      cover: '',
+      cover: require('@/assets/default-pic.jpg'),
       tags: [],
       list: []
     };
@@ -93,6 +97,10 @@ export default {
         greetings = '早点睡哦';
       }
       return `${today.getMonth()}月${today.getDate()}日，${greetings}`;
+    },
+
+    bgSrc: function() {
+      return `background-image:url(${this.cover})`;
     }
   },
 
@@ -171,12 +179,13 @@ export default {
       if (!isLoading) {
         this.$nextTick()
           .then(() => {
-            this.scroll = createScroll(1, this.$refs.wrapper, onScroll);
+            this.scroll = createScroll(2, this.$refs.wrapper, onScroll);
             const self = this;
             function onScroll(pos) {
               const percentage = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
               self.$refs.info.style.opacity = `${1 - percentage}`;
               self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
+              self.$refs.backgroundBox.style.height = `calc(15rem + (${pos.y}px))`;
               self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
             }
           })
@@ -201,8 +210,34 @@ export default {
   grid-column: start / end;
   width: 100%;
   height: calc(100vh - 2.5rem);
+  background-color: white;
   overflow: hidden;
   position: relative;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15rem;
+  min-height: 3rem;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.background {
+  background-color: #000;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1.1);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15rem;
+  min-height: 3rem;
+  overflow: hidden;
 }
 
 /* fixed container */
@@ -212,32 +247,14 @@ export default {
   left: 0;
   width: 100%;
   z-index: 20;
+  background-color: #00000010;
+  backdrop-filter: blur(30px);
   display: grid;
   grid-template-rows:
     [start header-start] 3rem [header-end info-start]
     min-content [info-end button-start] 3rem
     [button-end end];
   grid-template-columns: [start] 100% [end];
-}
-
-.background {
-  grid-row: start / info-end;
-  grid-column: start / end;
-  background-color: #000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 15rem;
-  min-height: 3rem;
-  overflow: hidden;
-}
-
-.background > img {
-  object-fit: cover;
-  width: 100%;
-  transform: scale(1.1);
-  filter: blur(30px) saturate(1.2);
-  opacity: 0.8;
 }
 
 /* filter build another stack context, z-index is required */

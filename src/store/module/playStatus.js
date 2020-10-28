@@ -42,10 +42,6 @@ export default {
       state.currentTime = time;
     },
 
-    ended(state) {
-      //
-    },
-
     playOrPause(state) {
       console.log(state);
       if (state.playing) {
@@ -61,5 +57,15 @@ export default {
       state.duration = 0;
       state.currentTime = 0;
     }
+  },
+
+  actions: {
+    ended({commit, rootState}) {
+      if (rootState.radio) {
+        commit('radioPlay/ended', null, {root: true});
+      } else {
+        commit('commonPlay/ended', null, {root: true});
+      }
+    },
   }
 };

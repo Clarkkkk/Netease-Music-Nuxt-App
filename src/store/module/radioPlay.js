@@ -8,24 +8,9 @@ export default {
   },
 
   getters: {
-    playID: function(state) {
-      return state.radioIndex >= 0 ? state.radioList[state.radioIndex].id : 0;
-    },
-
-    playName: function(state) {
-      return state.radioIndex >= 0 ? state.radioList[state.radioIndex].name : '';
-    },
-
-    playArtist: function(state) {
-      return state.radioIndex >= 0 ? state.radioList[state.radioIndex].artist : '';
-    },
-
-    playCover: function(state) {
-      return state.radioIndex >= 0 ? state.radioList[state.radioIndex].cover : '';
-    },
-
     currentSong(state) {
-      return state.radioIndex >= 0 ? state.radioList[state.radioIndex] : {};
+      return state.radioIndex >= 0 && state.radioList[state.radioIndex] ?
+        state.radioList[state.radioIndex] : {};
     }
   },
 
@@ -48,11 +33,12 @@ export default {
         state.radioIndex++;
       }
       // if the list is too long, clear the played songs
-      if (state.radioIndex > 3) {
+      if (state.radioIndex > 2) {
         state.radioList = state.radioList.slice(state.radioIndex - 1);
         state.radioIndex = 1;
       }
       state.radioList = state.radioList.concat(list);
+      console.log(state.radioIndex);
       console.log(state.radioList);
     },
 
