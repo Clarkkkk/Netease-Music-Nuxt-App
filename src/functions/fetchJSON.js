@@ -1,6 +1,12 @@
 /*  Simplied and enhanced version of fetch API  */
 import store from '@/store';
-const serverURL = 'http://192.168.50.138:3000';
+let serverURL;
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+  serverURL = 'http://localhost:3000';
+} else {
+  serverURL = 'https://clarkkkk.xyz';
+}
 const RETRY_TIMES = 5;
 let retryCount = 0;
 
@@ -39,7 +45,10 @@ function fetchJSON(api, init) {
     })
     // retry while request failed
     .catch((err) => {
-      if (retryCount > RETRY_TIMES) {
+      if (err.message.includes('404')) {
+        alert('该资源不存在');
+        return Promise.reject(err);
+      } else if (retryCount > RETRY_TIMES) {
         retryCount = 0;
         console.log('请求超时，请重试。');
       } else {

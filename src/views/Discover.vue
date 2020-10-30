@@ -20,5 +20,6 @@ export default {
 #discover {
   z-index: 0;
   background-color:white;
+  height: calc(100vh - 2.5rem);
 }
 </style>

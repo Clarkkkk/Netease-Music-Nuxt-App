@@ -1,5 +1,5 @@
 <template>
-  <div id="play">
+  <div id="play" @scroll="onScroll">
 
     <img alt="背景图片" class="background fade-in" :src="picUrl">
 
@@ -79,6 +79,10 @@ export default {
           });
           this.radioListUpdate(list);
         });
+    },
+    onScroll(event) {
+      event.preventDefault();
+      return false;
     }
   }
 };

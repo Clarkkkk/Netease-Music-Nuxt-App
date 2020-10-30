@@ -48,6 +48,7 @@ export default {
 
 <style>
 body {
+  height: 100vh;
   margin: 0;
   overflow: hidden;
   font-size: 14px;
@@ -61,7 +62,7 @@ body {
 }
 
 #app {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background-color: black;
   position: relative;

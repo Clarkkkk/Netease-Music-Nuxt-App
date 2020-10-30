@@ -153,7 +153,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 });
 
@@ -167,6 +167,11 @@ router.beforeEach((to, from, next) => {
   const push = store.commit.bind(null, 'routeHistory/push');
   const pop = store.commit.bind(null, 'routeHistory/pop');
   const clear = store.commit.bind(null, 'routeHistory/clear');
+
+  if (to.name === from.name) {
+    console.log('Same path.');
+    return;
+  }
 
   // route to the page directly by tapping dock
   if (to.params.dock) {

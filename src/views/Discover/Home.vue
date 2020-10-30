@@ -59,6 +59,12 @@ export default {
     };
   },
 
+  computed: {
+    login() {
+      return this.$store.state.auth.login;
+    }
+  },
+
   components: {
     DiscoverBanner,
     AppSearchBar,
@@ -71,7 +77,12 @@ export default {
     },
 
     tap(to) {
-      this.$router.push(to);
+      if (to.includes('songlist') || this.login) {
+        this.$router.push(to);
+      } else {
+        alert('该功能需要登录');
+        this.$router.push({name: 'login', params: {dock: true}});
+      }
     },
 
     formatNum(num) {
@@ -84,7 +95,7 @@ export default {
   },
 
   created() {
-    if (this.$store.state.auth.login) {
+    if (this.login) {
       fetchJSON('/recommend/resource')
         .then((res) => {
           this.recommend = res.recommend;
@@ -114,7 +125,7 @@ export default {
 
 <style scoped>
 #discover-home {
-  height: 100vh;
+  height: 100%;
   display: grid;
   grid-template-rows:
     [start header-start] 3rem
@@ -228,7 +239,7 @@ export default {
   grid-template-columns: [start] repeat(3, 29vw) [end];
   place-items: center;
   justify-content: center;
-  grid-auto-rows: 29vw;
+  grid-auto-rows: 33vw;
   gap: 2vw;
 }
 
@@ -246,7 +257,7 @@ export default {
   display: grid;
   grid-template-rows:
     [img-start] minmax(25vw, 1fr) [img-end text-start]
-    1rem [text-end];
+    2rem [text-end];
   grid-template-columns:
     [start] 0.5rem [img-start]
     minmax(25vw, 1fr) [img-end] 0.5rem [end];
@@ -264,9 +275,11 @@ export default {
   grid-row: text;
   grid-column: img;
   width: 100%;
+  height: 2rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 0.7rem;
 }
 

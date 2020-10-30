@@ -4,7 +4,7 @@
       <div
         class="background fade-in"
         ref="background"
-        :style="bgSrc"
+        :style="bgStyle"
       ></div>
     </div>
     <div class=fixed-container>
@@ -21,7 +21,7 @@
 
       <div class="info" ref="info">
         <div class="cover" v-if="cover">
-          <img :src="cover" class="fade-in">
+          <img :src="cover" class="fade-in" v-if="type='songlist'">
         </div>
         <div class="name" v-if="name">
           {{ name }}
@@ -99,8 +99,12 @@ export default {
       return `${today.getMonth()}月${today.getDate()}日，${greetings}`;
     },
 
-    bgSrc: function() {
-      return `background-image:url(${this.cover})`;
+    bgStyle: function() {
+      if (this.type === 'songlist') {
+        return `background-image:url(${this.cover})`;
+      } else {
+        return `background-image:linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)`;
+      }
     }
   },
 
@@ -116,19 +120,8 @@ export default {
       fetchJSON('/recommend/songs')
         .then((res) => {
           if (res.code === 200) {
-            // extract useful information and map it to songList
-            this.list = res.data.dailySongs.map((song) => {
-              const arString = song.ar.map((item) => item.name).join('/');
-              return {
-                id: song.id,
-                name: song.name,
-                artist: arString,
-                album: song.al.name,
-                cover: song.al.picUrl
-              };
-            });
+            this.createList(res.data.dailySongs);
           }
-          this.loading = false;
         });
     } else if (this.type === 'songlist') {
       fetchJSON('/playlist/detail', {id: this.listId})
@@ -144,19 +137,8 @@ export default {
           }
         }).then((res) => {
           if (res.code === 200) {
-            // extract useful information and map it to songList
-            this.list = res.songs.map((song) => {
-              const arString = song.ar.map((item) => item.name).join('/');
-              return {
-                id: song.id,
-                name: song.name,
-                artist: arString,
-                album: song.al.name,
-                cover: song.al.picUrl
-              };
-            });
+            this.createList(res.songs);
           }
-          this.loading = false;
         });
     }
   },
@@ -200,6 +182,21 @@ export default {
     playAll() {
       this.$router.push('/play');
       this.$store.commit('commonPlay/playTheList', this.list);
+    },
+
+    createList(songs) {
+      // extract useful information and map it to songList
+      this.list = songs.map((song) => {
+        const arString = song.ar.map((item) => item.name).join('/');
+        return {
+          id: song.id,
+          name: song.name,
+          artist: arString,
+          album: song.al.name,
+          cover: song.al.picUrl
+        };
+      });
+      this.loading = false;
     }
   }
 };
@@ -232,12 +229,16 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   transform: scale(1.1);
-  top: 0;
-  left: 0;
   width: 100%;
   height: 15rem;
   min-height: 3rem;
   overflow: hidden;
+}
+
+@supports not (backdrop-filter: blur(30px)) {
+  .background {
+    filter: brightness(0.2);
+  }
 }
 
 /* fixed container */

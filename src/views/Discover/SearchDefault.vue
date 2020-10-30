@@ -122,12 +122,14 @@ export default {
 
 <style scoped>
 #discover-search-default {
+  height: 100%;
   display: grid;
   grid-template-rows:
     [start app-header-start] 3rem [app-header-end title-start]
     3rem [title-end list-start] 1fr [list-end end];
   align-items: center;
   justify-items: center;
+  background-color: white;
 }
 
 /* header */
@@ -166,6 +168,7 @@ export default {
 
 .hot {
   grid-row: list-start / list-end;
+  align-self: start;
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
@@ -206,6 +209,7 @@ export default {
   grid-row: list-start / list-end;
   width: 100%;
   justify-self: start;
+  align-self: start;
   display: grid;
   grid-template-rows: 3rem;
   grid-auto-rows: 3rem;

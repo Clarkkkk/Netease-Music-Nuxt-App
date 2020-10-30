@@ -38,5 +38,6 @@ module.exports = {
         symbolId: '[name]'
       })
       .end();
-  }
+  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/Netease-Music-Page/' : '/'
 };
