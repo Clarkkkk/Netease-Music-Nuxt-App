@@ -129,8 +129,7 @@ export default {
   display: grid;
   grid-template-rows:
     [start header-start] 3rem
-    [header-end contents-start] 1fr [contents-end]
-    2.5rem [end];
+    [header-end contents-start] 1fr [contents-end end];
 }
 
 .wrapper {

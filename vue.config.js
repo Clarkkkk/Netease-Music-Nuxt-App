@@ -6,6 +6,11 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: false,
   pwa: {
+    workboxPluginMode: 'GenerateSW',
+    name: 'neteasemusic',
+    themeColor: '#e91a3d',
+    appleMobileWebAppCapable: 'yes',
+    manifestPath: './public/manifest.json',
     iconPaths: {
       favicon32: 'img/icons/favicon-32x32.png',
       favicon16: 'img/icons/favicon-16x16.png',
@@ -39,5 +44,5 @@ module.exports = {
       })
       .end();
   },
-  publicPath: process.env.NODE_ENV === 'production' ? '/Netease-Music-Page/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/Netease-Music-Page/' : '/',
 };
