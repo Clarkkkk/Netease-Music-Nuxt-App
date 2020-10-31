@@ -130,7 +130,7 @@ export default {
             this.name = res.playlist.name;
             this.creator = res.playlist.creator.nickname;
             this.description = res.playlist.description;
-            this.cover = res.playlist.coverImgUrl;
+            this.cover = res.playlist.coverImgUrl.replace('http:', 'https:');
             this.tags = res.playlist.tags;
             const ids = res.playlist.trackIds.map((item) => item.id).join(',');
             return fetchJSON('/song/detail', {ids: ids});

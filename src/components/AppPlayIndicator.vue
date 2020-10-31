@@ -17,7 +17,8 @@ export default {
     },
     picUrl() {
       return this.currentSong.cover ?
-        this.currentSong.cover : require('@/assets/default-cover.png');
+        this.currentSong.cover.replace('http:', 'https:') :
+        require('@/assets/default-cover.png');
     }
   },
 

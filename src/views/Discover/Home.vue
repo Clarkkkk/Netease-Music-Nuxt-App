@@ -98,13 +98,27 @@ export default {
     if (this.login) {
       fetchJSON('/recommend/resource')
         .then((res) => {
-          this.recommend = res.recommend;
+          this.recommend = res.recommend.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              playcount: item.playcount,
+              picUrl: item.picUrl.replace('http:', 'https:')
+            };
+          });
           console.log(this.recommend);
         });
     } else {
       fetchJSON('/personalized')
         .then((res) => {
-          this.recommend = res.result;
+          this.recommend = res.result.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              playcount: item.playcount,
+              picUrl: item.picUrl.replace('http:', 'https:')
+            };
+          });
           console.log(this.recommend);
         });
     }

@@ -92,8 +92,8 @@ export default {
         this.nickname = res.profile.nickname;
         this.level = res.level;
         this.listenSongs = res.listenSongs;
-        this.avtSrc = res.profile.avatarUrl;
-        this.bgSrc = res.profile.backgroundUrl;
+        this.avtSrc = res.profile.avatarUrl.replace('http:', 'https:');
+        this.bgSrc = res.profile.backgroundUrl.replace('http:', 'https:');
         return fetchJSON('/user/playlist', {uid: this.userID});
       }).then((res) => {
         console.log(res);

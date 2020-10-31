@@ -39,8 +39,9 @@ export default {
       this.$store.commit('routeHistory/touchEnd');
     });
     this.createPreconnect(
-      'http://p1.music.126.net',
-      'http://p2.music.126.net',
+      'https://p1.music.126.net',
+      'https://p2.music.126.net',
+      'https://m8.music.126.net',
       'https://clarkkkk.xyz'
     );
   },

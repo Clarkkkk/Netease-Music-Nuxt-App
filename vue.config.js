@@ -4,9 +4,6 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-console.log('base url: ' + process.env.BASE_URL);
-console.log(process.env.NODE_ENV);
-
 module.exports = {
   lintOnSave: false,
   pwa: {
@@ -109,6 +106,3 @@ module.exports = {
   // productionSourceMap: false,
   publicPath: process.env.NODE_ENV === 'production' ? '/Netease-Music-Page/' : '/',
 };
-
-console.log('base url: ' + process.env.BASE_URL);
-console.log(module.exports.publicPath);

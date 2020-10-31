@@ -19,7 +19,7 @@ export default {
     ...mapState('playStatus', ['playing']),
     ...mapGetters('commonPlay', ['playID', 'playCover']),
     picUrl() {
-      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+      return this.playCover ? this.playCover.replace('http:', 'https:') : require('@/assets/default-cover.png');
     }
   },
 

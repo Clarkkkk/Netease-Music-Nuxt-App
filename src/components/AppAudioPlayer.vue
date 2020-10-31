@@ -72,16 +72,25 @@ export default {
     ...mapActions(['ended']),
     getUrl(id) {
       if (id) {
-        return fetchJSON('/song/url', {id: id})
-          .then((obj) => {
-            if (obj.code === 200 && obj.data[0]) {
-              this.src = obj.data[0].url;
+        return fetchJSON('/check/music', {id: id})
+          .then((res) => {
+            if (res.success) {
+              return fetchJSON('/song/url', {id: id});
             } else {
+              alert('这首歌暂无版权');
+              throw new Error('这首歌暂无版权');
+            }
+          }).then((obj) => {
+            if (obj.code === 200 && obj.data[0]) {
+              this.src = obj.data[0].url.replace('http:', 'https:');
+            } else {
+              alert('这首歌暂无版权');
               throw (new Error('url not exited: ' + JSON.stringify(obj)));
             }
           })
           .catch((e) => {
-            console.log(e);
+            console.log(e.message);
+            this.ended();
           });
       }
     }

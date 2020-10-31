@@ -58,7 +58,12 @@ export default {
     fetchJSON('/banner', {type: '2'})
       .then((res) => {
         console.log(res);
-        this.banners = res.banners;
+        this.banners = res.banners.map((item) => {
+          return {
+            pic: item.pic.replace('http:', 'https:'),
+            bannerId: item.bannerId
+          };
+        });
         console.log(this.banners);
         this.amount = this.banners.length;
         // the last pic on the left, the first pic in the middle
