@@ -7,7 +7,7 @@
         :style="bgStyle"
       ></div>
     </div>
-    <div class=fixed-container>
+    <div :class="['fixed-container', {'blur': type==='songlist'}]">
 
       <div class="header">
         <app-back-button/>
@@ -20,8 +20,8 @@
       </div>
 
       <div class="info" ref="info">
-        <div class="cover" v-if="cover">
-          <img :src="cover" class="fade-in" v-if="type='songlist'">
+        <div class="cover" v-if="type==='songlist'">
+          <img :src="cover" class="fade-in">
         </div>
         <div class="name" v-if="name">
           {{ name }}
@@ -241,6 +241,12 @@ export default {
   }
 }
 
+@supports (backdrop-filter: blur(30px)) {
+  .blur {
+    backdrop-filter: blur(30px);
+  }
+}
+
 /* fixed container */
 .fixed-container {
   position: fixed;
@@ -249,7 +255,6 @@ export default {
   width: 100%;
   z-index: 20;
   background-color: #00000010;
-  backdrop-filter: blur(30px);
   display: grid;
   grid-template-rows:
     [start header-start] 3rem [header-end info-start]
