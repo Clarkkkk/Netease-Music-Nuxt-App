@@ -21,20 +21,20 @@ const routes = [
       {
         path: 'search',
         component: () =>
-          import(/* webpackChunkName: "search" */ '@/views/Discover/Search.vue'),
+          import(/* webpackChunkName: "page" */ '@/views/Discover/Search.vue'),
         children: [
           {
             path: '',
             name: 'discover-search',
             component: () =>
-              import(/* webpackChunkName: "search" */ '@/views/Discover/SearchDefault.vue')
+              import(/* webpackChunkName: "page" */ '@/views/Discover/SearchDefault.vue')
           },
           {
             path: 'result/:searchText',
             name: 'discover-search-result',
             props: true,
             component: () =>
-              import(/* webpackChunkName: "search" */ '@/views/Discover/SearchResult.vue')
+              import(/* webpackChunkName: "page" */ '@/views/Discover/SearchResult.vue')
           }
         ]
       },
@@ -68,7 +68,7 @@ const routes = [
         name: 'login',
         component: () =>
           import(
-            /* webpackChunkName: "account" */
+            /* webpackChunkName: "page" */
             /* webpackPrefetch: true */
             '@/views/Account/Login.vue'
           )
@@ -78,7 +78,7 @@ const routes = [
         name: 'account',
         component: () =>
           import(
-            /* webpackChunkName: "account" */
+            /* webpackChunkName: "page" */
             /* webpackPrefetch: true */
             '@/views/Account/Profile.vue'
           ),
@@ -135,6 +135,7 @@ const routes = [
       next();
     },
     component: () =>
+      /* webpackChunkName: "page" */
       import('@/views/Play.vue')
   },
   {
@@ -148,6 +149,7 @@ const routes = [
       next();
     },
     component: () =>
+      /* webpackChunkName: "page" */
       import('@/views/Radio.vue')
   }
 ];
