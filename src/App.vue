@@ -38,10 +38,22 @@ export default {
     document.documentElement.addEventListener('touchend', (event) => {
       this.$store.commit('routeHistory/touchEnd');
     });
-    /* fetchJSON('/login/status')
-      .then((res) => {
-        console.log(res);
-      }); */
+    this.createPreconnect(
+      'http://p1.music.126.net',
+      'http://p2.music.126.net',
+      'https://clarkkkk.xyz'
+    );
+  },
+
+  methods: {
+    createPreconnect(...links) {
+      for (const link of links) {
+        const elm = document.createElement('link');
+        elm.setAttribute('rel', 'preconnect');
+        elm.setAttribute('href', link);
+        document.head.appendChild(elm);
+      }
+    }
   }
 };
 </script>

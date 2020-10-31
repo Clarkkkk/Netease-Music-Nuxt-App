@@ -12,13 +12,37 @@ module.exports = {
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
-      importWorkboxFrom: 'cdn', // 从''cdn"导入workbox,也可以‘local’
+      importWorkboxFrom: 'local', // 从''cdn"导入workbox,也可以‘local’
       skipWaiting: true, // 安装完SW不等待直接接管网站
       clientsClaim: true,
       navigateFallback: '/index.html',
-      exclude: [/\.(?:png|jpg|jpeg)$/], // 在预缓存中排除图片
+      exclude: [/\.(?:png|jpg|jpeg|map)$/], // 在预缓存中排除图片和sourceMap
       // 定义运行时缓存
       runtimeCaching: [
+        {
+          // To match cross-origin requests, use a RegExp that matches
+          // the start of the origin:
+          urlPattern: new RegExp(/^https?:\/\/.*126\.net/),
+          handler: 'staleWhileRevalidate',
+          options: {
+            // Configure which responses are considered cacheable.
+            cacheableResponse: {
+              statuses: [200]
+            }
+          }
+        },
+        {
+          // To match cross-origin requests, use a RegExp that matches
+          // the start of the origin:
+          urlPattern: new RegExp('^https://clarkkkk.xyz'),
+          handler: 'staleWhileRevalidate',
+          options: {
+            // Configure which responses are considered cacheable.
+            cacheableResponse: {
+              statuses: [200]
+            }
+          }
+        },
         {
           urlPattern: new RegExp('^https://cdn'),
           handler: 'NetworkFirst',

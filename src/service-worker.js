@@ -1,6 +1,6 @@
 workbox.core.setCacheNameDetails({
   prefix: 'netease-music',
-  suffix: 'v1.0.0'
+  suffix: 'v1.0.2'
 });
 
 workbox.skipWaiting();
@@ -25,8 +25,3 @@ workbox.routing.registerRoute(
 workbox.precaching.precacheAndRoute([
   "/app.js",
 ]);
-
-workbox.routing.registerRoute(
-  /\.js$/,   // 配置 正则 路由，
-  new workbox.strategies.StaleWhileRevalidate(),  //采用StaleWhileRevalidate策略
-); 

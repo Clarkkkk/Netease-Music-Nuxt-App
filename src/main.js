@@ -3,8 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import AppIcon from './components/AppIcon.vue';
-import 'registerServiceWorker.js';
-import fetchJSON from '@/functions/fetchJSON.js';
+import './registerServiceWorker.js';
 
 Vue.config.productionTip = false;
 

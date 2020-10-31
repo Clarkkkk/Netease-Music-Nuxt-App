@@ -19,9 +19,9 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": "/Netease-Music-Page/index.html",
   "background_color": "#e91a3d",
   "display": "standalone",
-  "scope": "/",
+  "scope": "/Netease-Music-Page/",
   "theme_color": "#e91a3d"
 }

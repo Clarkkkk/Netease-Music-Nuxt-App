@@ -1,9 +1,6 @@
 /* eslint-disable no-console */
 import {register} from 'register-service-worker';
 
-
-console.log('register');
-console.log('process.env.BASE_URL');
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
@@ -15,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     },
     registered() {
       console.log('Service worker has been registered.');
+      console.log(`${process.env.BASE_URL}service-worker.js`);
     },
     cached() {
       console.log('Content has been cached for offline use.');
