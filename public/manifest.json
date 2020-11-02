@@ -1,7 +1,7 @@
 {
   "short_name": "网易云音乐",
   "name": "网易云音乐",
-  "description": "PWA形式的网易云音乐",
+  "description": "网易云音乐渐进式应用",
   "icons": [
     {
       "src": "../img/icons/favicon-16x16.png",

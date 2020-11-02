@@ -72,7 +72,8 @@ export default {
   },
 
   methods: {
-    search() {
+    search(event) {
+      event.target.blur();
       this.$router.push('search');
     },
 

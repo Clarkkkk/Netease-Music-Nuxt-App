@@ -1,53 +1,48 @@
 <template>
   <div id="discover-search-result">
-    <app-search-bar
-      class="header"
-      :value="searchText"
-      @click="backToSearch"
-    >
-      <template v-slot:left>
-        <app-back-button/>
-      </template>
-    </app-search-bar>
-
-    <div class="multimatch">
-      <span>你可能感兴趣</span>
-      <div
-        v-for="item in matchResult"
-        :key="item.id"
-        class="multimatch-item"
-      >
-        <img :src="item.picUrl" alt="封面图片">
-        <span>{{ item.type + '：' + item.name }}</span>
-        <span v-if="item.artist">{{ item.artist.name }}</span>
-      </div>
+    <div class="loading" v-if="loading">
+      <app-loading-icon/>
     </div>
+    <div class="content" v-else>
+      <div class="multimatch">
+        <span>你可能感兴趣</span>
+        <div
+          v-for="item in matchResult"
+          :key="item.id"
+          class="multimatch-item"
+        >
+          <img :src="item.picUrl" alt="封面图片">
+          <span>{{ item.type + '：' + item.name }}</span>
+          <span v-if="item.artist">{{ item.artist.name }}</span>
+        </div>
+      </div>
 
-    <div class="mixed">
-      <span>单曲</span>
-      <app-song-entry
-        v-for="song in mixedResult"
-        :key="song.id"
-        :song-name="song.name"
-        :song-artist="song.artist"
-        :song-album="song.album"
-        :song-id="song.id"
-        :song-cover="song.cover"
-      ></app-song-entry>
-      <span>{{ mixedResult.moreText }}</span>
+      <div class="mixed">
+        <span>单曲</span>
+        <app-song-entry
+          v-for="song in mixedResult"
+          :key="song.id"
+          :song-name="song.name"
+          :song-artist="song.artist"
+          :song-album="song.album"
+          :song-id="song.id"
+          :song-cover="song.cover"
+        ></app-song-entry>
+        <span>{{ mixedResult.moreText }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
-import AppSearchBar from '@/components/AppSearchBar.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
-import AppBackButton from '@/components/AppBackButton.vue';
+import AppLoadingIcon from '@/components/AppLoadingIcon.vue';
 export default {
   props: ['searchText'],
   data: function() {
     return {
+      loading: true,
       songResult: [],
       matchResult: [],
       mixedResult: []
@@ -55,13 +50,11 @@ export default {
   },
 
   components: {
-    AppSearchBar,
     AppSongEntry,
-    AppBackButton
+    AppLoadingIcon
   },
 
   created: function() {
-    console.log('create');
     fetchJSON('/search/multimatch', {keywords: this.searchText})
       .then((data) => {
         console.log(data);
@@ -92,14 +85,11 @@ export default {
           cover: song.al.picUrl
         };
       });
+      this.loading = false;
     });
   },
 
   methods: {
-    backToSearch() {
-      this.$router.go(-1);
-    },
-
     arString(ar) {
       console.log(ar.join('/'));
       return ar.join('/');
@@ -110,21 +100,17 @@ export default {
 
 <style scoped>
 #discover-search-result {
-  display: grid;
-  grid-template-rows:
-    [start header-start] 3rem [header-end list-start] 1fr [list-end end];
-  align-items: center;
-  justify-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.header {
-  grid-row: header-start / header-end;
+.content {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns:
-    [start back-start] 2rem [back-end search-start] 1fr
-    [search-end end];
-  grid-template-rows: [start] 1fr [end];
-  align-items: center;
+  grid-template-rows:
+    [start list-start] 1fr [list-end end];
+  align-items: start;
   justify-items: center;
 }
 

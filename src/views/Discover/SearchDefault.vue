@@ -1,52 +1,41 @@
 <template>
   <div id="discover-search-default">
-    <app-search-bar
-      class="header"
-      v-model="searchText"
-      focus="true"
-      @keydown.enter="search"
-    >
-      <template v-slot:right>
-        <input
-          type="button"
-          class="cancel"
-          value="取消"
-          @click="searchCancel"
-        >
-      </template>
-    </app-search-bar>
-
-    <div class="hot-title" v-show="!typing">
-      热搜榜
+    <div class="loading" v-if="loading">
+      <app-loading-icon/>
     </div>
-    <div class="hot" v-show="!typing">
-      <div
-        class="hot-item"
-        v-show="!typing"
-        v-for="item in searchHotData"
-        :key="item.score"
-        @click="search(item.searchWord)"
-      >
-        {{ item.searchWord }}
+    <div class="content" v-else>
+      <div class="hot-title" v-show="!typing">
+        热搜榜
       </div>
-    </div>
-
-    <div
-      class="text"
-      v-show="typing"
-    >
-      搜索「{{ searchText }}」
-    </div>
-    <div class="advice" v-show="typing">
+      <div class="hot" v-show="!typing">
+        <div
+          class="hot-item"
+          v-show="!typing"
+          v-for="item in searchHotData"
+          :key="item.score"
+          @click="search(item.searchWord)"
+        >
+          {{ item.searchWord }}
+        </div>
+      </div>
+  
       <div
-        class="advice-item"
+        class="text"
         v-show="typing"
-        v-for="item in searchAdviceData"
-        :key="item.keyword"
-        @click="search(item.keyword)"
       >
-        <app-icon icon="search" class="advice-item-icon"/>
-        {{ item.keyword }}
+        搜索「{{ searchText }}」
+      </div>
+      <div class="advice" v-show="typing">
+        <div
+          class="advice-item"
+          v-show="typing"
+          v-for="item in searchAdviceData"
+          :key="item.keyword"
+          @click="search(item.keyword)"
+        >
+          <app-icon icon="search" class="advice-item-icon"/>
+          {{ item.keyword }}
+        </div>
       </div>
     </div>
   </div>
@@ -55,26 +44,28 @@
 <script>
 import debounce from '@/functions/debounce.js';
 import fetchJSON from '@/functions/fetchJSON.js';
-import AppSearchBar from '@/components/AppSearchBar.vue';
+import AppLoadingIcon from '@/components/AppLoadingIcon.vue';
 export default {
   name: 'discover-search-default',
+  props: ['searchText'],
   data: function() {
     return {
-      searchText: '',
       searchAdviceData: [],
       searchHotData: [],
+      loading: true,
       typing: false
     };
   },
 
   components: {
-    AppSearchBar
+    AppLoadingIcon
   },
 
   created: function() {
     fetchJSON('/search/hot/detail')
       .then((data) => {
         this.searchHotData = data.data;
+        this.loading = false;
       });
   },
 
@@ -92,18 +83,15 @@ export default {
   },
 
   methods: {
-    searchCancel() {
-      this.$router.push('/');
-      console.log(this.$route);
-    },
-
     searchAdvice(text) {
       debounce(() => {
+        this.loading = true;
         fetchJSON('/search/suggest', {
           keywords: text,
           type: 'mobile'
         }).then((data) => {
           this.searchAdviceData = data.result.allMatch;
+          this.loading = false;
         });
       });
     },
@@ -111,10 +99,11 @@ export default {
     search(text) {
       console.log(text);
       if (typeof text === 'string') {
-        this.searchText = text;
+        this.$emit('update:searchText', text);
+        // this.searchText not changed yet
+        this.$router.push('/search/result/' + text);
+        console.log('search:' + this.searchText);
       }
-      this.$router.push('/search/result/' + this.searchText);
-      console.log('search:' + this.searchText);
     }
   }
 };
@@ -123,36 +112,18 @@ export default {
 <style scoped>
 #discover-search-default {
   height: 100%;
+  background-color: white;
+
+}
+
+.content {
   display: grid;
   grid-template-rows:
-    [start app-header-start] 3rem [app-header-end title-start]
+    [start title-start]
     3rem [title-end list-start] 1fr [list-end end];
   align-items: center;
   justify-items: center;
-  background-color: white;
 }
-
-/* header */
-.header {
-  grid-row: app-header-start / app-header-end;
-  display: grid;
-  grid-template-columns:
-    [start search-start] 1fr [search-end right-start] 4rem [right-end end];
-  grid-template-rows: 1fr;
-  align-items: center;
-  justify-items: center;
-}
-
-.cancel {
-  grid-column: right-start / right-end;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  color: white;
-  font-size: 1rem;
-}
-/* header */
 
 /* hot list */
 .hot-title {

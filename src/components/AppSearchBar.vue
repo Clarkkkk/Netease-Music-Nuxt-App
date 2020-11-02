@@ -35,7 +35,8 @@ export default {
     }
   },
   mounted: function() {
-    if (this.focus === 'true') {
+    console.log('search bar mounted');
+    if (this.focus) {
       this.$refs.input.focus();
     }
   }

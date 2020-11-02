@@ -61,7 +61,8 @@ export default {
         this.banners = res.banners.map((item) => {
           return {
             pic: item.pic.replace('http:', 'https:'),
-            bannerId: item.bannerId
+            bannerId: item.bannerId,
+            typeTitle: item.typeTitle
           };
         });
         console.log(this.banners);

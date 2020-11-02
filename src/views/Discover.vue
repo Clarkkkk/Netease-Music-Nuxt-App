@@ -13,7 +13,7 @@ export default {
       return this.$store.state.routeHistory.transitionName;
     }
   }
-}
+};
 </script>
 
 <style>
