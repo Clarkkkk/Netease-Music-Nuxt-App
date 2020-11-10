@@ -126,7 +126,7 @@ export default {
     "..."
     "progress-bar"
     "controls";
-  grid-template-rows: [start] 4rem 1fr 80vmin 3rem 1rem 2fr 2rem 5rem [end];
+  grid-template-rows: [start] 4rem 1fr min(80vw, 65vh) 3rem 1rem 2fr 2rem 5rem [end];
   grid-template-columns: [start] 100% [end];
   place-items: center;
 }

@@ -3,7 +3,7 @@ import store from '@/store';
 let serverURL;
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
-  serverURL = 'http://localhost:3000';
+  serverURL = 'http://192.168.50.138:3000';
 } else {
   serverURL = 'https://clarkkkk.xyz';
 }

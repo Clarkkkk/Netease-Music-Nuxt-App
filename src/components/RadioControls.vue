@@ -26,15 +26,29 @@
 
 <script>
 import {mapState, mapMutations} from 'vuex';
+import fetchJSON from '@/functions/fetchJSON.js';
 import AppLikeIcon from '@/components/AppLikeIcon.vue';
 export default {
-  computed: mapState('playStatus', ['playing']),
+  computed: {
+    ...mapState('playStatus', ['playing']),
+    playID() {
+      return this.$store.getters['currentSong'].id;
+    }
+  },
   components: {
     AppLikeIcon
   },
   methods: {
     ...mapMutations('radioPlay', ['nextSong']),
-    ...mapMutations('playStatus', ['playOrPause'])
+    ...mapMutations('playStatus', ['playOrPause']),
+    dislike() {
+      fetchJSON('/fm_trash', {id: this.playID})
+        .then((res) => {
+          if (res.code === 200) {
+            this.nextSong();
+          }
+        });
+    }
   }
 };
 </script>

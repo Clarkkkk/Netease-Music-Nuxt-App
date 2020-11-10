@@ -134,6 +134,10 @@ export default {
 
   updated() {
     this.scroll.refresh();
+  },
+
+  activated() {
+    this.scroll.refresh();
   }
 };
 </script>

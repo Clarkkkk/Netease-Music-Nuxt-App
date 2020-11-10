@@ -21,7 +21,7 @@ export default {
     },
 
     playID() {
-      return this.$store.getters['commonPlay/playID'];
+      return this.$store.getters['currentSong'].id;
     },
 
     likelist() {

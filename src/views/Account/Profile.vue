@@ -1,16 +1,19 @@
 <template>
   <div id="profile" ref="wrapper">
     <img class="background fade-in" ref="bg" :src="bgSrc">
-    <div
-      class="card"
-      ref="card"
-    >
-      <img class="avatar fade-in" :src="avtSrc" ref="avatar">
-      <span class="nickname" ref="nickname">{{ nickname }}</span>
-      <span class="level" ref="level">{{ 'LV. ' + level }}</span>
+    <div class="fixed-container">
+      <div
+        class="card"
+        ref="card"
+      >
+        <img class="avatar fade-in" :src="avtSrc" ref="avatar">
+        <span class="nickname" ref="nickname">{{ nickname }}</span>
+        <span class="level" ref="level">{{ 'LV. ' + level }}</span>
+      </div>
     </div>
 
     <div class="content">
+      <div class="placeholder"></div>
       <div class="features">
         <div class="feature-container" @tap="routeTo('rank')">
           <app-icon icon="bar-chart"/>
@@ -176,11 +179,11 @@ export default {
   width: 100%;
   background-color: white;
   display: grid;
-  grid-template-rows:
-    [start card-start] 15rem [card-end content-start]
-    1fr [content-end];
+  grid-template-rows: [start] 100% [end];
   grid-template-columns: [start] 100% [end];
-
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
 
 .background {
@@ -193,10 +196,17 @@ export default {
   object-fit: cover;
 }
 
+.fixed-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 15rem;
+}
+
 /* brief info card */
 .card {
-  grid-row: card;
-  grid-column: start / end;
   height: 100%;
   width: 100%;
   color: white;
@@ -250,14 +260,14 @@ export default {
 /* brief info card */
 
 .content {
-  grid-row: content;
+  grid-row: start / end;
   grid-column: start / end;
   min-height: 101%;
   height: min-content;
   width: 100%;
   display: grid;
   grid-template-rows:
-    [start features-start]
+    [start placeholder-start] 15rem [placeholder-end features-start]
     min-content [features-end list-start] min-content [list-end];
   grid-template-columns: [start] 1fr [end];
   z-index: 0;
