@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import fetchJSON from '@/functions/fetchJSON.js';
 import auth from './module/auth.js';
 import commonPlay from './module/commonPlay.js';
 import radioPlay from './module/radioPlay.js';
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
 
   state: {
     radio: false,
+    likelist: []
   },
 
   getters: {
@@ -31,6 +33,20 @@ const store = new Vuex.Store({
   mutations: {
     playRadio(state, isRadio) {
       state.radio = isRadio;
+    },
+
+    updateLikelist(state, list) {
+      state.likelist = list;
+    }
+  },
+
+  actions: {
+    updateLikelist(context) {
+      fetchJSON('/likelist', context.state.auth.userID)
+        .then((res) => {
+          console.log(res);
+          context.commit('updateLikelist', res.ids);
+        });
     }
   }
 });

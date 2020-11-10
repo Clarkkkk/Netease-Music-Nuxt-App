@@ -5,11 +5,7 @@
       class="dislike"
       @click.native="dislike"
     />
-    <app-icon
-      icon="like"
-      class="like"
-      @click.native="like"
-    />
+    <app-like-icon class="like"/>
     <div
       class="play"
       @click="playOrPause"
@@ -30,8 +26,12 @@
 
 <script>
 import {mapState, mapMutations} from 'vuex';
+import AppLikeIcon from '@/components/AppLikeIcon.vue';
 export default {
   computed: mapState('playStatus', ['playing']),
+  components: {
+    AppLikeIcon
+  },
   methods: {
     ...mapMutations('radioPlay', ['nextSong']),
     ...mapMutations('playStatus', ['playOrPause'])

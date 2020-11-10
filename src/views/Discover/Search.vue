@@ -36,6 +36,11 @@ export default {
     };
   },
 
+  components: {
+    AppSearchBar,
+    AppBackButton
+  },
+
   computed: {
     isResult() {
       return this.$route.name === 'discover-search-result';
@@ -48,20 +53,11 @@ export default {
     }
   },
 
-  components: {
-    AppSearchBar,
-    AppBackButton
-  },
-
   methods: {
     onFocus() {
-      console.log('focus');
       if (this.isResult) {
         this.$router.push({
           name: 'discover-search',
-          params: {
-            back: true
-          }
         });
       }
     },
@@ -78,7 +74,6 @@ export default {
     search(event) {
       event.target.blur();
       this.$router.push('/search/result/' + this.searchText);
-      console.log('search:' + this.searchText);
     }
   }
 };

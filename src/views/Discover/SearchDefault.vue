@@ -18,7 +18,7 @@
           {{ item.searchWord }}
         </div>
       </div>
-  
+
       <div
         class="text"
         v-show="typing"

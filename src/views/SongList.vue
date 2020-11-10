@@ -127,6 +127,7 @@ export default {
       fetchJSON('/playlist/detail', {id: this.listId})
         .then((res) => {
           if (res.code === 200) {
+            console.log(res);
             this.name = res.playlist.name;
             this.creator = res.playlist.creator.nickname;
             this.description = res.playlist.description;

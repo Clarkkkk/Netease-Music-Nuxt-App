@@ -17,6 +17,8 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
+
+echo "### git pushing ###"
 git push -f https://github.com/Clarkkkk/Netease-Music-Page.git master
 
 cd..

@@ -15,6 +15,7 @@
 <script>
 import AppAudioPlayer from '@/components/AppAudioPlayer.vue';
 import AppDock from '@/components/AppDock.vue';
+import fetchJSON from '@/functions/fetchJSON.js';
 export default {
   computed: {
     transitionName() {
@@ -28,22 +29,38 @@ export default {
   },
 
   created() {
+    // relavant to Safari back gesture
     if (navigator.userAgent.includes('Safari')) {
       this.$store.commit('routeHistory/agent', true);
+      document.documentElement.addEventListener('touchend', (event) => {
+        this.$store.commit('routeHistory/touchEnd');
+      });
     }
-    document.documentElement.setAttribute('lang', 'zh-Hans');
+
+    // language tag
+    document.documentElement.setAttribute('lang', 'zh');
+
+    // log loading error
     document.documentElement.addEventListener('error', (event) => {
       console.log(event);
     });
-    document.documentElement.addEventListener('touchend', (event) => {
-      this.$store.commit('routeHistory/touchEnd');
-    });
+
+    // pre-connect
     this.createPreconnect(
       'https://p1.music.126.net',
       'https://p2.music.126.net',
       'https://m8.music.126.net',
       'https://clarkkkk.xyz'
     );
+
+    // fetch likelist
+    if (this.$store.state.auth.login) {
+      fetchJSON('/likelist', this.$store.state.auth.userID)
+        .then((res) => {
+          console.log(res);
+          this.$store.commit('updateLikelist', res.ids);
+        });
+    }
   },
 
   methods: {
