@@ -35,8 +35,21 @@ export default {
     }
   },
   mounted: function() {
-    if (this.focus) {
-      this.$refs.input.focus();
+    this.$nextTick()
+      .then(() => {
+        if (this.focus) {
+          this.$refs.input.focus();
+        }
+      });
+  },
+  watch: {
+    focus(val) {
+      if (val) {
+        this.$nextTick()
+          .then(() => {
+            this.$refs.input.focus();
+          });
+      }
     }
   }
 };

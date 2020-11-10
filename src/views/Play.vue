@@ -1,5 +1,5 @@
 <template>
-  <div id="play" @scroll="onScroll">
+  <div id="play">
     <img alt="背景图片" class="background" :src="picUrl">
 
     <div class="content">
@@ -58,13 +58,6 @@ export default {
     PlayProgressBar,
     PlayControls,
     PlayList
-  },
-
-  methods: {
-    onScroll(event) {
-      event.preventDefault();
-      return false;
-    }
   }
 };
 </script>
