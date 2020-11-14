@@ -40,11 +40,11 @@ export default {
 
     nextSong(state) {
       console.log('next');
-      const next = state.playIndex + 1;
-      state.playIndex = next < state.playList.length ? next : 0;
-      console.log(state.playIndex);
-      console.log(state.playList);
-      setItem('playIndex', state.playIndex);
+      if (state.mode === 'list-loop') {
+        const next = state.playIndex + 1;
+        state.playIndex = next < state.playList.length ? next : 0;
+        setItem('playIndex', state.playIndex);
+      }
     },
 
     lastSong(state) {

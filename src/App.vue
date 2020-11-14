@@ -8,6 +8,7 @@
     <transition :name="transitionName">
       <app-dock/>
     </transition>
+    <div class="hidden-bar"></div>
   <app-audio-player/>
   </div>
 </template>
@@ -63,6 +64,13 @@ export default {
     }
   },
 
+  mounted() {
+    // Since the body is scrollable, it is necessary to prevent touchmove event
+    this.$el.addEventListener('touchmove', (event) => {
+      event.preventDefault();
+    });
+  },
+
   methods: {
     createPreconnect(...links) {
       for (const link of links) {
@@ -80,7 +88,6 @@ export default {
 body {
   height: 100vh;
   margin: 0;
-  overflow: hidden;
   font-size: 14px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   background-color: black;
@@ -92,11 +99,21 @@ body {
 }
 
 #app {
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   background-color: black;
-  position: relative;
+  position: fixed;
   z-index: 0;
+}
+
+.hidden-bar {
+  position: absolute;
+  top: 7vh;
+  left: 0;
+  width: 15px;
+  height: 90vh;
+  background-color: transparent;
+  z-index: 10000;
 }
 
 .fade-in {

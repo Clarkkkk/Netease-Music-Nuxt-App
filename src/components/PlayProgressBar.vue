@@ -61,8 +61,7 @@ export default {
       if (this.isPointerDown) {
         return;
       }
-      const percentage =
-        isNaN(current / this.duration) ? 0 : current / this.duration;
+      const percentage = Math.max(current / this.duration, 0);
       this.$refs.pointer.style.transform =
         `translateX(calc(${percentage} * (70vw - 0.5rem))`;
       this.$refs.played.style.width = `${percentage * 100}%`;
@@ -86,7 +85,7 @@ export default {
     pointerDown(event) {
       this.isPointerDown = true;
       this.rect = this.$refs.container.getBoundingClientRect();
-      const relativeLeft = event.clientX - this.rect.left;
+      const relativeLeft = Math.max(event.clientX - this.rect.left, 0);
       const percentage = relativeLeft / (this.rect.right - this.rect.left);
       this.$refs.pointer.style.transform =
         `translateX(${relativeLeft}px`;
@@ -96,7 +95,7 @@ export default {
 
     pointerMove(event) {
       if (this.isPointerDown) {
-        const relativeLeft = event.clientX - this.rect.left;
+        const relativeLeft = Math.max(event.clientX - this.rect.left, 0);
         const percentage = relativeLeft / (this.rect.right - this.rect.left);
         this.$refs.pointer.style.transform =
           `translateX(${relativeLeft}px`;
@@ -110,11 +109,6 @@ export default {
       const percentage =
         (event.clientX - this.rect.left) / (this.rect.right - this.rect.left);
       this.seek(this.duration * percentage);
-    },
-
-    pointerCancel(event) {
-      console.log('canceled');
-      console.log(event);
     }
   }
 };
