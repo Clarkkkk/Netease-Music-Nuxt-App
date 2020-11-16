@@ -128,14 +128,15 @@ export default {
   display: grid;
   background-color: white;
   grid-template-rows:
-    [start header-start] 3rem [header-end nav-start]
+    [start header-start] min-content [header-end nav-start]
     2.5rem [nav-end list-start] 1fr [list-end];
   grid-template-columns:
     [start] 100% [end];
 }
 
 .header {
-  height: 100%;
+  height: 3rem;
+  padding-top: env(safe-area-inset-top);
   width: 100%;
   grid-row: header;
   background-color: var(--app-color);

@@ -154,7 +154,7 @@ export default {
   height: 100%;
   display: grid;
   grid-template-rows:
-    [start header-start] 3rem
+    [start header-start] min-content
     [header-end contents-start] 1fr [contents-end end];
 }
 

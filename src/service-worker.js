@@ -1,6 +1,6 @@
 workbox.core.setCacheNameDetails({
   prefix: 'netease-music',
-  suffix: 'v1.0.3'
+  suffix: 'v1.0.5'
 });
 
 workbox.skipWaiting();

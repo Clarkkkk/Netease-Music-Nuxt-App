@@ -13,7 +13,7 @@ module.exports = {
       skipWaiting: true, // 安装完SW不等待直接接管网站
       clientsClaim: true,
       navigateFallback: '/index.html',
-      exclude: [/\.(?:png|jpg|jpeg|map)$/], // 在预缓存中排除图片和sourceMap
+      exclude: [/\.(?:map)$/], // 在预缓存中排除图片和sourceMap
       // 定义运行时缓存
       runtimeCaching: [
         {
@@ -39,23 +39,14 @@ module.exports = {
               statuses: [200]
             }
           }
-        },
-        {
-          urlPattern: new RegExp('^https://cdn'),
-          handler: 'NetworkFirst',
-          options: {
-            networkTimeoutSeconds: 20,
-            cacheName: 'cdn-cache',
-            cacheableResponse: {
-              statuses: [200]
-            }
-          }
         }
       ]
     },
     name: 'neteasemusic',
-    themeColor: '#e91a3d',
+    themeColor: '#ff3932',
+    msTileColor: '#ff3932',
     appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black-translucent',
     manifestPath: 'public/manifest.json',
     iconPaths: {
       favicon32: 'img/icons/favicon-32x32.png',

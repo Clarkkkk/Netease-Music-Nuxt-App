@@ -60,8 +60,9 @@ export default {
 <style scoped>
 #app-search-bar {
   width: 100%;
-  height: 100%;
+  height: 3rem;
   background-color: var(--app-color);
+  padding-top: env(safe-area-inset-top);
   color: white;
 }
 

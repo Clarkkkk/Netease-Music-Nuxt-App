@@ -212,7 +212,6 @@ export default {
   width: 100%;
   height: calc(100vh - 2.5rem);
   background-color: white;
-  overflow: hidden;
   position: relative;
 }
 
@@ -221,7 +220,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 15rem;
+  height: calc(15rem + env(safe-area-inset-top));
   min-height: 3rem;
   overflow: hidden;
   z-index: 10;
@@ -258,10 +257,11 @@ export default {
   left: 0;
   width: 100%;
   z-index: 20;
+  transform: translate3d(0px, 0px, 2px);
   background-color: #00000010;
   display: grid;
   grid-template-rows:
-    [start header-start] 3rem [header-end info-start]
+    [start header-start] min-content [header-end info-start]
     min-content [info-end button-start] 3rem
     [button-end end];
   grid-template-columns: [start] 100% [end];
@@ -271,7 +271,7 @@ export default {
 .header {
   grid-row: header;
   grid-column: start / end;
-  height: 100%;
+  height: calc(3rem + env(safe-area-inset-top));
   width: 100%;
   display: grid;
   grid-template-columns:
@@ -386,6 +386,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 0 0.5rem;
+  padding-top: env(safe-area-inset-top);
   display: grid;
   grid-template-rows: [placeholder-start] min-content [placeholder-end];
   grid-auto-rows: 3rem;

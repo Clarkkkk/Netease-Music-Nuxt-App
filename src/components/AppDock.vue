@@ -94,15 +94,22 @@ export default {
 #app-dock {
   position: fixed;
   z-index: 11000;
+  transform: translate3d(0px, 0px, 2px);
   bottom: 0;
   padding-bottom: env(safe-area-inset-bottom);
   height: 2.5rem;
   width: 100%;
   background-color: #eee;
-  border-top: 1px solid #ddd;
   display: grid;
   grid-auto-flow: column;
   justify-content: space-around;
+}
+
+@supports(backdrop-filter: blur(50px)) {
+  #app-dock {
+    background-color: #eeeeeec0;
+    backdrop-filter: blur(30px);
+  }
 }
 
 .category {

@@ -98,14 +98,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
-  --app-color: #e91a3d;
-  --app-color-rgb: 233, 26 ,61;
+  --app-color: #ff3932;
+  --app-color-rgb: 255, 57 ,50;
 }
 
 #app {
   height: 100vh;
   width: 100vw;
-  background-color: black;
+  background-color: var(--app-color);
   position: fixed;
   top: 0;
   z-index: 0;

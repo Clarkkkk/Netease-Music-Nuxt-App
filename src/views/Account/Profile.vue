@@ -125,20 +125,22 @@ export default {
         const self = this;
         function onScroll(pos) {
           if (pos.y > 0) {
-            self.$refs.bg.style = `height: calc(15rem + ${pos.y}px)`;
+            self.$refs.bg.style =
+              `height: calc(15rem + env(safe-area-inset-top) + ${pos.y}px)`;
           } else {
-            self.$refs.bg.style = `height: calc(15rem + ${pos.y}px)`;
-            const progress = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
+            const progress = (-pos.y) / 210 < 1 ? (-pos.y) / 210 : 1;
             const bgOpacity = progress;
+            self.$refs.bg.style =
+              `height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));`;
             self.$refs.card.style =
               `background-color: rgba(var(--app-color-rgb), ${bgOpacity});
-              height: ${15 - 12 * progress}rem;`;
+              height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));`;
             self.$refs.avatar.style =
               `height: ${5.4 - 3.2 * progress}rem;
-              transform: translateY(${-progress * 2.5}rem)`;
+              transform: translateY(${-progress * 3.5}rem)`;
             self.$refs.nickname.style =
               `transform: translateX(${progress * 3}rem)
-                translateY(${-progress * 6.5}rem)`;
+                translateY(${-progress * 9}rem)`;
             self.$refs.level.style =
               `opacity: ${1 - progress};
               transform: translateY(${-progress * 6.5}rem)`;
@@ -193,7 +195,7 @@ export default {
   left: 0;
   z-index: 0;
   width: 100%;
-  height: 15rem;
+  height: calc(15rem + env(safe-area-inset-top));
   object-fit: cover;
 }
 
@@ -203,7 +205,7 @@ export default {
   left: 0;
   z-index: 10;
   width: 100%;
-  height: 15rem;
+  height: calc(15rem + env(safe-area-inset-top));
 }
 
 /* brief info card */
@@ -215,10 +217,10 @@ export default {
   box-sizing: border-box;
   display: grid;
   grid-template-rows:
-    [start] 1fr [avatar-start]
+    [start] 3rem [avatar-start]
     6rem [avatar-end name-start] 2rem
     [name-end info-start] 2rem [info-end];
-  align-items: center;
+  align-items: start;
   z-index: 10;
   /*transform: translateZ(2px);*/
 }
@@ -230,6 +232,7 @@ export default {
   border: 3.5px solid white;
   box-sizing: border-box;
   box-shadow: 0 0 5px #444;
+  margin-top: env(safe-area-inset-top);
 }
 
 .nickname {
@@ -237,6 +240,7 @@ export default {
   font-size: 1.2rem;
   line-height: 1.2rem;
   font-weight: bold;
+  margin-top: env(safe-area-inset-top);
 }
 
 .level {
@@ -247,6 +251,7 @@ export default {
   text-align: center;
   border-radius: 1rem;
   padding: 0.1rem;
+  margin-top: env(safe-area-inset-top);
 }
 
 .listen-songs {
@@ -266,6 +271,7 @@ export default {
   min-height: 101%;
   height: min-content;
   width: 100%;
+  padding-top: env(safe-area-inset-top);
   display: grid;
   grid-template-rows:
     [start placeholder-start] 15rem [placeholder-end features-start]
