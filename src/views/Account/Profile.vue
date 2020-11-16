@@ -97,24 +97,25 @@ export default {
         this.listenSongs = res.listenSongs;
         this.avtSrc = res.profile.avatarUrl.replace('http:', 'https:');
         this.bgSrc = res.profile.backgroundUrl.replace('http:', 'https:');
-        return fetchJSON('/user/playlist', {uid: this.userID});
-      }).then((res) => {
-        console.log(res);
-        if (res.code === 200) {
-          this.allList = res.playlist;
-        }
-        return fetchJSON('/user/subcount');
-      }).then((res) => {
-        if (res.code === 200) {
-          const createdCount = res.createdPlaylistCount;
-          this.favoriteList = this.allList[0];
-          this.createdLists =
-            this.allList.slice(1, createdCount);
-          this.savedLists =
-            this.allList.slice(createdCount, this.allList.length);
-        }
-        this.loading = false;
       });
+
+    Promise.all([
+      fetchJSON('/user/playlist', {uid: this.userID}),
+      fetchJSON('/user/subcount')
+    ]).then((res) => {
+      if (res[0].code === 200) {
+        this.allList = res[0].playlist;
+      }
+      if (res[1].code === 200) {
+        const createdCount = res[1].createdPlaylistCount;
+        this.favoriteList = this.allList[0];
+        this.createdLists =
+          this.allList.slice(1, createdCount);
+        this.savedLists =
+          this.allList.slice(createdCount, this.allList.length);
+      }
+      this.loading = false;
+    });
   },
 
   mounted() {

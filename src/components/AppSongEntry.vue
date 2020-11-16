@@ -1,11 +1,12 @@
 <template>
-  <div class="app-song-entry" @click="play" @tap="play">
+  <div class="app-song-entry" @tap="play">
     <span class="name">
       {{ songName }}
     </span>
     <span class="info">
       {{ songInfoString }}
     </span>
+    <slot name="count"></slot>
   </div>
 </template>
 
@@ -28,7 +29,6 @@ export default {
         .then((result) => {
           console.log(result);
           if (result.success) {
-            console.log(this.songCover);
             this.$store.commit('commonPlay/addToPlay', {
               id: this.songId,
               name: this.songName,
@@ -54,7 +54,7 @@ export default {
   box-sizing: border-box;
   display: grid;
   grid-template-rows: [start name-start] 1.2fr [name-end info-start] 1fr [info-end end];
-  grid-template-columns: [start] 100% [end];
+  grid-template-columns: [info-start] 1fr [info-end count-start] max-content [count-end];
   justify-items: start;
   border-bottom: 1px solid #eee;
   cursor: pointer;
@@ -64,7 +64,7 @@ export default {
   width: 100%;
   height: 100%;
   grid-row: name;
-  grid-column: start / end;
+  grid-column: info;
   font-size: 1rem;
   color: black;
   white-space: nowrap;
@@ -76,11 +76,20 @@ export default {
   width: 100%;
   height: 100%;
   grid-row: info;
-  grid-column: start / end;
+  grid-column: info;
   font-size: 0.8rem;
   color: #666;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.count {
+  grid-row: start / end;
+  grid-column: count;
+  height: 100%;
+  justify-self: end;
+  font-size: 0.8rem;
+  color: #666;
 }
 </style>

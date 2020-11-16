@@ -134,10 +134,13 @@ export default {
             this.cover = res.playlist.coverImgUrl.replace('http:', 'https:');
             this.tags = res.playlist.tags;
             const ids = res.playlist.trackIds.map((item) => item.id).join(',');
-            return fetchJSON('/song/detail', {ids: ids});
+            this.createList(res.playlist.tracks);
+            if (res.playlist.tracks.length < res.playlist.trackCount) {
+              return fetchJSON('/song/detail', {ids: ids});
+            }
           }
         }).then((res) => {
-          if (res.code === 200) {
+          if (res && res.code === 200) {
             this.createList(res.songs);
           }
         });

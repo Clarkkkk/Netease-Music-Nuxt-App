@@ -38,9 +38,6 @@ export default {
       });
     }
 
-    // language tag
-    document.documentElement.setAttribute('lang', 'zh');
-
     // log loading error
     document.documentElement.addEventListener('error', (event) => {
       console.log(event);
@@ -85,6 +82,13 @@ export default {
 </script>
 
 <style>
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+}
 body {
   height: 100vh;
   margin: 0;
@@ -103,6 +107,7 @@ body {
   width: 100vw;
   background-color: black;
   position: fixed;
+  top: 0;
   z-index: 0;
 }
 

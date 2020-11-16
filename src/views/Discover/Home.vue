@@ -3,7 +3,7 @@
     <app-search-bar
       class="header"
       cursor="pointer"
-      @click="search"
+      @click.native="search"
     >
       <template v-slot:left>
         <header class="title">网易云音乐</header>
@@ -37,7 +37,11 @@
             @tap="tap('songlist/' + list.id)"
           >
             <img class="list-img fade-in" :src="list.picUrl">
-            <span class="list-count">{{ formatNum(list.playcount) }}</span>
+            <span class="list-count" v-if="list.playcount">
+              <app-icon class="list-count-icon" icon="play-hollow" v-if="list.playcount"/>
+              <span>{{ formatNum(list.playcount) }}</span>
+            </span>
+
             <span class="list-name">{{ list.name }}</span>
           </div>
         </div>
@@ -73,7 +77,8 @@ export default {
 
   methods: {
     search(event) {
-      event.target.blur();
+      // do not need to blur, otherwise the search bar in search page won't
+      // get focused by the first tap in iOS Safari
       this.$router.push('search');
     },
 
@@ -137,7 +142,9 @@ export default {
   },
 
   activated() {
-    this.scroll.refresh();
+    if (this.scroll) {
+      this.scroll.refresh();
+    }
   }
 };
 </script>
@@ -253,11 +260,13 @@ export default {
   box-sizing: border-box;
   grid-row: list;
   display: grid;
+  padding-bottom: 6rem;
+  box-sizing: border-box;
   grid-template-rows: [title-start] 2rem [title-end];
   grid-template-columns: [start] repeat(3, 29vw) [end];
   place-items: center;
   justify-content: center;
-  grid-auto-rows: 33vw;
+  grid-auto-rows: min-content;
   gap: 2vw;
 }
 
@@ -270,15 +279,15 @@ export default {
 }
 
 .list-container {
-  height: 29vw;
+  padding: 0.2rem 0;
+  box-sizing: border-box;
   width: 29vw;
   display: grid;
   grid-template-rows:
-    [img-start] minmax(25vw, 1fr) [img-end text-start]
+    [img-start] 26vw [img-end text-start]
     2rem [text-end];
   grid-template-columns:
-    [start] 0.5rem [img-start]
-    minmax(25vw, 1fr) [img-end] 0.5rem [end];
+    1fr [img-start] 26vw [img-end] 1fr;
 }
 
 .list-img {
@@ -304,9 +313,24 @@ export default {
 .list-count {
   grid-row: img;
   grid-column: img;
+  height: 1.2rem;
   justify-self: end;
   padding: 0.3rem;
+  box-sizing: border-box;
   font-size: 0.7rem;
+  color: white;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.list-count > * {
+  filter: drop-shadow(0px 0px 1px #555);
+}
+
+.list-count-icon {
+  font-size: 1.2rem;
+  height: 1.2rem;
   color: white;
 }
 </style>

@@ -9,7 +9,6 @@
       @pointerdown="pointerDown"
       @pointermove="pointerMove"
       @pointerup="pointerUp"
-      @pointercancel="pointerCancel"
     >
       <div class="groove">
         <div
@@ -62,6 +61,9 @@ export default {
         return;
       }
       const percentage = Math.max(current / this.duration, 0);
+      if (percentage < 0.01) {
+        this.$refs.pointer.style.transition = 'none';
+      }
       this.$refs.pointer.style.transform =
         `translateX(calc(${percentage} * (70vw - 0.5rem))`;
       this.$refs.played.style.width = `${percentage * 100}%`;
@@ -85,21 +87,26 @@ export default {
     pointerDown(event) {
       this.isPointerDown = true;
       this.rect = this.$refs.container.getBoundingClientRect();
-      const relativeLeft = Math.max(event.clientX - this.rect.left, 0);
-      const percentage = relativeLeft / (this.rect.right - this.rect.left);
+      this.width = this.rect.right - this.rect.left;
+      const relativeLeft = event.clientX - this.rect.left;
       this.$refs.pointer.style.transform =
         `translateX(${relativeLeft}px`;
-      this.$refs.played.style.width = `${percentage * 100}%`;
+      this.$refs.played.style.width = `${relativeLeft / this.width * 100}%`;
       event.target.setPointerCapture(event.pointerId);
     },
 
     pointerMove(event) {
       if (this.isPointerDown) {
-        const relativeLeft = Math.max(event.clientX - this.rect.left, 0);
-        const percentage = relativeLeft / (this.rect.right - this.rect.left);
-        this.$refs.pointer.style.transform =
-          `translateX(${relativeLeft}px`;
-        this.$refs.played.style.width = `${percentage * 100}%`;
+        let relativeLeft;
+        if (event.clientX - this.rect.left > this.width) {
+          relativeLeft = this.width;
+        } else if (event.clientX - this.rect.left < 0) {
+          relativeLeft = 0;
+        } else {
+          relativeLeft = event.clientX - this.rect.left;
+        }
+        this.$refs.pointer.style.transform = `translateX(${relativeLeft}px`;
+        this.$refs.played.style.width = `${relativeLeft / this.width * 100}%`;
       }
     },
 

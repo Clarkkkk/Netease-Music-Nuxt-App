@@ -28,7 +28,11 @@
           :songArtist="song.artist"
           :songAlbum="song.album"
           :songCover="song.cover"
-        />
+        >
+          <template v-slot:count>
+            <span class="count">{{ song.playCount + '次' }}</span>
+          </template>
+        </app-song-entry>
       </div>
     </div>
   </div>

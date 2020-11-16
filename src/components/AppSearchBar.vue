@@ -34,21 +34,23 @@ export default {
       });
     }
   },
-  mounted: function() {
-    this.$nextTick()
-      .then(() => {
-        if (this.focus) {
-          this.$refs.input.focus();
-        }
-      });
+
+  mounted() {
+    this.focusIf(this.focus);
   },
+
   watch: {
     focus(val) {
-      if (val) {
-        this.$nextTick()
-          .then(() => {
-            this.$refs.input.focus();
-          });
+      this.focusIf(val);
+    }
+  },
+
+  methods: {
+    focusIf(condition) {
+      if (condition) {
+        this.$nextTick().then(() => {
+          this.$refs.input.focus();
+        });
       }
     }
   }

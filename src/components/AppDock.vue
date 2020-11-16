@@ -92,15 +92,15 @@ export default {
 
 <style scoped>
 #app-dock {
-  position: absolute;
+  position: fixed;
   z-index: 11000;
   bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
   height: 2.5rem;
   width: 100%;
   background-color: #eee;
   border-top: 1px solid #ddd;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 1fr);
   grid-auto-flow: column;
   justify-content: space-around;
 }
