@@ -105,7 +105,7 @@ body {
 #app {
   height: 100vh;
   width: 100vw;
-  background-color: var(--app-color);
+  background-color: black;
   position: fixed;
   top: 0;
   z-index: 0;
@@ -183,25 +183,48 @@ body {
 
 /* expand */
 .expand-enter {
-  transform: translateX(40vw) translateY(-65vw) scale(0.1) !important;
-  opacity: 0.5;
 }
 
 .expand-leave-to {
-  transform: scale(0.8);
+  
 }
 
 .expand-leave-active {
-  transition: transform 360ms ease;
+  animation: shrink 360ms;
   z-index: 0;
 }
 
 .expand-enter-active {
-  transition: transform 360ms ease, opacity 200ms ease;
-  position: fixed !important;
+  z-index: 13000 !important;
+  position: fixed;
   left: 0;
   top: 0;
-  z-index: 12000 !important;
+  animation: expand 560ms ease;
+}
+
+@keyframes expand {
+  from {
+    transform: translateY(-45vh) translateX(42vw) scale(0.1);
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  75% {
+    transform: scale(1.06);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes shrink {
+  to {
+    transform: scale(0.8);
+  }
 }
 /* expand */
 

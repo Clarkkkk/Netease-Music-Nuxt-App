@@ -71,7 +71,15 @@ const routes = [
             /* webpackChunkName: "page" */
             /* webpackPrefetch: true */
             '@/views/Account/Login.vue'
-          )
+          ),
+        beforeEnter: (to, from, next) => {
+          //debugger;
+          if (!store.state.auth.login) {
+            next();
+          } else {
+            next({name: 'account'});
+          }
+        }
       },
       {
         path: '',

@@ -3,7 +3,7 @@
     <app-search-bar
       class="header"
       cursor="pointer"
-      @click.native="search"
+      @click="search"
     >
       <template v-slot:left>
         <header class="title">网易云音乐</header>
@@ -75,59 +75,14 @@ export default {
     AppPlayIndicator
   },
 
-  methods: {
-    search(event) {
-      // do not need to blur, otherwise the search bar in search page won't
-      // get focused by the first tap in iOS Safari
-      this.$router.push('search');
-    },
-
-    tap(to) {
-      if (to.includes('songlist') || this.login) {
-        this.$router.push(to);
-      } else {
-        alert('该功能需要登录');
-        this.$router.push({name: 'login', params: {dock: true}});
-      }
-    },
-
-    formatNum(num) {
-      if (num >= 10000) {
-        return Math.floor(num / 10000) + '万';
-      } else {
-        return num;
-      }
+  watch: {
+    login(val) {
+      this.getRecommend();
     }
   },
 
   created() {
-    if (this.login) {
-      fetchJSON('/recommend/resource')
-        .then((res) => {
-          this.recommend = res.recommend.map((item) => {
-            return {
-              id: item.id,
-              name: item.name,
-              playcount: item.playcount,
-              picUrl: item.picUrl.replace('http:', 'https:')
-            };
-          });
-          console.log(this.recommend);
-        });
-    } else {
-      fetchJSON('/personalized')
-        .then((res) => {
-          this.recommend = res.result.map((item) => {
-            return {
-              id: item.id,
-              name: item.name,
-              playcount: item.playcount,
-              picUrl: item.picUrl.replace('http:', 'https:')
-            };
-          });
-          console.log(this.recommend);
-        });
-    }
+    this.getRecommend();
   },
 
   mounted() {
@@ -144,6 +99,51 @@ export default {
   activated() {
     if (this.scroll) {
       this.scroll.refresh();
+    }
+  },
+
+  methods: {
+    search(event) {
+      // do not need to blur, otherwise the search bar in search page won't
+      // get focused by the first tap in iOS Safari
+      this.$router.push('search');
+    },
+
+    tap(to) {
+      if (to.includes('songlist') || this.login) {
+        this.$router.push(to);
+      } else {
+        if (window.confirm('该功能需要登录，是否前往登录？')) {
+          this.$router.push({name: 'login', params: {dock: true}});
+        }
+      }
+    },
+
+    formatNum(num) {
+      if (num >= 10000) {
+        return Math.floor(num / 10000) + '万';
+      } else {
+        return num;
+      }
+    },
+
+    getRecommend() {
+      let result;
+      if (this.login) {
+        result = fetchJSON('/recommend/resource').then((res) => res.recommend);
+      } else {
+        result = fetchJSON('/personalized').then((res) => res.result);
+      }
+      result.then((res) => {
+        this.recommend = res.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            playcount: item.playcount,
+            picUrl: item.picUrl.replace('http:', 'https:')
+          };
+        });
+      });
     }
   }
 };
@@ -175,10 +175,6 @@ export default {
 }
 
 .header {
-  width: 100%;
-  height: 100%;
-  background-color: var(--app-color);
-  color: white;
   grid-row: header;
 
   display: grid;

@@ -50,7 +50,7 @@ export default {
           }
         });
       } else if (window.confirm('该功能需要登录，是否前往登录？')) {
-        this.$router.push({name: 'login'});
+        this.$router.push({name: 'login', params: {dock: true}});
       }
     }
   }

@@ -58,7 +58,7 @@ export default {
       }
       switch (category) {
         case 'discover': {
-          this.$router.push({
+          this.$router.replace({
             name: 'discover',
             params: {
               dock: true
@@ -68,14 +68,14 @@ export default {
         }
         case 'account': {
           if (this.$store.state.auth.login) {
-            this.$router.push({
+            this.$router.replace({
               name: 'account',
               params: {
                 dock: true
               }
             });
           } else {
-            this.$router.push({
+            this.$router.replace({
               name: 'login',
               params: {
                 dock: true

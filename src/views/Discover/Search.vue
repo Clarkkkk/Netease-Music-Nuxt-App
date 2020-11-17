@@ -85,15 +85,13 @@ export default {
   width: 100%;
   display: grid;
   grid-template-rows:
-    [start header-start] 3rem [header-end content-start]
+    [start header-start] min-content [header-end content-start]
     1fr [content-end];
 }
 
 .header {
   grid-row: header;
   display: grid;
-  padding: 0 0.5rem;
-  box-sizing: border-box;
   grid-template-columns:
     [start back-start] min-content [back-end search-start] 1fr
     [search-end right-start] min-content[right-end end];
@@ -104,7 +102,7 @@ export default {
 
 .cancel {
   grid-column: right-start / right-end;
-  padding: 0 0.3rem;
+  margin-right: 0.3rem;
   border: none;
   outline: none;
   background-color: transparent;

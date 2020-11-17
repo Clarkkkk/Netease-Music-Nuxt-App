@@ -9,6 +9,10 @@
         <img class="avatar fade-in" :src="avtSrc" ref="avatar">
         <span class="nickname" ref="nickname">{{ nickname }}</span>
         <span class="level" ref="level">{{ 'LV. ' + level }}</span>
+        <div class="logout" @tap="logout" ref="logout">
+          <app-icon icon="log-out"/>
+          <span>登出</span>
+        </div>
       </div>
     </div>
 
@@ -141,7 +145,7 @@ export default {
             self.$refs.nickname.style =
               `transform: translateX(${progress * 3}rem)
                 translateY(${-progress * 9}rem)`;
-            self.$refs.level.style =
+            self.$refs.level.style = self.$refs.logout.style =
               `opacity: ${1 - progress};
               transform: translateY(${-progress * 6.5}rem)`;
           }
@@ -169,6 +173,20 @@ export default {
       } else if (page === 'rank') {
         this.$router.push({name: 'account-rank'});
       }
+    },
+
+    logout() {
+      if (window.confirm('你想退出登录吗？')) {
+        this.$store.dispatch('logout')
+          .then(() => {
+            this.$router.replace({
+              name: 'login',
+              params: {
+                dock: true
+              }
+            });
+          });
+      }
     }
   }
 };
@@ -178,7 +196,7 @@ export default {
 #profile {
   grid-row: start / end;
   grid-column: start / end;
-  height: calc(100vh - 2.5rem);
+  height: 100vh;
   width: 100%;
   background-color: white;
   display: grid;
@@ -219,7 +237,7 @@ export default {
   grid-template-rows:
     [start] 3rem [avatar-start]
     6rem [avatar-end name-start] 2rem
-    [name-end info-start] 2rem [info-end];
+    [name-end info-start] 2rem [info-end end];
   align-items: start;
   z-index: 10;
   /*transform: translateZ(2px);*/
@@ -254,15 +272,26 @@ export default {
   margin-top: env(safe-area-inset-top);
 }
 
-.listen-songs {
-  grid-row: info;
-  background: #dddddd80;
-  font-size: 0.7rem;
-  width: 7rem;
-  text-align: center;
-  border-radius: 1rem;
-  padding: 0.1rem;
+.logout {
+  grid-row: start / end;
+  align-self: start;
+  justify-self: end;
+  height: 1.5rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  background-color: #22222290;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  gap: 0.5rem;
 }
+
+.logout > svg {
+  font-size: 1rem;
+}
+
 /* brief info card */
 
 .content {
@@ -339,6 +368,7 @@ export default {
   grid-column: start / end;
   display: grid;
   padding: 1rem;
+  padding-bottom: 3.5rem;
   box-sizing: border-box;
   grid-template-rows:
     [start nav-start] 3rem [nav-end created-start]

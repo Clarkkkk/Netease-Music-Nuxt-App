@@ -47,7 +47,7 @@ export default {
 
   watch: {
     radioIndex(newIndex) {
-      if (this.radioList.length - newIndex < 2) {
+      if (newIndex > 0 && this.radioList.length - newIndex === 1) {
         this.updateList();
       }
     }
@@ -126,7 +126,7 @@ export default {
     "..."
     "progress-bar"
     "controls";
-  grid-template-rows: [start] 4rem 1fr min(80vw, 65vh) 3rem 1rem 2fr 2rem 5rem [end];
+  grid-template-rows: [start] 4.5rem 1fr min(80vw, 65vh) 3rem 1rem 2fr 2rem 5rem [end];
   grid-template-columns: [start] 100% [end];
   place-items: center;
 }
@@ -135,6 +135,8 @@ export default {
 .header {
   grid-row: header;
   width: 100%;
+  height: 2.5rem;
+  margin-top: env(safe-area-inset-top);
   display: grid;
   grid-template-rows: [start] 100% [end];
   grid-template-columns:

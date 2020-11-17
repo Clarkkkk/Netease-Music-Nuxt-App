@@ -104,7 +104,7 @@ export default {
         console.log(res);
         if (res.code === 200) {
           this.$store.commit('auth/login', res);
-          this.$router.push('/account');
+          this.$router.replace('/account');
         } else {
           alert(res.message);
         }

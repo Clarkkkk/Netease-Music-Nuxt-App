@@ -99,7 +99,7 @@ export default {
     "interactions"
     "progress-bar"
     "controls";
-  grid-template-rows: [start] 4rem 1fr 70vmin 1fr 3rem 2rem 5rem [end];
+  grid-template-rows: [start] 4.5rem 1fr 70vmin 1fr 3rem 2rem 5rem [end];
   place-items: center;
 }
 
@@ -107,6 +107,8 @@ export default {
 .header {
   grid-row: header;
   width: 100%;
+  height: 2.5rem;
+  margin-top: env(safe-area-inset-top);
   display: grid;
   grid-template-columns:
     [start back-start] 3rem [back-end info-start loop-text-start]

@@ -20,7 +20,7 @@ module.exports = {
           // To match cross-origin requests, use a RegExp that matches
           // the start of the origin:
           urlPattern: new RegExp(/^https?:\/\/.*126\.net/),
-          handler: 'staleWhileRevalidate',
+          handler: 'StaleWhileRevalidate',
           options: {
             // Configure which responses are considered cacheable.
             cacheableResponse: {
@@ -32,7 +32,7 @@ module.exports = {
           // To match cross-origin requests, use a RegExp that matches
           // the start of the origin:
           urlPattern: new RegExp('^https://clarkkkk.xyz'),
-          handler: 'staleWhileRevalidate',
+          handler: 'StaleWhileRevalidate',
           options: {
             // Configure which responses are considered cacheable.
             cacheableResponse: {

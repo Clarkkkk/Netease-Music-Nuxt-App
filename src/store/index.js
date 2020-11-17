@@ -47,6 +47,20 @@ const store = new Vuex.Store({
           console.log(res);
           context.commit('updateLikelist', res.ids);
         });
+    },
+
+    logout({commit, state}) {
+      return fetchJSON('/logout')
+        .then((res) => {
+          if (res.code === 200) {
+            commit('auth/logout');
+            if (state.radio) {
+              commit('radioPlay/clear');
+            } else {
+              commit('commonPlay/clear');
+            }
+          }
+        })
     }
   }
 });

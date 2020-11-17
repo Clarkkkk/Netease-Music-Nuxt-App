@@ -40,6 +40,9 @@ export default {
     console.log('avtive');
     this.active = true;
     this.leave = false;
+    if (this.playID) {
+      this.$el.classList.remove('leave');
+    }
   },
 
   deactivated() {
@@ -57,13 +60,17 @@ export default {
 
     click() {
       this.leave = true;
-      setTimeout(() => {
-        if (this.radio) {
-          this.$router.push({name: 'radio', params: {indicator: true}});
-        } else {
-          this.$router.push({name: 'play', params: {indicator: true}});
-        }
-      }, 100);
+      //this.$el.classList.add('leave');
+      this.$el.addEventListener('transitionend', remove);
+      const remove = (event) => {
+        //this.$el.classList.remove('leave');
+        this.$el.removeEventListener('transitionend', remove);
+      }
+      if (this.radio) {
+        this.$router.push({name: 'radio', params: {indicator: true}});
+      } else {
+        this.$router.push({name: 'play', params: {indicator: true}});
+      }
     }
   }
 };
@@ -71,7 +78,7 @@ export default {
 
 <template>
   <transition name="indicator">
-    <div id="play-indicator" @click="click" v-if="!leave" v-show="playID">
+    <div id="play-indicator" @click="click" v-if="playID">
       <img
         :class="['cover', {'rolling': playing}]"
         :src="picUrl"
@@ -94,7 +101,10 @@ export default {
   grid-template-rows: 100%;
   grid-template-columns: 100%;
   cursor: pointer;
-
+  z-index: 10;
+  transition:
+    transform 150ms ease-in,
+    opacity 150ms;
 }
 
 .cover {
@@ -109,15 +119,6 @@ export default {
 
 .cover.rolling {
   animation-play-state: running;
-}
-
-.indicator-leave-active {
-  z-index: 10;
-  transition: transform 200ms ease-in;
-}
-
-.indicator-leave-to {
-  transform: translateX(-2vw) translateY(15vw);
 }
 
 @keyframes rolling {

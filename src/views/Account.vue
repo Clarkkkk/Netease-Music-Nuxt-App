@@ -25,7 +25,7 @@ export default {
   display: grid;
   background-color: white;
   grid-template-rows:
-    [start header-start] 3rem [header-end login-start]
+    [start header-start] min-content [header-end login-start]
     25rem [login-end] 1fr [end];
   grid-template-columns:
     [start] 1fr [login-start]
@@ -36,7 +36,7 @@ export default {
   grid-row: header;
   grid-column: start / end;
   width: 100%;
-  height: 100%;
+  height: calc(3rem + env(safe-area-inset-top));;
   background-color: var(--app-color);
   display: grid;
   font-size: 1.2rem;
@@ -44,5 +44,9 @@ export default {
   font-weight: bold;
   place-items: center;
   user-select: none;
+}
+
+.header > span {
+  padding-top: env(safe-area-inset-top);
 }
 </style>
