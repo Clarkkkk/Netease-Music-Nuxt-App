@@ -25,6 +25,7 @@
 <script>
 import LoginBy from '@/components/LoginBy.vue';
 export default {
+  name: 'login',
   data: function() {
     return {
       loginMethod: 'phone'

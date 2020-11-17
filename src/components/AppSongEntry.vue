@@ -1,5 +1,5 @@
 <template>
-  <div class="app-song-entry" @tap="play">
+  <div class="app-song-entry" @click="play" @tap="play">
     <span class="name">
       {{ songName }}
     </span>
@@ -13,6 +13,11 @@
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
 export default {
+  data() {
+    return {
+      lastClick: 0
+    };
+  },
   props: ['songName', 'songArtist', 'songAlbum', 'songId', 'songCover'],
   computed: {
     songInfoString: function() {
@@ -25,6 +30,11 @@ export default {
   },
   methods: {
     play() {
+      // avoid duplicate click fired by both click and tap
+      if (Date.now() - this.lastClick < 100) {
+        return;
+      }
+      this.lastClick = Date.now();
       fetchJSON('/check/music', {id: this.songId})
         .then((result) => {
           console.log(result);

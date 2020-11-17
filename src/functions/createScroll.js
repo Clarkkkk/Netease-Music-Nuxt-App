@@ -47,11 +47,15 @@ function createScroll(contentIndex, wrapper, onScroll) {
    *  scrolls to top, and fires a native scroll event. Listen to
    *  the scroll event and call BScroll.scrollTo() to scroll to top
    */
-  scroll.on('scrollStart', () => window.scroll(0, 2));
+  scroll.on('scrollStart', () => {
+    window.scroll(0, 2)
+  });
   window.addEventListener('scroll', scrollToTop);
-  scroll.on('destroy', () => window.removeEventListener('scroll', scrollToTop));
-  function scrollToTop() {
-    !window.scrollY && scroll.y && scroll.scrollTo(0, 0, 500);
+  scroll.on('destroy', () => {
+    window.removeEventListener('scroll', scrollToTop);
+  });
+  function scrollToTop(event) {
+    !window.scrollY && scroll.y && scroll.enabled && scroll.scrollTo(0, 0, 500);
   }
   return scroll;
 }

@@ -14,12 +14,12 @@ export default {
 
   methods: {
     back(event) {
+      // avoid duplicate click fired by both click and tap
       if (Date.now() - this.lastClick < 100) {
         console.log('duplicate click');
         return;
       }
       this.lastClick = Date.now();
-      console.log('tap or click');
       const lastRoute = this.$store.getters['routeHistory/lastRoute'];
       if (lastRoute) {
         this.$router.push({

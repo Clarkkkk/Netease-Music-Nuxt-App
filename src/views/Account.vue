@@ -4,16 +4,34 @@
       <span>未登录</span>
     </div>
     <transition :name="transitionName">
-      <router-view/>
+      <keep-alive :include="includeNames">
+        <router-view></router-view>
+      </keep-alive>
     </transition>
   </div>
 </template>
 
 <script>
+const childRoutes = {
+  'account': 'profile',
+  'account-songlist': 'songlist',
+  'account-favorite': 'songlist',
+  'account-rank': 'rank'
+}
 export default {
   computed: {
     transitionName() {
       return this.$store.state.routeHistory.transitionName;
+    },
+
+    includeNames() {
+      let history = [...this.$store.state.routeHistory.history];
+      history.forEach((item, i, arr) => {
+        if (childRoutes[item]) {
+          arr[i] = childRoutes[item];
+        }
+      });
+      return history;
     }
   }
 }

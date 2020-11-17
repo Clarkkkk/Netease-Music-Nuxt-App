@@ -170,8 +170,6 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   console.log(to);
   console.log(store);
-  console.log(store.getters);
-  console.log(store.getters['routeHistory/lastRoute']);
   const state = store.state.routeHistory;
   const transition = store.commit.bind(null, 'routeHistory/transition');
   const push = store.commit.bind(null, 'routeHistory/push');
@@ -219,7 +217,6 @@ router.beforeEach((to, from, next) => {
   // the first route, or other exceptions
   } else {
     push(to.name);
-    console.log(store);
   }
   next();
 });

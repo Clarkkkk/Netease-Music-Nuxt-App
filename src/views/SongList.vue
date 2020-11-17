@@ -67,6 +67,7 @@ import AppLoadingIcon from '@/components/AppLoadingIcon';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
+  name: 'songlist',
   data: function() {
     return {
       loading: true,
@@ -158,6 +159,20 @@ export default {
     if (this.scroll) {
       this.scroll.refresh();
     }
+  },
+
+  deactivated() {
+    this.scroll.disable();
+  },
+
+  activated() {
+    if (this.scroll) {
+      this.scroll.enable();
+    }
+  },
+
+  beforeDestroy() {
+    this.scroll.destroy();
   },
 
   watch: {

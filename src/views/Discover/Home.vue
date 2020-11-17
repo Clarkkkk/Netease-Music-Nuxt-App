@@ -57,6 +57,7 @@ import AppPlayIndicator from '@/components/AppPlayIndicator.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
+  name: 'home',
   data: function() {
     return {
       recommend: []
@@ -96,10 +97,18 @@ export default {
     this.scroll.refresh();
   },
 
+  deactivated() {
+    this.scroll.disable();
+  },
+
   activated() {
     if (this.scroll) {
-      this.scroll.refresh();
+      this.scroll.enable();
     }
+  },
+
+  beforeDestroy() {
+    this.scroll.destroy();
   },
 
   methods: {
@@ -151,6 +160,7 @@ export default {
 
 <style scoped>
 #discover-home {
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows:

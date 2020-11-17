@@ -62,6 +62,20 @@ export default {
     this.scroll.refresh();
   },
 
+  deactivated() {
+    this.scroll.disable();
+  },
+
+  activated() {
+    if (this.scroll) {
+      this.scroll.enable();
+    }
+  },
+
+  beforeDestroy() {
+    this.scroll.destroy();
+  },
+
   methods: {
     ...mapMutations(['clear', 'playSongOfList']),
     hide() {

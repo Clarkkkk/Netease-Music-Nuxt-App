@@ -29,6 +29,7 @@
 import AppSearchBar from '@/components/AppSearchBar.vue';
 import AppBackButton from '@/components/AppBackButton.vue';
 export default {
+  name: 'search',
   data: function() {
     return {
       loading: false,

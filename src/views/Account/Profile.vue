@@ -64,6 +64,7 @@ import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 import ProfileSongLists from '@/components/ProfileSongLists.vue';
 export default {
+  name: 'profile',
   data: function() {
     return {
       nickname: '',
@@ -156,6 +157,20 @@ export default {
   // refresh the scroll after all the content is loaded
   updated() {
     this.scroll.refresh();
+  },
+
+  deactivated() {
+    this.scroll.disable();
+  },
+
+  activated() {
+    if (this.scroll) {
+      this.scroll.enable();
+    }
+  },
+
+  beforeDestroy() {
+    this.scroll.destroy();
   },
 
   methods: {

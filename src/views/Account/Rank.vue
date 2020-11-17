@@ -44,6 +44,7 @@ import createScroll from '@/functions/createScroll.js';
 import AppBackButton from '@/components/AppBackButton.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
 export default {
+  name: 'rank',
   data() {
     return {
       weekList: [],
@@ -117,7 +118,21 @@ export default {
 
   updated() {
     this.scroll.refresh();
-  }
+  },
+
+  deactivated() {
+    this.scroll.disable();
+  },
+
+  activated() {
+    if (this.scroll) {
+      this.scroll.enable();
+    }
+  },
+
+  beforeDestroy() {
+    this.scroll.destroy();
+  },
 };
 </script>
 
