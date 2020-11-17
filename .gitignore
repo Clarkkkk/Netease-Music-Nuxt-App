@@ -3,6 +3,7 @@ node_modules
 /dist
 lighthouse*
 output.js
+original*
 
 
 # local env files

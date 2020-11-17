@@ -24,6 +24,7 @@ export default {
       return this.$store.state.routeHistory.transitionName;
     },
 
+    // cache the current page when routing to a new page
     includeNames() {
       let history = [...this.$store.state.routeHistory.history];
       history.forEach((item, i, arr) => {
