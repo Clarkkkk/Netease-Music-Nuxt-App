@@ -2,7 +2,7 @@
   <div id="discover">
     <transition :name="transitionName">
       <keep-alive :include="includeNames">
-        <router-view></router-view>
+        <router-view />
       </keep-alive>
     </transition>
   </div>
@@ -14,7 +14,7 @@ const childRoutes = {
   'discover-search': 'search',
   'discover-recommendation': 'songlist',
   'discover-songlist': 'songlist'
-}
+};
 export default {
   computed: {
     transitionName() {
@@ -23,7 +23,7 @@ export default {
 
     // cache the current page when routing to a new page
     includeNames() {
-      let history = [...this.$store.state.routeHistory.history];
+      const history = [...this.$store.state.routeHistory.history];
       history.forEach((item, i, arr) => {
         if (childRoutes[item]) {
           arr[i] = childRoutes[item];

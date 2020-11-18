@@ -6,6 +6,7 @@ import commonPlay from './module/commonPlay.js';
 import radioPlay from './module/radioPlay.js';
 import playStatus from './module/playStatus.js';
 import routeHistory from './module/routeHistory.js';
+import {getItem, setItem} from '@/functions/storage.js';
 
 Vue.use(Vuex);
 
@@ -19,7 +20,7 @@ const store = new Vuex.Store({
   },
 
   state: {
-    radio: false,
+    radio: getItem('radio') ? getItem('radio') : false,
     likelist: []
   },
 
@@ -33,6 +34,7 @@ const store = new Vuex.Store({
   mutations: {
     playRadio(state, isRadio) {
       state.radio = isRadio;
+      setItem('radio', state.radio);
     },
 
     updateLikelist(state, list) {

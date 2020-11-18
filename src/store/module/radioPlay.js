@@ -3,8 +3,8 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    radioIndex: getItem('radioIndex') ? parseInt(getItem('radioIndex')) : -1,
-    radioList: getItem('radioList') ? JSON.parse(getItem('radioList')) : [],
+    radioIndex: getItem('radioIndex') >= 0 ? getItem('radioIndex') : -1,
+    radioList: getItem('radioList') ? getItem('radioList') : [],
   },
 
   getters: {
@@ -38,8 +38,7 @@ export default {
         state.radioIndex = 1;
       }
       state.radioList = state.radioList.concat(list);
-      console.log(state.radioIndex);
-      console.log(state.radioList);
+      setItem('radioList', state.radioList);
     },
 
     clear(state) {
@@ -48,7 +47,7 @@ export default {
         state.radioList.pop();
       }
       setItem('radioIndex', state.radioIndex);
-      setItem('radioList', JSON.stringify(state.radioList));
+      setItem('radioList', state.radioList);
     }
   },
 

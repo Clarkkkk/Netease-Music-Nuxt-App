@@ -1,9 +1,9 @@
 <template>
   <audio
     id="app-audio-player"
+    ref="audio"
     :src="src"
     :loop="mode==='song-loop'"
-    ref="audio"
     @canplay="durationChange($event.target.duration)"
     @durationchange="durationChange($event.target.duration)"
     @timeupdate="timeUpdate($event.target.currentTime)"
@@ -12,7 +12,7 @@
     @waiting="waiting(true)"
     @playing="waiting(false)"
     @ended="ended"
-  ></audio>
+  />
 </template>
 
 <script>
@@ -56,6 +56,7 @@ export default {
           })
           .catch((e) => {
             console.log(e);
+            this.ended();
           });
       } else {
         this.$refs.audio.pause();

@@ -4,8 +4,8 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    playIndex: getItem('playIndex') ? parseInt(getItem('playIndex')) : -1,
-    playList: getItem('playList') ? JSON.parse(getItem('playList')) : [],
+    playIndex: getItem('playIndex') >= 0 ? getItem('playIndex') : -1,
+    playList: getItem('playList') ? getItem('playList') : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop'
   },
 
@@ -76,7 +76,7 @@ export default {
         // console.log(state.playList);
       }
       setItem('playIndex', state.playIndex);
-      setItem('playList', JSON.stringify(state.playList));
+      setItem('playList', state.playList);
     },
 
     addToPlayNext(state, obj) {
@@ -93,14 +93,14 @@ export default {
       } else if (index !== state.playIndex) {
         state.playList = moveAfter(index, state.playIndex, state.playList);
       }
-      setItem('playList', JSON.stringify(state.playList));
+      setItem('playList', state.playList);
     },
 
     playTheList(state, list) {
       state.playList = list;
       state.playIndex = 0;
       setItem('playIndex', state.playIndex);
-      setItem('playList', JSON.stringify(state.playList));
+      setItem('playList', state.playList);
     },
 
     playSongOfList(state, obj) {
@@ -133,7 +133,7 @@ export default {
         state.playList.pop();
       }
       setItem('playIndex', state.playIndex);
-      setItem('playList', JSON.stringify(state.playList));
+      setItem('playList', state.playList);
     }
   },
 

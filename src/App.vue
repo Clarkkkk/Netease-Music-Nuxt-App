@@ -2,14 +2,14 @@
   <div id="app">
     <transition :name="transitionName">
       <keep-alive>
-        <router-view/>
+        <router-view />
       </keep-alive>
     </transition>
     <transition :name="transitionName">
-      <app-dock/>
+      <app-dock />
     </transition>
-    <div class="hidden-bar"></div>
-  <app-audio-player/>
+    <div class="hidden-bar" />
+    <app-audio-player />
   </div>
 </template>
 
@@ -18,15 +18,14 @@ import AppAudioPlayer from '@/components/AppAudioPlayer.vue';
 import AppDock from '@/components/AppDock.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 export default {
+  components: {
+    AppAudioPlayer,
+    AppDock
+  },
   computed: {
     transitionName() {
       return this.$store.state.routeHistory.transitionName;
     }
-  },
-
-  components: {
-    AppAudioPlayer,
-    AppDock
   },
 
   created() {
@@ -186,7 +185,7 @@ body {
 }
 
 .expand-leave-to {
-  
+
 }
 
 .expand-leave-active {

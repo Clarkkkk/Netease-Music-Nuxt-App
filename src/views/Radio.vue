@@ -29,6 +29,12 @@ import RadioControls from '@/components/RadioControls.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import {mapState, mapGetters, mapMutations} from 'vuex';
 export default {
+  components: {
+    AppBackButton,
+    AppLoopText,
+    PlayProgressBar,
+    RadioControls
+  },
   computed: {
     ...mapState('playStatus', ['playing']),
     ...mapGetters('radioPlay', ['currentSong']),
@@ -39,12 +45,6 @@ export default {
     }
   },
 
-  created() {
-    console.log(this.$store);
-    this.updateList();
-    console.log(this.$store);
-  },
-
   watch: {
     radioIndex(newIndex) {
       if (newIndex > 0 && this.radioList.length - newIndex === 1) {
@@ -53,11 +53,10 @@ export default {
     }
   },
 
-  components: {
-    AppBackButton,
-    AppLoopText,
-    PlayProgressBar,
-    RadioControls
+  created() {
+    console.log(this.$store);
+    this.updateList();
+    console.log(this.$store);
   },
 
   methods: {
