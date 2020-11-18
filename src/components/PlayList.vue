@@ -99,18 +99,16 @@ export default {
   left: 0;
   height: 100vh;
   width: 100vw;
-  padding: 1.2rem;
   box-sizing: border-box;
   background-color: #00000080;
-  display: grid;
-  grid-template-rows: 1fr [container-start] 25rem [container-end];
-  align-items: end;
 }
 
 .container {
-  grid-row: container;
-  height: 100%;
-  width: 100%;
+  position: fixed;
+  bottom: 1rem;
+  height: 25rem;
+  width: 92vw;
+  margin-left: 4vw;
   background-color: transparent;
   box-shadow: 0 0 15px #00000080;
   border-radius: 1.2rem;
@@ -225,7 +223,7 @@ export default {
 
 /* transition */
 .list-enter, .list-leave-to {
-  transform: translateY(25rem);
+  transform: translateY(25rem) translateZ(0);
 }
 
 .list-enter-active {

@@ -5,7 +5,7 @@
 
 # 构建
 echo "### npm run build ###"
-npm run build
+npm run build -- --modern
 
 # cd 到构建输出的目录下 
 echo "### git deploying ###"
