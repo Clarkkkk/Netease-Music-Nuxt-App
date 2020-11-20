@@ -212,7 +212,7 @@ export default {
           name: song.name,
           artist: arString,
           album: song.al.name,
-          cover: song.al.picUrl
+          cover: song.al.picUrl.replace('http:', 'https:')
         };
       });
       this.loading = false;

@@ -62,7 +62,7 @@ const store = new Vuex.Store({
               commit('commonPlay/clear');
             }
           }
-        })
+        });
     }
   }
 });

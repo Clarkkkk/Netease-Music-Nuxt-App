@@ -73,7 +73,7 @@ export default {
               name: song.name,
               artist: arString,
               album: song.album.name,
-              cover: song.album.picUrl
+              cover: song.album.picUrl.replace('http:', 'https:')
             };
           });
           this.radioListUpdate(list);

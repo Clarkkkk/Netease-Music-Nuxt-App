@@ -138,9 +138,14 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (store.state.radio) {
         store.commit('playRadio', false);
-        store.commit('radioPlay/clear');
+        store.dispatch('radioPlay/clear')
+          .then(() => {
+            next();
+          })
+          .catch((e) => console.log(e));
+      } else {
+        next();
       }
-      next();
     },
     component: () =>
       /* webpackChunkName: "page" */
@@ -152,9 +157,14 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (!store.state.radio) {
         store.commit('playRadio', true);
-        store.commit('commonPlay/clear');
+        store.dispatch('commonPlay/clear')
+          .then(() => {
+            next();
+          })
+          .catch((e) => console.log(e));
+      } else {
+        next();
       }
-      next();
     },
     component: () =>
       /* webpackChunkName: "page" */

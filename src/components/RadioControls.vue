@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
+import {mapState, mapMutations, mapActions} from 'vuex';
 import fetchJSON from '@/functions/fetchJSON.js';
 import AppLikeIcon from '@/components/AppLikeIcon.vue';
 export default {
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     ...mapMutations('radioPlay', ['nextSong']),
-    ...mapMutations('playStatus', ['playOrPause']),
+    ...mapActions('playStatus', ['playOrPause']),
     dislike() {
       fetchJSON('/fm_trash', {id: this.playID})
         .then((res) => {

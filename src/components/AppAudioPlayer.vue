@@ -51,11 +51,11 @@ export default {
       console.log(newID);
       if (newID) {
         this.getUrl(newID)
-          .then(() => {
-            this.$refs.audio.play();
-          })
+          .then(() => this.$refs.audio.play())
           .catch((e) => {
             console.log(e);
+            return this.$refs.audio.play();
+          }).catch((e) => {
             this.ended();
           });
       } else {

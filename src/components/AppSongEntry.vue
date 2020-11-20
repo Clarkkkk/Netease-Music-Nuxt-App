@@ -44,7 +44,7 @@ export default {
               name: this.songName,
               artist: this.songArtist,
               album: this.songAlbum,
-              cover: this.songCover
+              cover: this.songCover.replace('http:', 'https:')
             });
             this.$router.push('/play');
           } else {

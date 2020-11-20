@@ -4,7 +4,6 @@ export default {
   data: function() {
     return {
       active: true,
-      leave: false,
     };
   },
 
@@ -39,10 +38,6 @@ export default {
   activated() {
     console.log('avtive');
     this.active = true;
-    this.leave = false;
-    if (this.playID) {
-      this.$el.classList.remove('leave');
-    }
   },
 
   deactivated() {
@@ -59,13 +54,6 @@ export default {
     },
 
     click() {
-      this.leave = true;
-      //this.$el.classList.add('leave');
-      this.$el.addEventListener('transitionend', remove);
-      const remove = (event) => {
-        //this.$el.classList.remove('leave');
-        this.$el.removeEventListener('transitionend', remove);
-      }
       if (this.radio) {
         this.$router.push({name: 'radio', params: {indicator: true}});
       } else {

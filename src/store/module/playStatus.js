@@ -42,15 +42,6 @@ export default {
       state.currentTime = time;
     },
 
-    playOrPause(state) {
-      console.log(state);
-      if (state.playing) {
-        state.player.pause();
-      } else {
-        state.player.play();
-      }
-    },
-
     clear(state) {
       state.playing = false;
       state.waiting = false;
@@ -65,6 +56,21 @@ export default {
         commit('radioPlay/ended', null, {root: true});
       } else {
         commit('commonPlay/ended', null, {root: true});
+      }
+    },
+
+    playOrPause({state, dispatch}) {
+      if (state.playing) {
+        state.player.pause();
+      } else {
+        state.player.play()
+          .catch((e) => {
+            console.log(e);
+            return state.player.play();
+          }).catch((e) => {
+            console.log(e);
+            dispatch('ended');
+          });
       }
     },
   }

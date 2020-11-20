@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
+import {mapState, mapMutations, mapActions} from 'vuex';
 export default {
   prop: ['showPlayList'],
   computed: {
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapMutations('commonPlay', ['switchMode', 'lastSong', 'nextSong']),
-    ...mapMutations('playStatus', ['playOrPause'])
+    ...mapActions('playStatus', ['playOrPause'])
   }
 };
 </script>
