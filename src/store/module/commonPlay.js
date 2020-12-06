@@ -4,7 +4,7 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    playIndex: getItem('playIndex') >= 0 ? getItem('playIndex') : -1,
+    playIndex: getItem('playIndex', 'number') >= 0 ? getItem('playIndex') : -1,
     playList: getItem('playList') ? getItem('playList') : [],
     mode: getItem('mode') ? getItem('mode') : 'list-loop'
   },
@@ -54,6 +54,7 @@ export default {
     },
 
     addToPlay(state, obj) {
+      console.log('add to play');
       let contain = false;
       let index = 0;
       while (index < state.playList.length) {
@@ -63,7 +64,6 @@ export default {
         }
         index++;
       }
-      console.log(state);
       if (!contain) {
         state.playList.splice(state.playIndex + 1, 0, obj);
         state.playIndex++;

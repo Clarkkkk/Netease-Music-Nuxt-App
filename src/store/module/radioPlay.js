@@ -3,7 +3,7 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    radioIndex: getItem('radioIndex') >= 0 ? getItem('radioIndex') : -1,
+    radioIndex: getItem('radioIndex', 'number') >= 0 ? getItem('radioIndex') : -1,
     radioList: getItem('radioList') ? getItem('radioList') : [],
   },
 

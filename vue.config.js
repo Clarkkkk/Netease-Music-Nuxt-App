@@ -95,5 +95,5 @@ module.exports = {
       .end();
   },
   // productionSourceMap: false,
-  publicPath: process.env.NODE_ENV === 'production' ? '/Netease-Music-Page/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
 };

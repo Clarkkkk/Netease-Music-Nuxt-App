@@ -139,9 +139,7 @@ const routes = [
       if (store.state.radio) {
         store.commit('playRadio', false);
         store.dispatch('radioPlay/clear')
-          .then(() => {
-            next();
-          })
+          .then(() => next())
           .catch((e) => console.log(e));
       } else {
         next();
@@ -158,9 +156,7 @@ const routes = [
       if (!store.state.radio) {
         store.commit('playRadio', true);
         store.dispatch('commonPlay/clear')
-          .then(() => {
-            next();
-          })
+          .then(() => next())
           .catch((e) => console.log(e));
       } else {
         next();
@@ -173,7 +169,8 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
+  base: '/',
   routes
 });
 

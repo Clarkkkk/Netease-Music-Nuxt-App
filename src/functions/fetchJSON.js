@@ -5,7 +5,7 @@ console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   serverURL = 'http://192.168.50.138:3000';
 } else {
-  serverURL = 'https://clarkkkk.xyz';
+  serverURL = 'https://carllllo.work/api';
 }
 const RETRY_TIMES = 5;
 let retryCount = 0;
@@ -55,8 +55,8 @@ function fetchJSON(api, init) {
         retryCount++;
         return new Promise((resolve) => {
           setTimeout(() => {
-            resolve(fetchJSON(api));
-          }, 300);
+            resolve(fetchJSON(api, init));
+          }, 300 * retryCount);
         });
       }
     });

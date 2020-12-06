@@ -1,6 +1,9 @@
-const getItem = (key) => {
+const getItem = (key, type) => {
   const item = window.localStorage.getItem(key);
-  if (!item) {
+  // identify primitive value's type
+  if (type && typeof item !== type) {
+    return false;
+  } else if (!item) {
     // '', null or undefined
     return item;
   } else if (

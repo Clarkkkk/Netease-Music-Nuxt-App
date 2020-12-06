@@ -42,14 +42,6 @@ export default {
       console.log(event);
     });
 
-    // pre-connect
-    this.createPreconnect(
-      'https://p1.music.126.net',
-      'https://p2.music.126.net',
-      'https://m8.music.126.net',
-      'https://clarkkkk.xyz'
-    );
-
     // fetch likelist
     if (this.$store.state.auth.login) {
       fetchJSON('/likelist', this.$store.state.auth.userID)
@@ -65,17 +57,6 @@ export default {
     this.$el.addEventListener('touchmove', (event) => {
       event.preventDefault();
     });
-  },
-
-  methods: {
-    createPreconnect(...links) {
-      for (const link of links) {
-        const elm = document.createElement('link');
-        elm.setAttribute('rel', 'preconnect');
-        elm.setAttribute('href', link);
-        document.head.appendChild(elm);
-      }
-    }
   }
 };
 </script>

@@ -46,7 +46,7 @@ export default {
     ...mapGetters(['playName', 'playArtist', 'playCover']),
     ...mapState(['playing']),
     picUrl() {
-      return this.playCover ? this.playCover : require('@/assets/default-cover.png');
+      return this.playCover || require('@/assets/default-cover.png');
     }
   },
 

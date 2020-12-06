@@ -71,7 +71,7 @@ export default {
         :class="['cover', {'rolling': playing}]"
         :src="picUrl"
         ref="cover"
-      />
+      >
       <svg viewBox="0 0 100 100" class="svg">
         <circle cx="50" cy="50" r="42" class="groove"/>
         <circle cx="50" cy="50" r="42" ref="indicator" class="indicator"/>
