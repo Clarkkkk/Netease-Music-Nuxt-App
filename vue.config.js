@@ -13,7 +13,7 @@ module.exports = {
       skipWaiting: true, // 安装完SW不等待直接接管网站
       clientsClaim: true,
       navigateFallback: '/index.html',
-      exclude: [/\.(?:map)$/], // 在预缓存中排除图片和sourceMap
+      exclude: [/\.(?:map)$/], // 在预缓存中排除sourceMap
       // 定义运行时缓存
       runtimeCaching: [
         {
@@ -29,9 +29,8 @@ module.exports = {
           }
         },
         {
-          // To match cross-origin requests, use a RegExp that matches
-          // the start of the origin:
-          urlPattern: new RegExp('^https://clarkkkk.xyz'),
+          // Use a RegExp that matches the start of the origin:
+          urlPattern: new RegExp('^https://carllllo.work'),
           handler: 'StaleWhileRevalidate',
           options: {
             // Configure which responses are considered cacheable.
@@ -42,6 +41,7 @@ module.exports = {
         }
       ]
     },
+    // 这里的设置会反映在index.html中
     name: 'neteasemusic',
     themeColor: '#ff3932',
     msTileColor: '#ff3932',

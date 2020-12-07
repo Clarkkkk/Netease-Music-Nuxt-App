@@ -105,10 +105,11 @@ export default {
       });
 
     Promise.all([
-      fetchJSON('/user/playlist', {uid: this.userID}),
+      fetchJSON('/user/playlist', {uid: this.userID, limit: 10}, false),
       fetchJSON('/user/subcount')
     ]).then((res) => {
       if (res[0].code === 200) {
+        console.log(res[0]);
         this.allList = res[0].playlist;
       }
       if (res[1].code === 200) {
@@ -239,6 +240,7 @@ export default {
   z-index: 10;
   width: 100%;
   height: calc(15rem + env(safe-area-inset-top));
+  pointer-events: none;
 }
 
 /* brief info card */
@@ -248,6 +250,7 @@ export default {
   color: white;
   padding: 1rem;
   box-sizing: border-box;
+  pointer-events: auto;
   display: grid;
   grid-template-rows:
     [start] 3rem [avatar-start]
@@ -292,6 +295,7 @@ export default {
   align-self: start;
   justify-self: end;
   height: 1.5rem;
+  margin-top: env(safe-area-inset-top);
   padding: 0.2rem 0.6rem;
   font-size: 0.8rem;
   line-height: 0.8rem;
@@ -301,6 +305,7 @@ export default {
   grid-auto-flow: column;
   place-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
 .logout > svg {

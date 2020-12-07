@@ -8,7 +8,10 @@
       class="list"
       @tap="tap(list.id)"
     >
-      <img class="fade-in" :src="list.coverImgUrl.replace('http:', 'https:')">
+      <app-image
+        :src="list.coverImgUrl"
+        width="50"
+      />
       <span class="list-name">{{ list.name }}</span>
       <span class="list-info">{{ list.trackCount + '首'}}</span>
     </div>
@@ -17,10 +20,12 @@
 
 <script>
 import AppLoadingIcon from '@/components/AppLoadingIcon.vue';
+import AppImage from '@/components/AppImage.vue';
 export default {
   props: ['lists', 'type', 'loading'],
   components: {
-    AppLoadingIcon
+    AppLoadingIcon,
+    AppImage
   },
 
   computed: {

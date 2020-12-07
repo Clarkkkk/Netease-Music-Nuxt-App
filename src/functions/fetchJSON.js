@@ -10,12 +10,12 @@ if (process.env.NODE_ENV === 'development') {
 const RETRY_TIMES = 5;
 let retryCount = 0;
 
-function fetchJSON(api, init) {
+function fetchJSON(api, init, withCookie = true) {
   // Add timestamp to avoid cache result
   const requestURL = serverURL + api + '?timestamp=' + Date.now();
   let requestBody;
   // if cookie is available, include it in the request
-  if (store.state.auth.cookie) {
+  if (store.state.auth.cookie && withCookie) {
     requestBody = JSON.stringify({
       ...init,
       credentials: 'include',

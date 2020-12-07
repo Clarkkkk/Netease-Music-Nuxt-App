@@ -26,9 +26,10 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/Netease-Music-Page/index.html",
+  "start_url": "/index.html",
   "background_color": "#e91a3d",
   "display": "standalone",
-  "scope": "/Netease-Music-Page/",
+  "orientation": "natural",
+  "scope": "/",
   "theme_color": "#e91a3d"
 }

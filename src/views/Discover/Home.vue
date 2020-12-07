@@ -36,9 +36,18 @@
             :key="list.id"
             @tap="tap('songlist/' + list.id)"
           >
-            <img class="list-img fade-in" :src="list.picUrl">
+            <app-image
+              class="list-img"
+              :src="list.picUrl"
+              alt="歌单图片"
+              width="240"
+            />
             <span class="list-count" v-if="list.playcount">
-              <app-icon class="list-count-icon" icon="play-hollow" v-if="list.playcount"/>
+              <app-icon
+                v-if="list.playcount"
+                class="list-count-icon"
+                icon="play-hollow"
+              />
               <span>{{ formatNum(list.playcount) }}</span>
             </span>
 
@@ -54,6 +63,7 @@
 import DiscoverBanner from '@/components/DiscoverBanner.vue';
 import AppSearchBar from '@/components/AppSearchBar.vue';
 import AppPlayIndicator from '@/components/AppPlayIndicator.vue';
+import AppImage from '@/components/AppImage.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
@@ -73,7 +83,8 @@ export default {
   components: {
     DiscoverBanner,
     AppSearchBar,
-    AppPlayIndicator
+    AppPlayIndicator,
+    AppImage
   },
 
   watch: {

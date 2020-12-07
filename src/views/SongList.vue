@@ -21,7 +21,7 @@
 
       <div class="info" ref="info">
         <div class="cover" v-if="type==='songlist'">
-          <img :src="cover" class="fade-in">
+          <app-image :src="cover"/>
         </div>
         <div class="name" v-if="name">
           {{ name }}
@@ -64,6 +64,7 @@
 import AppBackButton from '@/components/AppBackButton.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
 import AppLoadingIcon from '@/components/AppLoadingIcon';
+import AppImage from '@/components/AppImage.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
@@ -112,7 +113,8 @@ export default {
   components: {
     AppBackButton,
     AppSongEntry,
-    AppLoadingIcon
+    AppLoadingIcon,
+    AppImage
   },
 
   created() {
@@ -132,7 +134,7 @@ export default {
             this.name = res.playlist.name;
             this.creator = res.playlist.creator.nickname;
             this.description = res.playlist.description;
-            this.cover = res.playlist.coverImgUrl.replace('http:', 'https:');
+            this.cover = res.playlist.coverImgUrl;
             this.tags = res.playlist.tags;
             const ids = res.playlist.trackIds.map((item) => item.id).join(',');
             this.createList(res.playlist.tracks);
@@ -238,6 +240,7 @@ export default {
   height: calc(15rem + env(safe-area-inset-top));
   min-height: 3rem;
   overflow: hidden;
+  transform: translate3d(0px, 0px, 2px);
   z-index: 10;
 }
 

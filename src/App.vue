@@ -40,7 +40,8 @@ export default {
     // log loading error
     document.documentElement.addEventListener('error', (event) => {
       console.log(event);
-    });
+      //alert(event.target);
+    }, true);
 
     // fetch likelist
     if (this.$store.state.auth.login) {
@@ -162,13 +163,6 @@ body {
 /* slide-right */
 
 /* expand */
-.expand-enter {
-}
-
-.expand-leave-to {
-
-}
-
 .expand-leave-active {
   animation: shrink 360ms;
   z-index: 0;
