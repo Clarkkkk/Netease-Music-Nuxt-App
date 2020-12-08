@@ -34,24 +34,26 @@
       <div class="lists-container">
         <nav class="nav">
           <span
-            :class="{active: listsType === 'createdLists'}"
-            @tap="navTo('createdLists')"
+            :class="{active: listsType === 'created'}"
+            @tap="navTo('created')"
           >
             创建歌单
           </span>
           <span
-            :class="{active: listsType === 'savedLists'}"
-            @tap="navTo('savedLists')"
+            :class="{active: listsType === 'saved'}"
+            @tap="navTo('saved')"
           >
             收藏歌单
           </span>
         </nav>
         <keep-alive>
           <profile-song-lists
+            v-if="listCount > 0"
             :key="listsType"
-            :lists="lists"
             :type="listsType"
-            :loading="loading"
+            :count="listCount"
+            :sum="listSum"
+            :scroll="scroll"
           />
         </keep-alive>
       </div>
@@ -73,20 +75,25 @@ export default {
       avtSrc: require('@/assets/default-pic.jpg'),
       bgSrc: require('@/assets/default-pic.jpg'),
       favoriteList: [],
-      createdLists: [],
-      savedLists: [],
-      listsType: 'createdLists',
+      createdCount: -1,
+      savedCount: -1,
+      listsType: 'created',
       loading: true
     };
   },
 
   computed: {
-    lists: function() {
-      return this[this.listsType];
-    },
-
     userID: function() {
       return this.$store.state.auth.userID;
+    },
+
+    listCount() {
+      return this.listsType === 'created' ?
+        this.createdCount : this.savedCount;
+    },
+
+    listSum() {
+      return this.createdCount + this.savedCount;
     }
   },
 
@@ -95,6 +102,7 @@ export default {
   },
 
   created() {
+    // user basic info
     fetchJSON('/user/detail', {uid: this.userID})
       .then((res) => {
         this.nickname = res.profile.nickname;
@@ -104,24 +112,19 @@ export default {
         this.bgSrc = res.profile.backgroundUrl.replace('http:', 'https:');
       });
 
-    Promise.all([
-      fetchJSON('/user/playlist', {uid: this.userID, limit: 10}, false),
-      fetchJSON('/user/subcount')
-    ]).then((res) => {
-      if (res[0].code === 200) {
-        console.log(res[0]);
-        this.allList = res[0].playlist;
-      }
-      if (res[1].code === 200) {
-        const createdCount = res[1].createdPlaylistCount;
-        this.favoriteList = this.allList[0];
-        this.createdLists =
-          this.allList.slice(1, createdCount);
-        this.savedLists =
-          this.allList.slice(createdCount, this.allList.length);
-      }
-      this.loading = false;
-    });
+    // user owned lists
+    fetchJSON('/user/subcount')
+      .then((res) => {
+        console.log(res);
+        this.createdCount = res.createdPlaylistCount;
+        this.savedCount = res.subPlaylistCount;
+      });
+
+    // favorite list
+    fetchJSON('/user/playlist', {uid: this.userID, limit: 1})
+      .then((res) => {
+        this.favoriteList = res.playlist[0];
+      });
   },
 
   mounted() {
@@ -391,8 +394,8 @@ export default {
   padding-bottom: 3.5rem;
   box-sizing: border-box;
   grid-template-rows:
-    [start nav-start] 3rem [nav-end created-start]
-    min-content [created-end saved-start] min-content [saved-end];
+    [start nav-start] 3rem [nav-end lists-start]
+    min-content [lists-end bottom-start] min-content [bottom-end];
 }
 
 .nav {

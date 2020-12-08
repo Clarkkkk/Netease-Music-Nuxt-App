@@ -24,7 +24,7 @@
 <style>
 #loading-spinner {
   width: 100%;
-  height: 20vw;
+  height: calc(var(--basic-length) * 20);
   display: grid;
   place-items: center;
 }

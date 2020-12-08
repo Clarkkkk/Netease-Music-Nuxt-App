@@ -15,26 +15,95 @@
       <span class="list-name">{{ list.name }}</span>
       <span class="list-info">{{ list.trackCount + '首'}}</span>
     </div>
+    <app-intersection-observer
+      v-if="!loading"
+      :seen.sync="seen"
+      :is-bottom="!more"
+    />
   </div>
 </template>
 
 <script>
+import fetchJSON from '@/functions/fetchJSON.js';
 import AppLoadingIcon from '@/components/AppLoadingIcon.vue';
 import AppImage from '@/components/AppImage.vue';
+import AppIntersectionObserver from '@/components/AppIntersectionObserver.vue';
 export default {
-  props: ['lists', 'type', 'loading'],
   components: {
     AppLoadingIcon,
-    AppImage
+    AppImage,
+    AppIntersectionObserver
+  },
+
+  props: ['type', 'count', 'sum', 'scroll'],
+
+  data() {
+    return {
+      lists: [],
+      loading: true,
+      seen: false,
+      more: false
+    };
   },
 
   computed: {
     titleString: function() {
-      if (this.type === 'createdLists') {
+      if (this.type === 'created') {
         return '创建歌单';
       } else {
         return '收藏歌单';
       }
+    },
+
+    userID: function() {
+      return this.$store.state.auth.userID;
+    },
+  },
+
+  watch: {
+    seen(val) {
+      if (val && this.more) {
+        this.offset += 15;
+        const limit = this.type === 'created' ?
+          Math.min(this.count - this.offset, 15) : 15;
+        console.log(this.offset);
+        fetchJSON('/user/playlist', {
+          uid: this.userID,
+          limit: limit,
+          offset: this.offset
+        }).then((res) => {
+          this.lists = [...this.lists, ...res.playlist];
+          this.more = this.type === 'created' ?
+            this.offset < this.count : res.more;
+          return this.$nextTick();
+        }).then(() => this.seen = false);
+      }
+    }
+  },
+
+  created() {
+    if (this.count === 0) {
+      return;
+    }
+
+    const limit = Math.min(this.count, 15);
+    this.offset = this.type === 'created' ? 0 : this.sum - this.count;
+    fetchJSON('/user/playlist', {
+      uid: this.userID,
+      limit: limit,
+      offset: this.offset
+    }).then((res) => {
+      console.log(res);
+      this.lists = this.type === 'created' ?
+        res.playlist.slice(1) : res.playlist;
+      this.more = res.more && limit < this.count;
+      this.loading = false;
+    });
+  },
+
+  updated() {
+    if (this.scroll) {
+      this.scroll.refresh();
     }
   },
 

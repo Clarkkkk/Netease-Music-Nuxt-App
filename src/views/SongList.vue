@@ -21,7 +21,11 @@
 
       <div class="info" ref="info">
         <div class="cover" v-if="type==='songlist'">
-          <app-image :src="cover"/>
+          <app-image
+            :src="cover"
+            width="150"
+            alt="歌单封面"
+          />
         </div>
         <div class="name" v-if="name">
           {{ name }}
@@ -56,6 +60,11 @@
         :songAlbum="song.album"
         :songCover="song.cover"
       />
+      <app-intersection-observer
+        v-if="!loading"
+        :seen.sync="seen"
+        :is-bottom="!more"
+      />
     </div>
   </div>
 </template>
@@ -65,12 +74,14 @@ import AppBackButton from '@/components/AppBackButton.vue';
 import AppSongEntry from '@/components/AppSongEntry.vue';
 import AppLoadingIcon from '@/components/AppLoadingIcon';
 import AppImage from '@/components/AppImage.vue';
+import AppIntersectionObserver from '@/components/AppIntersectionObserver.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import createScroll from '@/functions/createScroll.js';
 export default {
   name: 'songlist',
   data: function() {
     return {
+      // basic info
       loading: true,
       title: '',
       name: '',
@@ -78,13 +89,19 @@ export default {
       description: '',
       cover: require('@/assets/default-pic.jpg'),
       tags: [],
-      list: []
+      list: [],
+      // lazy load properties
+      seen: false,
+      more: false,
+      ids: [],
+      index: -1
     };
   },
 
   props: ['type', 'listId'],
 
   computed: {
+    // date string in everydata recommendation page
     dateString: function() {
       const today = new Date();
       const hours = today.getHours();
@@ -114,7 +131,8 @@ export default {
     AppBackButton,
     AppSongEntry,
     AppLoadingIcon,
-    AppImage
+    AppImage,
+    AppIntersectionObserver
   },
 
   created() {
@@ -123,7 +141,8 @@ export default {
       fetchJSON('/recommend/songs')
         .then((res) => {
           if (res.code === 200) {
-            this.createList(res.data.dailySongs);
+            this.createList(res.data.dailySongs)
+              .then(() => this.loading = false);
           }
         });
     } else if (this.type === 'songlist') {
@@ -136,15 +155,14 @@ export default {
             this.description = res.playlist.description;
             this.cover = res.playlist.coverImgUrl;
             this.tags = res.playlist.tags;
-            const ids = res.playlist.trackIds.map((item) => item.id).join(',');
-            this.createList(res.playlist.tracks);
-            if (res.playlist.tracks.length < res.playlist.trackCount) {
-              return fetchJSON('/song/detail', {ids: ids});
+            this.ids = res.playlist.trackIds.map((item) => item.id);
+            this.index = res.playlist.tracks.length;
+            if (this.index < this.ids.length) {
+              // there is more songs to load
+              this.more = true;
             }
-          }
-        }).then((res) => {
-          if (res && res.code === 200) {
-            this.createList(res.songs);
+            this.createList(res.playlist.tracks)
+              .then(() => this.loading = false);
           }
         });
     }
@@ -182,6 +200,8 @@ export default {
       if (!isLoading) {
         this.$nextTick()
           .then(() => {
+            // mount the observer component and initialize better-scroll
+            // when the list is loaded
             this.scroll = createScroll(2, this.$refs.wrapper, onScroll);
             const self = this;
             function onScroll(pos) {
@@ -196,18 +216,38 @@ export default {
             console.log(e);
           });
       }
+    },
+
+    seen(val) {
+      // when the page is close to the bottom, load 15 more songs
+      if (val && this.more) {
+        console.log('load more');
+        this.more = this.ids.length > this.index + 15;
+        const end = this.more ? this.index + 15 : this.ids.length;
+        const ids = this.ids.slice(this.index, end).join(',');
+        fetchJSON('/song/detail', {ids: ids})
+          .then((res) => {
+            if (res && res.code === 200) {
+              console.log(res);
+              this.createList(res.songs)
+                .then(() => this.seen = false);
+            }
+          });
+        this.index = end;
+      }
     }
   },
 
   methods: {
     playAll() {
-      this.$router.push('/play');
       this.$store.commit('commonPlay/playTheList', this.list);
+      this.$router.push('/play');
     },
 
     createList(songs) {
-      // extract useful information and map it to songList
-      this.list = songs.map((song) => {
+      // extract useful information and map it to an array,
+      // then append the array to this.list
+      const appendList = songs.map((song) => {
         const arString = song.ar.map((item) => item.name).join('/');
         return {
           id: song.id,
@@ -217,7 +257,8 @@ export default {
           cover: song.al.picUrl.replace('http:', 'https:')
         };
       });
-      this.loading = false;
+      this.list = [...this.list, ...appendList];
+      return this.$nextTick();
     }
   }
 };
@@ -409,6 +450,7 @@ export default {
   grid-template-rows: [placeholder-start] min-content [placeholder-end];
   grid-auto-rows: 3rem;
   grid-template-columns: [start] 100% [end];
+  align-items: center;
 }
 
 .placeholder {
@@ -416,4 +458,5 @@ export default {
   width: 100%;
   grid-row: placeholder;
 }
+/* list */
 </style>
