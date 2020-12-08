@@ -20,7 +20,7 @@ export default {
   created() {
     const options = {
       root: document.querySelector('#profile'),
-      rootMargin: '0px 0px 70% 0px',
+      rootMargin: '0px 0px 60% 0px',
       threshold: 0.0
     };
     const callback = (entries, observer) => {

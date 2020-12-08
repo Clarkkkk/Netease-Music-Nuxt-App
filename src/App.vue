@@ -37,12 +37,6 @@ export default {
       });
     }
 
-    // log loading error
-    document.documentElement.addEventListener('error', (event) => {
-      console.log(event);
-      //alert(event.target);
-    }, true);
-
     // fetch likelist
     if (this.$store.state.auth.login) {
       fetchJSON('/likelist', this.$store.state.auth.userID)

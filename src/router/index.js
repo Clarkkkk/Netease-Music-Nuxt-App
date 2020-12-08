@@ -176,6 +176,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   console.log(to);
+  console.log(from);
   console.log(store);
   const state = store.state.routeHistory;
   const transition = store.commit.bind(null, 'routeHistory/transition');
@@ -183,7 +184,13 @@ router.beforeEach((to, from, next) => {
   const pop = store.commit.bind(null, 'routeHistory/pop');
   const clear = store.commit.bind(null, 'routeHistory/clear');
 
-  if (to.name === from.name) {
+  // When there is no route matched, route to the home page
+  if (to.matched.length === 0) {
+    transition('no-transition');
+    clear();
+    push('discover');
+    next('/');
+  } else if (to.name === from.name) {
     console.log('Same path.');
     return;
   }

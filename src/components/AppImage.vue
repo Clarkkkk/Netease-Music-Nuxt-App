@@ -1,5 +1,6 @@
 <template>
   <img
+    v-if="picSrc"
     class="app-image fade-in"
     :src="picSrc"
     :alt="picAlt"

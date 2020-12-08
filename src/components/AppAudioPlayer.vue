@@ -44,6 +44,7 @@ export default {
 
   mounted: function() {
     this.setPlayer(this.$refs.audio);
+    console.log(this.src);
   },
 
   watch: {
@@ -75,6 +76,7 @@ export default {
       if (id) {
         return fetchJSON('/check/music', {id: id})
           .then((res) => {
+            console.log(res);
             if (res.success) {
               return fetchJSON('/song/url', {id: id});
             } else {
@@ -82,6 +84,7 @@ export default {
               throw new Error('这首歌暂无版权');
             }
           }).then((obj) => {
+            console.log(obj);
             if (obj.code === 200 && obj.data[0]) {
               this.src = obj.data[0].url.replace('http:', 'https:');
             } else {
