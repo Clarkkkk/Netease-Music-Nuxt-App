@@ -57,7 +57,6 @@ export default {
     this.relativeX;
     fetchJSON('/banner', {type: '2'})
       .then((res) => {
-        console.log(res);
         this.banners = res.banners.map((item) => {
           return {
             pic: item.pic.replace('http:', 'https:'),
@@ -65,7 +64,6 @@ export default {
             typeTitle: item.typeTitle
           };
         });
-        console.log(this.banners);
         this.amount = this.banners.length;
         // the last pic on the left, the first pic in the middle
         // and the second pic on the right

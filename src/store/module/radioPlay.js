@@ -3,7 +3,7 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    radioIndex: getItem('radioIndex', 'number') >= 0 ? getItem('radioIndex') : -1,
+    radioIndex: getItem('radioIndex', 'number') || -1,
     radioList: getItem('radioList') ? getItem('radioList') : [],
   },
 
@@ -23,12 +23,11 @@ export default {
     nextSong(state) {
       state.radioIndex++;
       setItem('radioIndex', state.radioIndex);
+      console.log('next song:');
       console.log(state);
     },
 
     radioListUpdate(state, list) {
-      console.log(state.radioList);
-      console.log(list);
       if (state.radioIndex < 0) {
         state.radioIndex++;
       }
@@ -38,7 +37,8 @@ export default {
         state.radioIndex = 1;
       }
       state.radioList = state.radioList.concat(list);
-      setItem('radioList', state.radioList);
+      console.log('list update');
+      console.log(state);
     },
 
     clear(state) {

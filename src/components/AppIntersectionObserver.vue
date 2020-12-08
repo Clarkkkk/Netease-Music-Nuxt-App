@@ -26,7 +26,6 @@ export default {
     const callback = (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.target === this.$el && !this.seen && entry.isIntersecting) {
-          console.log(entry);
           this.$emit('update:seen', true);
         }
       });

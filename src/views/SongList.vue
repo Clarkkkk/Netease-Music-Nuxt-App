@@ -228,7 +228,6 @@ export default {
         fetchJSON('/song/detail', {ids: ids})
           .then((res) => {
             if (res && res.code === 200) {
-              console.log(res);
               this.createList(res.songs)
                 .then(() => this.seen = false);
             }

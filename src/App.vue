@@ -41,7 +41,6 @@ export default {
     if (this.$store.state.auth.login) {
       fetchJSON('/likelist', this.$store.state.auth.userID)
         .then((res) => {
-          console.log(res);
           this.$store.commit('updateLikelist', res.ids);
         });
     }

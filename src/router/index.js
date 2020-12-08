@@ -91,8 +91,6 @@ const routes = [
             '@/views/Account/Profile.vue'
           ),
         beforeEnter: (to, from, next) => {
-          console.log(from);
-          console.log(store.state.auth);
           if (store.state.auth.login || from.name === 'login') {
             next();
           } else {
@@ -175,9 +173,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  console.log(from);
-  console.log(store);
+  console.log('beforeEach:');
+  console.log({
+    to,
+    from,
+    store
+  });
   const state = store.state.routeHistory;
   const transition = store.commit.bind(null, 'routeHistory/transition');
   const push = store.commit.bind(null, 'routeHistory/push');

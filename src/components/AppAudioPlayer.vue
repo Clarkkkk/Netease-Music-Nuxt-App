@@ -44,12 +44,10 @@ export default {
 
   mounted: function() {
     this.setPlayer(this.$refs.audio);
-    console.log(this.src);
   },
 
   watch: {
     playID: function(newID) {
-      console.log(newID);
       if (newID) {
         this.getUrl(newID)
           .then(() => this.$refs.audio.play())
@@ -76,7 +74,6 @@ export default {
       if (id) {
         return fetchJSON('/check/music', {id: id})
           .then((res) => {
-            console.log(res);
             if (res.success) {
               return fetchJSON('/song/url', {id: id});
             } else {
@@ -84,7 +81,6 @@ export default {
               throw new Error('这首歌暂无版权');
             }
           }).then((obj) => {
-            console.log(obj);
             if (obj.code === 200 && obj.data[0]) {
               this.src = obj.data[0].url.replace('http:', 'https:');
             } else {
