@@ -3,7 +3,7 @@
     id="app-audio-player"
     ref="audio"
     :src="src"
-    :loop="mode==='song-loop'"
+    :loop="nextMode==='song-loop'"
     @canplay="durationChange($event.target.duration)"
     @durationchange="durationChange($event.target.duration)"
     @timeupdate="timeUpdate($event.target.currentTime)"
@@ -17,8 +17,8 @@
 
 <script>
 import fetchJSON from '@/functions/fetchJSON.js';
-import {mapGetters, createNamespacedHelpers} from 'vuex';
-const {mapState, mapMutations, mapActions} = createNamespacedHelpers('playStatus');
+import {mapState, mapGetters, createNamespacedHelpers} from 'vuex';
+const {mapMutations, mapActions} = createNamespacedHelpers('playStatus');
 export default {
   data: function() {
     return {
@@ -27,7 +27,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['mode']),
+    ...mapState('commonPlay', ['nextMode']),
     ...mapGetters(['currentSong']),
     playID() {
       if (this.currentSong) {

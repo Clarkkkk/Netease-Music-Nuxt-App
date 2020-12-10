@@ -5,7 +5,7 @@
       class="mode"
       @click="switchMode"
     >
-      <app-icon :icon="mode" />
+      <app-icon :icon="nextMode" />
     </div>
     <app-icon
       icon="last-song"
@@ -37,7 +37,7 @@ import {mapState, mapMutations, mapActions} from 'vuex';
 export default {
   prop: ['showPlayList'],
   computed: {
-    ...mapState('commonPlay', ['mode']),
+    ...mapState('commonPlay', ['nextMode']),
     ...mapState('playStatus', ['playing'])
   },
   methods: {

@@ -34,7 +34,7 @@ import PlayControls from '@/components/PlayControls.vue';
 import PlayList from '@/components/PlayList.vue';
 import {createNamespacedHelpers} from 'vuex';
 const {mapState} = createNamespacedHelpers('playStatus');
-const {mapGetters} = createNamespacedHelpers('commonPlay');
+import {mapGetters} from 'vuex';
 export default {
   data: function() {
     return {
@@ -43,10 +43,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['playName', 'playArtist', 'playCover']),
+    ...mapGetters('commonPlay', ['currentSong']),
     ...mapState(['playing']),
     picUrl() {
       return this.playCover || require('@/assets/default-cover.png');
+    },
+    playName() {
+      return this.currentSong.name || '';
+    },
+    playCover() {
+      return this.currentSong.cover || '';
+    },
+    playArtist() {
+      return this.currentSong.artist || '';
     }
   },
 

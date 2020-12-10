@@ -17,9 +17,17 @@ import {mapState, mapGetters} from 'vuex';
 export default {
   computed: {
     ...mapState('playStatus', ['playing']),
-    ...mapGetters('commonPlay', ['playID', 'playCover']),
+    ...mapGetters('commonPlay', ['currentSong']),
+    playID() {
+      return this.currentSong.id;
+    },
+    playCover() {
+      return this.currentSong.cover;
+    },
     picUrl() {
-      return this.playCover ? this.playCover.replace('http:', 'https:') : require('@/assets/default-cover.png');
+      return this.playCover ?
+        this.playCover.replace('http:', 'https:') :
+        require('@/assets/default-cover.png');
     }
   },
 

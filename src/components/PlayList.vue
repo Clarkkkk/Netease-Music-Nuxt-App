@@ -1,5 +1,5 @@
 <template>
-  <div id="playing-list" @click.self="hide">
+  <div id="playing-list" @pointerdown.self="hide">
     <transition name="list">
       <div v-if="showList" class="container">
         <div class="header">
@@ -14,9 +14,10 @@
         <div class="wrapper" ref="wrapper">
           <div class="content">
             <div
-              :class="['entry', {'playing': song.id===playID}]"
               v-for="song in playList"
+              :id="'id' + song.id"
               :key="song.id"
+              :class="['entry', {'playing': song.id===playID}]"
               @tap="playSongOfList(song)"
             >
               <app-icon class="icon" icon="speaker" v-if="song.id===playID"/>
@@ -44,17 +45,22 @@ export default {
   porps: ['show'],
   computed: {
     ...mapState(['playList']),
-    ...mapGetters(['playID'])
-
+    ...mapGetters(['currentSong']),
+    playID() {
+      return this.currentSong.id || 0;
+    }
   },
 
   mounted() {
+    console.log('mount');
+    this.showList = true;
     this.$nextTick().
       then(() => {
-        this.showList = true;
-      })
-      .then(() => {
         this.scroll = createScroll(0, this.$refs.wrapper);
+        return this.$nextTick();
+      }).then(() => {
+        const playing = document.querySelector(`#id${this.playID}`);
+        setTimeout(() => this.scroll.scrollToElement(playing, 0), 200);
       });
   },
 

@@ -15,11 +15,6 @@ export default {
   },
 
   mutations: {
-    ended(state) {
-      state.radioIndex++;
-      setItem('radioIndex', state.radioIndex);
-    },
-
     nextSong(state) {
       state.radioIndex++;
       setItem('radioIndex', state.radioIndex);
@@ -52,6 +47,10 @@ export default {
   },
 
   actions: {
+    ended({commit}) {
+      commit('nextSong');
+    },
+
     clear({commit}) {
       commit('clear');
       commit('playStatus/clear', null, {root: true});

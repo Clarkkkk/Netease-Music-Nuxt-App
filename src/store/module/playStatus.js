@@ -51,11 +51,11 @@ export default {
   },
 
   actions: {
-    ended({commit, rootState}) {
+    ended({dispatch, rootState}) {
       if (rootState.radio) {
-        commit('radioPlay/ended', null, {root: true});
+        dispatch('radioPlay/ended', null, {root: true});
       } else {
-        commit('commonPlay/ended', null, {root: true});
+        dispatch('commonPlay/ended', null, {root: true});
       }
     },
 

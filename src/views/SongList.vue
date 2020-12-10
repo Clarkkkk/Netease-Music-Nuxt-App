@@ -212,8 +212,10 @@ export default {
               const percentage = (-pos.y) / 200 < 1 ? (-pos.y) / 200 : 1;
               self.$refs.info.style.opacity = `${1 - percentage}`;
               self.$refs.info.style.height = `calc(12rem + (${pos.y}px))`;
-              self.$refs.backgroundBox.style.height = `calc(15rem + (${pos.y}px))`;
-              self.$refs.background.style.height = `calc(15rem + (${pos.y}px))`;
+              self.$refs.backgroundBox.style.height =
+                `calc(15rem + (${pos.y}px) + env(safe-area-inset-top))`;
+              self.$refs.background.style.height =
+                `calc(15rem + (${pos.y}px) + env(safe-area-inset-top))`;
             }
           })
           .catch((e) => {
@@ -282,7 +284,7 @@ export default {
   left: 0;
   width: 100%;
   height: calc(15rem + env(safe-area-inset-top));
-  min-height: 3rem;
+  min-height: calc(3rem + env(safe-area-inset-top));
   overflow: hidden;
   transform: translate3d(0px, 0px, 2px);
   z-index: 10;
@@ -295,8 +297,8 @@ export default {
   background-repeat: no-repeat;
   transform: scale(1.1);
   width: 100%;
-  height: 15rem;
-  min-height: 3rem;
+  height: calc(15rem + env(safe-area-inset-top));
+  min-height: calc(3rem + env(safe-area-inset-top));
   overflow: hidden;
 }
 

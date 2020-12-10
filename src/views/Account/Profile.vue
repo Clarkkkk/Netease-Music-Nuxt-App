@@ -1,8 +1,8 @@
 <template>
   <div id="profile" ref="wrapper">
     <div
-      class="background fade-in"
       ref="bg"
+      class="background fade-in"
       :style="`background: url(${bgSrc}) 50% 50%/cover;`"
     />
     <div class="fixed-container">
@@ -227,7 +227,6 @@ export default {
   display: grid;
   grid-template-rows: [start] 100% [end];
   grid-template-columns: [start] 100% [end];
-  overflow: hidden;
   position: relative;
   z-index: 0;
 }
@@ -249,6 +248,7 @@ export default {
   width: 100%;
   height: calc(15rem + env(safe-area-inset-top));
   pointer-events: none;
+  transform: translate3d(0px, 0px, 2px);
 }
 
 /* brief info card */
@@ -266,7 +266,6 @@ export default {
     [name-end info-start] 2rem [info-end end];
   align-items: start;
   z-index: 10;
-  /*transform: translateZ(2px);*/
 }
 
 .avatar {
