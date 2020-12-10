@@ -97,7 +97,11 @@ export default {
       this.lists = this.type === 'created' ?
         res.playlist.slice(1) : res.playlist;
       this.more = res.more && limit < this.count;
-      this.loading = false;
+      return this.$nextTick();
+    }).then(() => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 100);
     });
   },
 

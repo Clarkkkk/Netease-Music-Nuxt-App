@@ -1,11 +1,7 @@
 /*  Simplied and enhanced version of fetch API  */
 import store from '@/store';
-let serverURL;
-if (process.env.NODE_ENV === 'development') {
-  serverURL = 'http://192.168.50.138:3000';
-} else {
-  serverURL = 'https://carllllo.work/api';
-}
+const serverURL = process.env.NODE_ENV === 'development' ?
+  'http://192.168.50.138:3000' : 'https://carllllo.work/api';
 const RETRY_TIMES = 5;
 let retryCount = 0;
 

@@ -3,13 +3,13 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    radioIndex: getItem('radioIndex', 'number') || -1,
-    radioList: getItem('radioList') ? getItem('radioList') : [],
+    radioIndex: getItem('radioIndex', 'number'),
+    radioList: getItem('radioList', 'array'),
   },
 
   getters: {
     currentSong(state) {
-      return state.radioIndex >= 0 && state.radioList[state.radioIndex] ?
+      return state.radioIndex >= 0 ?
         state.radioList[state.radioIndex] : {};
     }
   },

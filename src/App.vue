@@ -36,14 +36,6 @@ export default {
         this.$store.commit('routeHistory/touchEnd');
       });
     }
-
-    // fetch likelist
-    if (this.$store.state.auth.login) {
-      fetchJSON('/likelist', this.$store.state.auth.userID)
-        .then((res) => {
-          this.$store.commit('updateLikelist', res.ids);
-        });
-    }
   },
 
   mounted() {
@@ -51,6 +43,14 @@ export default {
     this.$el.addEventListener('touchmove', (event) => {
       event.preventDefault();
     });
+    // fetch likelist
+    if (this.$store.state.auth.login) {
+      this.$nextTick()
+        .then(() => fetchJSON('/likelist', this.$store.state.auth.userID))
+        .then((res) => {
+          this.$store.commit('updateLikelist', res.ids);
+        });
+    }
   }
 };
 </script>

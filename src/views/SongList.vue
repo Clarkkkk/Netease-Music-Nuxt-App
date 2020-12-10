@@ -162,7 +162,11 @@ export default {
               this.more = true;
             }
             this.createList(res.playlist.tracks)
-              .then(() => this.loading = false);
+              .then(() => {
+                setTimeout(() => {
+                  this.loading = false;
+                }, 100);
+              });
           }
         });
     }

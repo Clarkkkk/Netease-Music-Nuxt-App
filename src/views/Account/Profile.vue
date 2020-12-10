@@ -1,6 +1,10 @@
 <template>
   <div id="profile" ref="wrapper">
-    <img class="background fade-in" ref="bg" :src="bgSrc">
+    <div
+      class="background fade-in"
+      ref="bg"
+      :style="`background: url(${bgSrc}) 50% 50%/cover;`"
+    />
     <div class="fixed-container">
       <div
         class="card"
@@ -135,12 +139,14 @@ export default {
         function onScroll(pos) {
           if (pos.y > 0) {
             self.$refs.bg.style =
-              `height: calc(15rem + env(safe-area-inset-top) + ${pos.y}px)`;
+              `height: calc(15rem + env(safe-area-inset-top) + ${pos.y}px);
+              background: url(${self.bgSrc}) 50% 50%/cover;`;
           } else {
             const progress = (-pos.y) / 210 < 1 ? (-pos.y) / 210 : 1;
             const bgOpacity = progress;
             self.$refs.bg.style =
-              `height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));`;
+              `height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));
+              background: url(${self.bgSrc}) 50% 50%/cover;`;
             self.$refs.card.style =
               `background-color: rgba(var(--app-color-rgb), ${bgOpacity});
               height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));`;
@@ -233,7 +239,6 @@ export default {
   z-index: 0;
   width: 100%;
   height: calc(15rem + env(safe-area-inset-top));
-  object-fit: cover;
 }
 
 .fixed-container {

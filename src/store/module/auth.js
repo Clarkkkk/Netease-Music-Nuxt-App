@@ -3,9 +3,9 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    login: getItem('login') ? getItem('login') : false,
-    userID: getItem('userID') ? getItem('userID') : '',
-    cookie: getItem('cookie') ? getItem('cookie') : ''
+    login: getItem('login', 'boolean'),
+    userID: getItem('userID', 'number'),
+    cookie: getItem('cookie', 'string')
   },
 
   mutations: {

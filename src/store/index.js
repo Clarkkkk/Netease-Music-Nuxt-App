@@ -20,13 +20,14 @@ const store = new Vuex.Store({
   },
 
   state: {
-    radio: getItem('radio') ? getItem('radio') : false,
+    radio: getItem('radio', 'boolean'),
     likelist: []
   },
 
   getters: {
     currentSong(state) {
-      return state.radio ? store.getters['radioPlay/currentSong'] :
+      return state.radio ?
+        store.getters['radioPlay/currentSong'] :
         store.getters['commonPlay/currentSong'];
     }
   },

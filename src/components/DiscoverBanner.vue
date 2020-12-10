@@ -15,7 +15,7 @@
       >
         <img
           alt="轮播图片"
-          :src="pic.pic"
+          :src="pic.pic + '?param=810y315'"
           @dragstart.prevent
         >
         <span
@@ -89,7 +89,7 @@ export default {
     loop() {
       this.intervalID = setInterval(() => {
         this.slide('left');
-      }, 5000);
+      }, 6000);
     },
 
     pointerDown(event) {

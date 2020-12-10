@@ -19,7 +19,7 @@ export default {
   props: ['seen', 'is-bottom'],
   created() {
     const options = {
-      root: document.querySelector('#profile'),
+      root: document.querySelector('#app'),
       rootMargin: '0px 0px 60% 0px',
       threshold: 0.0
     };

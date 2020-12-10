@@ -4,9 +4,9 @@ import {getItem, setItem} from '@/functions/storage.js';
 export default {
   namespaced: true,
   state: {
-    playIndex: getItem('playIndex', 'number') >= 0 ? getItem('playIndex') : -1,
-    playList: getItem('playList') ? getItem('playList') : [],
-    mode: getItem('mode') ? getItem('mode') : 'list-loop'
+    playIndex: getItem('playIndex', 'number'),
+    playList: getItem('playList', 'array'),
+    mode: getItem('mode', 'string') ? getItem('mode', 'string') : 'list-loop'
   },
 
   getters: {
