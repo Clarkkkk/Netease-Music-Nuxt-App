@@ -138,15 +138,13 @@ export default {
         const self = this;
         function onScroll(pos) {
           if (pos.y > 0) {
-            self.$refs.bg.style =
-              `height: calc(15rem + env(safe-area-inset-top) + ${pos.y}px);
-              background: url(${self.bgSrc}) 50% 50%/cover;`;
+            self.$refs.bg.style.height =
+              `calc(15rem + env(safe-area-inset-top) + ${pos.y}px)`;
           } else {
             const progress = (-pos.y) / 210 < 1 ? (-pos.y) / 210 : 1;
             const bgOpacity = progress;
-            self.$refs.bg.style =
-              `height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));
-              background: url(${self.bgSrc}) 50% 50%/cover;`;
+            self.$refs.bg.style.height =
+              `calc(${15 - 12 * progress}rem + env(safe-area-inset-top))`;
             self.$refs.card.style =
               `background-color: rgba(var(--app-color-rgb), ${bgOpacity});
               height: calc(${15 - 12 * progress}rem + env(safe-area-inset-top));`;
@@ -176,6 +174,7 @@ export default {
   activated() {
     if (this.scroll) {
       this.scroll.enable();
+      this.scroll.refresh();
     }
   },
 

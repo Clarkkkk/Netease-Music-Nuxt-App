@@ -115,6 +115,7 @@ export default {
   activated() {
     if (this.scroll) {
       this.scroll.enable();
+      this.scroll.refresh();
     }
   },
 

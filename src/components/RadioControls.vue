@@ -20,6 +20,7 @@
     <app-icon
       icon="comment"
       class="comment"
+      @click.native="comment"
     />
   </div>
 </template>
@@ -48,6 +49,10 @@ export default {
             this.nextSong();
           }
         });
+    },
+
+    comment() {
+      alert('待开发');
     }
   }
 };

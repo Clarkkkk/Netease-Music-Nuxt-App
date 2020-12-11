@@ -3,7 +3,7 @@
     id="app-audio-player"
     ref="audio"
     :src="src"
-    :loop="nextMode==='song-loop'"
+    :loop="nextMode==='song-loop' && !radio"
     @canplay="durationChange($event.target.duration)"
     @durationchange="durationChange($event.target.duration)"
     @timeupdate="timeUpdate($event.target.currentTime)"
@@ -28,6 +28,7 @@ export default {
 
   computed: {
     ...mapState('commonPlay', ['nextMode']),
+    ...mapState(['radio']),
     ...mapGetters(['currentSong']),
     playID() {
       if (this.currentSong) {

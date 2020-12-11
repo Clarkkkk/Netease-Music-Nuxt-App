@@ -1,9 +1,15 @@
 <template>
   <div id="discover-search-result">
-    <div class="loading" v-if="loading">
-      <app-loading-icon/>
+    <div
+      v-if="loading"
+      class="loading"
+    >
+      <app-loading-icon />
     </div>
-    <div class="content" v-else>
+    <div
+      v-else
+      class="content"
+    >
       <div class="multimatch">
         <span>你可能感兴趣</span>
         <div
@@ -27,7 +33,7 @@
           :song-album="song.album"
           :song-id="song.id"
           :song-cover="song.cover"
-        ></app-song-entry>
+        />
         <span>{{ mixedResult.moreText }}</span>
       </div>
     </div>

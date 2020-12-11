@@ -1,8 +1,16 @@
 <template>
   <div id="play-interactions">
     <app-like-icon class="like"/>
-    <app-icon icon="comment" class="comments"/>
-    <app-icon icon="vertical-dots" class="info"/>
+    <app-icon
+      icon="comment"
+      class="comments"
+      @click.native="click"
+    />
+    <app-icon
+      icon="vertical-dots"
+      class="info"
+      @click.native="click"
+    />
   </div>
 </template>
 
@@ -11,8 +19,14 @@ import AppLikeIcon from '@/components/AppLikeIcon.vue';
 export default {
   components: {
     AppLikeIcon
+  },
+
+  methods: {
+    click() {
+      alert('待开发');
+    }
   }
-}
+};
 </script>
 
 <style scoped>
