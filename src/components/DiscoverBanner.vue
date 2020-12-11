@@ -5,13 +5,13 @@
       class="transition-group"
     >
       <div
-        class="pic-container"
-        :key="pic.bannerId"
         v-for="pic in loopPics"
+        :key="pic.bannerId"
+        ref="pics"
+        class="pic-container"
         @pointerdown="pointerDown"
         @pointerup="pointerUp"
         @pointermove="pointerMove"
-        ref="pics"
       >
         <img
           alt="轮播图片"

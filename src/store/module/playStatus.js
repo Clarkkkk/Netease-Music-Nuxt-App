@@ -66,8 +66,10 @@ export default {
         state.player.play()
           .catch((e) => {
             console.log(e);
-            return state.player.play();
-          }).catch((e) => {
+            return new Promise((r) => setTimeout(() => r(), 1000));
+          })
+          .then(() => state.player.play())
+          .catch((e) => {
             console.log(e);
             dispatch('ended');
           });

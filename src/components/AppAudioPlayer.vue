@@ -3,7 +3,7 @@
     id="app-audio-player"
     ref="audio"
     :src="src"
-    :loop="nextMode==='song-loop' && !radio"
+    :loop="mode==='song-loop' && !radio"
     @canplay="durationChange($event.target.duration)"
     @durationchange="durationChange($event.target.duration)"
     @timeupdate="timeUpdate($event.target.currentTime)"
@@ -27,13 +27,11 @@ export default {
   },
 
   computed: {
-    ...mapState('commonPlay', ['nextMode']),
+    ...mapState('commonPlay', ['mode']),
     ...mapState(['radio']),
     ...mapGetters(['currentSong']),
     playID() {
-      if (this.currentSong) {
-        return this.currentSong.id ? this.currentSong.id : 0;
-      } else return 0;
+      return this.currentSong.id || 0;
     },
   },
 
@@ -54,10 +52,10 @@ export default {
           .then(() => this.$refs.audio.play())
           .catch((e) => {
             console.log(e);
-            return this.$refs.audio.play();
-          }).catch((e) => {
-            this.ended();
-          });
+            return new Promise((r) => setTimeout(() => r(), 1000));
+          })
+          .then(() => this.$refs.audio.play())
+          .catch(() => this.ended());
       } else {
         this.$refs.audio.pause();
         this.src = '';

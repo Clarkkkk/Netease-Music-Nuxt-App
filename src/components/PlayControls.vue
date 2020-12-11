@@ -5,12 +5,12 @@
       class="mode"
       @click="switchMode"
     >
-      <app-icon :icon="nextMode" />
+      <app-icon :icon="mode" />
     </div>
     <app-icon
       icon="last-song"
       class="prev"
-      @click.native="lastSong"
+      @click.native="last"
     />
     <div
       class="play"
@@ -21,7 +21,7 @@
     <app-icon
       icon="next-song"
       class="next"
-      @click.native="nextSong"
+      @click.native="next"
     />
     <app-icon
       icon="playlist"
@@ -37,11 +37,11 @@ import {mapState, mapMutations, mapActions} from 'vuex';
 export default {
   prop: ['showPlayList'],
   computed: {
-    ...mapState('commonPlay', ['nextMode']),
+    ...mapState('commonPlay', ['mode']),
     ...mapState('playStatus', ['playing'])
   },
   methods: {
-    ...mapMutations('commonPlay', ['switchMode', 'lastSong', 'nextSong']),
+    ...mapMutations('commonPlay', ['switchMode', 'last', 'next']),
     ...mapActions('playStatus', ['playOrPause'])
   }
 };

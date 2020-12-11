@@ -9,6 +9,7 @@ export default {
 
   getters: {
     currentSong(state) {
+      console.log(state);
       return state.radioIndex >= 0 ?
         state.radioList[state.radioIndex] : {};
     }
@@ -38,9 +39,7 @@ export default {
 
     clear(state) {
       state.radioIndex = -1;
-      while (state.radioList.length > 0) {
-        state.radioList.pop();
-      }
+      state.radioList.length = 0;
       setItem('radioIndex', state.radioIndex);
       setItem('radioList', state.radioList);
     }

@@ -1,33 +1,28 @@
 import {getItem, setItem} from '@/functions/storage.js';
-function createRandomList(length) {
-  const randomArr = [];
+function createIndexList(length, isRandom) {
+  // create sequential index array
+  const indexArr = [];
   for (let i = 0; i < length; i++) {
-    randomArr[i] = i;
+    indexArr[i] = i;
   }
 
-  if (length <= 2) {
-    return randomArr;
+  // return sequential index array if conditions satisfied
+  if (length <= 2 || !isRandom) {
+    return indexArr;
   }
 
+  // create and return random index array
   for (let j = 0; j < length; j++) {
-    /* if (j === invariant) {
-      continue;
-    } */
     const randomIndex = Math.floor(Math.random() * length);
-/*  if (randomIndex === invariant) {
-      randomIndex = randomIndex + 1 > length ?
-        randomIndex - 1 : randomIndex + 1;
-    }
-    */
-    const temp = randomArr[j];
-    randomArr[j] = randomArr[randomIndex];
-    randomArr[randomIndex] = temp;
+    const temp = indexArr[j];
+    indexArr[j] = indexArr[randomIndex];
+    indexArr[randomIndex] = temp;
   }
-  console.log(randomArr);
-  return randomArr;
+  return indexArr;
 }
 
 // It is used to move the 'moving' item to be right after the 'target' item
+// It won't change array's length
 function moveAfter(moving, target, arr) {
   if (moving < 0 || target < 0 ||
     moving > arr.length - 1 || target > arr.length - 1) {
@@ -55,53 +50,53 @@ export default {
   state: {
     playIndex: getItem('playIndex', 'number'),
     playList: getItem('playList', 'array'),
-    randomList: getItem('randomList', 'array'),
-    mode: getItem('mode', 'string') ? getItem('mode', 'string') : 'list-loop',
-    nextMode: getItem('mode', 'string') ? getItem('mode', 'string') : 'list-loop',
+    indexList: getItem('indexList', 'array'),
+    mode: getItem('mode', 'string') || 'list-loop'
   },
 
   getters: {
     currentSong(state) {
-      if (state.playIndex < 0) {
-        return {};
-      }
-      if (state.mode === 'random') {
-        return state.playList[state.randomList[state.playIndex]];
-      } else {
-        return state.playList[state.playIndex];
-      }
+      return state.playIndex >= 0 ?
+        state.playList[state.indexList[state.playIndex]] : {};
+    },
+
+    lastSong(state) {
+      const last =
+        (state.playIndex - 1 + state.playList.length) % state.playList.length;
+      return state.playIndex >= 0 ?
+        state.playList[state.indexList[last]] : {};
+    },
+
+    nextSong(state) {
+      const next = (state.playIndex + 1) % state.playList.length;
+      return state.playIndex >= 0 ?
+        state.playList[state.indexList[next]] : {};
     }
   },
 
   mutations: {
-    nextSong(state) {
+    next(state) {
       console.log('next');
-      if (state.nextMode) {
-        if (state.nextMode === 'list-loop') {
-          state.playIndex = state.randomList[state.playIndex];
-        } else if (state.nextMode === 'random') {
-          state.playIndex = state.randomList.indexOf(state.playIndex);
-        } else if (state.nextMode === 'song-loop' && state.mode === 'random') {
-          state.playIndex = state.randomList[state.playIndex];
-        }
-        state.mode = state.nextMode;
-        setItem('mode', state.mode);
+      // Set the right index when switching random to list-loop
+      // It does nothing in other cases
+      state.playIndex = state.indexList[state.playIndex];
+      // get a random array of index for random mode
+      if (state.mode === 'random') {
+        state.indexList = createIndexList(state.indexList.length, true);
+        setItem('indexList', state.indexList);
       }
-      const next = state.playIndex + 1;
-      if (next < state.playList.length) {
-        state.playIndex = next;
-      } else {
-        state.randomList =
-          createRandomList(state.playList.length);
-        setItem('randomList', state.randomList);
-        state.playIndex = 0;
-      }
+      state.playIndex = (state.playIndex + 1) % state.playList.length;
       setItem('playIndex', state.playIndex);
     },
 
-    lastSong(state) {
-      const prev = state.playIndex - 1;
-      state.playIndex = prev < 0 ? state.playList.length - 1 : prev;
+    last(state) {
+      state.playIndex =
+        (state.playIndex - 1 + state.playList.length) % state.playList.length;
+      setItem('playIndex', state.playIndex);
+    },
+
+    updateIndex(state, index) {
+      state.playIndex = index;
       setItem('playIndex', state.playIndex);
     },
 
@@ -109,6 +104,8 @@ export default {
       console.log('add to play');
       let contain = false;
       let index = 0;
+      // check if there is already a same song in playList
+      // if there is, log its index
       while (index < state.playList.length) {
         if (state.playList[index].id === obj.id) {
           contain = true;
@@ -116,20 +113,20 @@ export default {
         }
         index++;
       }
+      // if not contained, add it right after the current song
       if (!contain) {
         state.playList.splice(state.playIndex + 1, 0, obj);
         state.playIndex++;
-        state.randomList =
-          createRandomList(state.playList.length);
-        setItem('randomList', state.randomList);
+        state.indexList =
+          createIndexList(state.playList.length, state.mode === 'random');
+        setItem('indexList', state.indexList);
         console.log('!contain');
-        // console.log(state.playList);
+      // if contained, but not playing, move it right after the current song
       } else if (index !== state.playIndex) {
         state.playList = moveAfter(index, state.playIndex, state.playList);
         (index > state.playIndex) && state.playIndex++;
         console.log('contain');
-        // console.log(state.playList);
-      }
+      } // else do nothing, it is already playing
       setItem('playIndex', state.playIndex);
       setItem('playList', state.playList);
     },
@@ -145,9 +142,9 @@ export default {
       }
       if (!contain) {
         state.playList.splice(state.playIndex, 0, obj);
-        state.randomList =
-          createRandomList(state.playList.length);
-        setItem('randomList', state.randomList);
+        state.indexList =
+          createIndexList(state.playList.length, state.mode === 'random');
+        setItem('indexList', state.indexList);
       } else if (index !== state.playIndex) {
         state.playList = moveAfter(index, state.playIndex, state.playList);
       }
@@ -155,13 +152,15 @@ export default {
     },
 
     playTheList(state, list) {
+      // play from the start of the list
       state.playList = list;
       state.playIndex = 0;
-      state.randomList =
-        createRandomList(state.playList.length);
       setItem('playIndex', state.playIndex);
       setItem('playList', state.playList);
-      setItem('randomList', state.randomList);
+      if (state.mode === 'random') {
+        state.indexList = createIndexList(state.indexList.length, true);
+        setItem('indexList', state.indexList);
+      }
     },
 
     playSongOfList(state, obj) {
@@ -173,35 +172,38 @@ export default {
     switchMode(state) {
       // To avoid changing currentSong
       // mode switch will be delayed until next song
-      switch (state.nextMode) {
+      switch (state.mode) {
         case 'list-loop':
-          state.nextMode = 'song-loop';
+          state.mode = 'song-loop';
           break;
         case 'song-loop':
-          state.nextMode = 'random';
+          state.mode = 'random';
           break;
         case 'random':
-          state.nextMode = 'list-loop';
+          state.mode = 'list-loop';
           break;
         default:
-          state.nextMode = 'list-loop';
+          state.mode = 'list-loop';
           break;
       }
+      setItem('mode', state.mode);
     },
 
     clear(state) {
       state.playIndex = -1;
       state.playList.length = 0;
-      state.randomList.length = 0;
+      state.indexList.length = 0;
+      state.mode = 'list-loop';
       setItem('playIndex', state.playIndex);
       setItem('playList', state.playList);
-      setItem('randomList', state.randomList);
+      setItem('indexList', state.indexList);
+      setItem('mode', state.mode);
     }
   },
 
   actions: {
     ended({commit}) {
-      commit('nextSong');
+      commit('next');
     },
 
     clear({commit}) {

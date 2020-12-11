@@ -441,6 +441,7 @@ export default {
   border-bottom: 1px solid #eee;
   align-items: center;
   font-size: 1rem;
+  cursor: pointer;
 }
 /* fixed container */
 

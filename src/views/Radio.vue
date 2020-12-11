@@ -16,7 +16,6 @@
 
       <play-progress-bar/>
       <radio-controls/>
-
     </div>
   </div>
 </template>
@@ -60,7 +59,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['clear']),
     ...mapMutations('radioPlay', ['radioListUpdate']),
     updateList() {
       fetchJSON('/personal_fm')
