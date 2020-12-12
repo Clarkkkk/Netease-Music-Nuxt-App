@@ -1,4 +1,5 @@
 import {getItem, setItem} from '@/functions/storage.js';
+
 function createIndexList(length, isRandom) {
   // create sequential index array
   const indexArr = [];
@@ -55,36 +56,32 @@ export default {
   },
 
   getters: {
-    currentSong(state) {
-      return state.playIndex >= 0 ?
-        state.playList[state.indexList[state.playIndex]] : {};
+    currentSong({playIndex, playList, indexList}) {
+      return playIndex >= 0 ? playList[indexList[playIndex]] : {};
     },
 
-    lastSong(state) {
-      const last =
-        (state.playIndex - 1 + state.playList.length) % state.playList.length;
-      return state.playIndex >= 0 ?
-        state.playList[state.indexList[last]] : {};
+    lastSong({playIndex, playList, indexList}) {
+      if (playList.length) {
+        const last = (playIndex - 1 + playList.length) % playList.length;
+        return playList[indexList[last]];
+      } else {
+        return {};
+      }
     },
 
-    nextSong(state) {
-      const next = (state.playIndex + 1) % state.playList.length;
-      return state.playIndex >= 0 ?
-        state.playList[state.indexList[next]] : {};
+    nextSong({playIndex, playList, indexList}) {
+      if (playList.length) {
+        const next = (playIndex + 1) % playList.length;
+        return playList[indexList[next]];
+      } else {
+        return {};
+      }
     }
   },
 
   mutations: {
     next(state) {
       console.log('next');
-      // Set the right index when switching random to list-loop
-      // It does nothing in other cases
-      state.playIndex = state.indexList[state.playIndex];
-      // get a random array of index for random mode
-      if (state.mode === 'random') {
-        state.indexList = createIndexList(state.indexList.length, true);
-        setItem('indexList', state.indexList);
-      }
       state.playIndex = (state.playIndex + 1) % state.playList.length;
       setItem('playIndex', state.playIndex);
     },
@@ -92,11 +89,6 @@ export default {
     last(state) {
       state.playIndex =
         (state.playIndex - 1 + state.playList.length) % state.playList.length;
-      setItem('playIndex', state.playIndex);
-    },
-
-    updateIndex(state, index) {
-      state.playIndex = index;
       setItem('playIndex', state.playIndex);
     },
 
@@ -178,9 +170,23 @@ export default {
           break;
         case 'song-loop':
           state.mode = 'random';
+          // Set the right index when switching random to list-loop
+          // It does nothing in other cases
+          // get a random array of index for random mode
+          state.indexList = createIndexList(state.indexList.length, true);
+          // Set the right index to keep the currentSong unchanged
+          state.playIndex = state.indexList.indexOf(state.playIndex);
+          setItem('indexList', state.indexList);
+          setItem('playIndex', state.playIndex);
           break;
         case 'random':
           state.mode = 'list-loop';
+          // Set the right index to keep the currentSong unchanged
+          // after randomized
+          state.playIndex = state.indexList[state.playIndex];
+          state.indexList = createIndexList(state.indexList.length, false);
+          setItem('indexList', state.indexList);
+          setItem('playIndex', state.playIndex);
           break;
         default:
           state.mode = 'list-loop';

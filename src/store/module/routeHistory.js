@@ -8,8 +8,8 @@ export default {
   },
 
   getters: {
-    lastRoute(state) {
-      return state.history[state.history.length - 2];
+    lastRoute({history}) {
+      return history[history.length - 2];
     }
   },
 

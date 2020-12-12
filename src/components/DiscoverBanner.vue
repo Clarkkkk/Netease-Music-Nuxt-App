@@ -30,7 +30,7 @@
         :key="dot"
         :class="['dot', {'current-dot': dot===currentIndex}]"
         :current-dot="dot===currentIndex"
-      ></div>
+      />
     </div>
   </div>
 </template>
@@ -80,9 +80,7 @@ export default {
   mounted: function() {
     // start to loop after all the elements are rendered
     this.$nextTick()
-      .then(() => {
-        this.loop();
-      });
+      .then(() => this.loop());
   },
 
   methods: {

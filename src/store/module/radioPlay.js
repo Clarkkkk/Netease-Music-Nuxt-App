@@ -8,10 +8,8 @@ export default {
   },
 
   getters: {
-    currentSong(state) {
-      console.log(state);
-      return state.radioIndex >= 0 ?
-        state.radioList[state.radioIndex] : {};
+    currentSong({radioIndex, radioList}) {
+      return radioIndex >= 0 ? radioList[radioIndex] : {};
     }
   },
 
