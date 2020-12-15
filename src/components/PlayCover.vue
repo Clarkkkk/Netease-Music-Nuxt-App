@@ -7,10 +7,11 @@
       <img
         v-for="cover in recentCovers"
         ref="covers"
-        :key="cover + Math.random()"
+        :id="cover.key"
+        :key="cover.key"
         alt="专辑图片"
         class="cover"
-        :src="cover || require('@/assets/default-cover.png')"
+        :src="cover.src || require('@/assets/default-cover.png')"
         @dragstart.prevent
         @pointerdown="pointerDown"
         @pointerup="pointerUp"
@@ -30,9 +31,6 @@ export default {
       isPointerDown: false,
       pointerDownX: 0,
       relativeX: 0,
-      lastCover: '',
-      currentCover: '',
-      nextCover: '',
       recentCovers: []
     };
   },
@@ -46,37 +44,47 @@ export default {
 
   watch: {
     playID(id) {
+      if (!id) {
+        this.recentCovers.length = 0;
+        return;
+      }
       // If current song is changed
       // determine whether it was the last song or the next song
       // and slide the cover accordingly
       // in this case, sliding is passive
       // further pointer events will be canceled
-      if (this.nextCover === this.currentSong.cover) {
+      if (this.recentCovers[2].src === this.currentSong.cover) {
         this.slide('left', true);
-      } else if (this.lastCover === this.currentSong.cover) {
+      } else if (this.recentCovers[0].src === this.currentSong.cover) {
         this.slide('right', true);
+      } else {
+        console.log('else');
+        this.recentCovers = this.getRecentCovers();
       }
     }
   },
 
-  created() {
-    this.recentCovers = [
-      this.lastCover = this.lastSong.cover,
-      this.currentCover = this.currentSong.cover,
-      this.nextCover = this.nextSong.cover
-    ];
-  },
-
   activated() {
-    this.recentCovers = [
-      this.lastCover = this.lastSong.cover,
-      this.currentCover = this.currentSong.cover,
-      this.nextCover = this.nextSong.cover
-    ];
+    this.recentCovers = this.getRecentCovers();
   },
 
   methods: {
     ...mapMutations('commonPlay', ['next', 'last']),
+    getRecentCovers() {
+      return [
+        this.lastSong.cover,
+        this.currentSong.cover,
+        this.nextSong.cover
+      ].map((cover) => this.normalizeCover(cover));
+    },
+
+    normalizeCover(cover) {
+      return {
+        src: cover,
+        key: Math.random()
+      };
+    },
+
     // when pointer is down, the covers should stay at where they were
     pointerDown(event) {
       this.isPointerDown = true;
@@ -168,7 +176,7 @@ export default {
         // remove the last cover
         // unshift an empty cover to push the current cover to the right
         this.recentCovers.pop();
-        this.recentCovers.unshift('');
+        this.recentCovers.unshift({src: '', key: 0});
         // if not passive, call last()
         !passive && this.last();
       }
@@ -198,11 +206,12 @@ export default {
 
           if (dir === 'left') {
             // add the new next cover to the right
-            this.recentCovers.push(this.nextSong.cover);
+            this.recentCovers.push(this.normalizeCover(this.nextSong.cover));
           } else if (dir === 'right') {
             // now it is able to get the new last cover
             // replace the empty cover with this last cover
-            this.recentCovers[0] = this.lastSong.cover;
+            const newLastCover = this.normalizeCover(this.lastSong.cover);
+            this.$set(this.recentCovers, 0, newLastCover);
           }
         });
 

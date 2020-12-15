@@ -4,7 +4,7 @@
       <img
         :key="currentCover"
         alt="封面图片"
-        :class="['img', 'fade-in', {'vibrate': vibrate}]"
+        :class="['img', {'vibrate': vibrate}]"
         :src="currentCover || require('@/assets/default-pic.jpg')"
         @pointerdown="pointerDown"
         @pointermove="pointerMove"
@@ -12,6 +12,7 @@
         @animationend="animationEnd"
         @transitionend="transitionEnd"
         @error="onError"
+        @dragstart.prevent
       >
     </transition>
     <!-- cache these cover images in the background -->
@@ -22,7 +23,11 @@
 
 <script>
 import {createNamespacedHelpers} from 'vuex';
-const {mapState, mapGetters, mapMutations} = createNamespacedHelpers('radioPlay');
+const {
+  mapState,
+  mapGetters,
+  mapMutations
+} = createNamespacedHelpers('radioPlay');
 export default {
   data() {
     return {
@@ -130,12 +135,34 @@ export default {
 .right-enter, .left-leave-to {
   transform: perspective(1000px) rotateY(60deg) translateX(-50%) scale(0.6);
   transform-origin: 0% 50%;
-  opacity: 0.1;
+  opacity: 0;
 }
 
 .right-leave-to, .left-enter {
   transform: perspective(1000px) rotateY(-60deg) translateX(50%) scale(0.6);
   transform-origin: 100% 50%;
-  opacity: 0.1;
+  opacity: 0;
+}
+
+.vibrate {
+  animation: 300ms vibrate;
+}
+
+@keyframes vibrate {
+  40% {
+    transform: translateX(32px);
+  }
+
+  55% {
+    transform: translateX(-16px);
+  }
+
+  70% {
+    transform: translateX(8px);
+  }
+
+  85% {
+    transform: translateX(-4px);
+  }
 }
 </style>

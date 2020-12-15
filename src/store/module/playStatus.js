@@ -42,6 +42,11 @@ export default {
       state.currentTime = time;
     },
 
+    replay(state) {
+      state.player.currentTime = 0;
+      state.player.play();
+    },
+
     clear(state) {
       state.playing = false;
       state.waiting = false;
@@ -51,9 +56,12 @@ export default {
   },
 
   actions: {
-    ended({dispatch, rootState}) {
+    ended({dispatch, commit, rootState}) {
       if (rootState.radio) {
         dispatch('radioPlay/ended', null, {root: true});
+      } else if (rootState.commonPlay.playList.length === 1) {
+        // if the list contains only one song, play the song again
+        commit('replay');
       } else {
         dispatch('commonPlay/ended', null, {root: true});
       }

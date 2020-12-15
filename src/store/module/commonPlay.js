@@ -150,7 +150,7 @@ export default {
       setItem('playIndex', state.playIndex);
       setItem('playList', state.playList);
       state.indexList =
-        createIndexList(state.indexList.length, state.mode === 'random');
+        createIndexList(state.playList.length, state.mode === 'random');
       setItem('indexList', state.indexList);
     },
 
