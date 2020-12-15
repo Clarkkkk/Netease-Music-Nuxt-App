@@ -5,19 +5,40 @@ export default {
   state: {
     radioIndex: getItem('radioIndex', 'number'),
     radioList: getItem('radioList', 'array'),
+    allowBack: false
   },
 
   getters: {
     currentSong({radioIndex, radioList}) {
       return radioIndex >= 0 ? radioList[radioIndex] : {};
+    },
+    lastSong({radioIndex, radioList}) {
+      return radioIndex >= 1 ? radioList[radioIndex - 1] : {};
+    },
+    nextSong({radioIndex, radioList}) {
+      return radioIndex >= 0 ? radioList[radioIndex + 1] : {};
     }
   },
 
   mutations: {
-    nextSong(state) {
+    next(state) {
+      console.log('next:');
+      console.log(state);
       state.radioIndex++;
       setItem('radioIndex', state.radioIndex);
-      console.log('next song:');
+      state.allowBack = true;
+      console.log(state);
+      console.log(state.radioIndex);
+    },
+
+    last(state) {
+      console.log('last:');
+      console.log(state);
+      if (state.allowBack) {
+        state.radioIndex--;
+        setItem('radioIndex', state.radioIndex);
+        state.allowBack = false;
+      }
       console.log(state);
     },
 
@@ -33,11 +54,14 @@ export default {
       state.radioList = state.radioList.concat(list);
       console.log('list update');
       console.log(state);
+      console.log(list);
+      console.log(state.radioList);
     },
 
     clear(state) {
       state.radioIndex = -1;
       state.radioList.length = 0;
+      state.allowBack = false;
       setItem('radioIndex', state.radioIndex);
       setItem('radioList', state.radioList);
     }
@@ -45,7 +69,7 @@ export default {
 
   actions: {
     ended({commit}) {
-      commit('nextSong');
+      commit('next');
     },
 
     clear({commit}) {

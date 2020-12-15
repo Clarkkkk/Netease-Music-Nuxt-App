@@ -149,10 +149,9 @@ export default {
       state.playIndex = 0;
       setItem('playIndex', state.playIndex);
       setItem('playList', state.playList);
-      if (state.mode === 'random') {
-        state.indexList = createIndexList(state.indexList.length, true);
-        setItem('indexList', state.indexList);
-      }
+      state.indexList =
+        createIndexList(state.indexList.length, state.mode === 'random');
+      setItem('indexList', state.indexList);
     },
 
     playSongOfList(state, obj) {
@@ -196,6 +195,7 @@ export default {
     },
 
     clear(state) {
+      console.log('commonplay cleared');
       state.playIndex = -1;
       state.playList.length = 0;
       state.indexList.length = 0;

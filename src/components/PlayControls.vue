@@ -53,10 +53,8 @@ export default {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns:
-    [start] 1fr [mode-start] minmax(4rem, 1fr) [mode-end prev-start] minmax(4rem, 1fr)
-    [prev-end play-start] minmax(4rem, 1fr) [play-end next-start]
-    minmax(4rem, 1fr) [next-end list-start] minmax(4rem, 1fr) [list-end] 1fr [end];
+  grid-template-areas: "... mode prev play next list ...";
+  grid-template-columns: 1fr repeat(5, minmax(4rem, 1fr)) 1fr;
   grid-template-rows: [start] 100% [end];
   place-items: center;
 }

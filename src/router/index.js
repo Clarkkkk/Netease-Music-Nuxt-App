@@ -135,6 +135,7 @@ const routes = [
     name: 'play',
     beforeEnter: (to, from, next) => {
       if (store.state.radio) {
+        console.log('radio cleared');
         store.commit('playRadio', false);
         store.dispatch('radioPlay/clear')
           .then(() => next())

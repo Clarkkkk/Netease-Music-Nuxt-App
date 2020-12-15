@@ -74,6 +74,6 @@ export default {
             dispatch('ended');
           });
       }
-    },
+    }
   }
 };

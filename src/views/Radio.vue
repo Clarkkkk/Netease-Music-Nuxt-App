@@ -1,5 +1,5 @@
 <template>
-  <div id="play" @scroll="onScroll">
+  <div id="radio" @scroll="onScroll">
 
     <img alt="背景图片" class="background fade-in" :src="picUrl">
 
@@ -9,7 +9,7 @@
         <span class="title">私人FM</span>
       </div>
 
-      <img alt="封面图片" class="cover fade-in" :src="picUrl">
+      <radio-cover class="cover" />
 
       <app-loop-text :text="currentSong.name" class="song-name"/>
       <div class="song-artist">{{ currentSong.artist }}</div>
@@ -25,6 +25,7 @@ import AppBackButton from '@/components/AppBackButton.vue';
 import AppLoopText from '@/components/AppLoopText.vue';
 import PlayProgressBar from '@/components/PlayProgressBar.vue';
 import RadioControls from '@/components/RadioControls.vue';
+import RadioCover from '@/components/RadioCover.vue';
 import fetchJSON from '@/functions/fetchJSON.js';
 import {mapState, mapGetters, mapMutations} from 'vuex';
 export default {
@@ -32,7 +33,8 @@ export default {
     AppBackButton,
     AppLoopText,
     PlayProgressBar,
-    RadioControls
+    RadioControls,
+    RadioCover
   },
   computed: {
     ...mapState('playStatus', ['playing']),
@@ -46,16 +48,19 @@ export default {
 
   watch: {
     radioIndex(newIndex) {
+      console.log(newIndex);
       if (newIndex > 0 && this.radioList.length - newIndex === 1) {
+        console.log(this.radioList);
         this.updateList();
       }
     }
   },
 
-  created() {
-    console.log(this.$store);
-    this.updateList();
-    console.log(this.$store);
+  activated() {
+    if (this.radioList.length < 3) {
+      console.log('activated update list');
+      this.updateList();
+    }
   },
 
   methods: {
@@ -66,12 +71,14 @@ export default {
           console.log(res);
           const list = res.data.map((song) => {
             const arString = song.artists.map((item) => item.name).join('/');
+            const url = song.album.picUrl.replace('http:', 'https:');
+            const cover = url ? url + '?param=600y600' : '';
             return {
               id: song.id,
               name: song.name,
               artist: arString,
               album: song.album.name,
-              cover: song.album.picUrl.replace('http:', 'https:')
+              cover: cover
             };
           });
           this.radioListUpdate(list);
@@ -86,7 +93,7 @@ export default {
 </script>
 
 <style scoped>
-#play {
+#radio {
   width: 100vw;
   height: 100vh;
   color: white;
@@ -123,7 +130,8 @@ export default {
     "..."
     "progress-bar"
     "controls";
-  grid-template-rows: [start] 4.5rem 1fr min(80vw, 65vh) 3rem 1rem 2fr 2rem 5rem [end];
+  grid-template-rows:
+    [start] 4.5rem 1fr min(80vw, 65vh) 3rem 1rem 2fr 2rem 5rem [end];
   grid-template-columns: [start] 100% [end];
   place-items: center;
 }
@@ -156,8 +164,6 @@ export default {
 .cover {
   grid-row: cover;
   height: 100%;
-  box-shadow: 0 0 20px #00000030;
-  border-radius: 0.5rem;
 }
 
 /* song info */

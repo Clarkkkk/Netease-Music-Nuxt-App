@@ -7,7 +7,7 @@
       <img
         v-for="cover in recentCovers"
         ref="covers"
-        :key="cover"
+        :key="cover + Math.random()"
         alt="专辑图片"
         class="cover"
         :src="cover || require('@/assets/default-cover.png')"
@@ -67,6 +67,14 @@ export default {
     ];
   },
 
+  activated() {
+    this.recentCovers = [
+      this.lastCover = this.lastSong.cover,
+      this.currentCover = this.currentSong.cover,
+      this.nextCover = this.nextSong.cover
+    ];
+  },
+
   methods: {
     ...mapMutations('commonPlay', ['next', 'last']),
     // when pointer is down, the covers should stay at where they were
@@ -119,9 +127,9 @@ export default {
         const pointerMoveX = event.clientX - this.pointerDownX;
         // slide left or right while the movement meets the condition
         // otherwise just let it return to its original position
-        if (pointerMoveX > 50) {
+        if (pointerMoveX > 100) {
           this.slide('right');
-        } else if (pointerMoveX < -50) {
+        } else if (pointerMoveX < -100) {
           this.slide('left');
         } else {
           for (const cover of this.$refs.covers) {

@@ -15,7 +15,7 @@
     <app-icon
       icon="next-song"
       class="next"
-      @click.native="nextSong"
+      @click.native="next"
     />
     <app-icon
       icon="comment"
@@ -40,13 +40,13 @@ export default {
     AppLikeIcon
   },
   methods: {
-    ...mapMutations('radioPlay', ['nextSong']),
+    ...mapMutations('radioPlay', ['next']),
     ...mapActions('playStatus', ['playOrPause']),
     dislike() {
       fetchJSON('/fm_trash', {id: this.playID})
         .then((res) => {
           if (res.code === 200) {
-            this.nextSong();
+            this.next();
           }
         });
     },
@@ -64,10 +64,8 @@ export default {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns:
-    [start] 1fr [dislike-start] minmax(4rem, 1fr) [dislike-end like-start] minmax(4rem, 1fr)
-    [like-end play-start] minmax(4rem, 1fr) [play-end next-start]
-    minmax(4rem, 1fr) [next-end comment-start] minmax(4rem, 1fr) [comment-end] 1fr [end];
+  grid-template-areas: "... dislike like play next comment ...";
+  grid-template-columns: 1fr repeat(5, minmax(4rem, 1fr)) 1fr;
   grid-template-rows: [start] 100% [end];
   place-items: center;
 }

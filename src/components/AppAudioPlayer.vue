@@ -31,6 +31,8 @@ export default {
     ...mapState(['radio']),
     ...mapGetters(['currentSong']),
     playID() {
+      // console.log(this.currentSong);
+      // console.log(this.$store);
       return this.currentSong.id || 0;
     },
   },
@@ -47,6 +49,7 @@ export default {
 
   watch: {
     playID: function(newID) {
+      //console.log(newID);
       if (newID) {
         this.getUrl(newID)
           .then(() => this.$refs.audio.play())
@@ -82,6 +85,7 @@ export default {
           }).then((obj) => {
             if (obj.code === 200 && obj.data[0]) {
               this.src = obj.data[0].url.replace('http:', 'https:');
+              console.log(this.src);
             } else {
               alert('这首歌暂无版权');
               throw (new Error('url not exited: ' + JSON.stringify(obj)));

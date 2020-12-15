@@ -52,6 +52,7 @@ export default {
       return this.currentSong.name || '';
     },
     playCover() {
+      console.log(this.$store);
       return this.currentSong.cover || '';
     },
     playArtist() {
@@ -77,6 +78,7 @@ export default {
   height: 100vh;
   color: white;
   background-color: #666;
+  overflow: hidden;
 }
 
 .background {
