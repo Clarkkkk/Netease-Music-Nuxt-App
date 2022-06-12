@@ -1,0 +1,147 @@
+@use "sass:string";
+
+// 为background-image快速引入image-set
+// 图片名称需要遵循命名约定，2倍图以'@2x'结尾，3倍图以'@3x'结尾
+// 默认使用移动端的3种分辨率，默认图片格式为png
+// 用法示例：@include image-set(url('../assets/example.png'));
+@mixin image-set($url, $is-pc: false, $ext: png) {
+    $index: string.index($url, "." + $ext);
+    $url-2x: string.insert($url, "@2x", $index);
+    $url-3x: string.insert($url, "@3x", $index);
+
+    background-image: $url;
+    background-repeat: no-repeat;
+
+    @if $is-pc {
+        background-image: image-set($url 1x, $url-2x 2x);
+    } @else {
+        background-image: image-set($url 1x, $url-2x 2x, $url-3x 3x);
+    }
+}
+
+// 移动端与PC端断点
+// 用法示例：
+// @include mobile {
+//     .element {
+//         color: #fff;
+//     }
+// }
+@mixin mobile {
+    @media screen and (max-width: 880px) {
+        @content;
+    }
+}
+
+@mixin pc-1 {
+    @media screen and (max-width: 1440px) {
+        @content;
+    }
+}
+
+@mixin pc-2 {
+    @media screen and (min-width: 1441px) {
+        @content;
+    }
+}
+
+// 去除<button />的所有浏览器自带样式
+@mixin reset-button {
+    display: inline-block;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    background: transparent;
+    color: #000;
+    cursor: pointer;
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+// 去除<input />的所有浏览器自带样式
+@mixin reset-input {
+    border: none;
+    background-image: none;
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+// 去除<a />的所有浏览器自带样式
+@mixin reset-a {
+    text-decoration: none;
+    color: #000;
+}
+
+// 去除<hr />的所有浏览器自带样式
+@mixin reset-hr {
+    border: none;
+    outline: none;
+    margin: 0;
+}
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin row {
+    display: flex;
+    align-items: center;
+}
+
+@mixin scroll-bar {
+    // Firefox
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 4px;
+    }
+
+    &.mobile {
+        width: 100%;
+        height: 100%;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        // -moz-user-select: none; /*火狐*/
+        // -webkit-user-select: none; /*webkit浏览器*/
+        // -ms-user-select: none; /*IE10*/
+        // -khtml-user-select: none; /*早期浏览器*/
+        // user-select: none;
+        #root {
+            height: 100%;
+        }
+    }
+
+    /* 全局滚动条 */
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-height: 20px;
+        border-radius: 6px;
+        background-clip: content-box;
+        box-shadow: 0 0 0 5px rgb(177, 205, 202) inset;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        box-shadow: 0 0 0 5px rgba(1, 181, 171, 1) inset;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}

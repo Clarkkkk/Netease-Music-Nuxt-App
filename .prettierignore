@@ -1,0 +1,11 @@
+*.ts
+*.tsx
+*.js
+*.jsx
+*.json
+*.webmanifest
+index.html
+build
+dist
+dist-test
+coverage
