@@ -92,7 +92,7 @@ export default defineConfig(({ mode }) => {
         ],
         server: {
             port: 3200,
-            open: 'http://carllllo.work:3200/music',
+            open: 'http://dev.carllllo.work:3200/music',
             proxy: {
                 '/api': {
                     target: 'https://api.carllllo.work/music',

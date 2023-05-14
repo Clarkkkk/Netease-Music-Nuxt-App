@@ -2,11 +2,12 @@
     "compilerOptions": {
         "target": "esnext",
         "useDefineForClassFields": true,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "es2020",
         "strict": true,
         "jsx": "preserve",
         "sourceMap": true,
+        "incremental": true,
+        "outDir": "node_modules/.cache",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "esModuleInterop": false,
@@ -22,10 +23,9 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
         "types": [
             "vite-plugin-svgr/client"
-        ],
+        ]
     },
     "include": [
         "src/**/*.ts",
@@ -35,6 +35,9 @@
     ],
     "exclude": [
         "node_modules"
+    ],
+    "extends": [
+        "@vue/tsconfig/tsconfig.json"
     ],
     "references": [
         {
