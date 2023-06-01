@@ -70,23 +70,23 @@ watch(qrcodeLoginStatus, (val) => {
                     扫码登录
                 </DialogTitle>
                 <div
-                    class="m-5 w-40 h-40 rounded-2xl border-4 border-primary/10 relative overflow-hidden"
+                    class="relative m-5 h-40 w-40 overflow-hidden rounded-2xl border-4 border-primary/10"
                 >
                     <Loading
                         v-if="qrcodeLoginStatus === 'initial' && !qrcodeImg"
-                        class="w-full h-full"
+                        class="h-full w-full"
                     />
                     <Image
                         v-else
                         :src="qrcodeImg"
-                        class="w-full h-full rounded-2xl overflow-hidden"
+                        class="h-full w-full overflow-hidden rounded-2xl"
                     />
                     <div
                         v-if="qrcodeLoginStatus === 'expired'"
-                        class="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-base-300"
+                        class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
                     >
                         <button
-                            class="btn btn-sm"
+                            class="btn-sm btn"
                             @click="refresh"
                         >
                             点击刷新
@@ -94,21 +94,21 @@ watch(qrcodeLoginStatus, (val) => {
                     </div>
                     <div
                         v-if="qrcodeLoginStatus === 'logged-in'"
-                        class="w-full h-full flex items-center justify-center absolute top-0 left-0 bg-base-300"
+                        class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
                     >
                         <div class="flex items-center">
                             <i-solar-unread-linear
-                                class="rounded-full bg-success w-5 h-5 mr-2 text-neutral-50"
+                                class="mr-2 h-5 w-5 rounded-full bg-success text-neutral-50"
                             />
                             <span>登录成功</span>
                         </div>
                     </div>
                 </div>
-                <div class="text-info-content h-5 text-sm">
+                <div class="h-5 text-sm text-info-content">
                     {{ message }}
                 </div>
-                <DialogCloseTrigger class="absolute top-1 right-1">
-                    <button class="btn btn-square btn-ghost">
+                <DialogCloseTrigger class="absolute right-1 top-1">
+                    <button class="btn-ghost btn-square btn">
                         <i-fluent:dismiss-32-regular />
                     </button>
                 </DialogCloseTrigger>

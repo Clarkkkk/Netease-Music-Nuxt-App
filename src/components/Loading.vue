@@ -25,10 +25,10 @@ const props = defineProps<{
         }
     ]"
 >
-    <div class="flex items-center justify-center w-6 relative text-primary">
-        <Inner class="animate-spin absolute w-full h-full" />
-        <Middle class="animate-spin-reverse absolute w-full h-full" />
-        <Outer class="animate-spin w-full h-full" />
+    <div class="relative flex w-6 items-center justify-center text-primary">
+        <Inner class="absolute h-full w-full animate-spin" />
+        <Middle class="absolute h-full w-full animate-spin-reverse" />
+        <Outer class="h-full w-full animate-spin" />
     </div>
 </div>
 </template>

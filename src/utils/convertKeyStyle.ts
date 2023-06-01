@@ -1,4 +1,4 @@
-import { snakeCase, camelCase, isObject } from 'lodash'
+import { camelCase, isObject, snakeCase } from 'lodash'
 
 export function convertKeyStyle(
     obj: Record<string, any> | Array<Record<string, any>>,
