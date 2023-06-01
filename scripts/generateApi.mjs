@@ -1,7 +1,9 @@
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises'
+import lodash from 'lodash'
+const { camelCase } = lodash;
 
 (async () => {
-    const file = await readFile('C:\\Users\\iouio\\Workspace\\Netease-Music-App\\scripts\\doc.md', {encoding: 'utf8'})
+    const file = await readFile('C:\\Users\\iouio\\Workspace\\Netease-Music-App\\scripts\\doc.md', { encoding: 'utf8' })
     const api = []
     const fileArr = file.split('---divider---')
     for (const part of fileArr) {
@@ -16,7 +18,7 @@ import { readFile, writeFile } from 'fs/promises';
             for (const line of lines.slice(paramsIndex + 1)) {
                 if (/^`.+`:/.test(line)) {
                     paramsArr.push({
-                        key: [line.match(/^`([^`]+)`/)[1]],
+                        key: camelCase(line.match(/^`([^`]+)`/)[1]),
                         type: 'any',
                         optional: false,
                         comment: line.match(/^`[^`]+`: ?(.*)/)?.[1] || ''
@@ -31,7 +33,7 @@ import { readFile, writeFile } from 'fs/promises';
             for (const line of lines.slice(optionalParamsIndex + 1)) {
                 if (/^`.+`:/.test(line)) {
                     optionalParamsArr.push({
-                        key: [line.match(/^`([^`]+)`/)[1]],
+                        key: camelCase(line.match(/^`([^`]+)`/)[1]),
                         type: 'any',
                         optional: false,
                         comment: line.match(/^`[^`]+`: ?(.*)/)?.[1] || ''
@@ -41,7 +43,6 @@ import { readFile, writeFile } from 'fs/promises';
                 }
             }
 
-            
             const allParamsArr = [
                 ...paramsArr,
                 ...optionalParamsArr
@@ -76,7 +77,7 @@ import { readFile, writeFile } from 'fs/promises';
         let content = ''
         if (item.params) {
             function getParamItem(param) {
-                return `        ${param.comment ? '/** '+param.comment+' */' : ''}\n        ${param.key}${param.optional ? '?' : ''}: ${param.type};`
+                return `        ${param.comment ? '/** ' + param.comment + ' */' : ''}\n        ${param.key}${param.optional ? '?' : ''}: ${param.type};`
             }
             content = `/** ${item.apiComment} */
 export interface ${item.interface} {
@@ -98,19 +99,19 @@ export interface ${item.interface} {
 `
         }
 
-        writeFile(`C:\\Users\\iouio\\Workspace\\Netease-Music-App\\src\\api\\${item.interface}.ts`, content, {encoding: 'utf8'})
+        writeFile(`C:\\Users\\iouio\\Workspace\\Netease-Music-App\\src\\api\\${item.interface}.ts`, content, { encoding: 'utf8' })
     }
-    writeFile(`C:\\Users\\iouio\\Workspace\\Netease-Music-App\\src\\api\\index.ts`, indexContent, {encoding: 'utf8'})
+    writeFile('C:\\Users\\iouio\\Workspace\\Netease-Music-App\\src\\api\\index.ts', indexContent, { encoding: 'utf8' })
 
     function convertApiName(original) {
         return original
-        .replaceAll('/', '_')
-        .split('_')
-        .map((item) => capitalizeFirstLetter(item))
-        .join('')
+            .replaceAll('/', '_')
+            .split('_')
+            .map((item) => capitalizeFirstLetter(item))
+            .join('')
     }
 
     function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+        return string.charAt(0).toUpperCase() + string.slice(1)
     }
 })()

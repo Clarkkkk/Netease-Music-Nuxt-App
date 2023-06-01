@@ -1,21 +1,37 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import { RouterView } from 'vue-router'
+import { LoginModal } from 'components'
+import type { ApiLoginStatus } from './api/ApiLoginStatus'
+import { post } from './utils/request'
+import { useAuthStore } from './stores'
+import './global.css'
+
+const { openLogin, login, logout } = useAuthStore()
+
+onMounted(() => onInit())
+
+function onInit() {
+    post<ApiLoginStatus>('/login/status')
+        .then((res) => {
+            if (res.profile) {
+                login()
+            } else {
+                logout()
+            }
+        })
+        .catch(() => {
+            logout()
+        })
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+<RouterView class="bg-base-100" />
+<button @click="openLogin">
+    log in
+</button>
+<LoginModal />
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>

@@ -8,7 +8,7 @@ export interface ApiLogin {
         /** 密码 */
         password: any;
         /** md5 加密后的密码,传入后 `password` 将失效 */
-        md5_password: any;
+        md5Password: any;
     }
     return: ApiResponse;
 }

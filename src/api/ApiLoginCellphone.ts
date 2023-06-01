@@ -10,7 +10,7 @@ export interface ApiLoginCellphone {
         /** 国家码，用于国外手机号登录，例如美国传入：`1` */
         countrycode: any;
         /** md5 加密后的密码,传入后 `password` 参数将失效 */
-        md5_password: any;
+        md5Password: any;
         /** 验证码,使用 [`/captcha/sent`](#发送验证码)接口传入手机号获取验证码,调用此接口传入验证码,可使用验证码登录,传入后 `password` 参数将失效 */
         captcha: any;
     }

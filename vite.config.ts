@@ -1,44 +1,40 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
-// import vitePluginImp from 'vite-plugin-imp'
-// import AutoImport from 'unplugin-auto-import/vite'
-import checker from 'vite-plugin-checker'
-import svgrPlugin from 'vite-plugin-svgr'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+// import checker from 'vite-plugin-checker'
 import { VitePWA } from 'vite-plugin-pwa'
+import svgLoader from 'vite-svg-loader'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
     return {
         envDir: './env',
-        logLevel: 'warn',
+        // logLevel: 'warn',
         plugins: [
             vue(),
-            // vitePluginImp(),
-            checker({
-                typescript: true,
-                overlay: {
-                    initialIsOpen: false
-                }
-            }),
-            tsconfigPaths(),
-            svgrPlugin({
-                svgrOptions: {
-                    svgo: false
-                }
-            }),
-            // AutoImport({
-            //     include: [/\.tsx$/],
-            //     imports: [
-            //         {
-            //             classnames: [
-            //                 ['default', 'classNames']
-            //             ]
-            //         }
-            //     ],
-            //     dts: false
+            // checker({
+            //     vueTsc: true,
+            //     overlay: {
+            //         initialIsOpen: false
+            //     }
             // }),
+            svgLoader({
+                defaultImport: 'component',
+                svgo: false
+            }),
+            tsconfigPaths({
+                loose: true
+            }),
+            Icons(),
+            Components({
+                resolvers: [
+                    IconsResolver()
+                ]
+            }),
             VitePWA({
                 registerType: 'autoUpdate',
                 manifest: {
@@ -47,7 +43,7 @@ export default defineConfig(({ mode }) => {
                     description: 'Netease Music',
                     theme_color: '#ff3932',
                     start_url: 'index.html',
-                    scope: '/',
+                    scope: '/'
                 },
                 workbox: {
                     skipWaiting: true,
@@ -96,12 +92,13 @@ export default defineConfig(({ mode }) => {
             proxy: {
                 '/api': {
                     target: 'https://api.carllllo.work/music',
-                    changeOrigin: true
+                    changeOrigin: true,
+                    rewrite: (url) => url.replace(/^\/api/, '')
                 }
             }
         },
         build: {
-            outDir: mode === 'test' ? 'dist-test' : 'dist',
+            outDir: 'dist',
             chunkSizeWarningLimit: 1024,
             rollupOptions: {
                 output: {
@@ -117,16 +114,6 @@ export default defineConfig(({ mode }) => {
         },
         preview: {
             port: 6400
-        },
-        css: {
-            modules: {
-                localsConvention: 'camelCaseOnly'
-            },
-            preprocessorOptions: {
-                scss: {
-                    additionalData: '@import "/src/common/styles";'
-                }
-            }
-        },
+        }
     }
 })

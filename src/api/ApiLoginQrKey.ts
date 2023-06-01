@@ -2,5 +2,7 @@
 export interface ApiLoginQrKey {
     api: '/login/qr/key',
     method: 'post',
-    return: ApiResponse;
+    return: ApiResponse<{
+        unikey: string;
+    }>;
 }

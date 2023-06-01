@@ -2,5 +2,11 @@
 export interface ApiLoginQrCreate {
     api: '/login/qr/create',
     method: 'post',
-    return: ApiResponse;
+    params: {
+        key: string;
+        qrimg?: boolean;
+    }
+    return: ApiResponse<{
+        qrimg: string;
+    }>;
 }
