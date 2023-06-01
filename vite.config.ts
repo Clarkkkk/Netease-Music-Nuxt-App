@@ -31,6 +31,7 @@ export default defineConfig(() => {
             }),
             Icons(),
             Components({
+                dts: 'src/types/components.d.ts',
                 resolvers: [
                     IconsResolver()
                 ]
