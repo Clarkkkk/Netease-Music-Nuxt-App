@@ -1,16 +1,23 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { post } from 'utils'
+import type { ApiLogout } from '../api/ApiLogout'
 
 export const useAuthStore = defineStore('auth', () => {
     const loggedIn = ref(false)
+    const userId = ref(0)
     const showLoginModal = ref(false)
 
-    function login() {
+    function login(id: number) {
         loggedIn.value = true
+        userId.value = id
     }
 
     function logout() {
-        loggedIn.value = false
+        return post<ApiLogout>('/logout').then((res) => {
+            console.log(res)
+            loggedIn.value = false
+        })
     }
 
     function openLogin() {
