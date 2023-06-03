@@ -68,7 +68,9 @@ module.exports = {
                 alignAttributesVertically: true,
                 ignores: []
             }
-        ]
+        ],
+        'func-call-spacing': 'off',
+        '@typescript-eslint/func-call-spacing': 'error'
     },
     overrides: [
         {
