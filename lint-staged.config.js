@@ -1,3 +1,3 @@
 export default {
-    '*.{ts,tsx,js,mjs,cjs,vue,css,scss}': 'prettier-eslint --write'
+    '*.{ts,tsx,js,mjs,cjs,vue,css,scss}': 'eslint --fix --cache'
 }

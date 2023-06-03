@@ -4,7 +4,12 @@ module.exports = {
         es2021: true,
         node: true
     },
-    extends: ['standard', 'eslint:recommended', 'plugin:vue/vue3-recommended'],
+    extends: [
+        'standard',
+        'eslint:recommended',
+        'plugin:vue/vue3-recommended',
+        'plugin:prettier/recommended'
+    ],
     parser: 'vue-eslint-parser',
     parserOptions: {
         parser: '@typescript-eslint/parser',
@@ -63,7 +68,7 @@ module.exports = {
             4,
             {
                 attribute: 1,
-                baseIndent: 0,
+                baseIndent: 1,
                 closeBracket: 0,
                 alignAttributesVertically: true,
                 ignores: []
