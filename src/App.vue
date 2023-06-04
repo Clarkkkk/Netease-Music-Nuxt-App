@@ -15,7 +15,6 @@ onMounted(() => onInit())
 function onInit() {
     post<ApiLoginStatus>('/login/status')
         .then(({ data }) => {
-            console.log(data)
             if (data.profile) {
                 login(data.profile.userId)
                 updateProfile(data.profile.userId)

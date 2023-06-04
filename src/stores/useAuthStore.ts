@@ -20,6 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
             })
         } else {
             loggedIn.value = false
+            return Promise.resolve()
         }
     }
 

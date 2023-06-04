@@ -19,6 +19,8 @@ module.exports = {
     plugins: ['vue', '@typescript-eslint', 'simple-import-sort'],
     rules: {
         indent: ['error', 4],
+        'no-console': ['warn', { allow: ['warn', 'error'] }],
+        'consistent-return': 'error',
         'space-before-function-paren': [
             'error',
             {
