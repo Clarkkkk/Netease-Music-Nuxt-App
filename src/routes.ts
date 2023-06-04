@@ -7,7 +7,8 @@ const routes = [
     },
     {
         path: '/radio',
-        component: () => import('./pages/Radio/Radio.vue')
+        component: () => import('./pages/Radio/Radio.vue'),
+        meta: { requiresAuth: true }
     }
 ]
 
