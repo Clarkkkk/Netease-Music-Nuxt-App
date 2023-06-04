@@ -53,69 +53,69 @@ watch(qrcodeLoginStatus, (val) => {
 </script>
 
 <template>
-<Dialog
-    v-model:open="showLoginModal"
-    :close-on-outside-click="false"
->
-    <Teleport to="body">
-        <DialogContainer
-            :class="[
-                'modal',
-                'backdrop-blur-xl',
-                { 'modal-open': showLoginModal }
-            ]"
-        >
-            <DialogContent class="modal-box flex flex-col items-center">
-                <DialogTitle class="text-xl font-bold">
-                    扫码登录
-                </DialogTitle>
-                <div
-                    class="relative m-5 h-40 w-40 overflow-hidden rounded-2xl border-4 border-primary/10"
-                >
-                    <Loading
-                        v-if="qrcodeLoginStatus === 'initial' && !qrcodeImg"
-                        class="h-full w-full"
-                    />
-                    <Image
-                        v-else
-                        :src="qrcodeImg"
-                        class="h-full w-full overflow-hidden rounded-2xl"
-                    />
+    <Dialog
+        v-model:open="showLoginModal"
+        :close-on-outside-click="false"
+    >
+        <Teleport to="body">
+            <DialogContainer
+                :class="[
+                    'modal',
+                    'backdrop-blur-xl',
+                    { 'modal-open': showLoginModal }
+                ]"
+            >
+                <DialogContent class="modal-box flex flex-col items-center">
+                    <DialogTitle class="text-xl font-bold">
+                        扫码登录
+                    </DialogTitle>
                     <div
-                        v-if="qrcodeLoginStatus === 'expired'"
-                        class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
+                        class="relative m-5 h-40 w-40 overflow-hidden rounded-2xl border-4 border-primary/10"
                     >
-                        <button
-                            class="btn-sm btn"
-                            @click="refresh"
+                        <Loading
+                            v-if="qrcodeLoginStatus === 'initial' && !qrcodeImg"
+                            class="h-full w-full"
+                        />
+                        <Image
+                            v-else
+                            :src="qrcodeImg"
+                            class="h-full w-full overflow-hidden rounded-2xl"
+                        />
+                        <div
+                            v-if="qrcodeLoginStatus === 'expired'"
+                            class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
                         >
-                            点击刷新
-                        </button>
-                    </div>
-                    <div
-                        v-if="qrcodeLoginStatus === 'logged-in'"
-                        class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
-                    >
-                        <div class="flex items-center">
-                            <i-solar-unread-linear
-                                class="mr-2 h-5 w-5 rounded-full bg-success text-neutral-50"
-                            />
-                            <span>登录成功</span>
+                            <button
+                                class="btn-sm btn"
+                                @click="refresh"
+                            >
+                                点击刷新
+                            </button>
+                        </div>
+                        <div
+                            v-if="qrcodeLoginStatus === 'logged-in'"
+                            class="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-base-300"
+                        >
+                            <div class="flex items-center">
+                                <i-solar-unread-linear
+                                    class="mr-2 h-5 w-5 rounded-full bg-success text-neutral-50"
+                                />
+                                <span>登录成功</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="h-5 text-sm text-info-content">
-                    {{ message }}
-                </div>
-                <DialogCloseTrigger class="absolute right-1 top-1">
-                    <button class="btn-ghost btn-square btn">
-                        <i-fluent:dismiss-32-regular />
-                    </button>
-                </DialogCloseTrigger>
-            </DialogContent>
-        </DialogContainer>
-    </Teleport>
-</Dialog>
+                    <div class="h-5 text-sm text-info-content">
+                        {{ message }}
+                    </div>
+                    <DialogCloseTrigger class="absolute right-1 top-1">
+                        <button class="btn-ghost btn-square btn">
+                            <i-fluent:dismiss-32-regular />
+                        </button>
+                    </DialogCloseTrigger>
+                </DialogContent>
+            </DialogContainer>
+        </Teleport>
+    </Dialog>
 </template>
 
 <style scoped></style>

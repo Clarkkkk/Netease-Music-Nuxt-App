@@ -14,10 +14,13 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     function logout() {
-        return post<ApiLogout>('/logout').then((res) => {
-            console.log(res)
+        if (userId.value) {
+            return post<ApiLogout>('/logout').then(() => {
+                loggedIn.value = false
+            })
+        } else {
             loggedIn.value = false
-        })
+        }
     }
 
     function openLogin() {

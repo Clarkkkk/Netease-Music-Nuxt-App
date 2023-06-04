@@ -1,12 +1,7 @@
-<script setup lang="ts">
-import { PageHeader } from 'components'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-<div id="radio">
-    <PageHeader />
-    123
-</div>
+    <div id="radio"></div>
 </template>
 
 <style scoped></style>

@@ -75,7 +75,13 @@ module.exports = {
             }
         ],
         'func-call-spacing': 'off',
-        '@typescript-eslint/func-call-spacing': 'error'
+        '@typescript-eslint/func-call-spacing': 'error',
+        '@typescript-eslint/consistent-type-imports': [
+            'error',
+            {
+                prefer: 'type-imports'
+            }
+        ]
     },
     overrides: [
         {
@@ -83,13 +89,7 @@ module.exports = {
             parser: '@typescript-eslint/parser',
             extends: ['plugin:@typescript-eslint/recommended'],
             rules: {
-                '@typescript-eslint/no-explicit-any': 'off',
-                '@typescript-eslint/consistent-type-imports': [
-                    'error',
-                    {
-                        prefer: 'type-imports'
-                    }
-                ]
+                '@typescript-eslint/no-explicit-any': 'off'
             }
         }
     ]

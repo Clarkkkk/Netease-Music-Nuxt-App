@@ -9,13 +9,19 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Button: typeof import('./../components/Button.vue')['default']
     'IFluent:dismiss32Regular': typeof import('~icons/fluent/dismiss32-regular')['default']
     Image: typeof import('./../components/Image.vue')['default']
+    ISolarGalleryBoldDuotone: typeof import('~icons/solar/gallery-bold-duotone')['default']
     ISolarUnreadLinear: typeof import('~icons/solar/unread-linear')['default']
+    ISolarUserCircleBoldDuotone: typeof import('~icons/solar/user-circle-bold-duotone')['default']
+    ISolarUserLineDuotone: typeof import('~icons/solar/user-line-duotone')['default']
+    ISolarVinylLineDuotone: typeof import('~icons/solar/vinyl-line-duotone')['default']
     Loading: typeof import('./../components/Loading.vue')['default']
     LoginModal: typeof import('./../components/Globals/LoginModal/LoginModal.vue')['default']
-    Nav: typeof import('./../components/Nav.vue')['default']
+    Nav: typeof import('./../components/Globals/Nav/Nav.vue')['default']
     PageHeader: typeof import('./../components/PageHeader.vue')['default']
+    Profile: typeof import('./../components/Globals/Nav/components/Profile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

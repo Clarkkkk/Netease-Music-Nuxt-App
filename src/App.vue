@@ -7,7 +7,7 @@ import { post } from './utils/request'
 import { useAuthStore, useProfileStore } from './stores'
 import './global.css'
 
-const { openLogin, login, logout } = useAuthStore()
+const { login, logout } = useAuthStore()
 const { updateProfile } = useProfileStore()
 
 onMounted(() => onInit())
@@ -30,12 +30,9 @@ function onInit() {
 </script>
 
 <template>
-<Nav />
-<RouterView class="bg-base-100" />
-<button @click="openLogin">
-    log in
-</button>
-<LoginModal />
+    <Nav />
+    <RouterView class="bg-base-100" />
+    <LoginModal />
 </template>
 
 <style></style>
