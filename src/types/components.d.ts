@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Audio: typeof import('./../components/Globals/Audio.vue')['default']
     Button: typeof import('./../components/Button.vue')['default']
     'IFluent:dismiss32Regular': typeof import('~icons/fluent/dismiss32-regular')['default']
     Image: typeof import('./../components/Image.vue')['default']
