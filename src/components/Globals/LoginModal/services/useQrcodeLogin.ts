@@ -6,34 +6,35 @@ export function useQrcodeLogin() {
     const qrcodeKey = ref('')
     const qrcodeImg = ref('')
     const intervalId = ref(0)
-    const qrcodeLoginStatus = ref<'initial' | 'wait-scan' | 'wait-confirm' | 'expired' | 'logged-in'>('initial')
+    const qrcodeLoginStatus = ref<
+        'initial' | 'wait-scan' | 'wait-confirm' | 'expired' | 'logged-in'
+    >('initial')
 
     function generateQrcode() {
-        post<ApiLoginQrKey>('/login/qr/key').then(({ data }) => {
-            qrcodeKey.value = data.unikey
-            console.log(data)
-            console.log(qrcodeKey.value)
-            return post<ApiLoginQrCreate>('/login/qr/create', {
-                key: qrcodeKey.value,
-                qrimg: true
+        post<ApiLoginQrKey>('/login/qr/key')
+            .then(({ data }) => {
+                qrcodeKey.value = data.unikey
+                return post<ApiLoginQrCreate>('/login/qr/create', {
+                    key: qrcodeKey.value,
+                    qrimg: true
+                })
             })
-        }).then(({ data }) => {
-            qrcodeImg.value = data.qrimg
-            qrcodeLoginStatus.value = 'wait-scan'
-            checkStatus()
-        }).catch(() => {
-            qrcodeLoginStatus.value = 'expired'
-            clearInterval(intervalId.value)
-        })
+            .then(({ data }) => {
+                qrcodeImg.value = data.qrimg
+                qrcodeLoginStatus.value = 'wait-scan'
+                checkStatus()
+            })
+            .catch(() => {
+                qrcodeLoginStatus.value = 'expired'
+                clearInterval(intervalId.value)
+            })
     }
 
     function checkStatus() {
-        console.log('setInterval')
         intervalId.value = window.setInterval(() => {
             post<ApiLoginQrCheck>('/login/qr/check', {
                 key: qrcodeKey.value
             }).then(({ code }) => {
-                console.log(code)
                 if (code === 801) {
                     qrcodeLoginStatus.value = 'wait-scan'
                 } else if (code === 802) {
@@ -50,7 +51,6 @@ export function useQrcodeLogin() {
     }
 
     function resetInterval() {
-        console.log('resetInterval')
         clearInterval(intervalId.value)
         intervalId.value = 0
     }

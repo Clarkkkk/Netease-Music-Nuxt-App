@@ -1,18 +1,20 @@
 import { convertKeyStyle } from './convertKeyStyle'
 
-type SvgReactComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string }>
+type SvgReactComponent = React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & { title?: string }
+>
 
 export interface ImageSetItem {
-    alt: string;
-    src: string;
-    srcSet: string;
-    webpSrc?: string;
-    webpSrcSet?: string;
-    SvgComponent?: SvgReactComponent;
+    alt: string
+    src: string
+    srcSet: string
+    webpSrc?: string
+    webpSrcSet?: string
+    SvgComponent?: SvgReactComponent
 }
 
 export interface ImageSet {
-    [prop: string]: ImageSetItem;
+    [prop: string]: ImageSetItem
 }
 
 /**
@@ -33,9 +35,14 @@ export interface ImageSet {
  * const img = <Image {...btnShare} />
  * ```
  */
-export function importImages(module: Record<string, {
-    [key: string]: any;
-}>) {
+export function importImages(
+    module: Record<
+        string,
+        {
+            [key: string]: any
+        }
+    >
+) {
     const result = {} as ImageSet
     const regExp = /(\.\/)(.*?)(@\dx)?(\.(jpe?g|png|gif|svg|webp)$)/i
 
@@ -62,9 +69,13 @@ export function importImages(module: Record<string, {
         // srcset的条目间需添加`,`，默认没有倍数的图为1倍图，
         if (!isSvg(resourcePath)) {
             if (isWebp(resourcePath)) {
-                result[key].webpSrcSet += `${result[key].webpSrcSet ? ', ' : ''}${outputPath} ${density || '1x'}`
+                result[key].webpSrcSet += `${
+                    result[key].webpSrcSet ? ', ' : ''
+                }${outputPath} ${density || '1x'}`
             } else {
-                result[key].srcSet += `${result[key].srcSet ? ', ' : ''}${outputPath} ${density || '1x'}`
+                result[key].srcSet += `${
+                    result[key].srcSet ? ', ' : ''
+                }${outputPath} ${density || '1x'}`
             }
         } else {
             // svg转化为react组件
@@ -119,7 +130,9 @@ export function importImages(module: Record<string, {
                     return target[prop]
                 } else {
                     // 属性不存在时抛出错误，以防输错属性名
-                    throw new Error(`importImages: Property ${prop} is undefined. Please check your typing.`)
+                    throw new Error(
+                        `importImages: Property ${prop} is undefined. Please check your typing.`
+                    )
                 }
             }
         })

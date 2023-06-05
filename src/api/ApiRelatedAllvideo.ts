@@ -1,10 +1,10 @@
 /** 相关视频 */
 export interface ApiRelatedAllvideo {
-    api: '/related/allvideo',
-    method: 'post',
+    api: '/related/allvideo'
+    method: 'post'
     params: {
         /** 视频 的 id */
-        id: any;
+        id: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

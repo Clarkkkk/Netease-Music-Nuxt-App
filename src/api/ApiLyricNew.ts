@@ -1,10 +1,10 @@
 /** 获取逐字歌词 */
 export interface ApiLyricNew {
-    api: '/lyric/new',
-    method: 'post',
+    api: '/lyric/new'
+    method: 'post'
     params: {
         /** 音乐 id */
-        id: any;
+        id: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

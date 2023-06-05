@@ -10,7 +10,6 @@ export const useProfileStore = defineStore('profile', () => {
         post<ApiUserDetail>('/user/detail', {
             uid
         }).then((res) => {
-            console.log(res)
             profile.value = res
         })
     }

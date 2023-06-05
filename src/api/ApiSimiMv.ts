@@ -1,10 +1,10 @@
 /** 相似 mv */
 export interface ApiSimiMv {
-    api: '/simi/mv',
-    method: 'post',
+    api: '/simi/mv'
+    method: 'post'
     params: {
         /** mv id */
-        mvid: any;
+        mvid: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

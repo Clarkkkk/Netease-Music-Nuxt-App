@@ -13,7 +13,6 @@ import { Image } from 'components'
 import Loading from '../../Loading.vue'
 import { useQrcodeLogin } from './services/useQrcodeLogin'
 
-// const { login } = useAuthStore()
 const { showLoginModal } = storeToRefs(useAuthStore())
 const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } =
     useQrcodeLogin()
@@ -44,7 +43,6 @@ watch(showLoginModal, (val) => {
 watch(qrcodeLoginStatus, (val) => {
     if (val === 'logged-in') {
         // login()
-        console.log('login success')
         window.setTimeout(() => {
             window.location.reload()
         }, 800)

@@ -1,20 +1,20 @@
 /** 评论抱一抱列表 */
 export interface ApiCommentHugList {
-    api: '/comment/hug/list',
-    method: 'post',
+    api: '/comment/hug/list'
+    method: 'post'
     params: {
         /** 用户 id */
-        uid: any;
+        uid: any
         /** 评论 id */
-        cid: any;
+        cid: any
         /** 资源 id */
-        sid: any;
+        sid: any
         /** 页数 */
-        page: any;
+        page: any
         /** 上一页返回的 cursor,默认-1,第一页不需要传 */
-        cursor: any;
+        cursor: any
         /** 上一页返回的 idCursor,默认-1,第一页不需要传 */
-        idCursor: any;
+        idCursor: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

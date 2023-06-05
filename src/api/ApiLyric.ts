@@ -1,10 +1,10 @@
 /** 获取歌词 */
 export interface ApiLyric {
-    api: '/lyric',
-    method: 'post',
+    api: '/lyric'
+    method: 'post'
     params: {
         /** 音乐 id */
-        id: any;
+        id: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

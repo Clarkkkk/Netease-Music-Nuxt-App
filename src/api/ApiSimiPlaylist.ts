@@ -1,10 +1,10 @@
 /** 获取相似歌单 */
 export interface ApiSimiPlaylist {
-    api: '/simi/playlist',
-    method: 'post',
+    api: '/simi/playlist'
+    method: 'post'
     params: {
         /** 歌曲 id */
-        id: any;
+        id: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

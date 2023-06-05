@@ -1,12 +1,12 @@
 /** 更换绑定手机 */
 export interface ApiRebind {
-    api: '/rebind',
-    method: 'post',
+    api: '/rebind'
+    method: 'post'
     params: {
         /** 原手机验证码 */
-        oldcaptcha: any;
+        oldcaptcha: any
         /** 新手机验证码 */
-        captcha: any;
+        captcha: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

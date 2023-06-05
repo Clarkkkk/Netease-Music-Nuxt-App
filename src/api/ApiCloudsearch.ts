@@ -1,6 +1,6 @@
 /** 搜索 */
 export interface ApiCloudsearch {
-    api: '/cloudsearch',
-    method: 'post',
-    return: ApiResponse;
+    api: '/cloudsearch'
+    method: 'post'
+    return: ApiResponse
 }

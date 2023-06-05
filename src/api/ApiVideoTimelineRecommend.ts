@@ -1,10 +1,10 @@
 /** 获取推荐视频 */
 export interface ApiVideoTimelineRecommend {
-    api: '/video/timeline/recommend',
-    method: 'post',
+    api: '/video/timeline/recommend'
+    method: 'post'
     params: {
         /** 默认 0 */
-        offset: any;
+        offset: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

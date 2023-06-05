@@ -14,11 +14,14 @@ export function convertKeyStyle(
     } else {
         const result = {} as Record<string, any>
         for (const [key, val] of Object.entries(obj)) {
-            const convertedKey = style === 'snake' ? snakeCase(key) : camelCase(key)
+            const convertedKey =
+                style === 'snake' ? snakeCase(key) : camelCase(key)
             if (isShallow) {
                 result[convertedKey] = val
             } else {
-                result[convertedKey] = isObject(val) ? convertKeyStyle(val, style) : val
+                result[convertedKey] = isObject(val)
+                    ? convertKeyStyle(val, style)
+                    : val
             }
         }
         return result

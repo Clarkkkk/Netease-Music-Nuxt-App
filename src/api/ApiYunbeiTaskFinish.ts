@@ -1,10 +1,10 @@
 /** 云贝完成任务 */
 export interface ApiYunbeiTaskFinish {
-    api: '/yunbei/task/finish',
-    method: 'post',
+    api: '/yunbei/task/finish'
+    method: 'post'
     params: {
         /** 任务 depositCode */
-        depositCode: any;
+        depositCode: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }

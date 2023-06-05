@@ -1,10 +1,10 @@
 /** 电台 - 详情 */
 export interface ApiDjDetail {
-    api: '/dj/detail',
-    method: 'post',
+    api: '/dj/detail'
+    method: 'post'
     params: {
         /** 电台 的 id */
-        rid: any;
+        rid: any
     }
-    return: ApiResponse;
+    return: ApiResponse
 }
