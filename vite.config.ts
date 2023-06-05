@@ -4,7 +4,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-// import checker from 'vite-plugin-checker'
+import checker from 'vite-plugin-checker'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -13,15 +13,15 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig(() => {
     return {
         envDir: './env',
-        // logLevel: 'warn',
         plugins: [
             vue(),
-            // checker({
-            //     vueTsc: true,
-            //     overlay: {
-            //         initialIsOpen: false
-            //     }
-            // }),
+            checker({
+                vueTsc: true,
+                terminal: false,
+                overlay: {
+                    initialIsOpen: false
+                }
+            }),
             svgLoader({
                 defaultImport: 'component',
                 svgo: false
@@ -31,10 +31,10 @@ export default defineConfig(() => {
             }),
             Icons(),
             Components({
+                dirs: [],
+                types: [],
                 dts: 'src/types/components.d.ts',
-                resolvers: [
-                    IconsResolver()
-                ]
+                resolvers: [IconsResolver()]
             }),
             VitePWA({
                 registerType: 'autoUpdate',
@@ -57,7 +57,8 @@ export default defineConfig(() => {
                     cleanupOutdatedCaches: true,
                     runtimeCaching: [
                         {
-                            urlPattern: '^https://carllllo.work/music.*\\.(js|css)$',
+                            urlPattern:
+                                '^https://carllllo.work/music.*\\.(js|css)$',
                             handler: 'CacheFirst',
                             options: {
                                 cacheName: 'app-shell',
@@ -103,13 +104,7 @@ export default defineConfig(() => {
             chunkSizeWarningLimit: 1024,
             rollupOptions: {
                 output: {
-                    entryFileNames: path.posix.join('assets', 'main.[hash].js'),
-                    chunkFileNames: (info) => {
-                        const name = /index\.tsx?$/.test(info.facadeModuleId)
-                            ? info.facadeModuleId.match(/([^/]+)(\/index\.tsx?$)/)[1]
-                            : '[name]'
-                        return path.posix.join('assets', `${name}.[hash].js`)
-                    }
+                    entryFileNames: path.posix.join('assets', 'main.[hash].js')
                 }
             }
         },
