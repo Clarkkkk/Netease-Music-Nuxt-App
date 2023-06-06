@@ -11,7 +11,7 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from 'stores'
 import { Image } from 'components'
 import Loading from '../../Loading.vue'
-import { useQrcodeLogin } from './services/useQrcodeLogin'
+import { useQrcodeLogin } from './services'
 
 const { showLoginModal } = storeToRefs(useAuthStore())
 const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } = useQrcodeLogin()

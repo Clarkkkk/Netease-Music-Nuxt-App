@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { useStorage } from '@vueuse/core'
 import type { ApiLoginQrCheck, ApiLoginQrCreate, ApiLoginQrKey } from 'api'
+import { useAuthStore } from 'stores'
 import { post } from 'utils'
 import { getCookieExpires } from './getCookieExpires'
 import { parseCookie } from './parseCookie'
@@ -12,11 +12,9 @@ export function useQrcodeLogin() {
     const qrcodeLoginStatus = ref<
         'initial' | 'wait-scan' | 'wait-confirm' | 'expired' | 'logged-in'
     >('initial')
-    const loginStorage = useStorage<{ userId: number; expires: number }>('music-app-login', {
-        userId: 0,
-        expires: 0
-    })
+    const { storeLoginInfo } = useAuthStore()
 
+    /** 生成二维码，并启动轮询 */
     function generateQrcode() {
         post<ApiLoginQrKey>('/login/qr/key')
             .then(({ data }) => {
@@ -37,6 +35,7 @@ export function useQrcodeLogin() {
             })
     }
 
+    /** 轮询登录状态 */
     function checkStatus() {
         intervalId.value = window.setInterval(() => {
             post<ApiLoginQrCheck>('/login/qr/check', {
@@ -51,7 +50,7 @@ export function useQrcodeLogin() {
                     clearInterval(intervalId.value)
                     const cookies = parseCookie(cookie || '')
                     const expires = getCookieExpires(cookies)
-                    loginStorage.value.expires = expires
+                    storeLoginInfo({ expires })
                 } else if (qrcodeLoginStatus.value !== 'logged-in') {
                     qrcodeLoginStatus.value = 'expired'
                     clearInterval(intervalId.value)
