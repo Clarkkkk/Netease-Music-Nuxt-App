@@ -14,8 +14,7 @@ import Loading from '../../Loading.vue'
 import { useQrcodeLogin } from './services/useQrcodeLogin'
 
 const { showLoginModal } = storeToRefs(useAuthStore())
-const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } =
-    useQrcodeLogin()
+const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } = useQrcodeLogin()
 
 const message = computed(() => {
     if (qrcodeLoginStatus.value === 'wait-scan') {
@@ -42,7 +41,6 @@ watch(showLoginModal, (val) => {
 
 watch(qrcodeLoginStatus, (val) => {
     if (val === 'logged-in') {
-        // login()
         window.setTimeout(() => {
             window.location.reload()
         }, 800)
@@ -57,16 +55,10 @@ watch(qrcodeLoginStatus, (val) => {
     >
         <Teleport to="body">
             <DialogContainer
-                :class="[
-                    'modal',
-                    'backdrop-blur-xl',
-                    { 'modal-open': showLoginModal }
-                ]"
+                :class="['modal', 'backdrop-blur-xl', { 'modal-open': showLoginModal }]"
             >
                 <DialogContent class="modal-box flex flex-col items-center">
-                    <DialogTitle class="text-xl font-bold">
-                        扫码登录
-                    </DialogTitle>
+                    <DialogTitle class="text-xl font-bold"> 扫码登录 </DialogTitle>
                     <div
                         class="relative m-5 h-40 w-40 overflow-hidden rounded-2xl border-4 border-primary/10"
                     >

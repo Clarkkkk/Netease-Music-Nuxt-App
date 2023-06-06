@@ -7,6 +7,10 @@
     "start": "npm run dev",
     "dev": "vite",
     "typecheck": "vue-tsc --noEmit --watch --preserveWatchOutput",
+    "test": "vitest",
+    "test:update": "vitest --update",
+    "test:run": "vitest --run --changed",
+    "benchmark": "vitest bench --changed",
     "build": "vue-tsc --noEmit && vite build",
     "format": "eslint --fix --cache src/**/*.{vue,ts}",
     "lint-staged": "lint-staged",
@@ -76,6 +80,7 @@
     "vite-plugin-svgr": "^3.2.0",
     "vite-svg-loader": "^4.0.0",
     "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.31.4",
     "vue-tsc": "^1.6.5"
   }
 }

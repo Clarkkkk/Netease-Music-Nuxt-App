@@ -1,37 +1,17 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { LoginModal, Nav } from 'components'
-import type { ApiLoginStatus } from './api/ApiLoginStatus'
-import { post } from './utils/request'
-import { useAuthStore, useProfileStore } from './stores'
+import { Audio, LoginModal, Nav } from 'components'
+import { useLoginInitEffect } from './services'
 import './global.css'
 
-const { login, logout } = useAuthStore()
-const { updateProfile } = useProfileStore()
-
-onMounted(() => onInit())
-
-function onInit() {
-    post<ApiLoginStatus>('/login/status')
-        .then(({ data }) => {
-            if (data.profile) {
-                login(data.profile.userId)
-                updateProfile(data.profile.userId)
-            } else {
-                logout()
-            }
-        })
-        .catch(() => {
-            logout()
-        })
-}
+useLoginInitEffect()
 </script>
 
 <template>
     <Nav />
     <RouterView class="bg-base-100" />
     <LoginModal />
+    <Audio />
 </template>
 
 <style></style>

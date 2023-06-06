@@ -25,20 +25,17 @@
             "assets": [
                 "./src/assets"
             ],
-            "config": [
-                "./src/config"
+            "common": [
+                "./src/common"
             ],
             "src": [
                 "./src"
             ],
-            "tools": [
-                "./src/tools"
-            ],
             "pages": [
                 "./src/pages"
             ],
-            "hooks": [
-                "./src/hooks"
+            "services": [
+                "./src/services"
             ],
             "api": [
                 "./src/api"
