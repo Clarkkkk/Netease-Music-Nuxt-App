@@ -1,8 +1,6 @@
 import { convertKeyStyle } from './convertKeyStyle'
 
-type SvgReactComponent = React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & { title?: string }
->
+type SvgReactComponent = React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string }>
 
 export interface ImageSetItem {
     alt: string
@@ -69,13 +67,13 @@ export function importImages(
         // srcset的条目间需添加`,`，默认没有倍数的图为1倍图，
         if (!isSvg(resourcePath)) {
             if (isWebp(resourcePath)) {
-                result[key].webpSrcSet += `${
-                    result[key].webpSrcSet ? ', ' : ''
-                }${outputPath} ${density || '1x'}`
+                result[key].webpSrcSet += `${result[key].webpSrcSet ? ', ' : ''}${outputPath} ${
+                    density || '1x'
+                }`
             } else {
-                result[key].srcSet += `${
-                    result[key].srcSet ? ', ' : ''
-                }${outputPath} ${density || '1x'}`
+                result[key].srcSet += `${result[key].srcSet ? ', ' : ''}${outputPath} ${
+                    density || '1x'
+                }`
             }
         } else {
             // svg转化为react组件

@@ -83,6 +83,16 @@ module.exports = {
             {
                 prefer: 'type-imports'
             }
+        ],
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': [
+            'error',
+            {
+                enums: false,
+                typedefs: false,
+                ignoreTypeReferences: false,
+                functions: false
+            }
         ]
     },
     overrides: [

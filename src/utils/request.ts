@@ -2,8 +2,7 @@ import axios from 'axios'
 
 // 请求中间件
 axios.interceptors.request.use((config) => {
-    config.url =
-        import.meta.env.VITE_API + config.url + `?timestamp=${Date.now()}`
+    config.url = import.meta.env.VITE_API + config.url + `?timestamp=${Date.now()}`
     config.withCredentials = true
 
     return config
@@ -11,12 +10,11 @@ axios.interceptors.request.use((config) => {
 
 // 响应中间件
 axios.interceptors.response.use(async (response) => {
+    console.log(response)
     return response.data
 })
 
-type RequestArguments<T extends ApiType> = T['params'] extends
-    | Record<string, unknown>
-    | FormData
+type RequestArguments<T extends ApiType> = T['params'] extends Record<string, unknown> | FormData
     ? [api: T['api'], params: T['params']]
     : [api: T['api']]
 
