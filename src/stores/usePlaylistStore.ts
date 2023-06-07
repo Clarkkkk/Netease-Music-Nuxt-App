@@ -57,6 +57,46 @@ export const usePlaylistStore = defineStore('playlist', () => {
         }
     }
 
+    function updatePlayMode(mode: typeof playMode.value) {
+        playMode.value = mode
+    }
+
+    function updateCurrentSongStatus(status: Song['status']) {
+        if (currentSong.value) {
+            currentSong.value.status = status
+        }
+    }
+
+    async function switchToNextSong() {
+        if (
+            !currentSong.value ||
+            playlist.value.length <= 1 ||
+            playMode.value === 'song-loop' ||
+            !nextSong.value
+        ) {
+            // do nothing
+        } else {
+            updateCurrentSongStatus('not-playing')
+            await updateCurrentSong(nextSong.value)
+            updateCurrentSongStatus('waiting-to-play')
+        }
+    }
+
+    async function switchToLastSong() {
+        if (
+            !currentSong.value ||
+            playlist.value.length <= 1 ||
+            playMode.value === 'song-loop' ||
+            !lastSong.value
+        ) {
+            // do nothing
+        } else {
+            updateCurrentSongStatus('not-playing')
+            await updateCurrentSong(lastSong.value)
+            updateCurrentSongStatus('waiting-to-play')
+        }
+    }
+
     async function appendSongs(payload: Song | Song[]) {
         const firstAppend = !playlist.value.length
         if (Array.isArray(payload)) {
@@ -122,6 +162,10 @@ export const usePlaylistStore = defineStore('playlist', () => {
         nextSong,
         playMode,
         updateCurrentSong,
+        updatePlayMode,
+        updateCurrentSongStatus,
+        switchToNextSong,
+        switchToLastSong,
         appendSongs,
         insertSongToNext,
         removeSong,
