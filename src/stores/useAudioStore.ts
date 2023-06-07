@@ -4,24 +4,31 @@ import { defineStore } from 'pinia'
 export const useAudioStore = defineStore('audio', () => {
     const audioRef = ref<HTMLAudioElement | null>(null)
     const duration = ref(0)
+    /** 当前已播放时间，单位是秒 */
     const currentTime = ref(0)
     const loop = ref(false)
-    const src = ref('')
-    const status = ref<
-        'not-ready' | 'can-play' | 'playing' | 'paused' | 'ended' | 'loading'
+    const audioStatus = ref<
+        'not-ready' | 'can-play' | 'playing' | 'paused' | 'almost-ended' | 'ended' | 'loading'
     >('not-ready')
 
     async function play() {
+        console.log('play')
         if (audioRef.value) {
-            await audioRef.value.play()
-            status.value = 'playing'
+            try {
+                await audioRef.value.play()
+
+                audioStatus.value = 'playing'
+            } catch (e: any) {
+                console.error(e)
+                // throw new Error(e)
+            }
         }
     }
 
     function pause() {
         if (audioRef.value) {
             audioRef.value.pause()
-            status.value = 'paused'
+            audioStatus.value = 'paused'
         }
     }
 
@@ -32,8 +39,11 @@ export const useAudioStore = defineStore('audio', () => {
         }
     }
 
-    function updateAudioStatus(val: typeof status.value) {
-        status.value = val
+    function updateAudioStatus(val: typeof audioStatus.value) {
+        console.log(currentTime.value)
+        console.log(duration.value)
+        console.log('updateAudioStatus: ' + val)
+        audioStatus.value = val
     }
 
     function updateDuration(val: number) {
@@ -52,8 +62,7 @@ export const useAudioStore = defineStore('audio', () => {
         audioRef,
         duration,
         currentTime,
-        status,
-        src,
+        audioStatus,
         loop,
         play,
         pause,

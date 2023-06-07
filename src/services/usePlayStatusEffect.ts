@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import type { ApiPersonalFm } from 'api'
 import { storeToRefs } from 'pinia'
 import { useAudioStore, useAuthStore, usePlaylistStore } from 'stores'
@@ -7,7 +7,8 @@ import { useMusicControls } from './useMusicControls'
 
 export const usePlayStatusEffect = () => {
     const { loggedIn } = storeToRefs(useAuthStore())
-    const { audioStatus } = storeToRefs(useAudioStore())
+    const { audioStatus, currentTime, duration } = storeToRefs(useAudioStore())
+    const { updateAudioStatus } = useAudioStore()
     const { playlist, currentSong, nextSong, playMode } = storeToRefs(usePlaylistStore())
     const { appendSongs, updateSongUrl } = usePlaylistStore()
     const { playNextSong } = useMusicControls()
@@ -37,6 +38,18 @@ export const usePlayStatusEffect = () => {
             loading.value = false
         }
     }
+
+    // 播放即将结束时，更新状态
+    watchEffect(() => {
+        if (
+            currentTime.value &&
+            duration.value &&
+            currentTime.value + 10 > duration.value &&
+            audioStatus.value !== 'playing'
+        ) {
+            updateAudioStatus('almost-ended')
+        }
+    })
 
     // 播放即将结束时，更新下一首歌的url；播放结束时，自动播放下一首
     watch(audioStatus, () => {

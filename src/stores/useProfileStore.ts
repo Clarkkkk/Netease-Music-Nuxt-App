@@ -7,7 +7,7 @@ export const useProfileStore = defineStore('profile', () => {
     const profile = ref<ApiUserDetail['return'] | null>(null)
 
     function updateProfile(uid: number) {
-        post<ApiUserDetail>('/user/detail', {
+        return post<ApiUserDetail>('/user/detail', {
             uid
         }).then((res) => {
             profile.value = res
