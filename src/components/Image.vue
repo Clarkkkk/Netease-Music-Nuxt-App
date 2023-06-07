@@ -1,28 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, toRef, watch } from 'vue'
 
 import IconFileRemove from '~icons/solar/file-remove-line-duotone'
 
 const loadingStatus = ref(true)
 const errorStatus = ref(false)
-defineProps<{
-    src: string
+const props = defineProps<{
+    src?: string
     srcSet?: string
     webpSrc?: string
     webpSrcSet?: string
     alt?: string
     loading?: 'lazy' | 'eager'
 }>()
+
+const srcRef = toRef(props, 'src')
+
+watch(srcRef, (curr, prev) => {
+    if (curr !== prev) {
+        errorStatus.value = false
+    }
+})
 </script>
 
 <template>
     <picture
-        v-show="src"
+        v-show="!!src"
         :class="[
             'transition-all',
+            'duration-500',
             'flex',
             'items-center',
             'justify-center',
+            'overflow-hidden',
             { 'blur-lg': loadingStatus }
         ]"
     >
@@ -38,7 +48,7 @@ defineProps<{
             :srcSet="srcSet"
             :alt="alt"
             :loading="loading"
-            @loadstart="loadingStatus = true"
+            class="h-full w-full"
             @load="loadingStatus = false"
             @error="errorStatus = true"
         />
