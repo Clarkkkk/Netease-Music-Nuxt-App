@@ -24,9 +24,7 @@ async function onLogout() {
             </button>
 
             <template #content>
-                <div
-                    class="card glass flex h-auto w-80 flex-col items-center !shadow-2xl"
-                >
+                <div class="card glass flex h-auto w-80 flex-col items-center !shadow-2xl">
                     <figure class="h-48 w-full bg-base-200">
                         <img
                             v-if="!!profile"
@@ -38,9 +36,7 @@ async function onLogout() {
                             class="h-8 w-8"
                         />
                     </figure>
-                    <div
-                        class="avatar -mb-8 flex -translate-y-1/2 justify-center"
-                    >
+                    <div class="avatar -mb-8 flex -translate-y-1/2 justify-center">
                         <div class="w-20 rounded-full">
                             <img
                                 v-if="!!profile"
