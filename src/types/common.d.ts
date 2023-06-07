@@ -31,3 +31,14 @@ interface ApiGetType extends ApiType {
 interface ApiPostType extends ApiType {
     method: 'post'
 }
+
+interface Song {
+    id: number
+    name: string
+    subName: string
+    artist: string
+    album: string
+    cover: string
+    timestamp: number
+    url: string
+}
