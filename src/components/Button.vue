@@ -3,6 +3,7 @@ import type { ButtonHTMLAttributes } from 'vue'
 import { ref } from 'vue'
 
 interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {
+    disabled?: boolean
     onClick: (e: MouseEvent) => void | Promise<void>
 }
 
