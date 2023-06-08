@@ -9,31 +9,34 @@ export const usePlayStatusEffect = () => {
     const { audioStatus, currentTime, duration } = storeToRefs(useAudioStore())
     const { updateAudioStatus, play } = useAudioStore()
     const { playlist, currentSong, nextSong, playMode } = storeToRefs(usePlaylistStore())
-    const { appendSongs, updateSongUrl, switchToNextSong, updateCurrentSongStatus } =
-        usePlaylistStore()
+    const {
+        appendSongs,
+        updateSongUrl,
+        switchToNextSong,
+        updateCurrentSongStatus,
+        startNewPlaylist
+    } = usePlaylistStore()
     const loading = ref(false)
 
-    async function updateList() {
-        if (loading.value) return
+    async function getRadioList(): Promise<Song[]> {
+        if (loading.value) return []
 
         loading.value = true
         try {
             const res = await post<ApiPersonalFm>('/personal_fm')
-            await appendSongs(
-                res.data.map((item) => {
-                    return {
-                        id: item.id,
-                        name: `${item.name}`,
-                        subName: `${item.alias[0] || item.transName}`,
-                        artist: item.artists[0].name,
-                        album: item.album.name,
-                        cover: item.album.picUrl,
-                        timestamp: Date.now(),
-                        url: '',
-                        status: 'not-playing'
-                    }
-                })
-            )
+            return res.data.map((item) => {
+                return {
+                    id: item.id,
+                    name: `${item.name}`,
+                    subName: `${item.alias[0] || item.transName}`,
+                    artist: item.artists[0].name,
+                    album: item.album.name,
+                    cover: item.album.picUrl,
+                    timestamp: Date.now(),
+                    url: '',
+                    status: 'not-playing'
+                }
+            })
         } finally {
             loading.value = false
         }
@@ -84,21 +87,27 @@ export const usePlayStatusEffect = () => {
     // 切换至私人fm时，获取播放列表
     watch(
         [loggedIn, playMode],
-        ([loggedIn, playMode]) => {
+        async ([loggedIn, playMode]) => {
             if (!loggedIn || playMode !== 'radio') return
             console.log('first radio update')
-            updateList()
+            const list = await getRadioList()
+            if (list.length) {
+                startNewPlaylist(list)
+            }
         },
         { immediate: true }
     )
 
     // 播放私人fm时，如果即将到达列表末尾，更新播放列表
-    watch([loggedIn, playMode, currentSong], ([loggedIn, playMode, currentSong]) => {
+    watch([loggedIn, playMode, currentSong], async ([loggedIn, playMode, currentSong]) => {
         if (!loggedIn || playMode !== 'radio' || !currentSong) return
         const listTail = playlist.value.slice(-2)
         if (listTail.includes(currentSong)) {
             console.log('updateList')
-            updateList()
+            const list = await getRadioList()
+            if (list.length) {
+                appendSongs(list)
+            }
         }
     })
 }

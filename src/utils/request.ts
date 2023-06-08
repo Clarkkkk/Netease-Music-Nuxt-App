@@ -10,7 +10,6 @@ axios.interceptors.request.use((config) => {
 
 // 响应中间件
 axios.interceptors.response.use(async (response) => {
-    console.log(response)
     return response.data
 })
 

@@ -7,6 +7,7 @@ const ONE_MINUTE = 60 * 1000
 
 export const usePlaylistStore = defineStore('playlist', () => {
     const playlist = ref<Song[]>([])
+    const historyPlaylist = ref<Song[]>([])
     const currentSong = ref<Song | null>(null)
     const playMode = ref<'list-loop' | 'list-sequent' | 'song-loop' | 'radio'>('list-sequent')
 
@@ -128,9 +129,17 @@ export const usePlaylistStore = defineStore('playlist', () => {
         }
     }
 
-    function resetPlaylist() {
-        playlist.value = []
-        updateCurrentSong(null)
+    async function startNewPlaylist(list: Song[], shouldPlay?: Song) {
+        historyPlaylist.value = playlist.value
+        playlist.value = list
+        await updateCurrentSong(shouldPlay || list[0] || null)
+    }
+
+    async function restoreHistoryPlaylist(shouldPlay?: Song) {
+        const history = historyPlaylist.value
+        historyPlaylist.value = playlist.value
+        playlist.value = history
+        await updateCurrentSong(shouldPlay || playlist.value[0] || null)
     }
 
     async function updateSongUrl(payload: Song | Song[]) {
@@ -169,7 +178,8 @@ export const usePlaylistStore = defineStore('playlist', () => {
         appendSongs,
         insertSongToNext,
         removeSong,
-        resetPlaylist,
+        startNewPlaylist,
+        restoreHistoryPlaylist,
         updateSongUrl
     }
 })
