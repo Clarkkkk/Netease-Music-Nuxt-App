@@ -20,6 +20,9 @@ export const useAudioStore = defineStore('audio', () => {
                 audioStatus.value = 'playing'
             } catch (e: any) {
                 console.error(e)
+                if (e.name === 'NotAllowedError') {
+                    audioStatus.value = 'paused'
+                }
                 // throw new Error(e)
             }
         }

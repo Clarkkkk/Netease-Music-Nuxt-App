@@ -24,11 +24,4 @@ router.beforeEach((to, from) => {
     }
 })
 
-const pinia = createPinia()
-
-const app = createApp(App)
-
-app.use(router)
-app.use(pinia)
-
-app.mount('#app')
+createApp(App).use(router).use(createPinia()).mount('#app')

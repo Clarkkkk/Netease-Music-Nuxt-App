@@ -41,4 +41,5 @@ interface Song {
     cover: string
     timestamp: number
     url: string
+    status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
 }

@@ -12,7 +12,7 @@ const { currentSong } = storeToRefs(usePlaylistStore())
         ref="audioRef"
         :src="currentSong?.url"
         :loop="loop"
-        @loadedmetadata="updateAudioStatus('not-ready')"
+        @loadeddata="updateAudioStatus('not-ready')"
         @canplay="(e) => {
             updateDuration((e.target as HTMLAudioElement).duration)
             updateAudioStatus('can-play')

@@ -42,8 +42,15 @@ export const usePlayStatusEffect = () => {
         }
     }
 
+    watchEffect(() => {
+        console.log(playlist.value)
+    })
+
     // 当前歌曲准备就绪后自动播放
     watch([currentSong, audioStatus], async () => {
+        console.log(currentSong.value)
+        console.log(audioStatus.value)
+        // debugger
         if (
             currentSong.value &&
             currentSong.value.url &&
@@ -56,6 +63,7 @@ export const usePlayStatusEffect = () => {
                 updateCurrentSongStatus('playing')
             } catch (e) {
                 console.error(e)
+                console.log(typeof e)
                 updateCurrentSongStatus('play-failed')
             }
         }
@@ -67,7 +75,7 @@ export const usePlayStatusEffect = () => {
             currentTime.value &&
             duration.value &&
             currentTime.value + 10 > duration.value &&
-            audioStatus.value !== 'playing'
+            audioStatus.value === 'playing'
         ) {
             updateAudioStatus('almost-ended')
         }

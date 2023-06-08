@@ -2,6 +2,7 @@ import { computed, ref } from 'vue'
 import type { ApiSongUrl } from 'api'
 import { defineStore } from 'pinia'
 import { post } from 'utils'
+import { useAudioStore } from './useAudioStore'
 
 const ONE_MINUTE = 60 * 1000
 
@@ -10,6 +11,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
     const historyPlaylist = ref<Song[]>([])
     const currentSong = ref<Song | null>(null)
     const playMode = ref<'list-loop' | 'list-sequent' | 'song-loop' | 'radio'>('list-sequent')
+    const { updateAudioStatus } = useAudioStore()
 
     const nextSong = computed(() => {
         if (!currentSong.value || !playlist.value.length) {
@@ -52,10 +54,12 @@ export const usePlaylistStore = defineStore('playlist', () => {
     })
 
     async function updateCurrentSong(song: Song | null) {
-        currentSong.value = song
         if (song && !song.url) {
             await updateSongUrl(song)
         }
+        currentSong.value = song
+        updateAudioStatus('not-ready')
+        updateCurrentSongStatus('waiting-to-play')
     }
 
     function updatePlayMode(mode: typeof playMode.value) {
@@ -79,7 +83,6 @@ export const usePlaylistStore = defineStore('playlist', () => {
         } else {
             updateCurrentSongStatus('not-playing')
             await updateCurrentSong(nextSong.value)
-            updateCurrentSongStatus('waiting-to-play')
         }
     }
 
@@ -94,7 +97,6 @@ export const usePlaylistStore = defineStore('playlist', () => {
         } else {
             updateCurrentSongStatus('not-playing')
             await updateCurrentSong(lastSong.value)
-            updateCurrentSongStatus('waiting-to-play')
         }
     }
 
