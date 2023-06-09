@@ -9,3 +9,5 @@ interface ImportMetaEnv extends Readonly<Record<string, string>> {
 interface ImportMeta {
     readonly env: ImportMetaEnv
 }
+
+declare const __VUE_OPTIONS_API__: boolean

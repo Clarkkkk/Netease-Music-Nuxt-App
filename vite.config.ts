@@ -13,6 +13,9 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig(() => {
     return {
         envDir: './env',
+        define: {
+            __VUE_OPTIONS_API__: false
+        },
         plugins: [
             vue(),
             checker({
@@ -60,8 +63,7 @@ export default defineConfig(() => {
                     cleanupOutdatedCaches: true,
                     runtimeCaching: [
                         {
-                            urlPattern:
-                                '^https://carllllo.work/music.*\\.(js|css)$',
+                            urlPattern: '^https://carllllo.work/music.*\\.(js|css)$',
                             handler: 'CacheFirst',
                             options: {
                                 cacheName: 'app-shell',
