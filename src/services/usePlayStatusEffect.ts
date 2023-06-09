@@ -31,7 +31,7 @@ export const usePlayStatusEffect = () => {
                     subName: `${item.alias[0] || item.transName}`,
                     artist: item.artists[0].name,
                     album: item.album.name,
-                    cover: item.album.picUrl,
+                    cover: item.album.picUrl.replace('http:', 'https:'),
                     timestamp: Date.now(),
                     url: '',
                     status: 'not-playing'
