@@ -160,7 +160,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
             })
         } else {
             if (!payload.url || payload.timestamp + 15 * ONE_MINUTE > Date.now()) {
-                const res = await post<ApiSongUrl>('/song/url', { id: payload.id })
+                const res = await post<ApiSongUrl>('/song/url', { id: payload.id, br: 320000 })
                 payload.url = res.data[0].url
             }
         }
