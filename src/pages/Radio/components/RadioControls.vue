@@ -1,0 +1,52 @@
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useAudioStore, usePlaylistStore } from 'stores'
+import { Button } from 'components'
+
+const { audioStatus } = storeToRefs(useAudioStore())
+const { play, pause } = useAudioStore()
+const { switchToLastSong, switchToNextSong } = usePlaylistStore()
+
+function switchPlay() {
+    if (['can-play', 'paused'].includes(audioStatus.value)) {
+        play()
+    } else if (['playing', 'almost-ended', 'loading', 'not-ready'].includes(audioStatus.value)) {
+        pause()
+    }
+}
+</script>
+
+<template>
+    <div
+        id="radio-control"
+        class="flex items-center"
+    >
+        <Button
+            class="btn-ghost h-12 w-12 p-0 text-primary"
+            @click="switchToLastSong"
+        >
+            <i-solar-skip-previous-line-duotone class="h-6 w-6" />
+        </Button>
+        <Button
+            class="btn-ghost mx-10 h-14 w-14 p-0 text-primary"
+            @click="switchPlay"
+        >
+            <i-solar-play-line-duotone
+                v-if="['not-ready', 'can-play', 'paused', 'ended'].includes(audioStatus)"
+                class="h-8 w-8"
+            />
+            <i-solar-pause-line-duotone
+                v-else
+                class="h-8 w-8"
+            />
+        </Button>
+        <Button
+            class="btn-ghost h-12 w-12 p-0 text-primary"
+            @click="switchToNextSong"
+        >
+            <i-solar-skip-next-line-duotone class="h-6 w-6" />
+        </Button>
+    </div>
+</template>
+
+<style scoped></style>
