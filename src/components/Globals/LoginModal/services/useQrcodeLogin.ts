@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import type { ApiLoginQrCheck, ApiLoginQrCreate, ApiLoginQrKey } from 'api'
+import { ONE_DAY } from 'common'
 import { useAuthStore } from 'stores'
 import { post } from 'utils'
 import { getCookieExpires } from './getCookieExpires'
@@ -50,7 +51,7 @@ export function useQrcodeLogin() {
                     clearInterval(intervalId.value)
                     const cookies = parseCookie(cookie || '')
                     const expires = getCookieExpires(cookies)
-                    storeLoginInfo({ expires })
+                    storeLoginInfo({ expires: Math.max(expires, Date.now() + 7 * ONE_DAY) })
                 } else if (qrcodeLoginStatus.value !== 'logged-in') {
                     qrcodeLoginStatus.value = 'expired'
                     clearInterval(intervalId.value)
