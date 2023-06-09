@@ -20,8 +20,13 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     function storeLoginInfo(data: { userId?: number; expires?: number }) {
-        loginStorage.value.expires = data.expires || 0
-        loginStorage.value.userId = data.userId || 0
+        if (data.expires) {
+            loginStorage.value.expires = data.expires
+        }
+
+        if (data.userId) {
+            loginStorage.value.userId = data.userId
+        }
     }
 
     function login(id: number) {

@@ -2,7 +2,7 @@ import { ref, watch, watchEffect } from 'vue'
 import type { ApiPersonalFm } from 'api'
 import { storeToRefs } from 'pinia'
 import { useAudioStore, useAuthStore, usePlaylistStore } from 'stores'
-import { post } from 'utils'
+import { post, toHttps } from 'utils'
 
 export const usePlayStatusEffect = () => {
     const { loggedIn } = storeToRefs(useAuthStore())
@@ -31,7 +31,7 @@ export const usePlayStatusEffect = () => {
                     subName: `${item.alias[0] || item.transName}`,
                     artist: item.artists[0].name,
                     album: item.album.name,
-                    cover: item.album.picUrl.replace('http:', 'https:'),
+                    cover: toHttps(item.album.picUrl),
                     timestamp: Date.now(),
                     url: '',
                     status: 'not-playing'

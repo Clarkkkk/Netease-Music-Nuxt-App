@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import type { ApiSongUrl } from 'api'
 import { defineStore } from 'pinia'
-import { post } from 'utils'
+import { post, toHttps } from 'utils'
 import { useAudioStore } from './useAudioStore'
 
 const ONE_MINUTE = 60 * 1000
@@ -155,13 +155,13 @@ export const usePlaylistStore = defineStore('playlist', () => {
             needUpdateArr.forEach((item) => {
                 const data = res.data.find((d) => d.id === item.id)
                 if (data) {
-                    item.url = data.url
+                    item.url = toHttps(data.url)
                 }
             })
         } else {
             if (!payload.url || payload.timestamp + 15 * ONE_MINUTE > Date.now()) {
                 const res = await post<ApiSongUrl>('/song/url', { id: payload.id, br: 320000 })
-                payload.url = res.data[0].url
+                payload.url = toHttps(res.data[0].url)
             }
         }
     }

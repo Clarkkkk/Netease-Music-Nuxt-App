@@ -2,3 +2,4 @@
 export * from './minmax'
 export * from './prependZero'
 export * from './request'
+export * from './toHttps'
