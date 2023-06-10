@@ -8,12 +8,19 @@ export const useAudioStore = defineStore('audio', () => {
     const currentTime = ref(0)
     const loop = ref(false)
     const audioStatus = ref<
-        'not-ready' | 'can-play' | 'playing' | 'paused' | 'almost-ended' | 'ended' | 'loading'
+        | 'not-ready'
+        | 'can-play'
+        | 'playing'
+        | 'paused'
+        | 'almost-ended'
+        | 'ended'
+        | 'loading'
+        | 'error'
     >('not-ready')
 
     async function play() {
         console.log('play')
-        if (audioRef.value) {
+        if (audioRef.value && audioStatus.value !== 'error') {
             try {
                 await audioRef.value.play()
 

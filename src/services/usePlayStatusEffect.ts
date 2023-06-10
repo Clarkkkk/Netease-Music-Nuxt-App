@@ -14,7 +14,8 @@ export const usePlayStatusEffect = () => {
         updateSongUrl,
         switchToNextSong,
         updateCurrentSongStatus,
-        startNewPlaylist
+        startNewPlaylist,
+        updateCurrentSong
     } = usePlaylistStore()
     const loading = ref(false)
 
@@ -66,6 +67,13 @@ export const usePlayStatusEffect = () => {
                 console.log(typeof e)
                 updateCurrentSongStatus('play-failed')
             }
+        }
+    })
+
+    watch(audioStatus, (status) => {
+        if (status === 'error') {
+            console.log('loaded error, updating url')
+            updateCurrentSong(currentSong.value)
         }
     })
 

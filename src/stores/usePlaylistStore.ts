@@ -54,7 +54,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
     })
 
     async function updateCurrentSong(song: Song | null) {
-        if (song && !song.url) {
+        if (song) {
             await updateSongUrl(song)
         }
         currentSong.value = song
@@ -147,7 +147,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
     async function updateSongUrl(payload: Song | Song[]) {
         if (Array.isArray(payload)) {
             const needUpdateArr = payload.filter(
-                (item) => !item.url || item.timestamp + 20 * ONE_MINUTE > Date.now()
+                (item) => !item.url || item.timestamp + 15 * ONE_MINUTE > Date.now()
             )
             const res = await post<ApiSongUrl>('/song/url', {
                 id: needUpdateArr.map((item) => item.id).join(',')
