@@ -3,7 +3,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import type { ApiBanner } from 'api'
 import { ONE_SECOND } from 'common'
 import { Image } from 'components'
-import { post } from 'utils'
+import { post, toHttps } from 'utils'
 
 const pics = ref<ApiBanner['return']['banners']>([])
 const currentIndex = ref(0)
@@ -67,7 +67,7 @@ onUnmounted(() => {
                 { last: index === lastIndex },
                 { next: index === nextIndex }
             ]"
-            :src="pic.imageUrl"
+            :src="toHttps(pic.imageUrl)"
         />
     </div>
 </template>
