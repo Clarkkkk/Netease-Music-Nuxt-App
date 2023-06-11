@@ -84,6 +84,7 @@ module.exports = {
                 prefer: 'type-imports'
             }
         ],
+        'no-undef': 'off',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': [
             'error',
