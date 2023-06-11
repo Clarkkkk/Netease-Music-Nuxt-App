@@ -50,7 +50,7 @@ function formatTime(time: number) {
         <div
             id="music-bar"
             ref="container"
-            class="flex h-5 w-72 cursor-grab"
+            class="flex h-5 w-56 cursor-grab sm:w-72"
             @pointerdown="onPointerDown"
             @pointermove="onPointerMove"
             @pointerup="onPointerUp"

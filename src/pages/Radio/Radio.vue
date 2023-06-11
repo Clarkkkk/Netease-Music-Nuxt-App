@@ -12,10 +12,10 @@ onMounted(() => updatePlayMode('radio'))
 <template>
     <div
         id="radio"
-        class="flex"
+        class="flex w-full flex-col items-center lg:flex-row lg:items-start"
     >
-        <div class="flex h-full w-1/2 flex-col items-center">
-            <Cover class="mt-24" />
+        <div class="flex h-full w-full flex-col items-center justify-center lg:w-1/2">
+            <Cover />
             <Info class="mt-12" />
             <MusicBar class="mt-8" />
             <RadioControls class="mt-8" />
@@ -23,4 +23,8 @@ onMounted(() => updatePlayMode('radio'))
     </div>
 </template>
 
-<style scoped></style>
+<style>
+#radio {
+    height: calc(100% - 64px);
+}
+</style>

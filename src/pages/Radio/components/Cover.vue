@@ -10,7 +10,7 @@ const playlist = usePlaylistStore()
 <template>
     <div
         id="radio-cover"
-        class="relative h-96 w-96"
+        class="relative w-5/6 md:h-96 md:w-96"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
     >
