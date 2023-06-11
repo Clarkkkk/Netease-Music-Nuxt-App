@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, toRef, watch } from 'vue'
 
-import IconFileRemove from '~icons/solar/file-remove-line-duotone'
+import IconFileRemove from '~icons/solar/file-remove-bold-duotone'
 
 const loadingStatus = ref(true)
 const errorStatus = ref(false)

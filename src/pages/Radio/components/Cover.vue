@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useIsHovering } from 'services'
 import { usePlaylistStore } from 'stores'
 import { Image } from 'components'
 
-const isHovering = ref(false)
+const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 const playlist = usePlaylistStore()
 </script>
 
@@ -11,8 +11,8 @@ const playlist = usePlaylistStore()
     <div
         id="radio-cover"
         class="relative h-96 w-96"
-        @mouseenter="isHovering = true"
-        @mouseleave="isHovering = false"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
     >
         <Image
             :src="playlist.currentSong?.cover"
