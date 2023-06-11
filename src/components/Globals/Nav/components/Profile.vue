@@ -20,7 +20,7 @@ async function onLogout() {
             :delay="[0, 300]"
         >
             <button class="btn-ghost btn">
-                <i-solar-user-line-duotone class="h-6 w-6" />
+                <i-solar-user-bold-duotone class="h-6 w-6" />
             </button>
 
             <template #content>

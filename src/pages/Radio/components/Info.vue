@@ -20,7 +20,7 @@ const { currentSong } = storeToRefs(usePlaylistStore())
             ({{ currentSong?.subName || '--' }})
         </h2>
         <p class="mt-3 flex items-center text-sm text-base-content">
-            <i-solar-microphone-line-duotone class="mr-1 h-5 w-5 text-primary" />
+            <i-solar-microphone-bold-duotone class="mr-1 h-5 w-5 text-primary" />
             {{ currentSong?.artist || '--' }}
         </p>
     </div>

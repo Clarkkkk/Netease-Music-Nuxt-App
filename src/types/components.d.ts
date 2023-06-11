@@ -10,15 +10,19 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     'IFluent:dismiss32Regular': typeof import('~icons/fluent/dismiss32-regular')['default']
+    ISolarAltArrowLeftLinear: typeof import('~icons/solar/alt-arrow-left-linear')['default']
+    ISolarAltArrowRightLinear: typeof import('~icons/solar/alt-arrow-right-linear')['default']
     ISolarGalleryBoldDuotone: typeof import('~icons/solar/gallery-bold-duotone')['default']
-    ISolarMicrophoneLineDuotone: typeof import('~icons/solar/microphone-line-duotone')['default']
-    ISolarPauseLineDuotone: typeof import('~icons/solar/pause-line-duotone')['default']
-    ISolarPlayLineDuotone: typeof import('~icons/solar/play-line-duotone')['default']
-    ISolarSkipNextLineDuotone: typeof import('~icons/solar/skip-next-line-duotone')['default']
-    ISolarSkipPreviousLineDuotone: typeof import('~icons/solar/skip-previous-line-duotone')['default']
+    ISolarMicrophoneBoldDuotone: typeof import('~icons/solar/microphone-bold-duotone')['default']
+    ISolarPauseBoldDuotone: typeof import('~icons/solar/pause-bold-duotone')['default']
+    ISolarPlayBoldDuotone: typeof import('~icons/solar/play-bold-duotone')['default']
+    ISolarSkipNextBoldDuotone: typeof import('~icons/solar/skip-next-bold-duotone')['default']
+    ISolarSkipPreviousBoldDuotone: typeof import('~icons/solar/skip-previous-bold-duotone')['default']
     ISolarUnreadLinear: typeof import('~icons/solar/unread-linear')['default']
+    ISolarUserBoldDuotone: typeof import('~icons/solar/user-bold-duotone')['default']
     ISolarUserCircleBoldDuotone: typeof import('~icons/solar/user-circle-bold-duotone')['default']
-    ISolarUserLineDuotone: typeof import('~icons/solar/user-line-duotone')['default']
-    ISolarVinylLineDuotone: typeof import('~icons/solar/vinyl-line-duotone')['default']
+    ISolarUserBoldDuotone: typeof import('~icons/solar/user-bold-duotone')['default']
+    ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
+    ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
   }
 }

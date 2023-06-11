@@ -29,10 +29,10 @@ function isActiveRoute(to: string) {
 <template>
     <nav class="navbar bg-base-100 px-4">
         <RouterLink
-            class="flex items-center text-2xl font-thin text-primary"
+            class="mr-4 flex items-center text-2xl font-bold text-primary"
             to="/"
         >
-            <i-solar-vinyl-line-duotone class="mr-2 h-8 w-8" />
+            <i-solar-vinyl-bold-duotone class="mr-3 h-9 w-9" />
             <span>Music</span>
         </RouterLink>
         <div class="mx-4 w-full flex-auto">
