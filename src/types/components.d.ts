@@ -21,8 +21,6 @@ declare module '@vue/runtime-core' {
     ISolarUnreadLinear: typeof import('~icons/solar/unread-linear')['default']
     ISolarUserBoldDuotone: typeof import('~icons/solar/user-bold-duotone')['default']
     ISolarUserCircleBoldDuotone: typeof import('~icons/solar/user-circle-bold-duotone')['default']
-    ISolarUserBoldDuotone: typeof import('~icons/solar/user-bold-duotone')['default']
-    ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
     ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
   }
 }

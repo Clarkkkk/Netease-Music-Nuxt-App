@@ -74,13 +74,22 @@ onUnmounted(() => {
 
 <style lang="scss">
 #home-banner {
-    width: 100%;
-    height: 300px;
+    width: calc(100% + 3rem);
+    transform: translateX(-1.5rem);
+    aspect-ratio: 3/ 1;
+
+    @media (min-width: 1280px) {
+        width: 100%;
+        transform: translateX(0);
+    }
 
     .banner-image {
-        width: 80%;
-        max-width: 840px;
-        max-height: 300px;
+        width: 90%;
+
+        @media (min-width: 1280px) {
+            width: 80%;
+        }
+
         transform: translateX(-50%) translateY(-50%) scale(0.5);
         opacity: 0;
         z-index: -1;

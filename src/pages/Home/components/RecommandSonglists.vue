@@ -38,9 +38,9 @@ watch(
 <template>
     <div
         id="recommand-songlists"
-        class="mt-12 w-full"
+        class="mt-8 w-full md:mt-12"
     >
-        <h2 class="text-xl font-bold">推荐歌单</h2>
+        <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
         <ul
             id="recommand-songlists"
             class="relative flex w-full items-center overflow-x-clip py-4"

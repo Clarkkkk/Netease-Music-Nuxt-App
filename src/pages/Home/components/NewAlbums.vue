@@ -17,7 +17,7 @@ interface Album {
 const albums = ref<Array<Album>>([])
 
 onMounted(() => {
-    post<ApiAlbumNew>('/album/new', { limit: 6 }).then((res) => {
+    post<ApiAlbumNew>('/album/new', { limit: 12 }).then((res) => {
         albums.value = res.albums.map((item) => {
             return {
                 name: item.name,
@@ -36,9 +36,9 @@ onMounted(() => {
 <template>
     <div
         id="new-albums"
-        class="w-full"
+        class="w-full md:mt-6"
     >
-        <h2 class="text-xl font-bold">新碟上架</h2>
+        <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">新碟上架</h2>
         <ul class="relative flex w-full flex-wrap items-center py-4">
             <AlbumItem
                 v-for="album in albums"
@@ -59,7 +59,19 @@ onMounted(() => {
 <style lang="scss">
 #new-albums {
     .album {
-        width: calc(33% - 24px);
+        width: calc(50% - 24px);
+    }
+
+    @media (min-width: 1024px) {
+        .album {
+            width: calc(33% - 24px);
+        }
+    }
+
+    @media (min-width: 1536px) {
+        .album {
+            width: calc(25% - 24px);
+        }
     }
 }
 </style>

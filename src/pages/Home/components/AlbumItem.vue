@@ -21,7 +21,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
     <li
         :key="id"
         :class="[
-            'mb-6',
+            'mb-8',
             'mr-6',
             'rounded',
             'transition-all',
@@ -54,7 +54,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             :src="picUrl"
             class="relative flex-fixed rounded-t"
         />
-        <div class="relative w-full rounded-b bg-base-100/90 p-4 text-sm text-base-content">
+        <div class="relative w-full rounded-b bg-base-100/90 p-2 text-sm text-base-content md:p-4">
             <div
                 class="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-base-content/90"
             >

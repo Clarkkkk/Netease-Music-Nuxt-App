@@ -36,10 +36,10 @@ watch(
 <template>
     <div
         id="recommand-songs"
-        class="flex w-full max-w-md flex-col rounded-lg"
+        class="flex w-full flex-col rounded-lg"
     >
-        <h2 class="px-9 text-xl font-bold">每日推荐歌曲</h2>
-        <ul class="list w-full overflow-x-visible overflow-y-scroll px-8">
+        <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">每日推荐歌曲</h2>
+        <ul class="list w-full overflow-x-visible overflow-y-scroll">
             <li
                 v-for="song in list"
                 :key="song.id"
@@ -52,7 +52,7 @@ watch(
                 />
                 <div class="flex w-full flex-col justify-between overflow-hidden">
                     <div
-                        class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-base-content"
+                        class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
                         :title="`${song.name}${song.subName ? `(${song.subName})` : ''}`"
                     >
                         {{ song.name }}{{ song.subName ? `(${song.subName})` : '' }}
@@ -71,8 +71,10 @@ watch(
 
 <style lang="scss">
 #recommand-songs {
-    .list {
-        max-height: calc(100vh - 200px);
+    @media (min-width: 768px) {
+        .list {
+            max-height: calc(100vh - 200px);
+        }
     }
 }
 </style>

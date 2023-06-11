@@ -16,6 +16,11 @@ usePlayStatusEffect()
 </template>
 
 <style lang="scss">
+#app {
+    height: 100vh;
+    height: 100dvh;
+}
+
 * {
     // Firefox
     scrollbar-width: thin;

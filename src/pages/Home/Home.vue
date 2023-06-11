@@ -5,14 +5,14 @@ import { Banner, NewAlbums, RecommandSonglists, RecommandSongs } from './compone
 <template>
     <div
         id="home"
-        class="container mx-auto mt-6 flex"
+        class="container mx-auto mt-2 flex flex-col items-center px-6 md:mt-6 md:flex-row md:items-start md:justify-between"
     >
-        <div class="w-2/3">
+        <div class="w-full md:w-7/12">
             <Banner />
             <RecommandSonglists />
             <NewAlbums />
         </div>
-        <div class="flex w-1/3 justify-center">
+        <div class="flex w-full justify-center md:w-1/3">
             <RecommandSongs />
         </div>
     </div>
