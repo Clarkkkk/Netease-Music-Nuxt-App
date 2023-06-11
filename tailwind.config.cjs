@@ -9,6 +9,15 @@ module.exports = {
             width: {
                 128: '32rem'
             },
+            maxWidth: {
+                128: '32rem'
+            },
+            height: {
+                128: '32rem'
+            },
+            maxHeight: {
+                128: '32rem'
+            },
             flex: {
                 fixed: '0 0 auto'
             }
