@@ -20,7 +20,15 @@ async function onLogout() {
             :delay="[0, 300]"
         >
             <button class="btn-ghost btn">
-                <i-solar-user-bold-duotone class="h-6 w-6" />
+                <img
+                    v-if="!!profile"
+                    :src="profile.profile.avatarUrl"
+                    class="h-8 w-8 rounded-full object-cover"
+                />
+                <i-solar-user-bold-duotone
+                    v-else
+                    class="h-6 w-6"
+                />
             </button>
 
             <template #content>
