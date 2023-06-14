@@ -37,6 +37,12 @@ export const useAudioStore = defineStore('audio', () => {
         }
     }
 
+    async function playAgain() {
+        if (!audioRef.value) return
+        audioRef.value.currentTime = 0
+        await play()
+    }
+
     function pause() {
         if (audioRef.value) {
             audioRef.value.pause()
@@ -77,6 +83,7 @@ export const useAudioStore = defineStore('audio', () => {
         audioStatus,
         loop,
         play,
+        playAgain,
         pause,
         seek,
         updateAudioStatus,

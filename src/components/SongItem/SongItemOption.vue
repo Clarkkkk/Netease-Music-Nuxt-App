@@ -20,7 +20,7 @@ interface Song {
 
 const song = toRef(defineProps<Song>())
 
-const { switchToThisSong, switchToNextSong } = usePlaylistStore()
+const { switchToThisSong, insertSongToNext } = usePlaylistStore()
 const { playMode } = storeToRefs(usePlaylistStore())
 
 async function onPlayClick() {
@@ -28,7 +28,7 @@ async function onPlayClick() {
 }
 
 async function onPlayNextClick() {
-    await switchToNextSong()
+    await insertSongToNext(song.value)
 }
 
 async function onClick() {
