@@ -34,7 +34,7 @@
   "devDependencies": {
     "@iconify-json/fluent": "^1.1.22",
     "@iconify-json/solar": "^1.1.1",
-    "@squoosh/lib": "^0.5.3",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.8",

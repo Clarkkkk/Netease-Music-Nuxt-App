@@ -13,7 +13,8 @@ module.exports = {
                 128: '32rem'
             },
             height: {
-                128: '32rem'
+                128: '32rem',
+                '11/12': '91.666667%'
             },
             maxHeight: {
                 128: '32rem'
@@ -26,5 +27,5 @@ module.exports = {
     daisyui: {
         logs: false // Shows info about daisyUI version and used config in the console when building your CSS
     },
-    plugins: [require('daisyui')]
+    plugins: [require('daisyui'), require('@tailwindcss/container-queries')]
 }
