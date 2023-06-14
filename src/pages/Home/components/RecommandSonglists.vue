@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import type { ApiRecommendResource } from 'api'
 import { useAuthStore } from 'stores'
 import { post, toHttps } from 'utils'
@@ -14,6 +15,7 @@ interface Songlist {
 
 const auth = useAuthStore()
 const lists = ref<Array<Songlist>>([])
+const router = useRouter()
 
 watch(
     auth,
@@ -48,12 +50,13 @@ watch(
             <li
                 v-for="list in lists"
                 :key="list.id"
-                class="mb-6 mr-6 flex flex-col items-center"
+                class="mb-6 mr-6 flex cursor-pointer flex-col items-center"
             >
                 <ListCover
                     :id="list.id"
                     :name="list.name"
                     :pic-url="list.picUrl"
+                    @click="router.push(`/songlist/${list.id}`)"
                 >
                     <div class="text-sm text-base-content">
                         {{ list.name }}
