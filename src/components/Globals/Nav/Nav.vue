@@ -28,6 +28,14 @@ function isActiveRoute(to: string) {
         return route.path.includes(to)
     }
 }
+
+async function onRadioClick() {
+    if (playMode.value !== 'radio') {
+        await switchToRadio()
+    } else {
+        router.push('/playing')
+    }
+}
 </script>
 
 <template>
@@ -60,15 +68,7 @@ function isActiveRoute(to: string) {
             <Button
                 v-if="auth.loggedIn"
                 class="btn-primary btn-sm mr-4"
-                @click="
-                    () => {
-                        if (playMode !== 'radio') {
-                            switchToRadio()
-                        } else {
-                            router.push('/playing')
-                        }
-                    }
-                "
+                @click="onRadioClick"
             >
                 <i-solar-play-stream-line-duotone class="h-6 w-6" />
                 私人FM
