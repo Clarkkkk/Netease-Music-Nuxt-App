@@ -11,8 +11,8 @@ const navRoutes = [
         to: '/'
     },
     {
-        name: 'Radio',
-        to: '/radio'
+        name: 'Playing',
+        to: '/playing'
     }
 ]
 const route = useRoute()

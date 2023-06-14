@@ -10,17 +10,25 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     'IFluent:dismiss32Regular': typeof import('~icons/fluent/dismiss32-regular')['default']
+    IFluentDismiss32Regular: typeof import('~icons/fluent/dismiss32-regular')['default']
     ISolarAltArrowLeftLinear: typeof import('~icons/solar/alt-arrow-left-linear')['default']
     ISolarAltArrowRightLinear: typeof import('~icons/solar/alt-arrow-right-linear')['default']
     ISolarGalleryBoldDuotone: typeof import('~icons/solar/gallery-bold-duotone')['default']
+    ISolarListHeartMinimalisticLineDuotone: typeof import('~icons/solar/list-heart-minimalistic-line-duotone')['default']
+    ISolarMenuDotsBold: typeof import('~icons/solar/menu-dots-bold')['default']
     ISolarMicrophoneBoldDuotone: typeof import('~icons/solar/microphone-bold-duotone')['default']
+    ISolarMusicLibrary2LineDuotone: typeof import('~icons/solar/music-library2-line-duotone')['default']
     ISolarPauseBoldDuotone: typeof import('~icons/solar/pause-bold-duotone')['default']
     ISolarPlayBoldDuotone: typeof import('~icons/solar/play-bold-duotone')['default']
+    ISolarPlayCircleBoldDuotone: typeof import('~icons/solar/play-circle-bold-duotone')['default']
+    ISolarPlayCircleLineDuotone: typeof import('~icons/solar/play-circle-line-duotone')['default']
+    ISolarPlayLineDuotone: typeof import('~icons/solar/play-line-duotone')['default']
     ISolarSkipNextBoldDuotone: typeof import('~icons/solar/skip-next-bold-duotone')['default']
     ISolarSkipPreviousBoldDuotone: typeof import('~icons/solar/skip-previous-bold-duotone')['default']
     ISolarUnreadLinear: typeof import('~icons/solar/unread-linear')['default']
     ISolarUserBoldDuotone: typeof import('~icons/solar/user-bold-duotone')['default']
     ISolarUserCircleBoldDuotone: typeof import('~icons/solar/user-circle-bold-duotone')['default']
     ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
+    ISolarVinylLineDuotone: typeof import('~icons/solar/vinyl-line-duotone')['default']
   }
 }

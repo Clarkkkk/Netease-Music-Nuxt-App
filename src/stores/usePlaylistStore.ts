@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import type { ApiSongUrl } from 'api'
+import type { ApiPersonalFm, ApiSongUrl } from 'api'
 import { defineStore } from 'pinia'
 import { post, toHttps } from 'utils'
 import { useAudioStore } from './useAudioStore'
@@ -100,6 +100,33 @@ export const usePlaylistStore = defineStore('playlist', () => {
         }
     }
 
+    async function switchToThisSong(song: Song) {
+        if (playMode.value === 'radio') {
+            await switchToThisList([song])
+        } else {
+            const songInList = playlist.value.find((item) => item.id === song.id)
+            if (songInList) {
+                updateCurrentSongStatus('not-playing')
+                await updateCurrentSong(songInList)
+            } else {
+                insertSongToNext(song)
+                await switchToNextSong()
+            }
+        }
+    }
+
+    async function switchToThisList(list: Song[], shouldPlay?: Song) {
+        historyPlaylist.value = playlist.value
+        playlist.value = list
+        await updateCurrentSong(shouldPlay || list[0] || null)
+    }
+
+    async function switchToRadio() {
+        if (playMode.value === 'radio') return
+        const list = await fetchRadioList()
+        await switchToThisList(list)
+    }
+
     async function appendSongs(payload: Song | Song[]) {
         const firstAppend = !playlist.value.length
         if (Array.isArray(payload)) {
@@ -131,10 +158,25 @@ export const usePlaylistStore = defineStore('playlist', () => {
         }
     }
 
-    async function startNewPlaylist(list: Song[], shouldPlay?: Song) {
-        historyPlaylist.value = playlist.value
-        playlist.value = list
-        await updateCurrentSong(shouldPlay || list[0] || null)
+    async function fetchRadioList(): Promise<Song[]> {
+        const res = await post<ApiPersonalFm>('/personal_fm')
+        return res.data.map((item) => {
+            return {
+                id: item.id,
+                name: `${item.name}`,
+                subName: `${item.alias[0] || item.transName}`,
+                artist: item.artists[0].name,
+                album: item.album.name,
+                cover: toHttps(item.album.picUrl),
+                timestamp: Date.now(),
+                url: '',
+                status: 'not-playing'
+            }
+        })
+    }
+
+    function resetPlaylist() {
+        playlist.value = []
     }
 
     async function restoreHistoryPlaylist(shouldPlay?: Song) {
@@ -180,10 +222,14 @@ export const usePlaylistStore = defineStore('playlist', () => {
         updateCurrentSongStatus,
         switchToNextSong,
         switchToLastSong,
+        switchToThisSong,
+        switchToThisList,
+        switchToRadio,
+        resetPlaylist,
+        fetchRadioList,
         appendSongs,
         insertSongToNext,
         removeSong,
-        startNewPlaylist,
         restoreHistoryPlaylist,
         updateSongUrl
     }

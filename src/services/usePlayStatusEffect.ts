@@ -1,8 +1,6 @@
 import { ref, watch, watchEffect } from 'vue'
-import type { ApiPersonalFm } from 'api'
 import { storeToRefs } from 'pinia'
 import { useAudioStore, useAuthStore, usePlaylistStore } from 'stores'
-import { post, toHttps } from 'utils'
 
 export const usePlayStatusEffect = () => {
     const { loggedIn } = storeToRefs(useAuthStore())
@@ -14,8 +12,8 @@ export const usePlayStatusEffect = () => {
         updateSongUrl,
         switchToNextSong,
         updateCurrentSongStatus,
-        startNewPlaylist,
-        updateCurrentSong
+        updateCurrentSong,
+        fetchRadioList
     } = usePlaylistStore()
     const loading = ref(false)
 
@@ -24,20 +22,7 @@ export const usePlayStatusEffect = () => {
 
         loading.value = true
         try {
-            const res = await post<ApiPersonalFm>('/personal_fm')
-            return res.data.map((item) => {
-                return {
-                    id: item.id,
-                    name: `${item.name}`,
-                    subName: `${item.alias[0] || item.transName}`,
-                    artist: item.artists[0].name,
-                    album: item.album.name,
-                    cover: toHttps(item.album.picUrl),
-                    timestamp: Date.now(),
-                    url: '',
-                    status: 'not-playing'
-                }
-            })
+            return fetchRadioList()
         } finally {
             loading.value = false
         }
@@ -99,20 +84,6 @@ export const usePlayStatusEffect = () => {
             switchToNextSong()
         }
     })
-
-    // 切换至私人fm时，获取播放列表
-    watch(
-        [loggedIn, playMode],
-        async ([loggedIn, playMode]) => {
-            if (!loggedIn || playMode !== 'radio') return
-            console.log('first radio update')
-            const list = await getRadioList()
-            if (list.length) {
-                startNewPlaylist(list)
-            }
-        },
-        { immediate: true }
-    )
 
     // 播放私人fm时，如果即将到达列表末尾，更新播放列表
     watch([loggedIn, playMode, currentSong], async ([loggedIn, playMode, currentSong]) => {

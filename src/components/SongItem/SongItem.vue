@@ -91,7 +91,10 @@ const { isPc } = useDeviceType()
         >
             {{ album }}
         </div>
-        <SongItemOption :class="['ml-2', 'transition-all', { 'opacity-0': !isHovering && isPc }]" />
+        <SongItemOption
+            v-bind="$props"
+            :class="['ml-2', 'transition-all', { 'opacity-0': !isHovering && isPc }]"
+        />
     </li>
 </template>
 
