@@ -46,7 +46,7 @@ watch(srcRef, (curr, prev) => {
             v-if="!errorStatus"
             :src="src"
             :srcSet="srcSet"
-            :alt="alt"
+            :alt="alt || src"
             :loading="loading"
             class="h-full w-full"
             @load="loadingStatus = false"
