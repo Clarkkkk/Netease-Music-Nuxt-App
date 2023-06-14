@@ -15,7 +15,7 @@ interface Song {
     status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
 }
 
-defineProps<Song>()
+defineProps<{ song: Song }>()
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 const { isPc } = useDeviceType()
 </script>
@@ -28,7 +28,7 @@ const { isPc } = useDeviceType()
     >
         <div class="relative mr-2 h-10 w-10 flex-fixed">
             <Image
-                :src="cover"
+                :src="song.cover"
                 :class="[
                     'absolute',
                     'left-0',
@@ -45,7 +45,7 @@ const { isPc } = useDeviceType()
                 loading="lazy"
             />
             <Image
-                :src="cover"
+                :src="song.cover"
                 class="relative z-10 h-full w-full flex-fixed rounded-lg"
                 loading="lazy"
             />
@@ -53,46 +53,46 @@ const { isPc } = useDeviceType()
         <div class="flex w-full flex-col justify-between overflow-hidden @2xl:hidden">
             <div
                 class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
-                :title="`${name}${subName ? `(${subName})` : ''}`"
+                :title="`${song.name}${song.subName ? `(${song.subName})` : ''}`"
             >
-                {{ name }}{{ subName ? `(${subName})` : '' }}
+                {{ song.name }}{{ song.subName ? `(${song.subName})` : '' }}
             </div>
             <div
                 class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-base-content/60"
-                :title="`${artist} - ${album}`"
+                :title="`${song.artist} - ${song.album}`"
             >
-                {{ artist }} - {{ album }}
+                {{ song.artist }} - {{ song.album }}
             </div>
         </div>
         <div class="hidden w-5/12 flex-col overflow-hidden text-sm @2xl:flex">
             <span
                 class="overflow-hidden text-ellipsis whitespace-nowrap"
-                :title="name"
+                :title="song.name"
             >
-                {{ name }}
+                {{ song.name }}
             </span>
             <span
-                v-if="subName"
+                v-if="song.subName"
                 class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-base-content/60"
-                :title="subName ? `(${subName})` : ''"
+                :title="song.subName ? `(${song.subName})` : ''"
             >
-                {{ subName ? `(${subName})` : '' }}
+                {{ song.subName ? `(${song.subName})` : '' }}
             </span>
         </div>
         <div
             class="hidden w-2/12 overflow-hidden text-ellipsis whitespace-nowrap text-sm @2xl:block"
-            :title="artist"
+            :title="song.artist"
         >
-            {{ artist }}
+            {{ song.artist }}
         </div>
         <div
             class="hidden w-5/12 overflow-hidden text-ellipsis whitespace-nowrap text-sm @2xl:block"
-            :title="album"
+            :title="song.album"
         >
-            {{ album }}
+            {{ song.album }}
         </div>
         <SongItemOption
-            v-bind="$props"
+            :song="song"
             :class="['ml-2', 'transition-all', { 'opacity-0': !isHovering && isPc }]"
         />
     </li>

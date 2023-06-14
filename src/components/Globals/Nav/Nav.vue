@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { RouterLink, useRoute } from 'vue-router'
-import { useAuthStore } from 'stores'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import { useAuthStore, usePlaylistStore } from 'stores'
 import Button from '../../Button.vue'
 import { Profile } from './components'
 
 const auth = useAuthStore()
+const { playMode } = storeToRefs(usePlaylistStore())
+const { switchToRadio } = usePlaylistStore()
+const router = useRouter()
 const navRoutes = [
     {
         name: 'Home',
@@ -52,7 +56,23 @@ function isActiveRoute(to: string) {
                 <span>{{ item.name }}</span>
             </RouterLink>
         </div>
-        <div class="flex-initial flex-shrink-0">
+        <div class="flex-fixed">
+            <Button
+                v-if="auth.loggedIn"
+                class="btn-primary btn-sm mr-4"
+                @click="
+                    () => {
+                        if (playMode !== 'radio') {
+                            switchToRadio()
+                        } else {
+                            router.push('/playing')
+                        }
+                    }
+                "
+            >
+                <i-solar-play-stream-line-duotone class="h-6 w-6" />
+                私人FM
+            </Button>
             <Button
                 v-if="!auth.loggedIn"
                 class="btn-ghost"

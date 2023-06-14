@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { toRef } from 'vue'
 import { storeToRefs } from 'pinia'
 import { usePlaylistStore } from 'stores'
 import Button from '../Button.vue'
@@ -18,17 +17,17 @@ interface Song {
     status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
 }
 
-const song = toRef(defineProps<Song>())
+const props = defineProps<{ song: Song }>()
 
 const { switchToThisSong, insertSongToNext } = usePlaylistStore()
 const { playMode } = storeToRefs(usePlaylistStore())
 
 async function onPlayClick() {
-    await switchToThisSong(song.value)
+    await switchToThisSong(props.song)
 }
 
 async function onPlayNextClick() {
-    await insertSongToNext(song.value)
+    await insertSongToNext(props.song)
 }
 
 async function onClick() {

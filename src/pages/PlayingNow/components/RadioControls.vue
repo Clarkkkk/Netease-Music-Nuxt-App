@@ -5,11 +5,13 @@ import { Button } from 'components'
 
 const { audioStatus } = storeToRefs(useAudioStore())
 const { play, pause, playAgain } = useAudioStore()
-const { currentSong, nextSong } = storeToRefs(usePlaylistStore())
+// const { currentSong, nextSong } = storeToRefs(usePlaylistStore())
 const { switchToLastSong, switchToNextSong } = usePlaylistStore()
 
 function switchPlay() {
-    if (['can-play', 'paused'].includes(audioStatus.value)) {
+    if (audioStatus.value === 'ended') {
+        playAgain()
+    } else if (['can-play', 'paused'].includes(audioStatus.value)) {
         play()
     } else if (['playing', 'almost-ended', 'loading', 'not-ready'].includes(audioStatus.value)) {
         pause()
@@ -47,15 +49,7 @@ function switchPlay() {
         </Button>
         <Button
             class="btn-ghost h-12 w-12 p-0 text-primary"
-            @click="
-                () => {
-                    if (currentSong === nextSong) {
-                        playAgain()
-                    } else {
-                        switchToNextSong()
-                    }
-                }
-            "
+            @click="switchToNextSong()"
         >
             <template #icon>
                 <i-solar-skip-next-bold-duotone class="h-6 w-6" />

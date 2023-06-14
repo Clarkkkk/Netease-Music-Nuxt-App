@@ -12,16 +12,8 @@ defineProps<{ list: Song[] }>()
         <div>
             <SongItem
                 v-for="song in list"
-                :id="song.id"
                 :key="song.id"
-                :album="song.album"
-                :artist="song.artist"
-                :cover="song.cover"
-                :name="song.name"
-                :status="song.status"
-                :timestamp="song.timestamp"
-                :sub-name="song.subName"
-                :url="song.url"
+                :song="song"
             />
         </div>
     </div>

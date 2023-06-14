@@ -101,6 +101,9 @@ export const usePlaylistStore = defineStore('playlist', () => {
     }
 
     async function switchToThisSong(song: Song) {
+        console.log('switchToThisSong')
+        console.log(playMode.value)
+        console.log(playlist.value)
         if (playMode.value === 'radio') {
             await switchToThisList([song])
         } else {
@@ -123,6 +126,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
 
     async function switchToRadio() {
         if (playMode.value === 'radio') return
+        updatePlayMode('radio')
         const list = await fetchRadioList()
         await switchToThisList(list)
     }

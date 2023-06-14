@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     ISolarPlayCircleBoldDuotone: typeof import('~icons/solar/play-circle-bold-duotone')['default']
     ISolarPlayCircleLineDuotone: typeof import('~icons/solar/play-circle-line-duotone')['default']
     ISolarPlayLineDuotone: typeof import('~icons/solar/play-line-duotone')['default']
+    ISolarPlayStreamLineDuotone: typeof import('~icons/solar/play-stream-line-duotone')['default']
     ISolarSkipNextBoldDuotone: typeof import('~icons/solar/skip-next-bold-duotone')['default']
     ISolarSkipPreviousBoldDuotone: typeof import('~icons/solar/skip-previous-bold-duotone')['default']
     ISolarUnreadLinear: typeof import('~icons/solar/unread-linear')['default']

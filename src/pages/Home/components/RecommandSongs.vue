@@ -43,7 +43,7 @@ watch(
             <SongItem
                 v-for="song in list"
                 :key="song.id"
-                v-bind="song"
+                :song="song"
             />
         </ul>
     </div>
