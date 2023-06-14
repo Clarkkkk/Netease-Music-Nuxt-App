@@ -25,26 +25,32 @@ function switchPlay() {
             class="btn-ghost h-12 w-12 p-0 text-primary"
             @click="switchToLastSong"
         >
-            <i-solar-skip-previous-bold-duotone class="h-6 w-6" />
+            <template #icon>
+                <i-solar-skip-previous-bold-duotone class="h-6 w-6" />
+            </template>
         </Button>
         <Button
             class="btn-ghost mx-10 h-14 w-14 p-0 text-primary"
             @click="switchPlay"
         >
-            <i-solar-play-bold-duotone
-                v-if="['not-ready', 'can-play', 'paused', 'ended'].includes(audioStatus)"
-                class="h-8 w-8"
-            />
-            <i-solar-pause-bold-duotone
-                v-else
-                class="h-8 w-8"
-            />
+            <template #icon>
+                <i-solar-play-bold-duotone
+                    v-if="['not-ready', 'can-play', 'paused', 'ended'].includes(audioStatus)"
+                    class="h-8 w-8"
+                />
+                <i-solar-pause-bold-duotone
+                    v-else
+                    class="h-8 w-8"
+                />
+            </template>
         </Button>
         <Button
             class="btn-ghost h-12 w-12 p-0 text-primary"
             @click="switchToNextSong"
         >
-            <i-solar-skip-next-bold-duotone class="h-6 w-6" />
+            <template #icon>
+                <i-solar-skip-next-bold-duotone class="h-6 w-6" />
+            </template>
         </Button>
     </div>
 </template>
