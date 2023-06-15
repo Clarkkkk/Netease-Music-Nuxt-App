@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
-import type { ApiBanner } from 'api'
+import { useRouter } from 'vue-router'
+import type { ApiBanner, ApiSongDetail } from 'api'
 import { ONE_SECOND } from 'common'
+import { usePlaylistStore } from 'stores'
 import { Image } from 'components'
 import { post, toHttps } from 'utils'
 
 const pics = ref<ApiBanner['return']['banners']>([])
 const currentIndex = ref(0)
 const intervalId = ref(0)
+const loading = ref(false)
+const { switchToThisSong } = usePlaylistStore()
+const router = useRouter()
 
 const lastIndex = computed(() => {
     if (pics.value.length === 0) {
@@ -27,6 +32,39 @@ const nextIndex = computed(() => {
 
 function moveCurrentIndex() {
     currentIndex.value = (currentIndex.value + 1) % pics.value.length
+}
+
+async function onImageClick(pic: ApiBanner['return']['banners'][number]) {
+    if (pic.targetType === 1) {
+        if (loading.value) return
+        loading.value = true
+        try {
+            const res = await post<ApiSongDetail>('/song/detail', { ids: pic.targetId.toString() })
+            if (res.songs[0]) {
+                const resItem = res.songs[0]
+                const song: Song = {
+                    name: resItem.name,
+                    id: resItem.id,
+                    subName: resItem.alia?.[0],
+                    artist: resItem.ar[0]?.name || '',
+                    album: resItem.al.name,
+                    cover: toHttps(resItem.al.picUrl),
+                    timestamp: 0,
+                    url: '',
+                    status: 'not-playing'
+                }
+                switchToThisSong(song)
+            }
+        } finally {
+            loading.value = false
+        }
+    } else if (pic.targetType === 1000) {
+        router.push(`/songlist/${pic.targetId}`)
+    } /*  else if (pic.targetType === 10) {
+
+    } */ else if (pic.targetType === 3000 && pic.url) {
+        window.open(pic.url, '_blank', 'noreferrer')
+    }
 }
 
 onMounted(() => {
@@ -68,6 +106,7 @@ onUnmounted(() => {
                 { next: index === nextIndex }
             ]"
             :src="toHttps(pic.imageUrl)"
+            @click="onImageClick(pic)"
         />
     </div>
 </template>
