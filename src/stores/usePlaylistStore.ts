@@ -113,7 +113,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
                 await updateCurrentSong(songInList)
             } else {
                 insertSongToNext(song)
-                await switchToNextSong()
+                await updateCurrentSong(song)
             }
         }
     }
