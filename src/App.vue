@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { Audio, LoginModal, Nav } from 'components'
+import { Audio, LoginModal, MiniMusicControl, Nav } from 'components'
 import { useLoginInitEffect, useMediaSessionEffect, usePlayStatusEffect } from './services'
 import './global.css'
 
@@ -14,6 +14,7 @@ useMediaSessionEffect()
     <RouterView class="bg-base-100" />
     <LoginModal />
     <Audio />
+    <MiniMusicControl />
 </template>
 
 <style lang="scss">

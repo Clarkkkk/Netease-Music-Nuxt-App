@@ -7,6 +7,7 @@ import Button from '../Button.vue'
 
 interface ContextMenuProps {
     placement?: Placement
+    size?: 'large' | 'normal'
 }
 
 defineProps<ContextMenuProps>()
@@ -35,11 +36,21 @@ provide('ContextMenu', { hideMenu })
             :placement="placement || 'bottom-end'"
             :append-to="() => body"
             role="context-menu"
+            :offset="[0, 15]"
         >
             <slot></slot>
 
             <template #content>
-                <div class="w-48 rounded-xl bg-base-100 p-2 shadow-xl">
+                <div
+                    :class="[
+                        'context-menu-panel',
+                        size === 'large' ? 'w-96' : 'w-48',
+                        'rounded-xl',
+                        'bg-base-100',
+                        'p-2',
+                        'shadow-xl'
+                    ]"
+                >
                     <slot name="menu"></slot>
                 </div>
             </template>
@@ -93,15 +104,20 @@ provide('ContextMenu', { hideMenu })
 
     &[data-placement='top-start'],
     &[data-placement='top-end'] {
-        transform: scaleY(0.95) translateY(10%);
+        transform: scaleY(0.95) translateY(10px);
         transform-origin: bottom center;
     }
 
     &[data-placement='bottom-start'],
     &[data-placement='bottom-end'] {
-        transform: scaleY(0.95) translateY(-10%);
+        transform: scaleY(0.95) translateY(-10px);
         transform-origin: top center;
     }
+}
+
+.context-menu-panel {
+    max-height: calc(100vh - 200px);
+    overflow: auto;
 }
 
 .context-menu-popup {

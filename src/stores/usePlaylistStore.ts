@@ -58,6 +58,7 @@ export const usePlaylistStore = defineStore('playlist', () => {
             await updateSongUrl(song)
         }
         currentSong.value = song
+
         updateAudioStatus('not-ready')
         updateCurrentSongStatus('waiting-to-play')
     }
@@ -104,10 +105,16 @@ export const usePlaylistStore = defineStore('playlist', () => {
         console.log('switchToThisSong')
         console.log(playMode.value)
         console.log(playlist.value)
+        const songInList = playlist.value.find((item) => item.id === song.id)
         if (playMode.value === 'radio') {
-            await switchToThisList([song])
+            if (songInList && songInList !== currentSong.value) {
+                await updateCurrentSong(songInList)
+            }
+
+            if (!songInList) {
+                await switchToThisList([song])
+            }
         } else {
-            const songInList = playlist.value.find((item) => item.id === song.id)
             if (songInList) {
                 updateCurrentSongStatus('not-playing')
                 await updateCurrentSong(songInList)
@@ -152,13 +159,21 @@ export const usePlaylistStore = defineStore('playlist', () => {
         }
     }
 
-    async function removeSong(id: number) {
-        const index = playlist.value.findIndex((item) => item.id === id)
+    async function removeSong(song: Song) {
+        const index = playlist.value.findIndex((item) => item === song)
+        const current = currentSong.value
+        const next = nextSong.value
 
+        console.log('remove song')
+        console.log(index)
+        console.log(playlist.value)
+        console.log(song.name)
+        console.log(currentSong.value?.name)
+        console.log(currentSong.value?.name)
         playlist.value.splice(index, 1)
 
-        if (id === currentSong.value?.id) {
-            await updateCurrentSong(nextSong.value)
+        if (song === current) {
+            await updateCurrentSong(current || playlist.value[0] || null)
         }
     }
 

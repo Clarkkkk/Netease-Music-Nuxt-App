@@ -99,7 +99,7 @@ watch(qrcodeLoginStatus, (val) => {
                     </div>
                     <DialogCloseTrigger class="absolute right-1 top-1">
                         <button class="btn-ghost btn-square btn">
-                            <i-fluent:dismiss-32-regular />
+                            <i-fluent-dismiss-32-regular />
                         </button>
                     </DialogCloseTrigger>
                 </DialogContent>
