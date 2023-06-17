@@ -11,7 +11,7 @@ const router = useRouter()
 
 <template>
     <div
-        class="relative mr-2 h-10 w-10 flex-fixed"
+        class="relative mr-2 h-10 w-10 flex-fixed cursor-pointer duration-300 hover:scale-110 active:scale-100"
         @click="router.push('/playing')"
     >
         <Image

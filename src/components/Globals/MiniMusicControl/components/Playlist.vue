@@ -33,11 +33,15 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
                             v-if="song === currentSong"
                             class="h-3 w-3 flex-fixed overflow-hidden text-primary"
                         />
-                        <span class="text-ellipsis text-sm">
+                        <span
+                            class="overflow-hidden text-ellipsis text-sm"
+                            :title="song.name"
+                        >
                             {{ song.name }}
                         </span>
                         <span
                             class="flex-auto overflow-hidden text-ellipsis text-left text-xs text-base-content/60"
+                            :title="song.artist"
                         >
                             {{ song.artist }}
                         </span>
