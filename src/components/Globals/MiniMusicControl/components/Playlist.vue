@@ -22,7 +22,7 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
             </template>
 
             <template #menu>
-                <ul>
+                <ul class="min-height">
                     <ContextMenuItem
                         v-for="song in playlist"
                         :key="song.id"
@@ -50,10 +50,20 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
                             </template>
                         </Button>
                     </ContextMenuItem>
+                    <div
+                        v-if="!playlist.length"
+                        class="my-2 flex h-full w-full items-center justify-center text-sm text-base-content/50"
+                    >
+                        - 列表为空 -
+                    </div>
                 </ul>
             </template>
         </ContextMenu>
     </div>
 </template>
 
-<style scoped></style>
+<style>
+.min-height {
+    min-height: 200px;
+}
+</style>

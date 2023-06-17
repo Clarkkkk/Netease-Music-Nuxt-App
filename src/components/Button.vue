@@ -30,10 +30,18 @@ function clickHandler(e: MouseEvent) {
         @click="clickHandler"
     >
         <slot />
+
         <span
             v-if="loading"
-            :class="['loading', 'loading-spinner', 'text-primary/70', { 'loading-sm': ($attrs.class as string).includes('btn-sm') }]"
+            :class="[
+                'loading', 
+                'loading-spinner', 
+                'text-primary/70', 
+                { 'loading-sm': ($attrs.class as string).includes('btn-sm') }, 
+                { 'loading-xs': ($attrs.class as string).includes('btn-xs') }
+            ]"
         />
+
         <slot
             v-else
             name="icon"
