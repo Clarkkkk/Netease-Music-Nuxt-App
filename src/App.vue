@@ -11,7 +11,14 @@ useMediaSessionEffect()
 
 <template>
     <Nav />
-    <RouterView class="bg-base-100" />
+    <RouterView
+        v-slot="{ Component }"
+        class="bg-base-100"
+    >
+        <KeepAlive :max="10">
+            <component :is="Component" />
+        </KeepAlive>
+    </RouterView>
     <LoginModal />
     <Audio />
     <MiniMusicControl />
