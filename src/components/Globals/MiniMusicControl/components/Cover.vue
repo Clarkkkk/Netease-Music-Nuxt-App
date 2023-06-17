@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useAudioStore, usePlaylistStore } from 'stores'
 import { Image } from 'components'
 import DefaultCover from 'components/DefaultCover.vue'
 
 const audio = useAudioStore()
 const playlist = usePlaylistStore()
+const router = useRouter()
 </script>
 
 <template>
-    <div class="relative mr-2 h-10 w-10 flex-fixed">
+    <div
+        class="relative mr-2 h-10 w-10 flex-fixed"
+        @click="router.push('/playing')"
+    >
         <Image
             v-if="playlist.currentSong"
             :src="playlist.currentSong.cover"
