@@ -3,7 +3,7 @@ export interface ApiSongDetail {
     api: '/song/detail'
     method: 'post'
     params: {
-        /** 音乐 id, 如 `ids=347230` */
+        /** 音乐 id, 如 `ids=347230`, `ids=347230,347231` */
         ids: string
     }
     return: {

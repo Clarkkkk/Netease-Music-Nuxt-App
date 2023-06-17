@@ -74,10 +74,13 @@ export const usePlayStatusEffect = () => {
         }
     })
 
-    // 播放即将结束时，更新下一首歌的url；播放结束时，自动切换下一首
+    // 播放开始或即将结束时，更新下一首歌的url；播放结束时，自动切换下一首
     watch(audioStatus, () => {
-        if (audioStatus.value === 'almost-ended' && nextSong.value) {
-            console.log('almose end')
+        if (
+            (audioStatus.value === 'almost-ended' || audioStatus.value === 'can-play') &&
+            nextSong.value
+        ) {
+            console.log(audioStatus.value)
             updateSongUrl(nextSong.value)
         } else if (audioStatus.value === 'ended') {
             console.log('play next')
