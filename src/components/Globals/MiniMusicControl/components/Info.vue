@@ -12,7 +12,12 @@ const { currentSong } = storeToRefs(usePlaylistStore())
             class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
             :title="`${currentSong.name}${currentSong.subName ? `(${currentSong.subName})` : ''}`"
         >
-            {{ currentSong.name }}{{ currentSong.subName ? `(${currentSong.subName})` : '' }}
+            {{ currentSong.name
+            }}{{
+                currentSong.subName && currentSong.subName !== 'null'
+                    ? `(${currentSong.subName})`
+                    : ''
+            }}
         </div>
         <div
             v-if="currentSong"
