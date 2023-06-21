@@ -17,6 +17,7 @@ export default defineConfig(() => {
         define: {
             __VUE_OPTIONS_API__: false
         },
+        clearScreen: false,
         plugins: [
             vue(),
             checker({
