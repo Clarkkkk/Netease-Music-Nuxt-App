@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Banner, NewAlbums, RecommandSonglists, RecommandSongs } from './components'
+import { Banner, NewAlbums, NewSongs, RecommandSonglists, RecommandSongs } from './components'
 </script>
 
 <template>
@@ -12,8 +12,9 @@ import { Banner, NewAlbums, RecommandSonglists, RecommandSongs } from './compone
             <RecommandSonglists />
             <NewAlbums />
         </div>
-        <div class="flex w-full justify-center md:w-1/3">
+        <div class="flex w-full flex-col items-center md:w-1/3">
             <RecommandSongs />
+            <NewSongs class="mt-12" />
         </div>
     </div>
 </template>

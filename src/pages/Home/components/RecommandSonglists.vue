@@ -31,7 +31,7 @@ watch(
                         id: item.id,
                         picUrl: toHttps(item.picUrl),
                         creator: item.creator.nickname,
-                        creatorAvatar: item.creator.avatarUrl,
+                        creatorAvatar: toHttps(item.creator.avatarUrl),
                         count: item.playcount
                     }
                 })

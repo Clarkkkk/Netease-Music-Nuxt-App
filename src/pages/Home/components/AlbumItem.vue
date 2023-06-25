@@ -26,6 +26,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             'rounded',
             'transition-all',
             'duration-500',
+            'cursor-pointer',
             { '-translate-y-1': isHovering }
         ]"
         @mouseenter="onMouseEnter"

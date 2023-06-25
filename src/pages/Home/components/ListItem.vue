@@ -28,6 +28,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             'flex',
             'items-center',
             'h-24',
+            'cursor-pointer',
             'relative',
             { '-translate-y-1': isHovering }
         ]"
@@ -55,7 +56,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
         </div>
         <Image
             :src="picUrl"
-            class="relative h-full flex-fixed rounded-l"
+            class="relative aspect-square h-full flex-fixed rounded-l"
         />
         <div
             class="relative h-full w-full rounded-r bg-base-100/90 p-2 text-sm text-base-content md:p-4"

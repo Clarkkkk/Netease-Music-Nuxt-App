@@ -126,7 +126,7 @@ onUnmounted(() => {
         width: 90%;
 
         @media (min-width: 1280px) {
-            width: 80%;
+            // width: 80%;
         }
 
         transform: translateX(-50%) translateY(-50%) scale(0.5);

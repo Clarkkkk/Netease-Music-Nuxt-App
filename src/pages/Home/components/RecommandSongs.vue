@@ -43,20 +43,20 @@ watch(
 <template>
     <div
         id="recommand-songs"
-        class="flex w-full flex-col rounded-lg"
+        class="flex w-full flex-col rounded-lg bg-gradient-to-b from-secondary/5 to-30% p-4"
     >
         <h2
-            class="flex items-center justify-between border-l-4 border-primary px-2 text-lg/5 font-bold"
+            class="flex items-center justify-between border-l-4 border-secondary px-2 text-lg/5 font-bold"
         >
             <span>每日推荐歌曲</span>
             <Button
-                class="btn-primary btn-outline btn-xs"
+                class="btn-secondary btn-outline btn-xs"
                 @click="onPlayAll"
             >
                 播放全部
             </Button>
         </h2>
-        <ul class="list w-full overflow-x-visible overflow-y-scroll px-2">
+        <ul class="song-list list relative w-full overflow-x-visible overflow-y-scroll">
             <SongItem
                 v-for="song in list"
                 :key="song.id"
@@ -70,8 +70,19 @@ watch(
 #recommand-songs {
     @media (min-width: 768px) {
         .list {
-            max-height: calc(100vh - 200px);
+            height: calc(100vh - 400px);
         }
+    }
+
+    .song-list::after {
+        content: '';
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 15px;
+        background: linear-gradient(to top, hsl(var(--b1)) 0%, hsl(var(--b1) / 0%));
     }
 }
 </style>
