@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { onDeactivated, ref } from 'vue'
 
 export const useIsHovering = () => {
     const isHovering = ref(false)
@@ -10,6 +10,10 @@ export const useIsHovering = () => {
     function onMouseLeave() {
         isHovering.value = false
     }
+
+    onDeactivated(() => {
+        isHovering.value = false
+    })
 
     return {
         isHovering,

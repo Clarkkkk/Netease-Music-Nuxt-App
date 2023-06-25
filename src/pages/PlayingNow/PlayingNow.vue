@@ -6,7 +6,7 @@ import { Cover, Info, RadioControls } from './components'
 <template>
     <div
         id="playing-now"
-        class="flex w-full flex-col items-center lg:flex-row lg:items-start"
+        class="flex w-full flex-col items-center pt-16 lg:flex-row lg:items-start"
     >
         <div class="flex h-full w-full flex-col items-center justify-center lg:w-1/2">
             <Cover />
