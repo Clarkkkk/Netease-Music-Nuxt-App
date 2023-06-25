@@ -4,13 +4,15 @@ import { useRouter } from 'vue-router'
 import type { ApiRecommendResource } from 'api'
 import { useAuthStore } from 'stores'
 import { post, toHttps } from 'utils'
-import ListCover from './ListCover.vue'
+import ListItem from './ListItem.vue'
 
 interface Songlist {
     name: string
-    listenCount: number
-    id: number
     picUrl: string
+    id: number
+    count: number
+    creator: string
+    creatorAvatar: string
 }
 
 const auth = useAuthStore()
@@ -27,7 +29,10 @@ watch(
                         name: item.name,
                         listenCount: item.playcount,
                         id: item.id,
-                        picUrl: toHttps(item.picUrl)
+                        picUrl: toHttps(item.picUrl),
+                        creator: item.creator.nickname,
+                        creatorAvatar: item.creator.avatarUrl,
+                        count: item.playcount
                     }
                 })
             })
@@ -45,24 +50,23 @@ watch(
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
         <ul
             id="recommand-songlists"
-            class="relative flex w-full items-center overflow-x-clip py-4"
+            class="relative flex w-full flex-wrap items-center py-4"
         >
-            <li
-                v-for="list in lists"
+            <ListItem
+                v-for="list in lists.slice(0, 6)"
+                :id="list.id"
                 :key="list.id"
-                class="mb-6 mr-6 flex cursor-pointer flex-col items-center"
+                :name="list.name"
+                :pic-url="list.picUrl"
+                :creator="list.creator"
+                :creator-avatar="list.creatorAvatar"
+                :count="list.count"
+                @click="router.push(`/songlist/${list.id}`)"
             >
-                <ListCover
-                    :id="list.id"
-                    :name="list.name"
-                    :pic-url="list.picUrl"
-                    @click="router.push(`/songlist/${list.id}`)"
-                >
-                    <div class="text-sm text-base-content">
-                        {{ list.name }}
-                    </div>
-                </ListCover>
-            </li>
+                <div class="text-sm text-base-content">
+                    {{ list.name }}
+                </div>
+            </ListItem>
         </ul>
     </div>
 </template>
