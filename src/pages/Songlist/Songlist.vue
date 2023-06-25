@@ -100,4 +100,4 @@ watch(
     </div>
 </template>
 
-<style scoped></style>
+<style></style>

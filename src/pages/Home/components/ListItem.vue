@@ -84,9 +84,9 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 
 @media (min-width: 1280px) {
     .songlist-item {
-        width: calc(50% - 10px);
+        width: calc(50% - 5px);
 
-        &:nth-child(n + 1) {
+        &:nth-child(2n + 1) {
             margin-right: 10px;
         }
     }

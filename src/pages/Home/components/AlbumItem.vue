@@ -22,7 +22,6 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
         :key="id"
         :class="[
             'mb-8',
-            'mr-6',
             'rounded',
             'transition-all',
             'duration-500',
@@ -68,4 +67,4 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
     </li>
 </template>
 
-<style scoped></style>
+<style lang="scss"></style>

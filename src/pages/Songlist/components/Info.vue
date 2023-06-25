@@ -29,11 +29,11 @@ function onImageLoad(img: HTMLImageElement) {
     <div class="flex flex-col md:flex-row">
         <div
             :style="{ backgroundImage: mainColor ? gradient : '', opacity: mainColor ? 1 : 0 }"
-            class="fixed left-0 top-0 h-96 w-screen transition-all duration-500"
+            class="pointer-events-none fixed left-0 top-0 h-96 w-screen transition-all duration-500"
         ></div>
         <Image
             ref="modal"
-            :src="info?.coverImgUrl"
+            :src="info?.coverImgUrl ? toHttps(info.coverImgUrl) : ''"
             class="songlist-cover h-56 w-56 flex-fixed rounded-xl"
             crossorigin="anonymous"
             @load="onImageLoad"

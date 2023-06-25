@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, usePlaylistStore } from 'stores'
@@ -20,6 +21,17 @@ const navRoutes = [
     }
 ]
 const route = useRoute()
+const isTop = ref(window.scrollY === 0)
+
+onMounted(() => {
+    window.addEventListener(
+        'scroll',
+        () => {
+            isTop.value = window.scrollY === 0
+        },
+        { passive: true }
+    )
+})
 
 function isActiveRoute(to: string) {
     if (to === '/') {
@@ -39,7 +51,18 @@ async function onRadioClick() {
 </script>
 
 <template>
-    <nav class="navbar bg-base-100 px-4">
+    <nav
+        :class="[
+            'navbar',
+            'fixed',
+            'top-0',
+            'z-10',
+            'px-4',
+            'duration-500',
+            { 'bg-base-100/80': !isTop },
+            { 'backdrop-blur-2xl': !isTop }
+        ]"
+    >
         <RouterLink
             class="mr-4 flex items-center text-2xl font-bold text-primary"
             to="/"
@@ -85,4 +108,8 @@ async function onRadioClick() {
     </nav>
 </template>
 
-<style></style>
+<style>
+.navbar {
+    transition: background 200ms;
+}
+</style>

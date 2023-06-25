@@ -15,7 +15,10 @@ useMediaSessionEffect()
         v-slot="{ Component }"
         class="bg-base-100"
     >
-        <KeepAlive :max="10">
+        <KeepAlive
+            :max="10"
+            :include="['Home', 'PlayingNow']"
+        >
             <component :is="Component" />
         </KeepAlive>
     </RouterView>

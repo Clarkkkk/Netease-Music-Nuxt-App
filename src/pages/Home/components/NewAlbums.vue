@@ -58,19 +58,34 @@ onMounted(() => {
 
 <style lang="scss">
 #new-albums {
-    .album {
-        width: calc(50% - 24px);
+    @media (max-width: 1024px) {
+        .album {
+            width: calc(50% - 12px);
+            margin-right: 0px;
+
+            &:nth-child(2n + 1) {
+                margin-right: 24px;
+            }
+        }
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 1024px) and (max-width: 1536px) {
         .album {
-            width: calc(33% - 24px);
+            width: calc(33.3% - 16px);
+
+            &:not(:nth-child(3n + 3)) {
+                margin-right: 24px;
+            }
         }
     }
 
     @media (min-width: 1536px) {
         .album {
-            width: calc(25% - 24px);
+            width: calc(25% - 18px);
+
+            &:not(:nth-child(4n + 4)) {
+                margin-right: 24px;
+            }
         }
     }
 }
