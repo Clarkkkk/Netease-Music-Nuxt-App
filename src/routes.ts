@@ -17,6 +17,10 @@ const routes = [
     {
         path: '/songlist/:id',
         component: () => import('./pages/Songlist/Songlist.vue')
+    },
+    {
+        path: '/album/:id',
+        component: () => import('./pages/Album/Album.vue')
     }
 ]
 
