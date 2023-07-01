@@ -31,7 +31,7 @@ useMediaSessionEffect()
 #app {
     min-height: 100vh;
     min-height: 100dvh;
-    padding-bottom: 30px;
+    padding-bottom: 80px;
 }
 
 * {

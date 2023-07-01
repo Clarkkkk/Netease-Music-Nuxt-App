@@ -21,6 +21,10 @@ const routes = [
     {
         path: '/album/:id',
         component: () => import('./pages/Album/Album.vue')
+    },
+    {
+        path: '/search',
+        component: () => import('./pages/Search/Search.vue')
     }
 ]
 

@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { startViewTransition, ViewTransitionsPlugin } from 'vue-view-transitions'
 import { createPinia } from 'pinia'
 import { useAuthStore } from './stores/useAuthStore'
 import App from './App.vue'
@@ -24,4 +25,8 @@ router.beforeEach((to, from) => {
     }
 })
 
-createApp(App).use(router).use(createPinia()).mount('#app')
+router.beforeResolve(async () => {
+    await startViewTransition()
+})
+
+createApp(App).use(router).use(createPinia()).use(ViewTransitionsPlugin()).mount('#app')

@@ -4,7 +4,7 @@ export interface ApiAlbum {
     method: 'post'
     params: {
         /** 专辑 id */
-        id: string
+        id: number
     }
     return: {
         code: number

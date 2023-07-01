@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, usePlaylistStore } from 'stores'
@@ -22,6 +22,17 @@ const navRoutes = [
 ]
 const route = useRoute()
 const isTop = ref(window.scrollY === 0)
+const searchTransition = ref(false)
+
+watch(
+    route,
+    (val) => {
+        if (val.path.includes('/search')) {
+            searchTransition.value = false
+        }
+    },
+    { immediate: true }
+)
 
 onMounted(() => {
     window.addEventListener(
@@ -39,6 +50,11 @@ function isActiveRoute(to: string) {
     } else {
         return route.path.includes(to)
     }
+}
+
+async function onSearch(keyword: string) {
+    searchTransition.value = true
+    router.push(`/search?keyword=${keyword}`)
 }
 
 async function onRadioClick() {
@@ -88,6 +104,20 @@ async function onRadioClick() {
             </RouterLink>
         </div>
         <div class="flex-fixed">
+            <div
+                v-if="!route.path.includes('/search')"
+                class="relative mr-8"
+            >
+                <i-solar-magnifer-line-duotone
+                    v-view-transition-name="searchTransition ? 'search-icon' : ''"
+                    class="absolute left-2 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-primary"
+                />
+                <input
+                    v-view-transition-name="searchTransition ? 'search-input' : ''"
+                    class="input-primary input input-sm pl-8"
+                    @keydown.enter="(e) => onSearch((e.target as HTMLInputElement).value)"
+                />
+            </div>
             <Button
                 v-if="auth.loggedIn"
                 class="btn-primary btn-sm mr-4"
