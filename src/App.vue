@@ -34,6 +34,14 @@ useMediaSessionEffect()
     padding-bottom: 80px;
 }
 
+// don't need the default transition
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: initial;
+    opacity: initial;
+}
+
 * {
     // Firefox
     scrollbar-width: thin;

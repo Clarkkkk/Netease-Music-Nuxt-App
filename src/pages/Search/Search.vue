@@ -111,4 +111,22 @@ watch(
     </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+::view-transition-old(search-input),
+::view-transition-new(search-icon) {
+    animation: none;
+    opacity: 0;
+}
+
+::view-transition-new(search-input),
+::view-transition-old(search-input),
+::view-transition-new(search-icon),
+::view-transition-old(search-icon) {
+    animation: none;
+    /* Use normal blending,
+  so the new view sits on top and obscures the old view */
+    mix-blend-mode: normal;
+    // animation-duration: 1000ms;
+    height: 100%;
+}
+</style>

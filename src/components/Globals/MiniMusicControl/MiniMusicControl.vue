@@ -5,7 +5,7 @@ import { Controls, Cover, Info, MusicBar, Playlist } from './components'
 <template>
     <div
         id="mini-music-control"
-        class="fixed bottom-4 left-0 flex w-full items-center justify-center rounded-xl px-2"
+        class="fixed bottom-4 left-0 z-20 flex w-full items-center justify-center rounded-xl px-2"
     >
         <div
             class="container flex items-center rounded-xl bg-base-100/60 px-3 py-2 shadow-xl shadow-gray-400/10 backdrop-blur-xl"
