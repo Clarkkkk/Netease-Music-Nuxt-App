@@ -16,6 +16,7 @@ const router = useRouter()
     >
         <Image
             v-if="playlist.currentSong"
+            v-view-transition-name="'playing-cover-shadow'"
             :src="playlist.currentSong.cover"
             :class="[
                 'absolute',
@@ -34,6 +35,7 @@ const router = useRouter()
         />
         <Image
             v-if="playlist.currentSong"
+            v-view-transition-name="'playing-cover'"
             :src="playlist.currentSong.cover"
             class="relative z-10 h-full w-full flex-fixed rounded-lg"
             loading="lazy"
@@ -42,4 +44,4 @@ const router = useRouter()
     </div>
 </template>
 
-<style scoped></style>
+<style></style>

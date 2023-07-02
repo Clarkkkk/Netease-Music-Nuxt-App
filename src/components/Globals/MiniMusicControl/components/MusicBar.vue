@@ -43,14 +43,17 @@ function formatTime(time: number) {
 </script>
 
 <template>
-    <div class="flex items-center">
+    <div
+        v-view-transition-name="'playing-music-bar'"
+        class="hidden items-center md:flex"
+    >
         <div class="mx-4 text-sm text-base-content">
             {{ formatTime(currentTime) }}
         </div>
         <div
             id="music-bar"
             ref="container"
-            class="flex h-5 w-56 cursor-grab sm:w-72"
+            class="h-5 w-48 cursor-grab lg:w-72"
             @pointerdown="onPointerDown"
             @pointermove="onPointerMove"
             @pointerup="onPointerUp"

@@ -25,6 +25,7 @@ function switchPlay() {
         class="flex items-center"
     >
         <Button
+            v-view-transition-name="'playing-controls-last'"
             class="btn-ghost h-12 w-12 p-0 text-primary"
             @click="switchToLastSong"
         >
@@ -33,6 +34,7 @@ function switchPlay() {
             </template>
         </Button>
         <Button
+            v-view-transition-name="'playing-controls-play'"
             class="btn-ghost mx-10 h-14 w-14 p-0 text-primary"
             @click="switchPlay"
         >
@@ -48,6 +50,7 @@ function switchPlay() {
             </template>
         </Button>
         <Button
+            v-view-transition-name="'playing-controls-next'"
             class="btn-ghost h-12 w-12 p-0 text-primary"
             @click="switchToNextSong()"
         >

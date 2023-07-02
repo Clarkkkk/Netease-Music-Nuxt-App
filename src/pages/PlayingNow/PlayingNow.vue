@@ -8,7 +8,10 @@ import { Cover, Info, RadioControls } from './components'
         id="playing-now"
         class="flex w-full flex-col items-center pt-16 lg:flex-row lg:items-start"
     >
-        <div class="flex h-full w-full flex-col items-center justify-center lg:w-1/2">
+        <div
+            v-view-transition-name="'playing-background'"
+            class="flex h-full w-full flex-col items-center justify-center bg-base-100 lg:w-1/2"
+        >
             <Cover />
             <Info class="mt-12" />
             <MusicBar class="mt-8" />
@@ -19,7 +22,7 @@ import { Cover, Info, RadioControls } from './components'
 
 <style>
 #playing-now {
-    height: calc(100vh - 64px);
-    height: calc(100dvh - 64px);
+    height: calc(100vh - 80px);
+    height: calc(100dvh - 80px);
 }
 </style>

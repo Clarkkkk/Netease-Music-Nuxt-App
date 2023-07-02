@@ -45,8 +45,8 @@ dependencies:
     specifier: ^6.2.0
     version: 6.2.0(vue@3.3.4)
   vue-view-transitions:
-    specifier: ^0.2.4
-    version: 0.2.4(vue@3.3.4)
+    specifier: ^0.3.0
+    version: 0.3.0(vue@3.3.4)
 
 devDependencies:
   '@iconify-json/fluent':
@@ -8681,8 +8681,8 @@ packages:
       typescript: 5.1.6
     dev: true
 
-  /vue-view-transitions@0.2.4(vue@3.3.4):
-    resolution: {integrity: sha512-FIgURbd0PfGNBatb539W2gwLlfWqAz7gyfBdg1ePq4MSGeFNPNXyIKI+Urbnv1SI/GJtgT/cwWQaA9Itixl2jw==}
+  /vue-view-transitions@0.3.0(vue@3.3.4):
+    resolution: {integrity: sha512-wq3b8Gn/D2fiY+9ypFqYS0Oh9xB1LoK1m55y/Fi/OgbioIAZhTJi59FBZLZ0iLsMBCNxQ761kzJi4sU+Ox5DNA==}
     peerDependencies:
       vue: ^2.6 || ^3.0.0
     dependencies:

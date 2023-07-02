@@ -6,21 +6,26 @@ const { currentSong } = storeToRefs(usePlaylistStore())
 </script>
 
 <template>
-    <div class="flex w-full flex-col justify-between overflow-hidden">
+    <div class="flex w-full flex-col items-start justify-between overflow-hidden">
         <div
             v-if="currentSong"
-            class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
+            class="overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
             :title="`${currentSong.name}${currentSong.subName ? `(${currentSong.subName})` : ''}`"
         >
-            {{ currentSong.name
-            }}{{
-                currentSong.subName && currentSong.subName !== 'null'
-                    ? `(${currentSong.subName})`
-                    : ''
-            }}
+            <span v-view-transition-name="'playing-name'">
+                {{ currentSong.name }}
+            </span>
+            <span v-view-transition-name="'playing-subname'">
+                {{
+                    currentSong.subName && currentSong.subName !== 'null'
+                        ? `(${currentSong.subName})`
+                        : ''
+                }}
+            </span>
         </div>
         <div
             v-if="currentSong"
+            v-view-transition-name="'playing-artist'"
             class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-base-content/60"
             :title="`${currentSong.artist} - ${currentSong.album}`"
         >

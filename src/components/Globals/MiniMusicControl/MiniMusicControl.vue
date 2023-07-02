@@ -8,7 +8,8 @@ import { Controls, Cover, Info, MusicBar, Playlist } from './components'
         class="fixed bottom-4 left-0 z-20 flex w-full items-center justify-center rounded-xl px-2"
     >
         <div
-            class="container flex items-center rounded-xl bg-base-100/60 px-3 py-2 shadow-xl shadow-gray-400/10 backdrop-blur-xl"
+            v-view-transition-name="'playing-background'"
+            class="container flex items-center rounded-xl bg-base-100 px-3 py-2 shadow-xl shadow-gray-400/10 backdrop-blur-xl"
         >
             <Cover />
             <Info />
@@ -19,4 +20,10 @@ import { Controls, Cover, Info, MusicBar, Playlist } from './components'
     </div>
 </template>
 
-<style></style>
+<style lang="scss">
+::view-transition-old(playing-background),
+::view-transition-new(playing-background) {
+    height: 100%;
+    opacity: 1;
+}
+</style>

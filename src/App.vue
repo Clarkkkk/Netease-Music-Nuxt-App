@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
 import { Audio, LoginModal, MiniMusicControl, Nav } from 'components'
 import { useLoginInitEffect, useMediaSessionEffect, usePlayStatusEffect } from './services'
 import './global.css'
@@ -7,6 +7,7 @@ import './global.css'
 useLoginInitEffect()
 usePlayStatusEffect()
 useMediaSessionEffect()
+const route = useRoute()
 </script>
 
 <template>
@@ -24,7 +25,9 @@ useMediaSessionEffect()
     </RouterView>
     <LoginModal />
     <Audio />
-    <MiniMusicControl />
+    <KeepAlive>
+        <component :is="route.path.includes('/playing') ? '' : MiniMusicControl" />
+    </KeepAlive>
 </template>
 
 <style lang="scss">
@@ -32,6 +35,13 @@ useMediaSessionEffect()
     min-height: 100vh;
     min-height: 100dvh;
     padding-bottom: 80px;
+}
+
+html::view-transition-group(*) {
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    /** reduce animation glitch */
+    animation-delay: 0.1s;
 }
 
 // don't need the default transition

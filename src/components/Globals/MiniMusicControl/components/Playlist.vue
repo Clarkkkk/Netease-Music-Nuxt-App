@@ -16,7 +16,10 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
             size="large"
         >
             <template #default>
-                <Button class="btn-ghost btn-square btn-sm ml-3 p-0">
+                <Button
+                    v-view-transition-name="'playing-playlist-btn'"
+                    class="btn-ghost btn-square btn-sm ml-3 p-0"
+                >
                     <i-solar-plaaylist-minimalistic-bold-duotone class="h-5 w-5" />
                 </Button>
             </template>
@@ -69,5 +72,10 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
 <style>
 .min-height {
     min-height: 200px;
+}
+
+::view-transition-new(playing-playlist-btn) {
+    /** wait for background */
+    animation-delay: 500ms;
 }
 </style>
