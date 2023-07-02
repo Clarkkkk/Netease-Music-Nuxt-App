@@ -75,7 +75,7 @@ async function onRadioClick() {
             'z-10',
             'px-4',
             'duration-500',
-            { 'bg-base-100/80': !isTop },
+            { 'bg-base-100/90': !isTop },
             { 'backdrop-blur-2xl': !isTop }
         ]"
     >

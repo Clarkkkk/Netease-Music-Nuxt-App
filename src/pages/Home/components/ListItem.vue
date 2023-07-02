@@ -61,7 +61,9 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
         <div
             class="relative h-full w-full rounded-r bg-base-100/90 p-2 text-sm text-base-content md:p-4"
         >
-            <div class="text-sm text-base-content/90">
+            <div
+                class="text-sm text-base-content/90 sm:text-xs sm:font-bold md:text-sm md:font-normal lg:text-xs lg:font-bold xl:text-sm xl:font-normal"
+            >
                 {{ name }}
             </div>
             <div class="mt-1 flex items-center">
@@ -82,7 +84,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
     width: 100%;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 640px) {
     .songlist-item {
         width: calc(50% - 5px);
 
