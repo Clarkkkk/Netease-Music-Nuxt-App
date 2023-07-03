@@ -15,7 +15,7 @@ watch(
         if (!val.path.includes('album')) return
         console.log(val.params.id)
         post<ApiAlbum>('/album', {
-            id: val.params.id.toString()
+            id: +val.params.id.toString()
         }).then((res) => {
             console.log(res)
             info.value = res.album
