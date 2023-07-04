@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { post } from 'utils'
+import { post, toHttps } from 'utils'
 import type { ApiUserDetail } from '../api/ApiUserDetail'
 
 export const useProfileStore = defineStore('profile', () => {
@@ -10,6 +10,8 @@ export const useProfileStore = defineStore('profile', () => {
         return post<ApiUserDetail>('/user/detail', {
             uid
         }).then((res) => {
+            res.profile.avatarUrl = toHttps(res.profile.avatarUrl)
+            res.profile.backgroundUrl = toHttps(res.profile.backgroundUrl)
             profile.value = res
         })
     }
