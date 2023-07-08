@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { usePlaylistStore } from 'stores'
 import { Button, SongItem } from 'components'
-import { usePlaylistStore } from '../../../stores/usePlaylistStore'
 
 const props = defineProps<{ list: Song[] }>()
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ApiAlbum } from 'api'
-import { useDeviceType, useIsHovering } from 'services'
+import { useDeviceType, useIsHovering, useSonglist } from 'services'
+import { usePlaylistStore } from 'stores'
 import { Button, Image } from 'components'
 import { post, toHttps } from 'utils'
-import { usePlaylistStore } from '../../../stores/usePlaylistStore'
 
 interface SonglistItem {
     name: string
@@ -16,10 +16,13 @@ const props = defineProps<{ listItem: SonglistItem; type: 'songlist' | 'album' }
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 const { isPc } = useDeviceType()
 const { switchToThisList } = usePlaylistStore()
+const { initSonglist, songlist, onFullLoad } = useSonglist()
 
 async function onPlayList(id: number) {
     if (props.type === 'songlist') {
-        // TO DO
+        await initSonglist(id)
+        await onFullLoad()
+        switchToThisList(songlist.value)
     } else {
         const res = await post<ApiAlbum>('/album', { id })
         const songlist: Song[] = res.songs.map((item) => {
