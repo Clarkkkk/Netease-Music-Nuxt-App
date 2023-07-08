@@ -12,6 +12,10 @@ const router = createRouter({
     routes
 })
 router.beforeEach((to, from) => {
+    if (to.path === '/index.html') {
+        return '/'
+    }
+
     const auth = useAuthStore()
     if (to.meta.requiresAuth && !auth.loggedIn) {
         auth.openLogin()

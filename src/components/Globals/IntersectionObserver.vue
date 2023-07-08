@@ -48,7 +48,7 @@ onBeforeUnmount(() => {
     >
         <span
             v-if="isBottom"
-            class="text-center text-sm text-primary/70"
+            class="text-center text-xs text-primary/70"
         >
             — 到底啦 —
         </span>
