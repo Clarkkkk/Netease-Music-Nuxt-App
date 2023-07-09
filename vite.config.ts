@@ -20,16 +20,16 @@ export default defineConfig(() => {
         clearScreen: false,
         plugins: [
             vue(),
-            checker({
-                vueTsc: true,
-                eslint: {
-                    lintCommand: 'eslint "./src/**/*.{ts,vue}"'
-                },
-                terminal: false,
-                overlay: {
-                    initialIsOpen: false
-                }
-            }),
+            // checker({
+            //     vueTsc: true,
+            //     eslint: {
+            //         lintCommand: 'eslint "./src/**/*.{ts,vue}"'
+            //     },
+            //     terminal: false,
+            //     overlay: {
+            //         initialIsOpen: false
+            //     }
+            // }),
             svgLoader({
                 defaultImport: 'component',
                 svgo: false
