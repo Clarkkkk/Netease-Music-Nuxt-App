@@ -25,7 +25,7 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
             </template>
 
             <template #menu>
-                <ul class="min-height">
+                <ul class="playlist-menu">
                     <ContextMenuItem
                         v-for="song in playlist"
                         :key="song.id"
@@ -70,8 +70,9 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
 </template>
 
 <style>
-.min-height {
+.playlist-menu {
     min-height: 200px;
+    overscroll-behavior: contain;
 }
 
 ::view-transition-new(playing-playlist-btn) {

@@ -83,5 +83,6 @@ async function onLogout() {
 
 #nav-profile .tippy-box {
     background-color: hsl(var(--b1));
+    border-radius: var(--rounded-box, 1rem);
 }
 </style>
