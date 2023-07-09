@@ -72,7 +72,7 @@ async function onRadioClick() {
             'navbar',
             'fixed',
             'top-0',
-            'z-10',
+            'z-[200]',
             'px-4',
             'duration-500',
             { 'bg-base-100/90': !isTop },

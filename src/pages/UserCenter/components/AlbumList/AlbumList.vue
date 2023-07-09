@@ -47,5 +47,6 @@ const { onScroll, onWheel, centerPosition } = useScrollPosition(containerRef)
     // 16px is half width of the album image
     padding: 0 calc(50% - 16px);
     scroll-snap-type: x proximity;
+    overscroll-behavior: contain;
 }
 </style>

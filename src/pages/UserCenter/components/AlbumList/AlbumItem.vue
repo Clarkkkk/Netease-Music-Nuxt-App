@@ -26,12 +26,12 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         elementRef.value.clientWidth
 
     let zIndex = 0
-    if (Math.abs(relativePosition) < 0.1) {
-        zIndex = 9999
+    if (Math.abs(relativePosition) < 0.01) {
+        zIndex = 200
     } else if (relativePosition < 0) {
         zIndex = 1
     } else {
-        zIndex = Math.max(Math.floor((1 / relativePosition) * 1000), 1)
+        zIndex = Math.max(Math.floor(100 - relativePosition), 1)
     }
     return {
         zIndex,
