@@ -25,6 +25,11 @@ const routes = [
     {
         path: '/search',
         component: () => import('./pages/Search/Search.vue')
+    },
+    {
+        path: '/user-center',
+        component: () => import('./pages/UserCenter/UserCenter.vue'),
+        meta: { requiresAuth: true }
     }
 ]
 

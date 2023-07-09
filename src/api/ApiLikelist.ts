@@ -4,7 +4,11 @@ export interface ApiLikelist {
     method: 'post'
     params: {
         /** 用户 id */
-        uid: any
+        uid: number
     }
-    return: ApiResponse
+    return: {
+        ids: number[]
+        checkPoint: number
+        code: number
+    }
 }
