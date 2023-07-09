@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0-alpha.2    (2023-07-09)
+
+
+## **Bug Fixes**
+
+* fix some ui problems ([a2b9aa4a](https://github.com/Clarkkkk/Netease-Music-App/commit/a2b9aa4a2d11ff07fad8fcd4c22e6659d9665045))
+* fix z-index problems of album list ([30dec766](https://github.com/Clarkkkk/Netease-Music-App/commit/30dec7669e39fd193df1ce5556f21a1a272523c0))
+* minor fixes ([6d997c04](https://github.com/Clarkkkk/Netease-Music-App/commit/6d997c04c79a31d99cd87469888258bf287b080c))
+    
+    ### **Description**
+    
+    - redirect to `/` when enter `index.html`
+    - hide recommended modules when not logged in
+    
+* use https in profile images ([240afbef](https://github.com/Clarkkkk/Netease-Music-App/commit/240afbef23400c075a290180ad859598217bee14))
+* fix type error ([13961d45](https://github.com/Clarkkkk/Netease-Music-App/commit/13961d452d8b5369d3c9e467bf636abcf5533b12))
+
+## **Chores**
+
+* update typescript eslint ([3f79e722](https://github.com/Clarkkkk/Netease-Music-App/commit/3f79e72245c2adc471fb2191cf906bb7bf746d62))
+* add LICENSE ([afacec0d](https://github.com/Clarkkkk/Netease-Music-App/commit/afacec0d1844f41e6bf7e24b40a12d9986fef72c))
+
+## **Features**
+
+* finish my-music page ([f8c14bf6](https://github.com/Clarkkkk/Netease-Music-App/commit/f8c14bf6694ba60b947eeafd55fa42c6eab444fe))
+    
+    ### **Description**
+    
+    - favorite songs
+    - recent songs
+    - user info
+    - useLoginService to provide two hooks: onProfileLoaded, onLoggedIn
+    - add my music in navbar
+    - related apis
+    - add a slot in SongItem
+    
+* scrollable album list with beautiful and fluent animation ([0efb9e9f](https://github.com/Clarkkkk/Netease-Music-App/commit/0efb9e9f44cd624132451ff6e053f368e02e7f7b))
+* play the songlist right in the search results or songlist page ([d86c992b](https://github.com/Clarkkkk/Netease-Music-App/commit/d86c992b65b051f9d01ccb01053cbceab9ba672d))
+* search pages ([fb1b312c](https://github.com/Clarkkkk/Netease-Music-App/commit/fb1b312c9ef1c57d5b3b25a6a9774ae3f407d9d0))
+    
+    ### **Description**
+    
+    - search input on Nav
+    - search input transition during routing
+    - mixed search result including songs, songlists and albums
+    - add padding at the bottom for mini music bar
+    
+* album page ([d81bf1ae](https://github.com/Clarkkkk/Netease-Music-App/commit/d81bf1aea6daf9dccbf5ef7e4b5c626429c85663))
+
+## **Styles**
+
+* add view transitions for MiniMusicControl and playing page ([15441b61](https://github.com/Clarkkkk/Netease-Music-App/commit/15441b615a57b7fe8799e0f079757586319b2ec2))
+* adjust the ui of homepage ([e5f7b18e](https://github.com/Clarkkkk/Netease-Music-App/commit/e5f7b18e3dd6d9ac5b12c4d34795decc0ec55ef6))
+* make search input transitions smoother ([9d76e353](https://github.com/Clarkkkk/Netease-Music-App/commit/9d76e3536a0738e2c6e738786ea5d17d3d804492))
+
+
+
 # 1.0.0-alpha.1    (2023-06-25)
 
 
