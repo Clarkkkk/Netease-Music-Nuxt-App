@@ -4,19 +4,6 @@ import { usePlaylistStore } from 'stores'
 import Button from '../Button.vue'
 import { ContextMenu, ContextMenuItem } from '../ContextMenu'
 
-/** unnecessary interface to satisfy vue compiler */
-interface Song {
-    id: number
-    name: string
-    subName: string
-    artist: string
-    album: string
-    cover: string
-    timestamp: number
-    url: string
-    status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
-}
-
 const props = defineProps<{ song: Song }>()
 
 const { switchToThisSong, insertSongToNext } = usePlaylistStore()

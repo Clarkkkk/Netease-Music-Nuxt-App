@@ -39,7 +39,8 @@ interface Song {
     artist: string
     album: string
     cover: string
+    sourceid?: number
     timestamp: number
     url: string
-    status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
+    status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed' | 'updating'
 }

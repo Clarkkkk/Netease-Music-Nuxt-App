@@ -5,6 +5,7 @@ import { post, toHttps } from 'utils'
 export function useSonglist() {
     const info = ref<ApiPlaylistDetail['return']['playlist'] | null>(null)
     const songlist = ref<Song[]>([])
+    const songlistId = ref(0)
     const songIdList = ref<number[]>([])
     const more = ref(true)
     const offset = ref(0)
@@ -15,6 +16,7 @@ export function useSonglist() {
         if (loading.value) return
         try {
             const res = await getSonglistDetail(id)
+            songlistId.value = id
             info.value = res.info
             songIdList.value = res.songIdList
             songlist.value = res.songlist
@@ -33,7 +35,7 @@ export function useSonglist() {
                 offset.value,
                 Math.min(offset.value + PAGE_SIZE, songIdList.value.length)
             )
-            const list = await getSongsByIds(ids)
+            const list = await getSongsByIds(ids, songlistId.value)
             more.value = offset.value + PAGE_SIZE < songIdList.value.length
             offset.value = offset.value + PAGE_SIZE
             songlist.value.push(...list)
@@ -43,8 +45,10 @@ export function useSonglist() {
     }
 
     async function onFullLoad() {
+        if (!more.value) return
+
         const ids = songIdList.value.slice(offset.value)
-        const list = await getSongsByIds(ids)
+        const list = await getSongsByIds(ids, songlistId.value)
         more.value = false
         offset.value = songIdList.value.length
         songlist.value.push(...list)
@@ -61,7 +65,7 @@ export function useSonglist() {
     }
 }
 
-function getSongsByIds(ids: number[]) {
+function getSongsByIds(ids: number[], songlistId: number) {
     return post<ApiSongDetail>('/song/detail', {
         ids: ids.join(',')
     }).then(({ songs }) => {
@@ -73,6 +77,7 @@ function getSongsByIds(ids: number[]) {
                 artist: item.ar[0]?.name || '',
                 album: item.al.name,
                 cover: toHttps(item.al.picUrl) || '',
+                sourceid: songlistId,
                 timestamp: 0,
                 url: '',
                 status: 'not-playing'
@@ -99,6 +104,7 @@ function getSonglistDetail(id: number) {
                     artist: item.ar[0]?.name || '',
                     album: item.al.name,
                     cover: toHttps(item.al.picUrl) || '',
+                    sourceid: id,
                     timestamp: 0,
                     url: '',
                     status: 'not-playing'

@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import type { ApiAlbum } from 'api'
-import { useDeviceType, useIsHovering, useSonglist } from 'services'
+import { useAlbum, useDeviceType, useIsHovering, useSonglist } from 'services'
 import { usePlaylistStore } from 'stores'
 import { Button, Image } from 'components'
-import { post, toHttps } from 'utils'
 
 interface SonglistItem {
     name: string
@@ -17,6 +15,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 const { isPc } = useDeviceType()
 const { switchToThisList } = usePlaylistStore()
 const { initSonglist, songlist, onFullLoad } = useSonglist()
+const { album, initAlbum } = useAlbum()
 
 async function onPlayList(id: number) {
     if (props.type === 'songlist') {
@@ -24,21 +23,8 @@ async function onPlayList(id: number) {
         await onFullLoad()
         switchToThisList(songlist.value)
     } else {
-        const res = await post<ApiAlbum>('/album', { id })
-        const songlist: Song[] = res.songs.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                subName: item.alia[0] || '',
-                artist: item.ar[0]?.name || '',
-                album: item.al.name,
-                cover: toHttps(item.al.picUrl) || '',
-                timestamp: 0,
-                url: '',
-                status: 'not-playing'
-            }
-        })
-        await switchToThisList(songlist)
+        await initAlbum(id)
+        await switchToThisList(album.value)
     }
 }
 </script>

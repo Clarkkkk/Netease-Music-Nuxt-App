@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import type { ApiPersonalFm, ApiSongUrl } from 'api'
 import { defineStore } from 'pinia'
 import { post, toHttps } from 'utils'
@@ -54,6 +54,10 @@ export const usePlaylistStore = defineStore('playlist', () => {
     })
 
     async function updateCurrentSong(song: Song | null) {
+        updateCurrentSongStatus('updating')
+        // use async to trigger the watcher when updating
+        await nextTick()
+
         if (song) {
             await updateSongUrl(song)
         }
@@ -165,7 +169,6 @@ export const usePlaylistStore = defineStore('playlist', () => {
     async function removeSong(song: Song) {
         const index = playlist.value.findIndex((item) => item === song)
         const current = currentSong.value
-        const next = nextSong.value
 
         console.log('remove song')
         console.log(index)

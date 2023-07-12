@@ -1,6 +1,8 @@
 import { ref, watch, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAudioStore, useAuthStore, usePlaylistStore } from 'stores'
+import type { ApiScrobble } from '../api/ApiScrobble'
+import { post } from '../utils/request'
 
 export const usePlayStatusEffect = () => {
     const { loggedIn } = storeToRefs(useAuthStore())
@@ -33,27 +35,28 @@ export const usePlayStatusEffect = () => {
     })
 
     // 当前歌曲准备就绪后自动播放
-    watch([currentSong, audioStatus], async () => {
-        console.log(currentSong.value)
-        console.log(audioStatus.value)
-        // debugger
-        if (
-            currentSong.value &&
-            currentSong.value.url &&
-            currentSong.value.status === 'waiting-to-play' &&
-            audioStatus.value === 'can-play'
-        ) {
-            console.log('play current song')
-            try {
-                await play()
-                updateCurrentSongStatus('playing')
-            } catch (e) {
-                console.error(e)
-                console.log(typeof e)
-                updateCurrentSongStatus('play-failed')
+    watch(
+        [currentSong, audioStatus],
+        async () => {
+            if (
+                currentSong.value &&
+                currentSong.value.url &&
+                currentSong.value.status === 'waiting-to-play' &&
+                audioStatus.value === 'can-play'
+            ) {
+                console.log('play current song')
+                try {
+                    await play()
+                    updateCurrentSongStatus('playing')
+                } catch (e) {
+                    console.error(e)
+                    console.log(typeof e)
+                    updateCurrentSongStatus('play-failed')
+                }
             }
-        }
-    })
+        },
+        { deep: true }
+    )
 
     watch(audioStatus, (status) => {
         if (status === 'error') {
@@ -87,6 +90,40 @@ export const usePlayStatusEffect = () => {
             switchToNextSong()
         }
     })
+
+    // 播放结束或切换歌曲时，上报歌曲的播放记录
+    watch(
+        [currentSong, audioStatus],
+        ([currentSong, audioStatus]) => {
+            console.log({ ...(currentSong || {}) })
+            if (
+                currentSong?.status === 'updating' &&
+                currentTime.value > 10 &&
+                audioStatus !== 'error'
+            ) {
+                console.log('updating report')
+                console.log(currentSong.id)
+                console.log(currentTime.value)
+                post<ApiScrobble>('/scrobble', {
+                    id: currentSong.id,
+                    sourceid: currentSong.sourceid,
+                    time: currentTime.value
+                })
+            } else if (audioStatus === 'ended' && currentSong) {
+                console.log('ended report')
+                console.log(currentSong.id)
+                console.log(duration.value)
+                post<ApiScrobble>('/scrobble', {
+                    id: currentSong.id,
+                    sourceid: currentSong.sourceid,
+                    time: duration.value
+                })
+            }
+        },
+        {
+            deep: true
+        }
+    )
 
     // 播放私人fm时，如果即将到达列表末尾，更新播放列表
     watch([loggedIn, playMode, currentSong], async ([loggedIn, playMode, currentSong]) => {

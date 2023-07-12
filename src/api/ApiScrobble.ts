@@ -4,9 +4,14 @@ export interface ApiScrobble {
     method: 'post'
     params: {
         /** 歌曲 id, `sourceid`: 歌单或专辑 id */
-        id: any
+        id: number
+        sourceid?: number
         /** 歌曲播放时间,单位为秒 */
-        time: any
+        time?: number
     }
-    return: ApiResponse
+    return: {
+        code: number
+        data: string
+        message: string
+    }
 }

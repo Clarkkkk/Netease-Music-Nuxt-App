@@ -2,18 +2,6 @@
 import { useDeviceType, useIsHovering } from 'services'
 import Image from '../Image.vue'
 import SongItemOption from './SongItemOption.vue'
-/** unnecessary interface to satisfy vue compiler */
-interface Song {
-    id: number
-    name: string
-    subName: string
-    artist: string
-    album: string
-    cover: string
-    timestamp: number
-    url: string
-    status: 'not-playing' | 'waiting-to-play' | 'playing' | 'play-failed'
-}
 
 defineProps<{ song: Song }>()
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
