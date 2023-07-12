@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRef, watch } from 'vue'
+import { computed, ref, toRef, watch } from 'vue'
 
 import IconFileRemove from '~icons/solar/file-remove-bold-duotone'
 
@@ -13,9 +13,14 @@ const props = defineProps<{
     webpSrcSet?: string
     alt?: string
     loading?: 'lazy' | 'eager'
+    size?: number
     crossorigin?: 'anonymous' | 'use-credentials'
     onLoad?: (img: HTMLImageElement) => void
 }>()
+
+const calculatedSize = computed(() => {
+    return Math.floor(props.size ? props.size * window.devicePixelRatio : 0)
+})
 
 const srcRef = toRef(props, 'src')
 
@@ -31,43 +36,52 @@ defineExpose({
 </script>
 
 <template>
-    <picture
-        v-show="!!src"
-        :class="[
-            'transition-all',
-            'duration-500',
-            'flex',
-            'items-center',
-            'justify-center',
-            'overflow-hidden',
-            { 'blur-lg': loadingStatus }
-        ]"
-    >
-        <source
-            v-if="webpSrc && webpSrcSet"
-            :src="webpSrc"
-            :srcSet="webpSrcSet"
-            type="image/webp"
-        />
-        <img
-            v-if="!errorStatus"
-            ref="img"
-            :src="src"
-            :srcSet="srcSet"
-            :alt="alt || src"
-            :loading="loading"
-            :crossorigin="crossorigin"
-            class="h-full w-full"
-            @load="
-                (e) => {
-                    loadingStatus = false
-                    onLoad && onLoad(e.target as HTMLImageElement)
-                }
-            "
-            @error="errorStatus = true"
-        />
-        <IconFileRemove v-else />
-    </picture>
+    <div class="picture transition-all duration-500">
+        <picture
+            v-show="!!src"
+            class="picture"
+            :class="[
+                'transition-all',
+                'duration-500',
+                'h-full',
+                'w-full',
+                'flex',
+                'items-center',
+                'justify-center',
+                'overflow-hidden',
+                { 'blur-lg': loadingStatus }
+            ]"
+        >
+            <source
+                v-if="webpSrc && webpSrcSet"
+                :src="webpSrc"
+                :srcSet="webpSrcSet"
+                type="image/webp"
+            />
+            <img
+                v-if="!errorStatus"
+                ref="img"
+                :src="`${src}${size ? `?param=${calculatedSize}y${calculatedSize}` : ''}`"
+                :srcSet="srcSet"
+                :alt="alt || src"
+                :loading="loading"
+                :crossorigin="crossorigin"
+                class="h-full w-full"
+                @load="
+                    (e) => {
+                        loadingStatus = false
+                        onLoad && onLoad(e.target as HTMLImageElement)
+                    }
+                "
+                @error="errorStatus = true"
+            />
+            <IconFileRemove v-else />
+        </picture>
+    </div>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+.picture {
+    contain: content;
+}
+</style>

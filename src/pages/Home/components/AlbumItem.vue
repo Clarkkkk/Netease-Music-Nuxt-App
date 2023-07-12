@@ -42,17 +42,20 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
                 isHovering ? 'blur-2xl' : 'blur'
             ]"
             :src="picUrl"
+            :size="200"
         />
 
         <div class="absolute h-full w-full overflow-hidden rounded">
             <Image
                 :src="picUrl"
                 class="h-full w-full blur-xl"
+                :size="200"
             />
         </div>
         <Image
             :src="picUrl"
             class="relative flex-fixed rounded-t"
+            :size="200"
         />
         <div class="relative w-full rounded-b bg-base-100/90 p-2 text-sm text-base-content md:p-4">
             <div

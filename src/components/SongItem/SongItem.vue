@@ -31,11 +31,13 @@ const { isPc } = useDeviceType()
                     { blur: isHovering }
                 ]"
                 loading="lazy"
+                :size="40"
             />
             <Image
                 :src="song.cover"
                 class="relative z-10 h-full w-full flex-fixed rounded-lg"
                 loading="lazy"
+                :size="40"
             />
         </div>
         <div class="flex w-full flex-col justify-between overflow-hidden @2xl:hidden">

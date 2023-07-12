@@ -32,6 +32,7 @@ const router = useRouter()
                 { blur: audio.audioStatus === 'playing' }
             ]"
             loading="lazy"
+            :size="40"
         />
         <Image
             v-if="playlist.currentSong"
@@ -39,6 +40,7 @@ const router = useRouter()
             :src="playlist.currentSong.cover"
             class="relative z-10 h-full w-full flex-fixed rounded-lg"
             loading="lazy"
+            :size="40"
         />
         <DefaultCover v-else />
     </div>

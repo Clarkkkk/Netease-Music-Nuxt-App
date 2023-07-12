@@ -101,11 +101,13 @@ onUnmounted(() => {
                 'rounded-2xl',
                 'transition-all',
                 'shadow-lg',
+                { 'content-hidden': ![currentIndex, lastIndex, nextIndex].includes(index) },
                 { current: index === currentIndex },
                 { last: index === lastIndex },
                 { next: index === nextIndex }
             ]"
             :src="toHttps(pic.imageUrl)"
+            loading="lazy"
             @click="onImageClick(pic)"
         />
     </div>
@@ -115,7 +117,7 @@ onUnmounted(() => {
 #home-banner {
     width: calc(100% + 3rem);
     transform: translateX(-1.5rem);
-    aspect-ratio: 3/ 1;
+    aspect-ratio: 3 / 1;
 
     @media (min-width: 1280px) {
         width: 100%;
@@ -164,6 +166,10 @@ onUnmounted(() => {
             transform: translateX(calc(-35%)) translateY(-50%) scale(0.8);
             filter: blur(10px);
             z-index: 0;
+        }
+
+        &.content-hidden {
+            content-visibility: hidden;
         }
     }
 }

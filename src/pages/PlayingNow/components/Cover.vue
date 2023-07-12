@@ -24,11 +24,13 @@ const playlist = usePlaylistStore()
                 'rounded-3xl',
                 isHovering ? 'blur-3xl' : 'blur-xl'
             ]"
+            :size="400"
         />
         <Image
             v-view-transition-name="'playing-cover'"
             :src="playlist.currentSong?.cover"
             :class="['relative', 'rounded-3xl', 'z-10', { 'scale-105': isHovering }]"
+            :size="400"
         />
     </div>
     <div

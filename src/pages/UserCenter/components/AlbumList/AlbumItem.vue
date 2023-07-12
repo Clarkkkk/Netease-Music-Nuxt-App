@@ -70,6 +70,7 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
                     { blur: true }
                 ]"
                 loading="lazy"
+                :size="300"
             />
             <Image
                 :src="toHttps(img)"
@@ -83,11 +84,13 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
                     'duration-500'
                 ]"
                 loading="lazy"
+                :size="300"
             />
             <Image
                 :src="toHttps(img)"
                 class="relative z-10 h-48 w-48 flex-fixed"
                 loading="lazy"
+                :size="300"
             />
         </div>
     </div>
@@ -108,7 +111,10 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         bottom: -272px;
         left: 50%;
         transform: translateX(-50%) rotate(180deg);
-        background-image: linear-gradient(180deg, #ffffffff 75%, #ffffffc0 100%);
+
+        picture {
+            background-image: linear-gradient(180deg, #ffffffff 75%, #ffffffc0 100%);
+        }
 
         img {
             mix-blend-mode: screen;
