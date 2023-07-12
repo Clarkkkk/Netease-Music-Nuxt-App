@@ -4,7 +4,7 @@ import type { ApiUserRecord } from 'api'
 import { storeToRefs } from 'pinia'
 import { useLoginService } from 'services'
 import { SongItem } from 'components'
-import { post } from 'utils'
+import { post, toHttps } from 'utils'
 import { useProfileStore } from '../../../stores/useProfileStore'
 
 const tabs = [
@@ -48,7 +48,7 @@ function getData(type: 0 | 1) {
                     subName: item.song.alia[0] || '',
                     artist: item.song.ar[0].name,
                     album: item.song.al.name,
-                    cover: item.song.al.picUrl,
+                    cover: toHttps(item.song.al.picUrl),
                     timestamp: 0,
                     url: '',
                     status: 'not-playing',
@@ -63,7 +63,7 @@ function getData(type: 0 | 1) {
                     subName: item.song.alia[0] || '',
                     artist: item.song.ar[0].name,
                     album: item.song.al.name,
-                    cover: item.song.al.picUrl,
+                    cover: toHttps(item.song.al.picUrl),
                     timestamp: 0,
                     url: '',
                     status: 'not-playing',
