@@ -5,25 +5,6 @@ All notable changes to this project will be documented in this file. See [commit
 # 1.0.0-alpha.2    (2023-07-09)
 
 
-## **Bug Fixes**
-
-* fix some ui problems ([a2b9aa4a](https://github.com/Clarkkkk/Netease-Music-App/commit/a2b9aa4a2d11ff07fad8fcd4c22e6659d9665045))
-* fix z-index problems of album list ([30dec766](https://github.com/Clarkkkk/Netease-Music-App/commit/30dec7669e39fd193df1ce5556f21a1a272523c0))
-* minor fixes ([6d997c04](https://github.com/Clarkkkk/Netease-Music-App/commit/6d997c04c79a31d99cd87469888258bf287b080c))
-    
-    ### **Description**
-    
-    - redirect to `/` when enter `index.html`
-    - hide recommended modules when not logged in
-    
-* use https in profile images ([240afbef](https://github.com/Clarkkkk/Netease-Music-App/commit/240afbef23400c075a290180ad859598217bee14))
-* fix type error ([13961d45](https://github.com/Clarkkkk/Netease-Music-App/commit/13961d452d8b5369d3c9e467bf636abcf5533b12))
-
-## **Chores**
-
-* update typescript eslint ([3f79e722](https://github.com/Clarkkkk/Netease-Music-App/commit/3f79e72245c2adc471fb2191cf906bb7bf746d62))
-* add LICENSE ([afacec0d](https://github.com/Clarkkkk/Netease-Music-App/commit/afacec0d1844f41e6bf7e24b40a12d9986fef72c))
-
 ## **Features**
 
 * finish my-music page ([f8c14bf6](https://github.com/Clarkkkk/Netease-Music-App/commit/f8c14bf6694ba60b947eeafd55fa42c6eab444fe))
@@ -51,67 +32,35 @@ All notable changes to this project will be documented in this file. See [commit
     
 * album page ([d81bf1ae](https://github.com/Clarkkkk/Netease-Music-App/commit/d81bf1aea6daf9dccbf5ef7e4b5c626429c85663))
 
+## **Bug Fixes**
+
+* fix some ui problems ([a2b9aa4a](https://github.com/Clarkkkk/Netease-Music-App/commit/a2b9aa4a2d11ff07fad8fcd4c22e6659d9665045))
+* fix z-index problems of album list ([30dec766](https://github.com/Clarkkkk/Netease-Music-App/commit/30dec7669e39fd193df1ce5556f21a1a272523c0))
+* minor fixes ([6d997c04](https://github.com/Clarkkkk/Netease-Music-App/commit/6d997c04c79a31d99cd87469888258bf287b080c))
+    
+    ### **Description**
+    
+    - redirect to `/` when enter `index.html`
+    - hide recommended modules when not logged in
+    
+* use https in profile images ([240afbef](https://github.com/Clarkkkk/Netease-Music-App/commit/240afbef23400c075a290180ad859598217bee14))
+* fix type error ([13961d45](https://github.com/Clarkkkk/Netease-Music-App/commit/13961d452d8b5369d3c9e467bf636abcf5533b12))
+
 ## **Styles**
 
 * add view transitions for MiniMusicControl and playing page ([15441b61](https://github.com/Clarkkkk/Netease-Music-App/commit/15441b615a57b7fe8799e0f079757586319b2ec2))
 * adjust the ui of homepage ([e5f7b18e](https://github.com/Clarkkkk/Netease-Music-App/commit/e5f7b18e3dd6d9ac5b12c4d34795decc0ec55ef6))
 * make search input transitions smoother ([9d76e353](https://github.com/Clarkkkk/Netease-Music-App/commit/9d76e3536a0738e2c6e738786ea5d17d3d804492))
 
+## **Chores**
+
+* update typescript eslint ([3f79e722](https://github.com/Clarkkkk/Netease-Music-App/commit/3f79e72245c2adc471fb2191cf906bb7bf746d62))
+* add LICENSE ([afacec0d](https://github.com/Clarkkkk/Netease-Music-App/commit/afacec0d1844f41e6bf7e24b40a12d9986fef72c))
+
 
 
 # 1.0.0-alpha.1    (2023-06-25)
 
-
-## **Bug Fixes**
-
-* update pnpm version in build.yml ([4650b682](https://github.com/Clarkkkk/Netease-Music-App/commit/4650b6821e37d2ca0c0db0711b129298aacedaab))
-* should show subName when it is 'null' ([0f0dc37f](https://github.com/Clarkkkk/Netease-Music-App/commit/0f0dc37fbca68522c8db56eb6b9c8c7fa53e52f8))
-* fix a bug in switchToThisSong ([9ed9e6b7](https://github.com/Clarkkkk/Netease-Music-App/commit/9ed9e6b712be251fc6cda1de3e5e8b475423b3b9))
-* not using async function in personal fm button ([549c75e3](https://github.com/Clarkkkk/Netease-Music-App/commit/549c75e33b0a7bd9f0f42065b1db26d9ee65f7a3))
-* button icons overlap when loading ([d083bb05](https://github.com/Clarkkkk/Netease-Music-App/commit/d083bb05877b7787129e93da0a9ca516916c79f7))
-* convert banner picture url to https ([3884d4d0](https://github.com/Clarkkkk/Netease-Music-App/commit/3884d4d07efd009c537ff07496201a54de81d9c7))
-* timestamp not updated after url update ([7695ee5b](https://github.com/Clarkkkk/Netease-Music-App/commit/7695ee5bcaf19963212935d31ce0f569e3e7ce96))
-* wrong condition in song url expiration checking ([cd762c69](https://github.com/Clarkkkk/Netease-Music-App/commit/cd762c69e4d9c0ee7e1793a4f3b50ec09dfa0497))
-* vite "base" option should start with a slash ([7739a463](https://github.com/Clarkkkk/Netease-Music-App/commit/7739a4637b89c0aaf1cd3c0f3b39600908bb5d10))
-* use node 16 to comply with @squoosh/lib ([55fdf5c0](https://github.com/Clarkkkk/Netease-Music-App/commit/55fdf5c0e177976e9c77eb60d6c263a701af8710))
-* refetch song url when it expires ([03bdbd63](https://github.com/Clarkkkk/Netease-Music-App/commit/03bdbd63f221d0e840e89fbd64354d7eb411768e))
-* fix a bug in storeLoginInfo and ensure the song url to be https ([6edcbbd4](https://github.com/Clarkkkk/Netease-Music-App/commit/6edcbbd4bd1b08e50b04be3c53bf3913ba9bd38c))
-* change expire calculation ([6232d8f9](https://github.com/Clarkkkk/Netease-Music-App/commit/6232d8f9af8d9acf8a21a5ca64c4fc961941258b))
-* change the default bit rate to 320k ([f3c24394](https://github.com/Clarkkkk/Netease-Music-App/commit/f3c243943ca6ced148eb119305a763a1e7e8342c))
-* urls of pictures are not https ([bd69c3e4](https://github.com/Clarkkkk/Netease-Music-App/commit/bd69c3e44730815ab0a3ac4713b148914134b619))
-* fix base path ([0437367c](https://github.com/Clarkkkk/Netease-Music-App/commit/0437367ccb79ad18d713c3a0346eb79af47b43d7))
-* fix play relavent problems ([9af1b53d](https://github.com/Clarkkkk/Netease-Music-App/commit/9af1b53d91e005a854b1f86c7e607342b41f8153))
-* before playing current song,should wait until ready ([a09cab6d](https://github.com/Clarkkkk/Netease-Music-App/commit/a09cab6d8336b21059de68081fe1ccdbfe8256c8))
-* fix a bug that Image does not update when src changes ([04f558bb](https://github.com/Clarkkkk/Netease-Music-App/commit/04f558bb53f81aa4535b87ecf1cb2400a7c816ba))
-* fix audio status event problems ([24a3ddeb](https://github.com/Clarkkkk/Netease-Music-App/commit/24a3ddeb44843f87a4e6f4058eaed5614afe25fa))
-* fix login problems when login expires ([0ce700ed](https://github.com/Clarkkkk/Netease-Music-App/commit/0ce700ed97fd1e727a9c32baa0c94ab0235befa2))
-* reload after login ([07f28259](https://github.com/Clarkkkk/Netease-Music-App/commit/07f28259cbbe54c54e700eab8115aa93924489cf))
-
-## **Chores**
-
-* changelog ([af01324f](https://github.com/Clarkkkk/Netease-Music-App/commit/af01324fd5cae4e4822543da98fc5f539781ff2c))
-* set vite clearScreen to false ([cc8dd6da](https://github.com/Clarkkkk/Netease-Music-App/commit/cc8dd6da12934ea31dac7f9c7b1ad78fa56ac9bd))
-* rename radio page to playing page and fix some problems ([6c0f1c2d](https://github.com/Clarkkkk/Netease-Music-App/commit/6c0f1c2db61359ff515224353ab4135c2e72072d))
-* add container query tailwindcss plugin ([55cbbd80](https://github.com/Clarkkkk/Netease-Music-App/commit/55cbbd80c6bc1a5780092972f6a71ecef6321a17))
-* tailwind custom variables ([341a9308](https://github.com/Clarkkkk/Netease-Music-App/commit/341a93087fc2d9aaa64f3a324b07e0e4345c60e4))
-* eslint config ([64834721](https://github.com/Clarkkkk/Netease-Music-App/commit/648347212ab14d9c0eb376a12107c97a35fc32e8))
-* use pnpm and setup cache in github actions ([77a3ce9d](https://github.com/Clarkkkk/Netease-Music-App/commit/77a3ce9ddbefc97b7745720cbe9459389e5c5945))
-* update website meta and favicon ([10b8d33d](https://github.com/Clarkkkk/Netease-Music-App/commit/10b8d33de5550b2a0ed7e582bbf87982c15a81df))
-* configure __VUE_OPTIONS_API__ and fix build problems ([5cfc38b1](https://github.com/Clarkkkk/Netease-Music-App/commit/5cfc38b1cfb87ea2334136d1121070f75c5a000c))
-* add a prop to eliminate vue alert ([46e16887](https://github.com/Clarkkkk/Netease-Music-App/commit/46e16887d340f6229de4cc842bf6d88078598757))
-* format file ([08b03939](https://github.com/Clarkkkk/Netease-Music-App/commit/08b03939e92d78110bc8be54ceb3a86b78078566))
-* song api and types ([d122e665](https://github.com/Clarkkkk/Netease-Music-App/commit/d122e6654a1c9883332f2200181e862ef8727f82))
-* lint config ([e7f01639](https://github.com/Clarkkkk/Netease-Music-App/commit/e7f01639fd4bfd4932c7e78f9ceac73b226f9682))
-* format all the code in one go ([587d6f87](https://github.com/Clarkkkk/Netease-Music-App/commit/587d6f8734e4cf3691d2602acf6dabdaa30d8a9f))
-* adjust unplugin-vue-components, turn on type checker ([36fe3601](https://github.com/Clarkkkk/Netease-Music-App/commit/36fe36012cf7f51043658bf8b9fa9cb8538c2097))
-* replace prettier-eslint with eslint-plugin-prettier ([c1565bad](https://github.com/Clarkkkk/Netease-Music-App/commit/c1565bad43597cbeac9b61a9ec470e783c914f87))
-* config and deps ([af829bbc](https://github.com/Clarkkkk/Netease-Music-App/commit/af829bbc6ffd3491ea179148cd1e9a537649c30c))
-* fix ApiLoginStatus and complete ApiUserDetail ([95eae104](https://github.com/Clarkkkk/Netease-Music-App/commit/95eae104f0d4c9e3bf743980a05b9f49ab825ca0))
-* tailwind config ([36725382](https://github.com/Clarkkkk/Netease-Music-App/commit/367253822a44a418641959f9500b8e0e40252646))
-* eslint config ([4e9b1798](https://github.com/Clarkkkk/Netease-Music-App/commit/4e9b1798717be6483cfbe9e991c654d5bc646d8e))
-* move components.d.ts to src/types ([14a5661e](https://github.com/Clarkkkk/Netease-Music-App/commit/14a5661e0414d27d9a9b16d402ce24753bb49fbd))
-* format files in pre-commit ([5ab40273](https://github.com/Clarkkkk/Netease-Music-App/commit/5ab40273b2a8d989d47229848a5d99ff043c4d3d))
-* typescript config, deps update etc ([374b7e1f](https://github.com/Clarkkkk/Netease-Music-App/commit/374b7e1f42f633854378561f4f2318dc22961fc9))
 
 ## **Features**
 
@@ -177,3 +126,57 @@ All notable changes to this project will be documented in this file. See [commit
 * generate api interface with scirpts ([ecc503f9](https://github.com/Clarkkkk/Netease-Music-App/commit/ecc503f9a4d416e229d156bd0a7303ed7345fe8a))
 * write some config files ([300bd1b5](https://github.com/Clarkkkk/Netease-Music-App/commit/300bd1b56d069b82ece7ecab19c8017da1dcfba3))
 * Rewrite the whole program with vue 3, vite, TypeScript, pnpm, etc. ([1da0cb39](https://github.com/Clarkkkk/Netease-Music-App/commit/1da0cb39ebc968bf0333f3db8365bc778b134ede))
+
+## **Bug Fixes**
+
+* update pnpm version in build.yml ([4650b682](https://github.com/Clarkkkk/Netease-Music-App/commit/4650b6821e37d2ca0c0db0711b129298aacedaab))
+* should show subName when it is 'null' ([0f0dc37f](https://github.com/Clarkkkk/Netease-Music-App/commit/0f0dc37fbca68522c8db56eb6b9c8c7fa53e52f8))
+* fix a bug in switchToThisSong ([9ed9e6b7](https://github.com/Clarkkkk/Netease-Music-App/commit/9ed9e6b712be251fc6cda1de3e5e8b475423b3b9))
+* not using async function in personal fm button ([549c75e3](https://github.com/Clarkkkk/Netease-Music-App/commit/549c75e33b0a7bd9f0f42065b1db26d9ee65f7a3))
+* button icons overlap when loading ([d083bb05](https://github.com/Clarkkkk/Netease-Music-App/commit/d083bb05877b7787129e93da0a9ca516916c79f7))
+* convert banner picture url to https ([3884d4d0](https://github.com/Clarkkkk/Netease-Music-App/commit/3884d4d07efd009c537ff07496201a54de81d9c7))
+* timestamp not updated after url update ([7695ee5b](https://github.com/Clarkkkk/Netease-Music-App/commit/7695ee5bcaf19963212935d31ce0f569e3e7ce96))
+* wrong condition in song url expiration checking ([cd762c69](https://github.com/Clarkkkk/Netease-Music-App/commit/cd762c69e4d9c0ee7e1793a4f3b50ec09dfa0497))
+* vite "base" option should start with a slash ([7739a463](https://github.com/Clarkkkk/Netease-Music-App/commit/7739a4637b89c0aaf1cd3c0f3b39600908bb5d10))
+* use node 16 to comply with @squoosh/lib ([55fdf5c0](https://github.com/Clarkkkk/Netease-Music-App/commit/55fdf5c0e177976e9c77eb60d6c263a701af8710))
+* refetch song url when it expires ([03bdbd63](https://github.com/Clarkkkk/Netease-Music-App/commit/03bdbd63f221d0e840e89fbd64354d7eb411768e))
+* fix a bug in storeLoginInfo and ensure the song url to be https ([6edcbbd4](https://github.com/Clarkkkk/Netease-Music-App/commit/6edcbbd4bd1b08e50b04be3c53bf3913ba9bd38c))
+* change expire calculation ([6232d8f9](https://github.com/Clarkkkk/Netease-Music-App/commit/6232d8f9af8d9acf8a21a5ca64c4fc961941258b))
+* change the default bit rate to 320k ([f3c24394](https://github.com/Clarkkkk/Netease-Music-App/commit/f3c243943ca6ced148eb119305a763a1e7e8342c))
+* urls of pictures are not https ([bd69c3e4](https://github.com/Clarkkkk/Netease-Music-App/commit/bd69c3e44730815ab0a3ac4713b148914134b619))
+* fix base path ([0437367c](https://github.com/Clarkkkk/Netease-Music-App/commit/0437367ccb79ad18d713c3a0346eb79af47b43d7))
+* fix play relavent problems ([9af1b53d](https://github.com/Clarkkkk/Netease-Music-App/commit/9af1b53d91e005a854b1f86c7e607342b41f8153))
+* before playing current song,should wait until ready ([a09cab6d](https://github.com/Clarkkkk/Netease-Music-App/commit/a09cab6d8336b21059de68081fe1ccdbfe8256c8))
+* fix a bug that Image does not update when src changes ([04f558bb](https://github.com/Clarkkkk/Netease-Music-App/commit/04f558bb53f81aa4535b87ecf1cb2400a7c816ba))
+* fix audio status event problems ([24a3ddeb](https://github.com/Clarkkkk/Netease-Music-App/commit/24a3ddeb44843f87a4e6f4058eaed5614afe25fa))
+* fix login problems when login expires ([0ce700ed](https://github.com/Clarkkkk/Netease-Music-App/commit/0ce700ed97fd1e727a9c32baa0c94ab0235befa2))
+* reload after login ([07f28259](https://github.com/Clarkkkk/Netease-Music-App/commit/07f28259cbbe54c54e700eab8115aa93924489cf))
+
+## **Chores**
+
+* changelog ([af01324f](https://github.com/Clarkkkk/Netease-Music-App/commit/af01324fd5cae4e4822543da98fc5f539781ff2c))
+* set vite clearScreen to false ([cc8dd6da](https://github.com/Clarkkkk/Netease-Music-App/commit/cc8dd6da12934ea31dac7f9c7b1ad78fa56ac9bd))
+* rename radio page to playing page and fix some problems ([6c0f1c2d](https://github.com/Clarkkkk/Netease-Music-App/commit/6c0f1c2db61359ff515224353ab4135c2e72072d))
+* add container query tailwindcss plugin ([55cbbd80](https://github.com/Clarkkkk/Netease-Music-App/commit/55cbbd80c6bc1a5780092972f6a71ecef6321a17))
+* tailwind custom variables ([341a9308](https://github.com/Clarkkkk/Netease-Music-App/commit/341a93087fc2d9aaa64f3a324b07e0e4345c60e4))
+* eslint config ([64834721](https://github.com/Clarkkkk/Netease-Music-App/commit/648347212ab14d9c0eb376a12107c97a35fc32e8))
+* use pnpm and setup cache in github actions ([77a3ce9d](https://github.com/Clarkkkk/Netease-Music-App/commit/77a3ce9ddbefc97b7745720cbe9459389e5c5945))
+* update website meta and favicon ([10b8d33d](https://github.com/Clarkkkk/Netease-Music-App/commit/10b8d33de5550b2a0ed7e582bbf87982c15a81df))
+* configure __VUE_OPTIONS_API__ and fix build problems ([5cfc38b1](https://github.com/Clarkkkk/Netease-Music-App/commit/5cfc38b1cfb87ea2334136d1121070f75c5a000c))
+* add a prop to eliminate vue alert ([46e16887](https://github.com/Clarkkkk/Netease-Music-App/commit/46e16887d340f6229de4cc842bf6d88078598757))
+* format file ([08b03939](https://github.com/Clarkkkk/Netease-Music-App/commit/08b03939e92d78110bc8be54ceb3a86b78078566))
+* song api and types ([d122e665](https://github.com/Clarkkkk/Netease-Music-App/commit/d122e6654a1c9883332f2200181e862ef8727f82))
+* lint config ([e7f01639](https://github.com/Clarkkkk/Netease-Music-App/commit/e7f01639fd4bfd4932c7e78f9ceac73b226f9682))
+* format all the code in one go ([587d6f87](https://github.com/Clarkkkk/Netease-Music-App/commit/587d6f8734e4cf3691d2602acf6dabdaa30d8a9f))
+* adjust unplugin-vue-components, turn on type checker ([36fe3601](https://github.com/Clarkkkk/Netease-Music-App/commit/36fe36012cf7f51043658bf8b9fa9cb8538c2097))
+* replace prettier-eslint with eslint-plugin-prettier ([c1565bad](https://github.com/Clarkkkk/Netease-Music-App/commit/c1565bad43597cbeac9b61a9ec470e783c914f87))
+* config and deps ([af829bbc](https://github.com/Clarkkkk/Netease-Music-App/commit/af829bbc6ffd3491ea179148cd1e9a537649c30c))
+* fix ApiLoginStatus and complete ApiUserDetail ([95eae104](https://github.com/Clarkkkk/Netease-Music-App/commit/95eae104f0d4c9e3bf743980a05b9f49ab825ca0))
+* tailwind config ([36725382](https://github.com/Clarkkkk/Netease-Music-App/commit/367253822a44a418641959f9500b8e0e40252646))
+* eslint config ([4e9b1798](https://github.com/Clarkkkk/Netease-Music-App/commit/4e9b1798717be6483cfbe9e991c654d5bc646d8e))
+* move components.d.ts to src/types ([14a5661e](https://github.com/Clarkkkk/Netease-Music-App/commit/14a5661e0414d27d9a9b16d402ce24753bb49fbd))
+* format files in pre-commit ([5ab40273](https://github.com/Clarkkkk/Netease-Music-App/commit/5ab40273b2a8d989d47229848a5d99ff043c4d3d))
+* typescript config, deps update etc ([374b7e1f](https://github.com/Clarkkkk/Netease-Music-App/commit/374b7e1f42f633854378561f4f2318dc22961fc9))
+
+
+
