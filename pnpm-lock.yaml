@@ -29,8 +29,8 @@ dependencies:
     specifier: ^4.17.21
     version: 4.17.21
   paroles:
-    specifier: ^2.1.0
-    version: 2.1.0
+    specifier: ^2.2.0
+    version: 2.2.0
   pinia:
     specifier: ^2.1.3
     version: 2.1.3(typescript@5.1.6)(vue@3.3.4)
@@ -6801,8 +6801,8 @@ packages:
       callsites: 3.1.0
     dev: true
 
-  /paroles@2.1.0:
-    resolution: {integrity: sha512-+yn/tbRKuZMNrmNrDgIPddYa8MrIBpwMkL4grUuHYQtUx+xJ3Xlb7dFOBvcrN+9HDZIebORdyMW6dpUtQaHY5Q==}
+  /paroles@2.2.0:
+    resolution: {integrity: sha512-6lufTM9/myFA7UkaNPGgXqVJaMn2C1vgh9HO9DYsUH+q8zkWnVeCWSusNo8RzRQzrLFxWOiCchQHCxn5cohZbg==}
     dev: false
 
   /parse-json@4.0.0:

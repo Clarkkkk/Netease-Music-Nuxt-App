@@ -1,4 +1,5 @@
 export * from './useAudioStore'
 export * from './useAuthStore'
+export * from './useLyricsStore'
 export * from './usePlaylistStore'
 export * from './useProfileStore'

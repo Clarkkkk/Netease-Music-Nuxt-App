@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import { Audio, LoginModal, MiniMusicControl, Nav } from 'components'
-import { useLoginInitEffect, useMediaSessionEffect, usePlayStatusEffect } from './services'
+import {
+    useLoginInitEffect,
+    useLyricsEffect,
+    useMediaSessionEffect,
+    usePlayStatusEffect
+} from './services'
 import './global.css'
 
 useLoginInitEffect()
 usePlayStatusEffect()
 useMediaSessionEffect()
+useLyricsEffect()
+
 const route = useRoute()
 </script>
 

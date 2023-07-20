@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useDeviceType } from 'services'
 import { MusicBar } from 'components'
-import { Cover, Info, RadioControls } from './components'
+import { Cover, Info, Lyrics, RadioControls } from './components'
+
+const { isPc } = useDeviceType()
 </script>
 
 <template>
@@ -16,6 +19,12 @@ import { Cover, Info, RadioControls } from './components'
             <Info class="mt-12" />
             <MusicBar class="mt-8" />
             <RadioControls class="mt-8" />
+        </div>
+        <div
+            v-if="isPc"
+            class="flex h-full w-full flex-col items-center justify-center bg-base-100 lg:w-1/2"
+        >
+            <Lyrics />
         </div>
     </div>
 </template>
