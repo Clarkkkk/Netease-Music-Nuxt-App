@@ -43,6 +43,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             ]"
             :src="picUrl"
             :size="200"
+            loading="lazy"
         />
 
         <div class="absolute h-full w-full overflow-hidden rounded">
@@ -50,12 +51,14 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
                 :src="picUrl"
                 class="h-full w-full blur-xl"
                 :size="200"
+                loading="lazy"
             />
         </div>
         <Image
             :src="picUrl"
             class="relative flex-fixed rounded-t"
             :size="200"
+            loading="lazy"
         />
         <div class="relative w-full rounded-b bg-base-100/90 p-2 text-sm text-base-content md:p-4">
             <div
