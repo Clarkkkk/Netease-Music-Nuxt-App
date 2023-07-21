@@ -21,7 +21,12 @@ const { currentSong } = storeToRefs(usePlaylistStore())
         @durationchange="(e) => updateDuration((e.target as HTMLAudioElement).duration)"
         @timeupdate="(e) => updateCurrentTime((e.target as HTMLAudioElement).currentTime)"
         @play="updateAudioStatus('playing')"
-        @pause="updateAudioStatus('paused')"
+        @pause="
+            () => {
+                console.log('paused in audio')
+                updateAudioStatus('paused')
+            }
+        "
         @waiting="updateAudioStatus('loading')"
         @playing="updateAudioStatus('playing')"
         @ended="updateAudioStatus('ended')"

@@ -24,13 +24,13 @@ export const useAudioStore = defineStore('audio', () => {
             try {
                 await audioRef.value.play()
 
-                audioStatus.value = 'playing'
+                updateAudioStatus('playing')
             } catch (e: any) {
                 console.error(e)
                 console.log(e.name)
                 console.log(e.message)
                 if (e.name === 'NotAllowedError') {
-                    audioStatus.value = 'paused'
+                    updateAudioStatus('paused')
                 }
                 // throw new Error(e)
             }
@@ -46,7 +46,7 @@ export const useAudioStore = defineStore('audio', () => {
     function pause() {
         if (audioRef.value) {
             audioRef.value.pause()
-            audioStatus.value = 'paused'
+            updateAudioStatus('paused')
         }
     }
 
@@ -58,8 +58,6 @@ export const useAudioStore = defineStore('audio', () => {
     }
 
     function updateAudioStatus(val: typeof audioStatus.value) {
-        console.log(currentTime.value)
-        console.log(duration.value)
         console.log('updateAudioStatus: ' + val)
         audioStatus.value = val
     }
