@@ -1,81 +1,45 @@
 <script setup lang="ts">
-import type { ComputedRef } from 'vue'
-import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import type { ApiSearch } from 'api'
-import { post, toHttps } from 'utils'
-import { AlbumResult, SonglistResult, SongResult } from './components'
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { SEARCH } from 'api'
+import { Tabs } from 'components'
+import { AlbumPanel, LyricsPanel, MixedPanel, SonglistPanel, SongPanel } from './components'
+
+const tabs = [
+    {
+        name: '综合',
+        value: SEARCH.MIXED
+    },
+    {
+        name: '专辑',
+        value: SEARCH.ALBUM
+    },
+    {
+        name: '歌单',
+        value: SEARCH.PLAYLIST
+    },
+    {
+        name: '歌曲',
+        value: SEARCH.SINGLE
+    },
+    {
+        name: '歌词',
+        value: SEARCH.LYRICS
+    }
+] as const
 
 const route = useRoute()
+const router = useRouter()
 const keyword = ref('')
-const songResult = ref<ApiSearch['return']['result']['song'] | null>(null)
-const songlistResult = ref<ApiSearch['return']['result']['playList'] | null>(null)
-const albumResult = ref<ApiSearch['return']['result']['album'] | null>(null)
 
-const songResultList: ComputedRef<Song[]> = computed(() => {
-    if (songResult.value) {
-        return songResult.value.songs.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                subName: item.alia[0] || '',
-                artist: item.ar[0]?.name,
-                album: item.al.name,
-                cover: toHttps(item.al.picUrl),
-                timestamp: 0,
-                url: '',
-                status: 'not-playing'
-            }
-        })
-    } else {
-        return []
-    }
-})
-
-const songlistResultList = computed(() => {
-    if (songlistResult.value) {
-        return songlistResult.value.playLists.map((item) => {
-            return {
-                name: item.name,
-                creator: item.creator.nickname,
-                id: item.id,
-                cover: toHttps(item.coverImgUrl)
-            }
-        })
-    } else {
-        return []
-    }
-})
-
-const albumResultList = computed(() => {
-    if (albumResult.value) {
-        return albumResult.value.albums.map((item) => {
-            return {
-                name: item.name,
-                creator: item.artists[0]?.name || '',
-                id: item.id,
-                cover: toHttps(item.picUrl)
-            }
-        })
-    } else {
-        return []
-    }
-})
-
-function onSearch(key: string, type: ApiSearch['params']['type'] = 1018) {
-    post<ApiSearch>('/search', { type, keywords: key }).then((res) => {
-        console.log(res)
-        songResult.value = res.result.song
-        songlistResult.value = res.result.playList
-        albumResult.value = res.result.album
-    })
+function onSearch(val: string) {
+    return router.replace({ path: '/search', query: { keyword: val } })
 }
 
 watch(
     route,
     (val) => {
         keyword.value = val.query.keyword as string
-        onSearch(keyword.value)
     },
     { immediate: true }
 )
@@ -94,20 +58,35 @@ watch(
             <input
                 v-model="keyword"
                 v-view-transition-name="'search-input'"
+                type="search"
+                autofocus
                 class="input-primary input w-128 pl-14 text-lg"
                 @keydown.enter="(e) => onSearch((e.target as HTMLInputElement).value)"
             />
         </div>
 
-        <SongResult :list="songResultList" />
-        <SonglistResult
-            class="mt-8"
-            :list="songlistResultList"
-        />
-        <AlbumResult
-            class="mt-8"
-            :list="albumResultList"
-        />
+        <Tabs
+            :tabs="tabs"
+            class="flex w-full flex-col items-center"
+            tab-class="mt-6"
+            tab-pane-class="mt-2"
+        >
+            <template #综合="{ tab }">
+                <MixedPanel :active="tab.name === '综合'" />
+            </template>
+            <template #专辑="{ tab }">
+                <AlbumPanel :active="tab.name === '专辑'" />
+            </template>
+            <template #歌单="{ tab }">
+                <SonglistPanel :active="tab.name === '歌单'" />
+            </template>
+            <template #歌曲="{ tab }">
+                <SongPanel :active="tab.name === '歌曲'" />
+            </template>
+            <template #歌词="{ tab }">
+                <LyricsPanel :active="tab.name === '歌词'" />
+            </template>
+        </Tabs>
     </div>
 </template>
 
