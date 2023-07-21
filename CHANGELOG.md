@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0-alpha.3    (2023-07-21)
+
+
+## **Features**
+
+* add several panels for search page to display results in seperate categories ([6124efe0](https://github.com/Clarkkkk/Netease-Music-App/commit/6124efe037da2163d99c76cda33d7a4919ded322))
+    
+    ### **Description**
+    
+    - split results into 5 tabs and panel. (mixed, song, songlist, album, lyrics)
+    - add a component `Collapsible`
+    - add relative apis
+    
+* lyrics in playing page ([7b6bdce9](https://github.com/Clarkkkk/Netease-Music-App/commit/7b6bdce91372c59176a9a994519ea7cd568ffa75))
+* report play record ([684e8a70](https://github.com/Clarkkkk/Netease-Music-App/commit/684e8a70890913addeec2b42488e1a4c7b459d92))
+    
+    ### **Description**
+    
+    - add `sourceid` for Song
+    - add `useAlbum` and use it to remove some code
+    - add `updating` for `currentSong.status`
+    
+
+## **Bug Fixes**
+
+* fix problems in `Tabs` ([7c1e679e](https://github.com/Clarkkkk/Netease-Music-App/commit/7c1e679e32a7e08be8b676fe99f8833eec65c39d))
+* address an issue with repeated reporting ([4a2fdc83](https://github.com/Clarkkkk/Netease-Music-App/commit/4a2fdc833e0d0893ad4270bd568a47f0246f745e))
+* use https in RecentSongs ([f4f03a88](https://github.com/Clarkkkk/Netease-Music-App/commit/f4f03a88bee471eafc73d9230c264e4851c6caad))
+
+## **Refactor**
+
+* write `Tabs` component and refactor relative code ([5de20749](https://github.com/Clarkkkk/Netease-Music-App/commit/5de20749ab9d924bbaca3c2c42e361b1fb6dca6e))
+
+## **Performance Improvements**
+
+* add `loading="lazy"` in image of AlbumItem in home page ([24c61ded](https://github.com/Clarkkkk/Netease-Music-App/commit/24c61ded8201888aeb155a11ac456eb478c86eb0))
+* reduce image size and add `contain` for some elements ([9d2a5e84](https://github.com/Clarkkkk/Netease-Music-App/commit/9d2a5e84cbfad9f875f02ef787fe7c15af82d8cf))
+
+## **Test**
+
+* add test for `prependZero` ([602f9874](https://github.com/Clarkkkk/Netease-Music-App/commit/602f9874076f93ba6c1e0b49a2e671e37e3c0e8e))
+
+## **Chores**
+
+* update deps ([0ad8c6d7](https://github.com/Clarkkkk/Netease-Music-App/commit/0ad8c6d73641bcc5f403d01be3d7ceafe69268db))
+* add log to address repeated report issues; update deps ([26638f71](https://github.com/Clarkkkk/Netease-Music-App/commit/26638f71439fb85509c5b9f4403fb01c381530d0))
+* fix banner style, update deps and add log ([6f85e5ff](https://github.com/Clarkkkk/Netease-Music-App/commit/6f85e5ff54eb9ef365dca620d4e659c3063f15a5))
+* regenerate CHANGELOG.md with aaron-preset ([ecf8dc05](https://github.com/Clarkkkk/Netease-Music-App/commit/ecf8dc05ab2dd1bcf9c621cb3345d8f9068d4051))
+* update and patch vue-tsc ([e5bd93ed](https://github.com/Clarkkkk/Netease-Music-App/commit/e5bd93ed472fbf029c92842a3029cc1a852680e9))
+
+
+
 # 1.0.0-alpha.2    (2023-07-09)
 
 
@@ -177,6 +229,3 @@ All notable changes to this project will be documented in this file. See [commit
 * move components.d.ts to src/types ([14a5661e](https://github.com/Clarkkkk/Netease-Music-App/commit/14a5661e0414d27d9a9b16d402ce24753bb49fbd))
 * format files in pre-commit ([5ab40273](https://github.com/Clarkkkk/Netease-Music-App/commit/5ab40273b2a8d989d47229848a5d99ff043c4d3d))
 * typescript config, deps update etc ([374b7e1f](https://github.com/Clarkkkk/Netease-Music-App/commit/374b7e1f42f633854378561f4f2318dc22961fc9))
-
-
-
