@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import type { ApiTopSong } from 'api'
 import { usePlaylistStore } from 'stores'
-import { Button, SongItem } from 'components'
+import { Button, SongItem, Tabs } from 'components'
 import { post, toHttps } from 'utils'
 
 const AREA = {
@@ -12,6 +12,8 @@ const AREA = {
     JAPAN: 8,
     KOREA: 16
 } as const
+
+type AreaValue = (typeof AREA)[keyof typeof AREA]
 
 const tabs = [
     {
@@ -36,43 +38,48 @@ const tabs = [
     }
 ]
 
-const list = ref<Array<Song>>([])
-const currentTab = ref<(typeof AREA)[keyof typeof AREA]>(AREA.ALL)
+const list = ref<Record<AreaValue, Array<Song>>>({
+    [AREA.ALL]: [],
+    [AREA.CHINA]: [],
+    [AREA.WESTERN]: [],
+    [AREA.JAPAN]: [],
+    [AREA.KOREA]: []
+})
 const loading = ref(false)
+const currentTab = ref<AreaValue>(AREA.ALL)
 const { switchToThisList } = usePlaylistStore()
 
 async function onPlayAll() {
-    if (list.value.length) {
-        await switchToThisList(list.value)
+    if (list.value[currentTab.value].length) {
+        await switchToThisList(list.value[currentTab.value])
     }
 }
 
-function getData() {
-    if (loading.value) return
+async function getData(type: AreaValue) {
+    if (loading.value || list.value[type].length) return
     loading.value = true
-    post<ApiTopSong>('/top/song', { type: currentTab.value })
-        .then((res) => {
-            list.value = res.data.map((item) => {
-                return {
-                    id: item.id,
-                    name: item.name,
-                    subName: item.alias[0] || item.transNames?.[0] || '',
-                    artist: item.artists[0].name,
-                    album: item.album.name,
-                    cover: toHttps(item.album.picUrl),
-                    timestamp: 0,
-                    url: '',
-                    status: 'not-playing'
-                }
-            })
+    try {
+        const res = await post<ApiTopSong>('/top/song', { type })
+        list.value[type] = res.data.map((item) => {
+            return {
+                id: item.id,
+                name: item.name,
+                subName: item.alias[0] || item.transNames?.[0] || '',
+                artist: item.artists[0].name,
+                album: item.album.name,
+                cover: toHttps(item.album.picUrl),
+                timestamp: 0,
+                url: '',
+                status: 'not-playing'
+            }
         })
-        .finally(() => {
-            loading.value = false
-        })
+    } finally {
+        loading.value = false
+    }
 }
 
 onMounted(() => {
-    getData()
+    getData(AREA.ALL)
 })
 </script>
 
@@ -92,29 +99,26 @@ onMounted(() => {
                 播放全部
             </Button>
         </h2>
-        <div class="tabs mt-3">
-            <button
+        <Tabs
+            class="mt-3"
+            :tabs="tabs"
+            :disabled="loading"
+            :onTabChange="(tab) => getData(tab.value)"
+        >
+            <template
                 v-for="tab in tabs"
-                :key="tab.value"
-                :class="['tab', { 'tab-active': tab.value === currentTab }]"
-                :disabled="loading"
-                @click="
-                    () => {
-                        currentTab = tab.value
-                        getData()
-                    }
-                "
+                :key="tab.name"
+                #[tab.name]="{ tab: tabItem }"
             >
-                {{ tab.name }}
-            </button>
-        </div>
-        <ul class="song-list list relative w-full overflow-x-visible overflow-y-scroll">
-            <SongItem
-                v-for="song in list"
-                :key="song.id"
-                :song="song"
-            />
-        </ul>
+                <ul class="song-list list relative w-full overflow-x-visible overflow-y-scroll">
+                    <SongItem
+                        v-for="song in list[tabItem.value]"
+                        :key="song.id"
+                        :song="song"
+                    />
+                </ul>
+            </template>
+        </Tabs>
     </div>
 </template>
 

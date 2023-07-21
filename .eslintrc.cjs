@@ -57,6 +57,13 @@ module.exports = {
         ],
         'simple-import-sort/exports': 'error',
         'vue/multi-word-component-names': 'off',
+        'vue/attribute-hyphenation': [
+            'warn',
+            'always',
+            {
+                ignore: ['on']
+            }
+        ],
         'vue/component-definition-name-casing': ['error', 'PascalCase'],
         'vue/component-name-in-template-casing': [
             'error',
