@@ -30,6 +30,20 @@ const nextIndex = computed(() => {
     }
 })
 
+const visibleIndices = computed(() => {
+    if (pics.value.length === 0) {
+        return []
+    } else {
+        return [
+            currentIndex.value,
+            lastIndex.value,
+            nextIndex.value,
+            (lastIndex.value - 1 + pics.value.length) % pics.value.length,
+            (nextIndex.value + 1) % pics.value.length
+        ]
+    }
+})
+
 function moveCurrentIndex() {
     currentIndex.value = (currentIndex.value + 1) % pics.value.length
 }
@@ -101,7 +115,7 @@ onUnmounted(() => {
                 'rounded-2xl',
                 'transition-all',
                 'shadow-lg',
-                { 'content-hidden': ![currentIndex, lastIndex, nextIndex].includes(index) },
+                { 'content-hidden': !visibleIndices.includes(index) },
                 { current: index === currentIndex },
                 { last: index === lastIndex },
                 { next: index === nextIndex }

@@ -94,8 +94,12 @@ export const usePlayStatusEffect = () => {
     // 播放结束或切换歌曲时，上报歌曲的播放记录
     watch(
         [currentSong, audioStatus],
-        ([currentSong, audioStatus]) => {
+        ([currentSong, audioStatus], [previousSong, previousAudioStatus]) => {
+            // if (currentSong)
             console.log({ ...(currentSong || {}) })
+            console.log({ ...(previousSong || {}) })
+            console.log(audioStatus)
+            console.log(previousAudioStatus)
             if (
                 currentSong?.status === 'updating' &&
                 currentTime.value > 10 &&
