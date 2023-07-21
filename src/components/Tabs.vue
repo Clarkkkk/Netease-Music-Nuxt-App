@@ -4,15 +4,19 @@ import { ref } from 'vue'
 
 const props = defineProps<{
     tabs: readonly T[]
-    onTabChange: (tab: T) => void | Promise<void>
+    onTabChange?: (tab: T) => void | Promise<void>
     disabled?: boolean
     tabClass?: string
+    tabPaneClass?: string
 }>()
 const currentTab = ref<T>(props.tabs[0])
 const loading = ref(false)
 
 async function onTabClick(tab: T) {
     currentTab.value = tab as UnwrapRef<T>
+
+    if (!props.onTabChange) return
+
     loading.value = true
     try {
         await props.onTabChange(tab)
@@ -24,11 +28,11 @@ async function onTabClick(tab: T) {
 
 <template>
     <div class="flex flex-col">
-        <div class="tabs flex-fixed">
+        <div :class="['tabs', 'flex-fixed', tabClass]">
             <button
                 v-for="tab in tabs"
                 :key="tab.name"
-                :class="['tab', { 'tab-active': tab.value === currentTab.value }, tabClass]"
+                :class="['tab', { 'tab-active': tab.value === currentTab.value }]"
                 :disabled="loading || disabled"
                 @click="onTabClick(tab)"
             >
@@ -39,11 +43,11 @@ async function onTabClick(tab: T) {
             v-for="tab in tabs"
             v-show="currentTab.name === tab.name"
             :key="tab.name"
-            class="h-full w-full"
+            :class="['h-full', 'w-full', tabPaneClass]"
         >
             <slot
                 :name="tab.name"
-                :tab="tab"
+                :tab="currentTab"
             />
         </div>
     </div>
