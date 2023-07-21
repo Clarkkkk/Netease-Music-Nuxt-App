@@ -97,8 +97,8 @@ devDependencies:
     specifier: ^3.1.25
     version: 3.1.25
   conventional-changelog-aaron-preset:
-    specifier: ^0.2.1
-    version: 0.2.1
+    specifier: ^0.2.2
+    version: 0.2.2
   conventional-changelog-cli:
     specifier: ^2.2.2
     version: 2.2.2
@@ -3925,8 +3925,8 @@ packages:
       well-known-symbols: 2.0.0
     dev: true
 
-  /conventional-changelog-aaron-preset@0.2.1:
-    resolution: {integrity: sha512-zB4rPrSYydTNY02mNOyNvRF8J1ELknruRiR9RrQ3Fmunmb1731I2qIeYdnqxJz5uWWi5Fj4EGWu6FyPpnRTIEw==}
+  /conventional-changelog-aaron-preset@0.2.2:
+    resolution: {integrity: sha512-VL1KC7PtO8T+eQXsqDN5T5NEvPng3BDpPBDZpVW7MOSGdHJHVWH/vF3dvCW4PKHdBXbYYgMIhFkj4kz7GWGewg==}
     engines: {node: '>=14'}
     dev: true
 
