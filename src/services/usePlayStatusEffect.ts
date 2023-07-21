@@ -96,10 +96,11 @@ export const usePlayStatusEffect = () => {
         [currentSong, audioStatus],
         ([currentSong, audioStatus], [previousSong, previousAudioStatus]) => {
             // if (currentSong)
-            console.log({ ...(currentSong || {}) })
-            console.log({ ...(previousSong || {}) })
+            console.log(JSON.stringify(currentSong))
+            console.log(JSON.stringify(previousSong))
             console.log(audioStatus)
             console.log(previousAudioStatus)
+            console.log(Date.now())
             if (
                 currentSong?.status === 'updating' &&
                 currentTime.value > 10 &&

@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useAudioStore, usePlaylistStore } from 'stores'
 
-const { audioRef, loop } = storeToRefs(useAudioStore())
+const { audioRef, loop, audioStatus } = storeToRefs(useAudioStore())
 const { updateAudioStatus, updateCurrentTime, updateDuration } = useAudioStore()
 const { currentSong } = storeToRefs(usePlaylistStore())
 </script>
@@ -23,8 +23,10 @@ const { currentSong } = storeToRefs(usePlaylistStore())
         @play="updateAudioStatus('playing')"
         @pause="
             () => {
-                console.log('paused in audio')
-                updateAudioStatus('paused')
+                if (audioStatus !== 'error') {
+                    console.log('paused in audio')
+                    updateAudioStatus('paused')
+                }
             }
         "
         @waiting="updateAudioStatus('loading')"

@@ -5,7 +5,6 @@ import { Button } from 'components'
 
 const { audioStatus } = storeToRefs(useAudioStore())
 const { play, pause, playAgain } = useAudioStore()
-// const { currentSong, nextSong } = storeToRefs(usePlaylistStore())
 const { switchToLastSong, switchToNextSong } = usePlaylistStore()
 
 function switchPlay() {
@@ -37,7 +36,9 @@ function switchPlay() {
         >
             <template #icon>
                 <i-solar-play-bold-duotone
-                    v-if="['not-ready', 'can-play', 'paused', 'ended'].includes(audioStatus)"
+                    v-if="
+                        ['not-ready', 'can-play', 'paused', 'ended', 'error'].includes(audioStatus)
+                    "
                     class="h-6 w-6"
                 />
                 <i-solar-pause-bold-duotone
