@@ -14,6 +14,10 @@ const navRoutes = [
         to: '/'
     },
     {
+        name: 'Search',
+        to: '/search'
+    },
+    {
         name: 'Playing',
         to: '/playing'
     },

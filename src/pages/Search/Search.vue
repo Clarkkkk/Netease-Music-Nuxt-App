@@ -50,7 +50,7 @@ watch(
         id="search"
         class="container mx-auto flex flex-col items-center px-12 pt-16"
     >
-        <div class="relative mr-8 mt-12">
+        <div class="relative mt-12 flex w-full justify-center md:w-auto">
             <i-solar-magnifer-line-duotone
                 v-view-transition-name="'search-icon'"
                 class="absolute left-4 top-1/2 z-10 h-6 w-6 -translate-y-1/2 text-primary"
@@ -60,12 +60,13 @@ watch(
                 v-view-transition-name="'search-input'"
                 type="search"
                 autofocus
-                class="input-primary input w-128 pl-14 text-lg"
+                class="input-primary input w-full pl-14 text-lg md:w-128"
                 @keydown.enter="(e) => onSearch((e.target as HTMLInputElement).value)"
             />
         </div>
 
         <Tabs
+            v-if="keyword"
             :tabs="tabs"
             class="flex w-full flex-col items-center"
             tab-class="mt-6"

@@ -123,14 +123,14 @@ onBeforeRouteUpdate((to, from) => {
 </script>
 
 <template>
-    <div class="flex w-full">
+    <div class="w-full lg:flex">
         <SongResult :list="mixedData.song.list" />
         <SonglistResult
-            class="ml-8"
+            class="mt-8 lg:ml-8 lg:mt-0"
             :list="mixedData.songlist.list"
         />
         <AlbumResult
-            class="ml-8"
+            class="mt-8 lg:ml-8 lg:mt-0"
             :list="mixedData.album.list"
         />
     </div>
