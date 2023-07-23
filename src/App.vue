@@ -48,7 +48,7 @@ html::view-transition-group(*) {
     animation-duration: 0.5s;
     animation-timing-function: ease;
     /** reduce animation glitch */
-    animation-delay: 0.1s;
+    animation-delay: 50ms;
 }
 
 // don't need the default transition

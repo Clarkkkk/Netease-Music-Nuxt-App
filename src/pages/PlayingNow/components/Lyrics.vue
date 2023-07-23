@@ -74,4 +74,12 @@ watch(lyricsCurrentIndex, (currentIndex) => {
         scroll-snap-stop: normal;
     }
 }
+
+@container (max-height: 400px) {
+    #playing-lyrics {
+        margin: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+    }
+}
 </style>

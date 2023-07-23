@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useDeviceType } from 'services'
+import { useMediaQuery } from '@vueuse/core'
 import { MusicBar } from 'components'
 import { Cover, Info, Lyrics, RadioControls } from './components'
 
-const { isPc } = useDeviceType()
+const showLyrics = useMediaQuery('(min-width: 1024px)')
 </script>
 
 <template>
@@ -21,7 +21,7 @@ const { isPc } = useDeviceType()
             <RadioControls class="mt-8" />
         </div>
         <div
-            v-if="isPc"
+            v-if="showLyrics"
             class="flex h-full w-full flex-col items-center justify-center bg-base-100 lg:w-1/2"
         >
             <Lyrics />

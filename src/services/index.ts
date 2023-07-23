@@ -1,4 +1,5 @@
 export * from './useAlbum'
+export * from './useAnimation'
 export * from './useDeviceType'
 export * from './useIsHovering'
 export * from './useLoginInitEffect'
