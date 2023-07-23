@@ -1,6 +1,7 @@
 export { default as Button } from './Button.vue'
 export { default as Collapsible } from './Collapsible.vue'
 export { default as DefaultCover } from './DefaultCover.vue'
+export * from './Drawer'
 export * from './Globals'
 export { default as Image } from './Image.vue'
 export { default as Loading } from './Loading.vue'

@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     ISolarAltArrowLeftLinear: typeof import('~icons/solar/alt-arrow-left-linear')['default']
     ISolarAltArrowRightLinear: typeof import('~icons/solar/alt-arrow-right-linear')['default']
     ISolarGalleryBoldDuotone: typeof import('~icons/solar/gallery-bold-duotone')['default']
+    ISolarHamburgerMenuLineDuotone: typeof import('~icons/solar/hamburger-menu-line-duotone')['default']
     ISolarListHeartMinimalisticLineDuotone: typeof import('~icons/solar/list-heart-minimalistic-line-duotone')['default']
     ISolarMagniferLineDuotone: typeof import('~icons/solar/magnifer-line-duotone')['default']
     ISolarMenuDotsBold: typeof import('~icons/solar/menu-dots-bold')['default']
