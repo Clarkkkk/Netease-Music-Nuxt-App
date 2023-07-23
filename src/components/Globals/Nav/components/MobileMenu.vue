@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, useProfileStore } from 'stores'
@@ -6,26 +7,32 @@ import { Button, Drawer, DrawerBackground, DrawerContent, DrawerTrigger, Image }
 import { wait } from 'utils'
 
 const { profile } = storeToRefs(useProfileStore())
-const { logout } = useAuthStore()
+const { loggedIn } = storeToRefs(useAuthStore())
+const { logout, openLogin } = useAuthStore()
 const router = useRouter()
-const navRoutes = [
-    {
-        name: 'Home',
-        to: '/'
-    },
-    {
-        name: 'Search',
-        to: '/search'
-    },
-    {
-        name: 'Playing',
-        to: '/playing'
-    },
-    {
-        name: 'My music',
-        to: 'user-center'
+const navRoutes = computed(() => {
+    const arr = [
+        {
+            name: 'Home',
+            to: '/'
+        },
+        {
+            name: 'Search',
+            to: '/search'
+        },
+        {
+            name: 'Playing',
+            to: '/playing'
+        }
+    ]
+    if (loggedIn.value) {
+        arr.push({
+            name: 'My music',
+            to: 'user-center'
+        })
     }
-]
+    return arr
+})
 const route = useRoute()
 
 function isActiveRoute(to: string) {
@@ -115,10 +122,18 @@ async function onRouteClick(to: string, close: () => void) {
                         </div>
 
                         <Button
-                            class="logout-btn btn-primary btn-outline btn absolute bottom-4 mt-8"
+                            v-if="loggedIn"
+                            class="logout-btn btn-primary btn-outline absolute bottom-4 mt-8"
                             @click="onLogout"
                         >
                             退出登录
+                        </Button>
+                        <Button
+                            v-else
+                            class="logout-btn btn-primary absolute bottom-4 mt-8"
+                            @click="openLogin"
+                        >
+                            登录
                         </Button>
                     </div>
                 </DrawerContent>
