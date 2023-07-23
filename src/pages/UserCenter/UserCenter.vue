@@ -37,11 +37,11 @@ onProfileLoaded((p) => {
         <div class="container relative z-10 mx-auto">
             <UserInfo />
             <AlbumList />
-            <div class="mt-12 flex">
-                <div class="w-2/3">
+            <div class="mt-12 px-4 lg:flex">
+                <div class="w-full lg:w-2/3">
                     <FavoriteSongs :id="favoriteListId" />
                 </div>
-                <div class="ml-12 w-1/3">
+                <div class="mt-12 w-full lg:ml-12 lg:mt-0 lg:w-1/3">
                     <RecentSongs />
                 </div>
             </div>

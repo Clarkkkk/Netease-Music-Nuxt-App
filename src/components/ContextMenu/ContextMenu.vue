@@ -122,6 +122,7 @@ provide('ContextMenu', { hideMenu })
 
 .context-menu-popup {
     height: 100dvh;
+    z-index: 2500;
 }
 
 .slide-enter-from,

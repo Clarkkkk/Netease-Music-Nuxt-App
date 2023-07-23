@@ -25,7 +25,7 @@ watch(props, async (val) => {
 
 <template>
     <div
-        class="my-favorite-songs flex w-full flex-col rounded-lg bg-gradient-to-b from-secondary/5 to-30% p-4"
+        class="my-favorite-songs flex w-full flex-col rounded-lg bg-base-100 bg-gradient-to-b from-secondary/5 to-30% p-4"
     >
         <h2
             class="flex items-center justify-between border-l-4 border-secondary px-2 text-lg/5 font-bold"

@@ -7,16 +7,18 @@ const { profile } = storeToRefs(useProfileStore())
 </script>
 
 <template>
-    <div class="flex h-40 items-center justify-between px-4">
+    <div
+        class="flex h-40 flex-col items-start justify-center px-4 md:flex-row md:items-center md:justify-between"
+    >
         <template v-if="profile">
             <div class="flex items-center">
                 <Image
                     :src="profile.profile.avatarUrl"
-                    class="h-20 w-20 rounded-full"
+                    class="h-16 w-16 rounded-full md:h-20 md:w-20"
                 />
                 <div class="ml-4">
                     <div>
-                        <span class="text-xl font-bold">
+                        <span class="text-lg font-bold md:text-xl">
                             {{ profile.profile.nickname }}
                         </span>
                         <span class="badge badge-primary badge-sm ml-2">
@@ -25,14 +27,14 @@ const { profile } = storeToRefs(useProfileStore())
                     </div>
                     <div
                         v-if="profile.profile.signature"
-                        class="mt-2 text-sm text-base-content"
+                        class="text-sm text-base-content md:mt-2"
                     >
                         {{ profile.profile.signature }}
                     </div>
                 </div>
             </div>
-            <div class="text-end">
-                <div class="text-sm">
+            <div class="mt-4 w-full text-end md:mt-0 md:w-auto">
+                <div class="text-xs md:text-sm">
                     注册于
                     <span class="font-bold text-secondary">
                         {{ new Date(profile.createTime).toLocaleDateString() }}
@@ -43,7 +45,7 @@ const { profile } = storeToRefs(useProfileStore())
                     </span>
                     天
                 </div>
-                <div class="mt-2 text-sm">
+                <div class="text-xs md:mt-2 md:text-sm">
                     已收听
                     <span class="font-bold text-secondary">
                         {{ profile.listenSongs }}
