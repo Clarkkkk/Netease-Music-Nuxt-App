@@ -95,7 +95,8 @@ export const usePlayStatusEffect = () => {
     watch(
         [currentSong, audioStatus],
         ([currentSong, audioStatus], [previousSong, previousAudioStatus]) => {
-            // if (currentSong)
+            if (!loggedIn.value) return
+
             console.log(JSON.stringify(currentSong))
             console.log(JSON.stringify(previousSong))
             console.log(audioStatus)
