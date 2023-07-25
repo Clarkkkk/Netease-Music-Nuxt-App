@@ -10,32 +10,23 @@ const { isPc } = useDeviceType()
 
 <template>
     <li
-        class="my-2 flex h-14 w-full items-center rounded-lg p-2 transition-all duration-500 @container contain-strict content-auto intrinsic-w-auto-20 intrinsic-h-auto-14 hover:bg-base-200/50"
+        class="song-item my-2 flex h-14 w-full items-center rounded-lg p-2 transition-all duration-500 @container contain-strict content-auto intrinsic-w-auto-20 intrinsic-h-auto-14 hover:bg-base-200/50"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
     >
-        <div class="relative mr-2 h-10 w-10 flex-fixed">
+        <div class="image-container relative mr-2 h-10 w-10 flex-fixed">
             <Image
                 :src="song.cover"
                 :class="[
-                    'absolute',
-                    'left-0',
-                    'top-0',
+                    'image',
+                    'relative',
+                    'z-10',
                     'h-full',
                     'w-full',
                     'flex-fixed',
                     'rounded-lg',
-                    'transition-all',
-                    'duration-500',
-                    'opacity-50',
-                    { blur: isHovering }
+                    { hovering: isHovering }
                 ]"
-                loading="lazy"
-                :size="40"
-            />
-            <Image
-                :src="song.cover"
-                class="relative z-10 h-full w-full flex-fixed rounded-lg"
                 loading="lazy"
                 :size="40"
             />
@@ -89,4 +80,26 @@ const { isPc } = useDeviceType()
     </li>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+.song-item {
+    .image-container {
+        perspective: 100px;
+        transition: transform 500ms;
+
+        transform-origin: 50%;
+    }
+    .image {
+        transition: transform 500ms;
+        content-visibility: visible;
+    }
+
+    &:hover {
+        .image-container {
+            transform: rotate3d(0, 0, 10, -5deg);
+        }
+        .image {
+            transform: rotateY(20deg) scale(1.25);
+        }
+    }
+}
+</style>

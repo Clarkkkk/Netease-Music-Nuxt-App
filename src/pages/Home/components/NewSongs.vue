@@ -132,7 +132,7 @@ onMounted(() => {
 
     .song-list::after {
         content: '';
-        position: absolute;
+        position: sticky;
         bottom: 0;
         left: 0;
         display: block;

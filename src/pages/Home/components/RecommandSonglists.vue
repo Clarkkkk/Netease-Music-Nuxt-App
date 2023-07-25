@@ -44,7 +44,7 @@ watch(
 
 <template>
     <div
-        id="recommand-songlists"
+        id="recommend-songlists"
         class="mt-8 w-full contain-content md:mt-12"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
@@ -71,4 +71,8 @@ watch(
     </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+#recommend-songlists {
+    height: 388px;
+}
+</style>
