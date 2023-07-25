@@ -15,6 +15,7 @@ const props = defineProps<{
     loading?: 'lazy' | 'eager'
     size?: number
     crossorigin?: 'anonymous' | 'use-credentials'
+    blurBeforeLoaded?: boolean
     onLoad?: (img: HTMLImageElement) => void
 }>()
 
@@ -49,7 +50,7 @@ defineExpose({
                 'items-center',
                 'justify-center',
                 'overflow-hidden',
-                { 'blur-lg': loadingStatus }
+                { 'blur-lg': loadingStatus && !!blurBeforeLoaded }
             ]"
         >
             <source

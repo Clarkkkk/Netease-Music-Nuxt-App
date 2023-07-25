@@ -122,6 +122,7 @@ onUnmounted(() => {
             ]"
             :src="toHttps(pic.imageUrl)"
             loading="lazy"
+            :blur-before-loaded="true"
             @click="onImageClick(pic)"
         />
     </div>
