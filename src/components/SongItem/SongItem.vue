@@ -10,7 +10,7 @@ const { isPc } = useDeviceType()
 
 <template>
     <li
-        class="my-2 flex w-full items-center rounded-lg p-2 transition-all duration-500 @container hover:bg-base-200/50"
+        class="my-2 flex h-14 w-full items-center rounded-lg p-2 transition-all duration-500 @container contain-strict content-auto intrinsic-w-auto-20 intrinsic-h-auto-14 hover:bg-base-200/50"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
     >

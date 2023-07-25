@@ -102,7 +102,7 @@ onUnmounted(() => {
 <template>
     <div
         id="home-banner"
-        class="relative"
+        class="relative contain-content"
     >
         <Image
             v-for="(pic, index) in pics"

@@ -45,7 +45,7 @@ watch(
 <template>
     <div
         id="recommand-songlists"
-        class="mt-8 w-full md:mt-12"
+        class="mt-8 w-full contain-content md:mt-12"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
         <ul

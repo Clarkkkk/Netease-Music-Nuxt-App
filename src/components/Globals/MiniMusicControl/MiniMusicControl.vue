@@ -5,7 +5,7 @@ import { Controls, Cover, Info, MusicBar, Playlist } from './components'
 <template>
     <div
         id="mini-music-control"
-        class="fixed bottom-4 left-0 z-[1000] flex w-full items-center justify-center rounded-xl px-2"
+        class="fixed bottom-4 left-0 z-[1000] flex h-14 w-full items-center justify-center rounded-xl px-2 contain-layout"
     >
         <div
             v-view-transition-name="'playing-background'"

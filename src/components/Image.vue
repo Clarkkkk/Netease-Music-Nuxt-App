@@ -36,7 +36,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class="picture transition-all duration-500">
+    <div class="picture transition-all duration-500 content-auto">
         <picture
             v-show="!!src"
             class="picture"
