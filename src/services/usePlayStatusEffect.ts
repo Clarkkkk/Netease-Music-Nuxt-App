@@ -30,10 +30,6 @@ export const usePlayStatusEffect = () => {
         }
     }
 
-    watchEffect(() => {
-        console.log(playlist.value)
-    })
-
     // 当前歌曲准备就绪后自动播放
     watch(
         [currentSong, audioStatus],
@@ -94,31 +90,20 @@ export const usePlayStatusEffect = () => {
     // 播放结束或切换歌曲时，上报歌曲的播放记录
     watch(
         [currentSong, audioStatus],
-        ([currentSong, audioStatus], [previousSong, previousAudioStatus]) => {
+        ([currentSong, audioStatus]) => {
             if (!loggedIn.value) return
 
-            console.log(JSON.stringify(currentSong))
-            console.log(JSON.stringify(previousSong))
-            console.log(audioStatus)
-            console.log(previousAudioStatus)
-            console.log(Date.now())
             if (
                 currentSong?.status === 'updating' &&
                 currentTime.value > 10 &&
                 audioStatus !== 'error'
             ) {
-                console.log('updating report')
-                console.log(currentSong.id)
-                console.log(currentTime.value)
                 post<ApiScrobble>('/scrobble', {
                     id: currentSong.id,
                     sourceid: currentSong.sourceid,
                     time: currentTime.value
                 })
             } else if (audioStatus === 'ended' && currentSong) {
-                console.log('ended report')
-                console.log(currentSong.id)
-                console.log(duration.value)
                 post<ApiScrobble>('/scrobble', {
                     id: currentSong.id,
                     sourceid: currentSong.sourceid,

@@ -17,8 +17,6 @@ onMounted(() => {
         threshold: 0.0
     }
     const callback: IntersectionObserverCallback = (entries, observer) => {
-        console.log(entries)
-        console.log(props.isBottom)
         entries.forEach((entry) => {
             if (entry.target === element.value && visible.value !== entry.isIntersecting) {
                 visible.value = entry.isIntersecting

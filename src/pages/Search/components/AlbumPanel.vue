@@ -37,7 +37,6 @@ async function getData(offset: number) {
             keywords: keyword.value,
             offset
         })
-        console.log(res)
         const list = data.value.list
         const newList = res.result.albums.map((item) => {
             return {
@@ -60,9 +59,6 @@ async function getData(offset: number) {
 watch(
     [props, route],
     ([propsVal, routeVal], [_, routeOldVal]) => {
-        console.log(propsVal.active)
-        console.log(routeOldVal?.query.keyword)
-        console.log(routeVal.query.keyword)
         if (
             propsVal.active &&
             (data.value.offset === 0 || routeVal.query.keyword !== routeOldVal?.query.keyword)

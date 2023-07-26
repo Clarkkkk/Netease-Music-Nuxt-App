@@ -37,7 +37,6 @@ async function getData(offset: number, keyword: string) {
             keywords: keyword,
             offset
         })
-        console.log(res)
         const list = data.value.list
         const newList = res.result.songs.map((item) => {
             return {

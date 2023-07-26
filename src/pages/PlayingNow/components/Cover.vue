@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import { useAnimation, useIsHovering } from 'services'
@@ -15,14 +15,8 @@ const isInverse = ref(false)
 const inverse = useAnimation()
 const restore = useAnimation()
 
-watchEffect(() => {
-    console.log('isInverse')
-    console.log(isInverse.value)
-})
-
 onBeforeRouteLeave(async () => {
     if (isInverse.value) {
-        console.log('still inverse')
         isInverse.value = false
         await wait(100)
     }

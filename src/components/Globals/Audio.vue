@@ -24,7 +24,6 @@ const { currentSong } = storeToRefs(usePlaylistStore())
         @pause="
             () => {
                 if (audioStatus !== 'error') {
-                    console.log('paused in audio')
                     updateAudioStatus('paused')
                 }
             }

@@ -26,7 +26,6 @@ export function useLyricsEffect() {
             updateLyrics('')
             post<ApiLyric>('/lyric', { id: song.id }).then((res) => {
                 updateLyrics(res.lrc.lyric, res.tlyric.lyric)
-                console.log(player.value.lyrics)
             })
         }
     })
