@@ -37,7 +37,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class="picture transition-all duration-500 content-auto">
+    <div class="picture transition-all duration-500 contain-content content-auto">
         <picture
             v-show="!!src"
             class="picture"
@@ -81,8 +81,4 @@ defineExpose({
     </div>
 </template>
 
-<style lang="scss">
-.picture {
-    contain: content;
-}
-</style>
+<style lang="scss"></style>

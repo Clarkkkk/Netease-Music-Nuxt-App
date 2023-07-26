@@ -43,7 +43,12 @@ async function onTabClick(tab: T) {
             v-for="tab in tabs"
             v-show="currentTab.name === tab.name"
             :key="tab.name"
-            :class="['h-full', 'w-full', tabPaneClass]"
+            :class="[
+                'h-full',
+                'w-full',
+                tabPaneClass,
+                { 'content-hidden': currentTab.name !== tab.name }
+            ]"
         >
             <slot
                 :name="tab.name"

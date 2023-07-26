@@ -43,7 +43,7 @@ watch(
 <template>
     <div
         id="recommand-songs"
-        class="flex w-full flex-col rounded-lg bg-gradient-to-b from-secondary/5 to-30% p-4 contain-content"
+        class="flex w-full flex-col rounded-lg bg-gradient-to-b from-secondary/5 to-30% p-4 contain-content content-auto intrinsic-[auto_300px]"
     >
         <h2
             class="flex items-center justify-between border-l-4 border-secondary px-2 text-lg/5 font-bold"

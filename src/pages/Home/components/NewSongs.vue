@@ -86,7 +86,7 @@ onMounted(() => {
 <template>
     <div
         id="new-songs"
-        class="flex w-full flex-col rounded-lg bg-gradient-to-b from-accent/5 to-30% p-4 contain-content"
+        class="flex w-full flex-col rounded-lg bg-gradient-to-b from-accent/5 to-30% p-4 contain-content content-auto intrinsic-[auto_300px]"
     >
         <h2
             class="flex items-center justify-between border-l-4 border-accent px-2 text-lg/5 font-bold"

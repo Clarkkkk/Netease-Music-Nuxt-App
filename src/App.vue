@@ -86,4 +86,8 @@ html::view-transition-group(*) {
         background: transparent;
     }
 }
+
+.btn {
+    animation: none !important;
+}
 </style>
