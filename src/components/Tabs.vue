@@ -52,7 +52,7 @@ async function onTabClick(tab: T) {
         >
             <slot
                 :name="tab.name"
-                :tab="currentTab"
+                :tab="tab"
             />
         </div>
     </div>
