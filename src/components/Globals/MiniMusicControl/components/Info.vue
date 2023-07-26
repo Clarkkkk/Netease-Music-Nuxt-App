@@ -33,7 +33,8 @@ const { currentSong } = storeToRefs(usePlaylistStore())
         </div>
         <div
             v-else
-            class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
+            v-view-transition-name="'playing-name'"
+            class="overflow-hidden text-ellipsis whitespace-nowrap text-sm text-base-content"
         >
             未播放
         </div>

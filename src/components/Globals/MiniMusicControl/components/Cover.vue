@@ -42,7 +42,10 @@ const router = useRouter()
             loading="lazy"
             :size="40"
         />
-        <DefaultCover v-else />
+        <DefaultCover
+            v-else
+            v-view-transition-name="'playing-cover'"
+        />
     </div>
 </template>
 
