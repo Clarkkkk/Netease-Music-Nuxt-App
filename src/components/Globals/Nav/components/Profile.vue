@@ -3,6 +3,7 @@ import { Tippy } from 'vue-tippy'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, useProfileStore } from 'stores'
 import Button from '../../../Button.vue'
+import Image from '../../../Image.vue'
 const { profile } = storeToRefs(useProfileStore())
 const { logout } = useAuthStore()
 
@@ -19,22 +20,23 @@ async function onLogout() {
             interactive
             :delay="[0, 300]"
         >
-            <button class="btn-ghost btn">
-                <img
+            <Button class="btn-ghost btn">
+                <Image
                     v-if="!!profile"
                     :src="profile.profile.avatarUrl"
                     class="h-8 w-8 rounded-full object-cover"
+                    :size="64"
                 />
                 <i-solar-user-bold-duotone
                     v-else
                     class="h-6 w-6"
                 />
-            </button>
+            </Button>
 
             <template #content>
                 <div class="card glass flex h-auto w-80 flex-col items-center !shadow-2xl">
                     <figure class="h-48 w-full bg-base-200">
-                        <img
+                        <Image
                             v-if="!!profile"
                             :src="profile.profile.backgroundUrl"
                             class="h-full w-full object-cover"
@@ -46,10 +48,11 @@ async function onLogout() {
                     </figure>
                     <div class="avatar -mb-8 flex -translate-y-1/2 justify-center">
                         <div class="w-20 rounded-full">
-                            <img
+                            <Image
                                 v-if="!!profile"
                                 :src="profile.profile.avatarUrl"
                                 class="h-full w-full object-cover"
+                                :size="160"
                             />
                             <i-solar-user-circle-bold-duotone
                                 v-else

@@ -73,6 +73,7 @@ function onImageLoad(img: HTMLImageElement) {
                     v-if="info?.artists[0].img1V1Url"
                     :src="toHttps(info.artists[0].img1V1Url)"
                     class="mr-2 h-6 w-6 rounded-full"
+                    :size="48"
                 />
                 <i-solar-user-bold-duotone
                     v-else

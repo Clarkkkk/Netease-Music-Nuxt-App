@@ -74,6 +74,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
                 <Image
                     :src="creatorAvatar"
                     class="mr-1 h-4 w-4 rounded-full"
+                    :size="32"
                 />
                 <div class="text-xs text-base-content/90">
                     {{ creator }}

@@ -80,6 +80,7 @@ async function onRouteClick(to: string, close: () => void) {
                             <Image
                                 :src="profile.profile.avatarUrl"
                                 class="h-14 w-14 rounded-full"
+                                :size="112"
                             />
                             <div class="ml-4">
                                 <div>
