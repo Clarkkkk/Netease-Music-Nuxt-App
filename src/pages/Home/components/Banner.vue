@@ -120,7 +120,6 @@ onUnmounted(() => {
                 { next: index === nextIndex }
             ]"
             :src="toHttps(pic.imageUrl)"
-            loading="lazy"
             :blur-before-loaded="index === currentIndex"
             @click="onImageClick(pic)"
         />
