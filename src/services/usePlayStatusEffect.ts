@@ -96,18 +96,13 @@ export const usePlayStatusEffect = () => {
             if (
                 currentSong?.status === 'updating' &&
                 currentTime.value > 10 &&
-                audioStatus !== 'error'
+                audioStatus !== 'error' &&
+                audioStatus !== 'ended'
             ) {
                 post<ApiScrobble>('/scrobble', {
                     id: currentSong.id,
                     sourceid: currentSong.sourceid,
                     time: currentTime.value
-                })
-            } else if (audioStatus === 'ended' && currentSong) {
-                post<ApiScrobble>('/scrobble', {
-                    id: currentSong.id,
-                    sourceid: currentSong.sourceid,
-                    time: duration.value
                 })
             }
         },
@@ -115,6 +110,18 @@ export const usePlayStatusEffect = () => {
             deep: true
         }
     )
+
+    watch(audioStatus, (val) => {
+        if (!loggedIn.value || !currentSong.value) return
+
+        if (val === 'ended') {
+            post<ApiScrobble>('/scrobble', {
+                id: currentSong.value.id,
+                sourceid: currentSong.value.sourceid,
+                time: duration.value
+            })
+        }
+    })
 
     // 播放私人fm时，如果即将到达列表末尾，更新播放列表
     watch([loggedIn, playMode, currentSong], async ([loggedIn, playMode, currentSong]) => {
