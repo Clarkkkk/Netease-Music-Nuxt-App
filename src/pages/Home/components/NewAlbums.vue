@@ -36,7 +36,7 @@ onMounted(() => {
 <template>
     <div
         id="new-albums"
-        class="w-full contain-content md:mt-6"
+        class="w-full px-6 contain-[layout_style] md:mt-6"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">新碟上架</h2>
         <ul class="relative flex w-full flex-wrap items-center py-4">

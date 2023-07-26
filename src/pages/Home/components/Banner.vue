@@ -102,7 +102,7 @@ onUnmounted(() => {
 <template>
     <div
         id="home-banner"
-        class="relative contain-content"
+        class="relative mx-auto contain-content"
     >
         <Image
             v-for="(pic, index) in pics"
@@ -110,7 +110,6 @@ onUnmounted(() => {
             :class="[
                 'banner-image',
                 'absolute',
-                'top-1/2',
                 'left-1/2',
                 'rounded-2xl',
                 'transition-all',
@@ -122,7 +121,7 @@ onUnmounted(() => {
             ]"
             :src="toHttps(pic.imageUrl)"
             loading="lazy"
-            :blur-before-loaded="true"
+            :blur-before-loaded="index === currentIndex"
             @click="onImageClick(pic)"
         />
     </div>
@@ -132,7 +131,7 @@ onUnmounted(() => {
 #home-banner {
     width: calc(100% + 3rem);
     transform: translateX(-1.5rem);
-    aspect-ratio: 3 / 1;
+    aspect-ratio: 48 / 17;
 
     @media (min-width: 1280px) {
         width: 100%;
@@ -140,7 +139,7 @@ onUnmounted(() => {
     }
 
     .banner-image {
-        width: 90%;
+        width: calc(90% - 2rem);
 
         @media (min-width: 1280px) {
             // width: 80%;
@@ -150,6 +149,7 @@ onUnmounted(() => {
         opacity: 0;
         z-index: -1;
         pointer-events: none;
+        top: 47%;
 
         &.last {
             opacity: 1;
@@ -181,10 +181,6 @@ onUnmounted(() => {
             transform: translateX(calc(-35%)) translateY(-50%) scale(0.8);
             filter: blur(10px);
             z-index: 0;
-        }
-
-        &.content-hidden {
-            content-visibility: hidden;
         }
     }
 }

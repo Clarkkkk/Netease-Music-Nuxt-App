@@ -26,6 +26,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             'transition-all',
             'duration-500',
             'cursor-pointer',
+            'contain-[layout_style]',
             { '-translate-y-1': isHovering }
         ]"
         @mouseenter="onMouseEnter"
@@ -46,7 +47,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             loading="lazy"
         />
 
-        <div class="absolute h-full w-full overflow-hidden rounded">
+        <div class="absolute h-full w-full overflow-hidden rounded content-auto">
             <Image
                 :src="picUrl"
                 class="h-full w-full blur-xl"
@@ -56,17 +57,21 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
         </div>
         <Image
             :src="picUrl"
-            class="relative flex-fixed rounded-t"
+            class="relative aspect-square flex-fixed rounded-t"
             :size="200"
             loading="lazy"
         />
-        <div class="relative w-full rounded-b bg-base-100/90 p-2 text-sm text-base-content md:p-4">
+        <div
+            class="relative h-[72px] w-full rounded-b bg-base-100/90 p-2 text-sm text-base-content content-auto md:p-4"
+        >
             <div
                 class="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold text-base-content/90"
             >
                 {{ name }}
             </div>
-            <div class="mt-1 text-xs text-base-content/90">
+            <div
+                class="mt-1 overflow-hidden text-ellipsis whitespace-nowrap text-xs text-base-content/90"
+            >
                 {{ artist }}
             </div>
         </div>

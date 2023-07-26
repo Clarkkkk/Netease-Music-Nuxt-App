@@ -45,7 +45,7 @@ watch(
 <template>
     <div
         id="recommend-songlists"
-        class="mt-8 w-full contain-content md:mt-12"
+        class="mt-8 w-full px-6 contain-[layout_style] md:mt-8"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
         <ul
@@ -74,5 +74,11 @@ watch(
 <style lang="scss">
 #recommend-songlists {
     height: 388px;
+}
+
+@media (max-width: 640px) {
+    #recommend-songlists {
+        height: 724px;
+    }
 }
 </style>

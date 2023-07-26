@@ -30,6 +30,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
             'h-24',
             'cursor-pointer',
             'relative',
+            'contain-[layout_style]',
             { '-translate-y-1': isHovering }
         ]"
         @mouseenter="onMouseEnter"
