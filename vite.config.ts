@@ -58,7 +58,7 @@ export default defineConfig(() => {
                 workbox: {
                     skipWaiting: true,
                     clientsClaim: true,
-                    globPatterns: ['**/{main,vendor,index}.*.{js,css}'],
+                    globPatterns: ['**/{main,vendor,index}*.{js,css}'],
                     globIgnores: ['**/*.html', '**/*.webmanifest'],
                     maximumFileSizeToCacheInBytes: 2000 * 1000,
                     sourcemap: false,
@@ -66,7 +66,7 @@ export default defineConfig(() => {
                     cleanupOutdatedCaches: true,
                     runtimeCaching: [
                         {
-                            urlPattern: '^https://carllllo.work/music.*\\.(js|css)$',
+                            urlPattern: /^https:\/\/carllllo.work\/music.*\.(js|css)$/,
                             handler: 'CacheFirst',
                             options: {
                                 cacheName: 'app-shell',

@@ -12,6 +12,7 @@
     "test:update": "vitest --update",
     "test:run": "vitest --run --changed",
     "benchmark": "vitest bench --changed",
+    "compile": "vite build",
     "build": "vue-tsc --noEmit && vite build",
     "format": "eslint --fix --cache src/**/*.{vue,ts}",
     "lint-staged": "lint-staged",
