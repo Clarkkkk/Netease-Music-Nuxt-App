@@ -48,6 +48,12 @@ async function onLogout() {
     window.location.reload()
 }
 
+async function onLoginClick() {
+    close()
+    await wait(200)
+    openLogin()
+}
+
 async function onRouteClick(to: string, close: () => void) {
     close()
     if (!isActiveRoute(to)) {
@@ -132,7 +138,7 @@ async function onRouteClick(to: string, close: () => void) {
                         <Button
                             v-else
                             class="logout-btn btn-primary absolute bottom-4 mt-8"
-                            @click="openLogin"
+                            @click="onLoginClick"
                         >
                             登录
                         </Button>
