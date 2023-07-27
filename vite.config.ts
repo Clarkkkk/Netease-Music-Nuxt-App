@@ -45,6 +45,7 @@ export default defineConfig(() => {
                 resolvers: [IconsResolver()]
             }),
             VitePWA({
+                injectRegister: 'inline',
                 registerType: 'autoUpdate',
                 manifest: {
                     name: 'Netease Music',
@@ -57,7 +58,7 @@ export default defineConfig(() => {
                 workbox: {
                     skipWaiting: true,
                     clientsClaim: true,
-                    globPatterns: ['**/{main,vendor}.*.{js,css}'],
+                    globPatterns: ['**/{main,vendor,index}.*.{js,css}'],
                     globIgnores: ['**/*.html', '**/*.webmanifest'],
                     maximumFileSizeToCacheInBytes: 2000 * 1000,
                     sourcemap: false,
