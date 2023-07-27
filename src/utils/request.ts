@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 请求中间件
 axios.interceptors.request.use((config) => {
-    config.url = import.meta.env.VITE_API + config.url + `?timestamp=${Date.now()}`
+    config.url = import.meta.env.VITE_API + config.url
     config.withCredentials = true
 
     return config
