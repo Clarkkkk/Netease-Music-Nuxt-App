@@ -4,7 +4,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-import checker from 'vite-plugin-checker'
+// import checker from 'vite-plugin-checker'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -48,12 +48,36 @@ export default defineConfig(() => {
                 injectRegister: 'inline',
                 registerType: 'autoUpdate',
                 manifest: {
-                    name: 'Netease Music',
-                    short_name: 'Netease Music',
-                    description: 'Netease Music',
-                    theme_color: '#ff3932',
+                    name: 'Music',
+                    short_name: 'Music',
+                    description: 'A Music web app',
+                    theme_color: '#5f19f7',
                     start_url: 'index.html',
-                    scope: '/'
+                    scope: '/',
+                    icons: [
+                        {
+                            src: 'pwa-64x64.png',
+                            sizes: '64x64',
+                            type: 'image/png'
+                        },
+                        {
+                            src: 'pwa-192x192.png',
+                            sizes: '192x192',
+                            type: 'image/png'
+                        },
+                        {
+                            src: 'pwa-512x512.png',
+                            sizes: '512x512',
+                            type: 'image/png',
+                            purpose: 'any'
+                        },
+                        {
+                            src: 'maskable-icon-512x512.png',
+                            sizes: '512x512',
+                            type: 'image/png',
+                            purpose: 'maskable'
+                        }
+                    ]
                 },
                 workbox: {
                     skipWaiting: true,
