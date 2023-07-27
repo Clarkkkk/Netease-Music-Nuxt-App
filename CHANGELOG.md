@@ -2,6 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0-beta.1    (2023-07-27)
+
+
+## **Features**
+
+* add pwa pwa icons and splash screen images, and modify some relative configs ([a1796b0f](https://github.com/Clarkkkk/Netease-Music-App/commit/a1796b0fc322a66ce3db101f59984eceaf5bc0d5))
+* change nav styles and add a drawer menu for mobile view ([cab5db93](https://github.com/Clarkkkk/Netease-Music-App/commit/cab5db9399a81682f124c330a95bc2470e9c0ea4))
+    
+    ### **Description**
+    
+    - add `MobileMenu`
+    - add `Drawer`, `DrawerBackground`, `DrawerContent`, `DrawerTrigger`
+    - add `createContext` to use `provide` and `inject` conveniently
+    - adjust nav style for mobile view
+    
+* show lyrics on the back of cover with a beautiful animation in mobile devices ([5167aba2](https://github.com/Clarkkkk/Netease-Music-App/commit/5167aba2b753d21a62db4eab146dfde748551b02))
+
+## **Bug Fixes**
+
+* should close the drawer when click to log in ([5ab8b6be](https://github.com/Clarkkkk/Netease-Music-App/commit/5ab8b6be20081e6b15a977416e4edad06ab9d5d6))
+* fix invalid config in workbox ([833569a2](https://github.com/Clarkkkk/Netease-Music-App/commit/833569a2cb35ca88c558871c87d1bdb6785e7ecc))
+* add preconnect with anonymous crossorigin attribute for preflight requests ([f2f3c1ae](https://github.com/Clarkkkk/Netease-Music-App/commit/f2f3c1aec8e990fd31ec9a8567d5a4a07ab35560))
+* add proper `crossorigin` attribute for `preconnect` ([3f5c56fc](https://github.com/Clarkkkk/Netease-Music-App/commit/3f5c56fce24b50d502414d3f5c129cfe0bf36683))
+* fix an error when no translated lyrics ([980db5ac](https://github.com/Clarkkkk/Netease-Music-App/commit/980db5ac9e9b1d0d28050f9a93947ac723b38a19))
+* fix repeated reporting when song ends ([beec2484](https://github.com/Clarkkkk/Netease-Music-App/commit/beec2484a2bef6522ab0c02ef9538c7f0c91486e))
+* fix a bug in `Tabs` ([b02228cb](https://github.com/Clarkkkk/Netease-Music-App/commit/b02228cbbbf51cc3fc49f31a966d5b5ab927d19c))
+* fix view transitions missing between mini controls and playing page when not playing ([77e3ec90](https://github.com/Clarkkkk/Netease-Music-App/commit/77e3ec902d72f6d92eb06bb8547ec0bc7be58799))
+* do not report when not logged in ([56dd409e](https://github.com/Clarkkkk/Netease-Music-App/commit/56dd409e979dcfcd354cd4026ac05175477c4de1))
+* `MobileMenu` should show login button when not logged in ([4fa5d1a6](https://github.com/Clarkkkk/Netease-Music-App/commit/4fa5d1a6bceea5ed0c3f355c31a7a83d38763d4c))
+
+## **Styles**
+
+* solve clip problems caused by `contain` property and adjust some layout for mobile view ([5e8f01d9](https://github.com/Clarkkkk/Netease-Music-App/commit/5e8f01d94bc6dbea497dd4d4f43c99b3092ecbf2))
+* adjust styles of search page to fit in mobile view ([659bf2f4](https://github.com/Clarkkkk/Netease-Music-App/commit/659bf2f415c054213502a12c3abd383c5a1f17fc))
+* adjust styles of user center page to fit in mobile view ([559fe7d2](https://github.com/Clarkkkk/Netease-Music-App/commit/559fe7d284ddb38a6e9112b52d1e518dade3a898))
+
+## **Performance Improvements**
+
+* inline the service worker register script and precache more relavent files ([cf2fc493](https://github.com/Clarkkkk/Netease-Music-App/commit/cf2fc49339ad130eef39294ee46e36159294ffa5))
+* add api url to `preconnect` and `dns-prefetch` ([5be22fd8](https://github.com/Clarkkkk/Netease-Music-App/commit/5be22fd80e63b37a69599126586e0acb78a26b41))
+* add preconnect for the image origin ([ea3b6a8c](https://github.com/Clarkkkk/Netease-Music-App/commit/ea3b6a8c1f003ea752df5931da9a67b04085e17e))
+* remove `loading="lazy"` in `Banner` ([b352e976](https://github.com/Clarkkkk/Netease-Music-App/commit/b352e976f642180564f9f23a7afa0a7695232480))
+* add size constraint to more images to reduce their download size ([6c64a6ae](https://github.com/Clarkkkk/Netease-Music-App/commit/6c64a6ae7e3e078277aaf54146a6f0723768942c))
+* add css containment for more elements and reduce `.btn` animations for performance ([13555242](https://github.com/Clarkkkk/Netease-Music-App/commit/1355524203342eeff497030d3901d88c40702a69))
+* adjust some styles to reduce render pressure ([fc57560c](https://github.com/Clarkkkk/Netease-Music-App/commit/fc57560ca3eac883f2a28e757b05669a2352e580))
+* disable blur effect for loading images by default ([32b9aca8](https://github.com/Clarkkkk/Netease-Music-App/commit/32b9aca8be75166ba4d21dbe1b133384b28301fd))
+* add css containment for home page components ([f046b4bd](https://github.com/Clarkkkk/Netease-Music-App/commit/f046b4bd3e7dd4691152dd67b2bfc6d0e28ea7b2))
+
+## **Chores**
+
+* no need to add timestamp when requesting ([51ddac45](https://github.com/Clarkkkk/Netease-Music-App/commit/51ddac45ede5a0ba9545ec7d55354d2ece4fe447))
+* clear console logs ([812f6a81](https://github.com/Clarkkkk/Netease-Music-App/commit/812f6a8123fdade8e6c940c83bc3459ccd9e8f68))
+
+
+
 # 1.0.0-alpha.3    (2023-07-21)
 
 
