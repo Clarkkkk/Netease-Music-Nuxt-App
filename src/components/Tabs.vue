@@ -6,22 +6,23 @@ const props = defineProps<{
     tabs: readonly T[]
     onTabChange?: (tab: T) => void | Promise<void>
     disabled?: boolean
+    loading?: boolean
     tabClass?: string
     tabPaneClass?: string
 }>()
 const currentTab = ref<T>(props.tabs[0])
-const loading = ref(false)
+const _loading = ref(false)
 
 async function onTabClick(tab: T) {
     currentTab.value = tab as UnwrapRef<T>
 
     if (!props.onTabChange) return
 
-    loading.value = true
+    _loading.value = true
     try {
         await props.onTabChange(tab)
     } finally {
-        loading.value = false
+        _loading.value = false
     }
 }
 </script>
@@ -32,8 +33,13 @@ async function onTabClick(tab: T) {
             <button
                 v-for="tab in tabs"
                 :key="tab.name"
-                :class="['tab', { 'tab-active': tab.value === currentTab.value }]"
-                :disabled="loading || disabled"
+                :class="[
+                    'tab',
+                    'px-2',
+                    'sm:px-4',
+                    { 'tab-active': tab.value === currentTab.value }
+                ]"
+                :disabled="_loading || disabled || loading"
                 @click="onTabClick(tab)"
             >
                 {{ tab.name }}
@@ -50,9 +56,16 @@ async function onTabClick(tab: T) {
                 { 'content-hidden': currentTab.name !== tab.name }
             ]"
         >
+            <div
+                v-if="_loading || loading"
+                class="mt-4 flex w-full justify-center"
+            >
+                <div class="loading text-primary"></div>
+            </div>
             <slot
                 :name="tab.name"
                 :tab="tab"
+                :current-tab="currentTab"
             />
         </div>
     </div>
