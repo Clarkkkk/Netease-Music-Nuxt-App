@@ -28,7 +28,7 @@ const navRoutes = computed(() => {
     if (loggedIn.value) {
         arr.push({
             name: 'My music',
-            to: 'user-center'
+            to: '/user-center'
         })
     }
     return arr
@@ -48,7 +48,7 @@ async function onLogout() {
     window.location.reload()
 }
 
-async function onLoginClick() {
+async function onLoginClick(close: () => void) {
     close()
     await wait(200)
     openLogin()
@@ -138,7 +138,7 @@ async function onRouteClick(to: string, close: () => void) {
                         <Button
                             v-else
                             class="logout-btn btn-primary absolute bottom-4 mt-8"
-                            @click="onLoginClick"
+                            @click="onLoginClick(drawerProps.close)"
                         >
                             登录
                         </Button>
