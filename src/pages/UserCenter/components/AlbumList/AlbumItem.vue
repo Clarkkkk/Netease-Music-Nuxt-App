@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { Image } from 'components'
 import { minmax, toHttps } from 'utils'
 
-const props = defineProps<{ img: string; position: number }>()
+const props = defineProps<{ img: string; position: number; id: number }>()
 
 const router = useRouter()
 const elementRef = ref<HTMLDivElement | null>(null)
@@ -43,13 +43,24 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         )})`
     }
 })
+
+function onClick() {
+    if (!elementRef.value) return
+    const relativePosition =
+        (elementRef.value.offsetLeft + elementRef.value.clientWidth / 2 - props.position) /
+        elementRef.value.clientWidth
+
+    if (Math.abs(relativePosition) < 0.1) {
+        router.push(`/album/${props.id}`)
+    }
+}
 </script>
 
 <template>
     <div
         ref="elementRef"
         class="album-container h-8 w-8"
-        @click="router.push('')"
+        @click="onClick"
     >
         <!-- use nested container to avoid quirk behaviours in chromium: https://stackoverflow.com/questions/75104680/css-scroll-snap-children-with-transform-on-hover-causes-janky-effect-in-chromi -->
         <div

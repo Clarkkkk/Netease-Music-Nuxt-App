@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useAlbum, useDeviceType, useIsHovering, useSonglist } from 'services'
 import { usePlaylistStore } from 'stores'
 import { Button, Image } from 'components'
@@ -16,6 +17,7 @@ const { isPc } = useDeviceType()
 const { switchToThisList } = usePlaylistStore()
 const { initSonglist, songlist, onFullLoad } = useSonglist()
 const { album, initAlbum } = useAlbum()
+const router = useRouter()
 
 async function onPlayList(id: number) {
     if (props.type === 'songlist') {
@@ -27,13 +29,18 @@ async function onPlayList(id: number) {
         await switchToThisList(album.value)
     }
 }
+
+function onItemClick(id: number) {
+    router.push(`/${props.type}/${id}`)
+}
 </script>
 
 <template>
     <div
-        class="my-2 flex w-full items-center rounded-lg p-2 transition-all duration-500 @container hover:bg-base-200/50"
+        class="my-2 flex w-full cursor-pointer items-center rounded-lg p-2 transition-all duration-500 @container hover:bg-base-200/50"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
+        @click="onItemClick(listItem.id)"
     >
         <div class="relative mr-2 h-10 w-10 flex-fixed">
             <Image
@@ -99,7 +106,7 @@ async function onPlayList(id: number) {
                 'text-primary',
                 { 'opacity-0': !isHovering && isPc }
             ]"
-            @click="onPlayList(listItem.id)"
+            @click.self="onPlayList(listItem.id)"
         >
             <template #icon>
                 <i-solar-play-circle-bold />

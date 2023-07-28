@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { IntersectionObserver } from 'components'
 import AlbumItem from './AlbumItem.vue'
 import { useAlbumList } from './useAlbumList'
 import { useScrollPosition } from './useScrollPosition'
 
 const { list, getData, more } = useAlbumList()
-const router = useRouter()
 
 const containerRef = ref<HTMLDivElement | null>(null)
 const { onScroll, onWheel, centerPosition } = useScrollPosition(containerRef)
@@ -23,10 +21,10 @@ const { onScroll, onWheel, centerPosition } = useScrollPosition(containerRef)
     >
         <AlbumItem
             v-for="album in list"
+            :id="album.id"
             :key="album.id"
             :img="album.picUrl"
             :position="centerPosition"
-            @click="router.push('')"
         />
         <IntersectionObserver
             v-if="list.length"

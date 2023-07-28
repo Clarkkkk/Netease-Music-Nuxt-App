@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useIsHovering } from 'services'
 import { Image } from 'components'
 
@@ -14,6 +15,11 @@ interface ListCoverProps {
 defineProps<ListCoverProps>()
 
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
+const router = useRouter()
+
+async function onClick(id: number) {
+    await router.push(`/songlist/${id}`)
+}
 </script>
 
 <template>
@@ -35,6 +41,7 @@ const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
         ]"
         @mouseenter="onMouseEnter"
         @mouseleave="onMouseLeave"
+        @click="onClick(id)"
     >
         <Image
             :class="[

@@ -74,9 +74,9 @@ async function onImageClick(pic: ApiBanner['return']['banners'][number]) {
         }
     } else if (pic.targetType === 1000) {
         router.push(`/songlist/${pic.targetId}`)
-    } /*  else if (pic.targetType === 10) {
-
-    } */ else if (pic.targetType === 3000 && pic.url) {
+    } else if (pic.targetType === 10) {
+        router.push(`/album/${pic.targetId}`)
+    } else if (pic.targetType === 3000 && pic.url) {
         window.open(pic.url, '_blank', 'noreferrer')
     }
 }
