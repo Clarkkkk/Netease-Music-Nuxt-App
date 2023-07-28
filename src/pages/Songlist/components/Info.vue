@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
 import type { ApiPlaylistDetail } from 'api'
-import { FastAverageColor } from 'fast-average-color'
-import { Image } from 'components'
+import { Collapsible, Image } from 'components'
 import { toHttps } from 'utils'
 
 interface InfoProps {
@@ -12,43 +12,35 @@ interface InfoProps {
 defineProps<InfoProps>()
 
 const modal = ref<InstanceType<typeof Image> | null>(null)
-const mainColor = ref('')
-
-const gradient = computed(() => {
-    return `linear-gradient(to bottom, rgba(${mainColor.value},0.2), rgba(${mainColor.value},0))`
-})
-
-function onImageLoad(img: HTMLImageElement) {
-    const colorExtractor = new FastAverageColor()
-    const color = colorExtractor.getColor(img, { algorithm: 'dominant' })
-    mainColor.value = color.value.slice(0, 3).join(',')
-}
+const lessThan768 = useMediaQuery('(max-width: 767px)')
+const lessThan1280 = useMediaQuery('(max-width: 1279px)')
 </script>
 
 <template>
-    <div class="flex flex-col md:flex-row">
-        <div
-            :style="{ backgroundImage: mainColor ? gradient : '', opacity: mainColor ? 1 : 0 }"
-            class="pointer-events-none fixed left-0 top-0 h-96 w-screen transition-all duration-500"
-        ></div>
+    <div class="flex flex-col items-center md:flex-row md:items-start">
+        <Image
+            id="info-background"
+            class="pointer-events-none"
+            :src="info?.coverImgUrl ? toHttps(info.coverImgUrl) : ''"
+        />
         <Image
             ref="modal"
             :src="info?.coverImgUrl ? toHttps(info.coverImgUrl) : ''"
             class="songlist-cover h-56 w-56 flex-fixed rounded-xl"
-            crossorigin="anonymous"
-            @load="onImageLoad"
         />
-        <div class="relative ml-6">
-            <h1 class="text-2xl font-bold text-base-content">
+        <div class="relative md:ml-6">
+            <h1
+                class="mt-4 text-center text-lg font-bold text-base-content md:mt-0 md:text-start md:text-2xl"
+            >
                 {{ info?.name }}
             </h1>
-            <div class="mt-2 flex items-center">
+            <div class="mt-2 flex items-center justify-center md:justify-start">
                 <span
                     v-for="(tag, index) in info?.tags || []"
                     :key="tag"
                     :class="[
                         'badge',
-                        'badge-sm',
+                        lessThan768 ? 'badge-xs' : 'badge-sm',
                         'mr-2',
                         { 'badge-secondary': index % 3 === 0 },
                         { 'badge-primary': index % 3 === 1 },
@@ -68,7 +60,7 @@ function onImageLoad(img: HTMLImageElement) {
                     {{ '人听过' }}
                 </div>
             </div>
-            <div class="mt-4 flex items-center">
+            <div class="mt-4 flex items-center justify-center md:justify-start">
                 <Image
                     v-if="info?.creator.avatarUrl"
                     :src="toHttps(info?.creator.avatarUrl)"
@@ -79,15 +71,39 @@ function onImageLoad(img: HTMLImageElement) {
                     v-else
                     class="mr-2 h-6 w-6 text-primary"
                 />
-                <span class="text-base-content">
+                <span class="text-sm text-base-content md:text-base">
                     {{ info?.creator.nickname }}
                 </span>
             </div>
-            <div class="mt-8 text-sm text-base-content/80">
-                {{ info?.description }}
-            </div>
+            <Collapsible
+                :collapsible="
+                    (info?.description.length || 0) > (lessThan768 ? 150 : lessThan1280 ? 300 : 400)
+                "
+                :collapse-height="lessThan768 ? 97 : 110"
+                :possible-max-height="lessThan1280 ? 500 : 1000"
+            >
+                <div class="mt-4 text-xs text-base-content/80 md:mt-8 md:text-sm">
+                    {{ info?.description }}
+                </div>
+            </Collapsible>
         </div>
     </div>
 </template>
 
-<style></style>
+<style lang="scss">
+#info-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 100%);
+    filter: blur(30px) saturate(150%) brightness(1.3);
+    transform: scale(1.1);
+    width: 100%;
+    height: 400px;
+
+    img {
+        object-fit: cover;
+    }
+}
+</style>

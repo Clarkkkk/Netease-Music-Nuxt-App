@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import type { ApiRecommendResource } from 'api'
 import { useAuthStore } from 'stores'
 import { post, toHttps } from 'utils'
@@ -17,7 +16,6 @@ interface Songlist {
 
 const auth = useAuthStore()
 const lists = ref<Array<Songlist>>([])
-const router = useRouter()
 
 watch(
     auth,
@@ -45,7 +43,7 @@ watch(
 <template>
     <div
         id="recommend-songlists"
-        class="mt-8 w-full px-6 contain-[layout_style] md:mt-8"
+        class="mt-8 w-full px-6 contain-[layout_style]"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">推荐歌单</h2>
         <ul
@@ -61,7 +59,6 @@ watch(
                 :creator="list.creator"
                 :creator-avatar="list.creatorAvatar"
                 :count="list.count"
-                @click="router.push(`/songlist/${list.id}`)"
             >
                 <div class="text-sm text-base-content">
                     {{ list.name }}

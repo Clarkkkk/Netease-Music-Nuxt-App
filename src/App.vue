@@ -51,14 +51,6 @@ html::view-transition-group(*) {
     animation-delay: 50ms;
 }
 
-// don't need the default transition
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: initial;
-    opacity: initial;
-}
-
 * {
     // Firefox
     scrollbar-width: thin;

@@ -28,7 +28,7 @@ watch(
 <template>
     <div
         id="songlist-page"
-        class="container mx-auto mt-6 px-12 pt-16"
+        class="container mx-auto mt-6 px-6 pt-16 md:px-12"
     >
         <Info :info="info" />
         <List

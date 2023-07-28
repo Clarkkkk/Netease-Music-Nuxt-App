@@ -108,4 +108,8 @@ watch(qrcodeLoginStatus, (val) => {
     </Dialog>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+.modal {
+    z-index: 3000;
+}
+</style>

@@ -2,13 +2,14 @@
 import { ref } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
-import { useAnimation, useIsHovering } from 'services'
+import { useAnimation, useDeviceType, useIsHovering } from 'services'
 import { usePlaylistStore } from 'stores'
 import { DefaultCover, Image } from 'components'
 import { wait } from 'utils'
 import Lyrics from './Lyrics.vue'
 
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
+const { isMobile } = useDeviceType()
 const playlist = usePlaylistStore()
 const showLyrics = useMediaQuery('(max-width: 1023px)')
 const isInverse = ref(false)
@@ -38,7 +39,7 @@ onBeforeRouteLeave(async () => {
                 'left-0',
                 'top-0',
                 'rounded-3xl',
-                isHovering || isInverse ? 'blur-3xl' : 'blur-xl'
+                (isHovering && !isMobile) || isInverse ? 'blur-3xl' : 'blur-xl'
             ]"
             :size="400"
         />
@@ -71,7 +72,7 @@ onBeforeRouteLeave(async () => {
                     'w-full',
                     'transition-all',
                     'duration-500',
-                    { 'scale-105': isHovering }
+                    { 'scale-105': isHovering && !isMobile }
                 ]"
                 @animationend="
                     (e) => {
@@ -85,7 +86,7 @@ onBeforeRouteLeave(async () => {
                 <Image
                     v-view-transition-name="'playing-cover'"
                     :src="playlist.currentSong?.cover"
-                    class="absolute left-0 top-0 z-10 rounded-3xl"
+                    class="playing-cover absolute left-0 top-0 z-10 rounded-3xl"
                     :size="400"
                 />
                 <div
@@ -131,6 +132,10 @@ onBeforeRouteLeave(async () => {
 
         .cover-container-inner {
             transform-style: preserve-3d;
+        }
+
+        .playing-cover {
+            backface-visibility: hidden;
         }
 
         &.inverse {

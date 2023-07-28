@@ -15,30 +15,42 @@ interface Album {
 }
 
 const albums = ref<Array<Album>>([])
+const loading = ref(false)
 
 onMounted(() => {
-    post<ApiAlbumNew>('/album/new', { limit: 12 }).then((res) => {
-        albums.value = res.albums.map((item) => {
-            return {
-                name: item.name,
-                subName: item.transNames?.[0] || item.alias[0] || '',
-                artist: item.artist.name,
-                artistPicUrl: item.artist.picUrl,
-                id: item.id,
-                picUrl: toHttps(item.picUrl),
-                createTime: item.publishTime
-            }
+    loading.value = true
+    post<ApiAlbumNew>('/album/new', { limit: 12 })
+        .then((res) => {
+            albums.value = res.albums.map((item) => {
+                return {
+                    name: item.name,
+                    subName: item.transNames?.[0] || item.alias[0] || '',
+                    artist: item.artist.name,
+                    artistPicUrl: item.artist.picUrl,
+                    id: item.id,
+                    picUrl: toHttps(item.picUrl),
+                    createTime: item.publishTime
+                }
+            })
         })
-    })
+        .finally(() => {
+            loading.value = false
+        })
 })
 </script>
 
 <template>
     <div
         id="new-albums"
-        class="w-full px-6 contain-[layout_style] md:mt-6"
+        class="mt-6 w-full px-6 contain-[layout_style]"
     >
         <h2 class="border-l-4 border-primary px-2 text-lg/5 font-bold">新碟上架</h2>
+        <div
+            v-if="loading"
+            class="mt-4 flex w-full justify-center"
+        >
+            <div class="loading text-primary"></div>
+        </div>
         <ul class="relative flex w-full flex-wrap items-center py-4">
             <AlbumItem
                 v-for="album in albums"
@@ -58,6 +70,9 @@ onMounted(() => {
 
 <style lang="scss">
 #new-albums {
+    @media (max-width: 640px) {
+        height: 1586px;
+    }
     @media (max-width: 1024px) {
         .album {
             width: calc(50% - 12px);

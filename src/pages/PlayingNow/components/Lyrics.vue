@@ -82,4 +82,12 @@ watch(lyricsCurrentIndex, (currentIndex) => {
         height: calc(100% - 16px);
     }
 }
+
+@media (max-width: 1024px) {
+    #playing-lyrics {
+        margin: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+    }
+}
 </style>

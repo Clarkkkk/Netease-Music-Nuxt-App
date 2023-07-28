@@ -57,7 +57,7 @@ onProfileLoaded((p) => {
         left: 0;
         z-index: 0;
         mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 100%);
-        filter: blur(20px);
+        filter: blur(30px) saturate(150%) brightness(1.3);
         transform: scale(1.1);
         width: 100%;
         height: 300px;

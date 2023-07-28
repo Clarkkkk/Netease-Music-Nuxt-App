@@ -17,7 +17,7 @@ async function clickHandler(e: MouseEvent) {
 
 <template>
     <Button
-        class="btn-ghost btn-sm btn w-full justify-start pr-0 font-normal"
+        class="btn-ghost btn-sm btn h-10 w-full justify-start pr-0 font-normal"
         @click="clickHandler"
     >
         <slot></slot>

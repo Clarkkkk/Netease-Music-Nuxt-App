@@ -114,6 +114,7 @@ onUnmounted(() => {
                 'rounded-2xl',
                 'transition-all',
                 'shadow-lg',
+                '!contain-[style_layout]',
                 { 'content-hidden': !visibleIndices.includes(index) },
                 { current: index === currentIndex },
                 { last: index === lastIndex },
