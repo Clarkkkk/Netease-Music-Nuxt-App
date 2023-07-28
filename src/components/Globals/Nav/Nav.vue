@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
@@ -59,9 +59,10 @@ function isActiveRoute(to: string) {
     }
 }
 
-async function onSearch(keyword: string) {
+async function onInputClick() {
     searchTransition.value = true
-    router.push(`/search?keyword=${keyword}`)
+    await nextTick()
+    router.push(`/search`)
 }
 
 async function onRadioClick() {
@@ -127,7 +128,7 @@ async function onRadioClick() {
                 <input
                     v-view-transition-name="{ 'search-input': searchTransition }"
                     class="input-primary input input-sm pl-8"
-                    @keydown.enter="(e) => onSearch((e.target as HTMLInputElement).value)"
+                    @click="onInputClick"
                 />
             </div>
             <Button
@@ -162,10 +163,7 @@ async function onRadioClick() {
             </Button>
         </div>
 
-        <MobileMenu
-            v-if="lessThan1024"
-            class="ml-4"
-        />
+        <MobileMenu v-if="lessThan1024" />
     </nav>
 </template>
 
