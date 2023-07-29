@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRef, watch } from 'vue'
+import { computed, ref, toRef, useAttrs, watch } from 'vue'
 
 import IconFileRemove from '~icons/solar/file-remove-bold-duotone'
 
@@ -24,6 +24,12 @@ const calculatedSize = computed(() => {
 })
 
 const srcRef = toRef(props, 'src')
+const attrs = useAttrs()
+
+// workaround for webkit, see: https://stackoverflow.com/questions/8705249/css-border-radius-not-trimming-image-on-webkit
+const roundedClass = computed(() => {
+    return (attrs.class as string).split(' ').filter((item) => item.includes('rounded'))
+})
 
 watch(srcRef, (curr, prev) => {
     if (curr !== prev) {
@@ -50,6 +56,7 @@ defineExpose({
                 'items-center',
                 'justify-center',
                 'overflow-hidden',
+                roundedClass,
                 { 'blur-lg': loadingStatus && !!blurBeforeLoaded }
             ]"
         >
