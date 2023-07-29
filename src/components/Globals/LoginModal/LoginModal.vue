@@ -109,7 +109,7 @@ watch(qrcodeLoginStatus, (val) => {
 </template>
 
 <style lang="scss">
-.modal {
+.modal.modal-open {
     z-index: 3000;
 }
 </style>
