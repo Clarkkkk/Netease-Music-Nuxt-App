@@ -92,14 +92,15 @@ function onClick() {
                     'w-48',
                     'flex-fixed',
                     'transition-all',
-                    'duration-500'
+                    'duration-500',
+                    'content-visible'
                 ]"
                 loading="lazy"
                 :size="300"
             />
             <Image
                 :src="toHttps(img)"
-                class="relative z-10 h-48 w-48 flex-fixed"
+                class="relative z-10 h-48 w-48 flex-fixed content-visible"
                 loading="lazy"
                 :size="300"
             />
@@ -129,6 +130,20 @@ function onClick() {
 
         img {
             mix-blend-mode: screen;
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .album-container {
+        .playing-cover-bottom-shadow {
+            picture {
+                background-image: linear-gradient(180deg, #000000 55%, #000000c0 100%);
+            }
+
+            img {
+                mix-blend-mode: overlay;
+            }
         }
     }
 }
