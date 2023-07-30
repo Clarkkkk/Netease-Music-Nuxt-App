@@ -19,6 +19,7 @@ const visible = ref(false)
 
 function hideMenu() {
     tippy.value?.hide()
+    visible.value = false
 }
 
 provide('ContextMenu', { hideMenu })
