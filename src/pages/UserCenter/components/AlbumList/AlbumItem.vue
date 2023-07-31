@@ -134,6 +134,12 @@ function onClick() {
     }
 }
 
+@media (max-width: 639px) {
+    .album-container {
+        scroll-snap-stop: normal;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .album-container {
         .playing-cover-bottom-shadow {
