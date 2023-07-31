@@ -36,7 +36,7 @@ router.beforeResolve(async () => {
         router.afterEach(() => resolve())
     })
     const viewTransition = startViewTransition(async () => {
-        await promise
+        await promise // start the view transition after `afterEach`
     })
     await viewTransition.captured
 })
