@@ -28,7 +28,7 @@ const attrs = useAttrs()
 
 // workaround for webkit, see: https://stackoverflow.com/questions/8705249/css-border-radius-not-trimming-image-on-webkit
 const roundedClass = computed(() => {
-    return (attrs.class as string).split(' ').filter((item) => item.includes('rounded'))
+    return ((attrs.class || '') as string).split(' ').filter((item) => item.includes('rounded'))
 })
 
 watch(srcRef, (curr, prev) => {
