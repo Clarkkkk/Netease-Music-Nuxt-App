@@ -115,7 +115,7 @@ onBeforeRouteLeave(async () => {
     >
         <DefaultCover
             v-view-transition-name="'playing-cover'"
-            class="opacity-90"
+            class="!rounded-3xl opacity-90"
         />
     </div>
 </template>

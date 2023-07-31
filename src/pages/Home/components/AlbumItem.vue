@@ -53,7 +53,7 @@ const router = useRouter()
         <div class="absolute h-full w-full overflow-hidden rounded content-auto">
             <Image
                 :src="picUrl"
-                class="h-full w-full blur-xl"
+                class="h-full w-full rounded blur-xl"
                 :size="200"
                 loading="lazy"
             />

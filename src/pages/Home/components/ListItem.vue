@@ -60,7 +60,7 @@ async function onClick(id: number) {
         <div class="absolute h-full w-full overflow-hidden rounded">
             <Image
                 :src="picUrl"
-                class="h-full w-full blur-xl"
+                class="h-full w-full rounded blur-xl"
                 :size="100"
             />
         </div>
