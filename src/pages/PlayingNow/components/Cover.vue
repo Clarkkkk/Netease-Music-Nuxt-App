@@ -35,10 +35,13 @@ onBeforeRouteLeave(async () => {
             v-view-transition-name="'playing-cover-shadow'"
             :src="playlist.currentSong?.cover"
             :class="[
+                'playing-cover-shadow',
                 'absolute',
                 'left-0',
                 'top-0',
                 'rounded-3xl',
+                '!contain-[layout_style]',
+                '!content-visible',
                 (isHovering && !isMobile) || isInverse ? 'blur-3xl' : 'blur-xl'
             ]"
             :size="400"
@@ -123,6 +126,11 @@ onBeforeRouteLeave(async () => {
     z-index: 1;
     cursor: pointer;
 
+    .playing-cover-shadow {
+        // the shadow should go deeper in order not to affect the cover animations
+        translate: 0 0 -200px;
+    }
+
     .cover-container {
         transform-style: preserve-3d;
         transform-origin: 50% 100%;
@@ -147,8 +155,8 @@ onBeforeRouteLeave(async () => {
                 flip-z 750ms var(--ease-function) reverse 750ms;
 
             .cover-container-inner {
-                animation: flip 1500ms var(--ease-function), scale 750ms var(--ease-function),
-                    scale 750ms var(--ease-function) reverse 750ms;
+                animation: flip 1500ms var(--ease-function),
+                    scale 750ms var(--ease-function) alternate 2;
             }
         }
 
@@ -158,7 +166,7 @@ onBeforeRouteLeave(async () => {
 
             .cover-container-inner {
                 animation: flip-reverse 1500ms var(--ease-function),
-                    scale 750ms var(--ease-function), scale 750ms var(--ease-function) reverse 750ms;
+                    scale 750ms var(--ease-function) alternate 2;
             }
         }
     }
