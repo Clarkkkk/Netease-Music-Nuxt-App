@@ -122,6 +122,7 @@ export default defineConfig(() => {
         ],
         server: {
             port: 3200,
+            host: '127.0.0.1',
             open: 'http://dev.carllllo.work:3200/music',
             proxy: {
                 '/api': {
