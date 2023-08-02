@@ -29,10 +29,10 @@ watch(currentSong, async (song) => {
         <template v-if="albumInfo">
             <h2 class="mt-4 text-base font-bold text-base-content">关于专辑</h2>
             <p class="mt-2 text-xs text-base-content/70">
-                {{ albumInfo.briefDesc || albumInfo.description }}
+                {{ `《${albumInfo.name}》` }}
             </p>
             <p class="mt-2 text-xs text-base-content/70">
-                {{ `《${albumInfo.name}》` }}
+                {{ albumInfo.briefDesc || albumInfo.description }}
             </p>
             <p class="mt-2 text-xs text-base-content/70">
                 {{
