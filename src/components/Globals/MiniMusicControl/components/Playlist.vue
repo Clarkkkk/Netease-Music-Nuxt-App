@@ -30,6 +30,7 @@ const { switchToThisSong, removeSong } = usePlaylistStore()
                         v-for="song in playlist"
                         :key="song.id"
                         class="flex flex-nowrap items-center overflow-hidden whitespace-nowrap"
+                        :active="song === currentSong"
                         @click="switchToThisSong(song)"
                     >
                         <i-solar-play-bold

@@ -22,7 +22,7 @@ function hideMenu() {
     visible.value = false
 }
 
-provide('ContextMenu', { hideMenu })
+provide('ContextMenu', { hideMenu, visible })
 </script>
 
 <template>
@@ -38,6 +38,16 @@ provide('ContextMenu', { hideMenu })
             :append-to="() => body"
             role="context-menu"
             :offset="[0, 15]"
+            @show="
+                () => {
+                    visible = true
+                }
+            "
+            @hide="
+                () => {
+                    visible = false
+                }
+            "
         >
             <slot></slot>
 

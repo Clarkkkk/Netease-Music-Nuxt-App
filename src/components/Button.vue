@@ -9,6 +9,7 @@ interface Props extends /* @vue-ignore */ ButtonHTMLAttributes {
 
 const props = defineProps<Props>()
 const loading = ref(false)
+const el = ref<HTMLButtonElement>()
 
 function clickHandler(e: MouseEvent) {
     if (props.onClick) {
@@ -21,10 +22,13 @@ function clickHandler(e: MouseEvent) {
         }
     }
 }
+
+defineExpose({ el })
 </script>
 
 <template>
     <button
+        ref="el"
         :class="['btn']"
         :disabled="disabled || loading"
         @click="clickHandler"
