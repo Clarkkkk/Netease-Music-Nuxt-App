@@ -9,14 +9,14 @@ const { currentSong } = storeToRefs(usePlaylistStore())
     <div class="flex flex-col items-center">
         <h1
             v-view-transition-name="'playing-name'"
-            class="text-lg font-bold text-base-content sm:text-xl"
+            class="px-4 text-center text-lg font-bold text-base-content sm:text-xl"
         >
             {{ currentSong?.name || '未播放' }}
         </h1>
         <h2
             v-if="currentSong?.subName && currentSong?.subName !== 'null'"
             v-view-transition-name="'playing-subname'"
-            class="text-xs text-base-content/70 sm:text-sm"
+            class="px-4 text-center text-xs text-base-content/70 sm:text-sm"
         >
             ({{ currentSong?.subName || '--' }})
         </h2>

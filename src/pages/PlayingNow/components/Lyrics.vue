@@ -22,7 +22,7 @@ watch(lyricsCurrentIndex, (currentIndex) => {
     <ul
         id="playing-lyrics"
         ref="containerRef"
-        class="flex flex-col items-center overflow-y-auto overflow-x-hidden"
+        class="flex aspect-square w-full flex-col items-center overflow-y-auto overflow-x-hidden"
     >
         <li
             v-for="(line, i) in lyrics.lines"

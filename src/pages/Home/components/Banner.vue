@@ -59,6 +59,8 @@ async function onImageClick(pic: ApiBanner['return']['banners'][number]) {
                 const song: Song = {
                     name: resItem.name,
                     id: resItem.id,
+                    albumId: resItem.al.id,
+                    artistId: resItem.ar[0]?.id || 0,
                     subName: resItem.alia?.[0],
                     artist: resItem.ar[0]?.name || '',
                     album: resItem.al.name,

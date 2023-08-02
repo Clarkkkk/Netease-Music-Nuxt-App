@@ -72,6 +72,8 @@ async function getData(type: AreaValue) {
                 artist: item.artists[0].name,
                 album: item.album.name,
                 cover: toHttps(item.album.picUrl),
+                artistId: item.artists[0].id,
+                albumId: item.album.id,
                 timestamp: 0,
                 url: '',
                 status: 'not-playing'

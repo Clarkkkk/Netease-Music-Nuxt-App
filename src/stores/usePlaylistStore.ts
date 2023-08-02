@@ -193,6 +193,8 @@ export const usePlaylistStore = defineStore('playlist', () => {
                 artist: item.artists[0].name,
                 album: item.album.name,
                 cover: toHttps(item.album.picUrl),
+                artistId: item.artists[0].id,
+                albumId: item.album.id,
                 timestamp: Date.now(),
                 url: '',
                 status: 'not-playing'

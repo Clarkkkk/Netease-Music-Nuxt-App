@@ -34,6 +34,8 @@ interface ApiPostType extends ApiType {
 
 interface Song {
     id: number
+    artistId: number
+    albumId: number
     name: string
     subName: string
     artist: string

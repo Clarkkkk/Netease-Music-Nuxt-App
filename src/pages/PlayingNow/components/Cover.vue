@@ -1,12 +1,15 @@
 <script setup lang="ts">
+import 'swiper/css'
 import { ref } from 'vue'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import { useAnimation, useDeviceType, useIsHovering } from 'services'
 import { usePlaylistStore } from 'stores'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import { DefaultCover, Image } from 'components'
 import { wait } from 'utils'
 import Lyrics from './Lyrics.vue'
+import SongTable from './SongTable.vue'
 
 const { isHovering, onMouseEnter, onMouseLeave } = useIsHovering()
 const { isMobile } = useDeviceType()
@@ -104,7 +107,23 @@ onBeforeRouteLeave(async () => {
                         'bg-base-100'
                     ]"
                 >
-                    <Lyrics v-if="showLyrics" />
+                    <template v-if="showLyrics">
+                        <Swiper
+                            :slides-per-view="1"
+                            :space-between="0"
+                            :touch-angle="30"
+                        >
+                            <SwiperSlide>
+                                <Lyrics />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <SongTable />
+                            </SwiperSlide>
+                        </Swiper>
+                    </template>
+                    <template v-else>
+                        <SongTable />
+                    </template>
                 </div>
             </div>
         </div>
