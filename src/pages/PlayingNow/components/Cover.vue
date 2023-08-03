@@ -112,6 +112,7 @@ onBeforeRouteLeave(async () => {
                             :slides-per-view="1"
                             :space-between="0"
                             :touch-angle="30"
+                            css-mode
                         >
                             <SwiperSlide>
                                 <Lyrics />
