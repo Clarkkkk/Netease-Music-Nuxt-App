@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onActivated, onMounted, ref, watch } from 'vue'
 import type { ApiArtistDetail } from 'api'
 import { storeToRefs } from 'pinia'
 import { useAlbum } from 'services'
@@ -9,6 +9,22 @@ import { post } from 'utils'
 const { info: albumInfo, initAlbum } = useAlbum()
 const { currentSong } = storeToRefs(usePlaylistStore())
 const artistInfo = ref<ApiArtistDetail['return']['data']['artist']>()
+
+async function init() {
+    if (!currentSong.value) return
+    if (!albumInfo.value) {
+        initAlbum(currentSong.value.albumId)
+    }
+    if (!artistInfo.value) {
+        const res = await post<ApiArtistDetail>('/artist/detail', {
+            id: currentSong.value.artistId
+        })
+        artistInfo.value = res.data.artist
+    }
+}
+
+onMounted(() => init())
+onActivated(() => init())
 
 watch(currentSong, async (song) => {
     if (!song) return
