@@ -28,6 +28,6 @@ import { Controls, Cover, Info, MusicBar, Playlist } from './components'
 }
 
 #mini-music-control {
-    bottom: calc(1rem + env(safe-area-inset-bottom));
+    bottom: max(1rem, env(safe-area-inset-bottom));
 }
 </style>

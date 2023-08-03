@@ -41,6 +41,7 @@ const route = useRoute()
 #app {
     min-height: 100vh;
     min-height: 100dvh;
+    padding-top: env(safe-area-inset-top);
     padding-bottom: 80px;
 }
 

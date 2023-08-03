@@ -34,7 +34,7 @@ const showLyrics = useMediaQuery('(min-width: 1024px)')
     margin-bottom: -80px;
     width: 100vw;
     overflow: hidden;
-    height: calc(100vh - env(safe-area-inset-bottom));
-    height: calc(100dvh - env(safe-area-inset-bottom));
+    height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+    height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
 }
 </style>
