@@ -168,7 +168,7 @@ async function onRadioClick() {
 </template>
 
 <style>
-.navbar {
+nav.navbar {
     padding-top: env(safe-area-inset-top);
     transition: background 200ms;
 }
