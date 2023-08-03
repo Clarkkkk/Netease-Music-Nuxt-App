@@ -11,6 +11,7 @@ const { currentSong } = storeToRefs(usePlaylistStore())
     <audio
         ref="audioRef"
         :src="currentSong?.url"
+        autoplay
         :loop="loop"
         @error="updateAudioStatus('error')"
         @loadeddata="updateAudioStatus('not-ready')"
