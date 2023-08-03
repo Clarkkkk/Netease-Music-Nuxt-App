@@ -23,7 +23,7 @@
     "release": "commit-and-tag-version --preset=aaron-preset"
   },
   "dependencies": {
-    "@ark-ui/vue": "^0.4.0",
+    "@ark-ui/vue": "^0.5.3",
     "@unhead/vue": "^1.1.27",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
