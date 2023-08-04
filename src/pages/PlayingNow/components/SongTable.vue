@@ -35,7 +35,7 @@ watch(currentSong, async (song) => {
 </script>
 
 <template>
-    <div class="aspect-square w-full overflow-y-auto p-4">
+    <div class="aspect-square w-full overflow-y-auto p-6">
         <template v-if="artistInfo">
             <h2 class="text-base font-bold text-base-content">关于歌手</h2>
             <p class="mt-2 text-xs text-base-content/70">

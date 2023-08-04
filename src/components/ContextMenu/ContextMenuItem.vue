@@ -29,7 +29,7 @@ if (provided) {
 <template>
     <Button
         ref="buttonRef"
-        class="btn-ghost btn-sm btn h-10 w-full justify-start pr-0 font-normal"
+        class="btn-ghost btn-sm btn h-10 w-full justify-start pr-0 font-normal content-auto"
         @click="clickHandler"
     >
         <slot></slot>
