@@ -2,6 +2,78 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0-beta.2    (2023-08-05)
+
+
+## **Features**
+
+* add song info on the back of cover in playing page ([b43c9473](https://github.com/Clarkkkk/Netease-Music-App/commit/b43c9473d03e5838d65a39d1cda087167aac85a3))
+* add theme-color meta tag for status bar ([fcd6a5b5](https://github.com/Clarkkkk/Netease-Music-App/commit/fcd6a5b59a6b6c5758f6e80a19b66a796f835029))
+* albums and songlists in home page, search page and user center page are clickable now ([0e06a805](https://github.com/Clarkkkk/Netease-Music-App/commit/0e06a805486b367a4e6061720cc46754fea3d9a4))
+* click the search input on the navbar is now nevigating to the search page directly ([dbcd7346](https://github.com/Clarkkkk/Netease-Music-App/commit/dbcd7346d1275ff718ac30281f3447f916c72337))
+
+## **Bug Fixes**
+
+* fix layout problems when the playlist is long ([2a05b8c2](https://github.com/Clarkkkk/Netease-Music-App/commit/2a05b8c224ed0698196f7aa81ab8062e0fc84c62))
+* fix navbar padding ([e7c18bbf](https://github.com/Clarkkkk/Netease-Music-App/commit/e7c18bbf820ee332fc3dc98ed13000bb8ab694e6))
+* add `autoplay` to let safari fire the `canplay` event and play next song ([464bc7a7](https://github.com/Clarkkkk/Netease-Music-App/commit/464bc7a7d254cb2b5bddf8c16758dd41e7d1a0e2))
+* use css mode to get rid of some weird behaviours ([1f644584](https://github.com/Clarkkkk/Netease-Music-App/commit/1f6445849ca21eb9f173725507e2c7fb0271c2d2))
+* fix a bug where the playing song info won't load if not in playing page ([a69721d4](https://github.com/Clarkkkk/Netease-Music-App/commit/a69721d408a17b2c3c1b7fc145d31be90d2e85fb))
+* fix wrong text order ([e603c325](https://github.com/Clarkkkk/Netease-Music-App/commit/e603c3254969563ee0b5c83f530ec17feb26c09b))
+* when open the playlist, it will scroll to the current playing song now ([6b59ee28](https://github.com/Clarkkkk/Netease-Music-App/commit/6b59ee2802f3fbb4566832558d9611d1cac1db50))
+* fix rounded border issues ([1c6fe3b7](https://github.com/Clarkkkk/Netease-Music-App/commit/1c6fe3b7df83175f3d33056ed463a1ae65799792))
+* fix an error that could possibly read property of undefined ([5f364349](https://github.com/Clarkkkk/Netease-Music-App/commit/5f3643496446af5b8b3d948cef7be42c9ad27d55))
+* fix a bug that the ContextMenu does not close after click ([21167ff4](https://github.com/Clarkkkk/Netease-Music-App/commit/21167ff40823b840ef5a623665b7512bf8d972ff))
+* try to fix the glitch when scrolling cover flow in mobile devices ([fa854119](https://github.com/Clarkkkk/Netease-Music-App/commit/fa85411959d8627f175486cdda5c59731e9d5aec))
+* fix wierd effects of cover flipping animations in safari ([f0248ac9](https://github.com/Clarkkkk/Netease-Music-App/commit/f0248ac934dd31ae08ea2ca2f1c7f03d42cc0ed1))
+* fix an issue that z-index of `LoginModal` not working due to specificity ([0006f58a](https://github.com/Clarkkkk/Netease-Music-App/commit/0006f58a89c5e13f8e2ed8ea2067cba32a0d1fdd))
+* fix the wrong color of cover flow in dark mode ([e4962fe4](https://github.com/Clarkkkk/Netease-Music-App/commit/e4962fe42e0644b6cded7447e500b2f19c049bbb))
+* try to fix the border radius issue under webkit ([4a1d717c](https://github.com/Clarkkkk/Netease-Music-App/commit/4a1d717c8e9ebc6ce941127e1d0d8336452bd837))
+* fix a bug that `collapsible` prop is not working properly and improve the strategy to guess the max height more acurately ([e5d01f71](https://github.com/Clarkkkk/Netease-Music-App/commit/e5d01f71d77200f42f886c0bdc3118a7bed4246c))
+* fix the wrong path to navigate to the user center in `MobileMenu` and fix the bug that the menu not disappearing after clicking login button properly ([75a86164](https://github.com/Clarkkkk/Netease-Music-App/commit/75a861642c51d9aaf6ceb2accc98f8ac780021a1))
+
+## **Styles**
+
+* add animations to the fm button when playing fm ([9bf55a17](https://github.com/Clarkkkk/Netease-Music-App/commit/9bf55a176e524c4b43adf017298d2db57c626cca))
+* unify the styles of Drawer and ContextMenu ([4d7ca94e](https://github.com/Clarkkkk/Netease-Music-App/commit/4d7ca94ef9686152dfc9f669186253716eb8bd36))
+* improve the ui in devices with a notch ([f424650c](https://github.com/Clarkkkk/Netease-Music-App/commit/f424650cd8ddeb94b3f7a5463f46ca988e800910))
+* fix a bunch of style issues in mobile view and improve the user experience in many ways ([77385372](https://github.com/Clarkkkk/Netease-Music-App/commit/77385372f4d0d4ea55f68a669880f659a40b98e3))
+    
+    ### **Description**
+    
+    - adjust the height of `ContextMenuItem`
+    - increase the z-index of `LoginModal`
+    - add `safe-area-inset-bottom` for mini control
+    - use the blured cover as the background of album page and songlist page, instead of the extracted color which is not accurate
+    - adjust the padding of album page and songlist page in mobile view
+    - address the clip problem of banners in webkit by removing the paint containment
+    - add loading animations and fixed height for `NewAlbums`
+    - add a 'show more' button for `NewSongs` in mobile view
+    - add min height for the list in `NewSongs` in mobile view to avoid layout shift when change tabs
+    - adjust the styles in home page to avoid moving horizontally
+    - fix overflow issues of the cover in playing page
+    - fix the wrong color of info in playing page in dark mode and adjust styles for mobile view
+    - fix overflow issues of the lyrics on the back of the cover
+    - adjust styles in mobile view in playing page
+    - add loading for `MixedPanel` in search page
+    - fix an issue that the keyboard is not showing search button when typing in search input
+    - fix view transition issues of the search input
+    - adjust the filter effect of the background image in user center page
+    - during view transitions, the page is not able to interact regardless of the animation property, so remove the code that were intended to disable the transitions of root
+    
+
+## **Refactor**
+
+* expose the `currentTab` to slots and allow to pass the loading status to props in `Tabs` ([a1f6b335](https://github.com/Clarkkkk/Netease-Music-App/commit/a1f6b3351b0f9c3ac1a1b46e961fcf58545a571d))
+
+## **Chores**
+
+* update deps ([62a9233f](https://github.com/Clarkkkk/Netease-Music-App/commit/62a9233f8de69ada3444befece9b5cb65cc3ff6f))
+* update `vue-view-transitions` ([a9cf2170](https://github.com/Clarkkkk/Netease-Music-App/commit/a9cf2170716dc3125954d23099ac42fde03dfdc5))
+* specify the host of the dev server ([9af7c5bc](https://github.com/Clarkkkk/Netease-Music-App/commit/9af7c5bc54849b5c1d65e94f5c3b2b58a826c641))
+
+
+
 # 1.0.0-beta.1    (2023-07-27)
 
 
