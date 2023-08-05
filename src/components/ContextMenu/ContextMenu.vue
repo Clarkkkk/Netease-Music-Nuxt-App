@@ -142,6 +142,7 @@ provide('ContextMenu', { hideMenu, visible })
 }
 
 .context-menu-popup {
+    height: 100vh;
     height: 100dvh;
     z-index: 2500;
 }

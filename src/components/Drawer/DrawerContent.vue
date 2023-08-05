@@ -7,7 +7,7 @@ const { visible } = useDrawerContext()
 <template>
     <div
         v-if="visible"
-        class="drawer-content absolute right-0 top-0 h-full w-72 bg-base-100 transition-all md:w-96"
+        class="drawer-content absolute right-0 top-0 h-full w-72 bg-base-100 transition-all duration-300 md:w-96"
     >
         <slot></slot>
     </div>
