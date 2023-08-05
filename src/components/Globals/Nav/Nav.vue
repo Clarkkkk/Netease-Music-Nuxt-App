@@ -8,7 +8,7 @@ import Button from '../../Button.vue'
 import { MobileMenu, Profile } from './components'
 
 const auth = useAuthStore()
-const { playMode } = storeToRefs(usePlaylistStore())
+const { playMode, currentSong } = storeToRefs(usePlaylistStore())
 const { switchToRadio } = usePlaylistStore()
 const router = useRouter()
 const navRoutes = [
@@ -133,7 +133,12 @@ async function onRadioClick() {
             </div>
             <Button
                 v-if="auth.loggedIn"
-                class="btn-primary btn-sm mr-4"
+                :class="[
+                    { 'fm-playing': playMode === 'radio' && currentSong?.status === 'playing' },
+                    'btn-primary',
+                    'btn-sm',
+                    'mr-4'
+                ]"
                 @click="onRadioClick"
             >
                 <i-solar-play-stream-line-duotone class="h-6 w-6" />
@@ -154,7 +159,13 @@ async function onRadioClick() {
         >
             <Button
                 v-if="auth.loggedIn"
-                class="btn-primary btn-square btn-sm mr-2"
+                :class="[
+                    { 'fm-playing': playMode === 'radio' && currentSong?.status === 'playing' },
+                    'btn-primary',
+                    'btn-square',
+                    'btn-sm',
+                    'mr-2'
+                ]"
                 @click="onRadioClick"
             >
                 <template #icon>
@@ -167,9 +178,23 @@ async function onRadioClick() {
     </nav>
 </template>
 
-<style>
+<style lang="scss">
 nav.navbar {
     padding-top: env(safe-area-inset-top);
     transition: background 200ms;
+}
+
+button.fm-playing {
+    animation: fm-playing 2s infinite !important;
+}
+
+@keyframes fm-playing {
+    0% {
+        box-shadow: 0px 0px 0px 0px hsl(var(--p) / 0.7);
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 7px hsl(var(--p) / 0);
+    }
 }
 </style>
