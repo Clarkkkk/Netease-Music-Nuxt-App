@@ -37,7 +37,7 @@ const tabs = [
         name: '韩国',
         value: AREA.KOREA
     }
-]
+] as const
 
 const list = ref<Record<AreaValue, Array<Song>>>({
     [AREA.ALL]: [],
@@ -115,6 +115,7 @@ onMounted(() => {
                         showAll = false
                     }
                     getData(tab.value)
+                    currentTab = tab.value
                 }
             "
         >
@@ -131,11 +132,11 @@ onMounted(() => {
                         'w-full',
                         'overflow-x-visible',
                         'overflow-y-scroll',
-                        { 'is-empty': !list[tabItem.value].length }
+                        { 'is-empty': !list[tabItem.value as AreaValue].length }
                     ]"
                 >
                     <SongItem
-                        v-for="song in list[tabItem.value].slice(
+                        v-for="song in list[tabItem.value as AreaValue].slice(
                             0,
                             showAll || !lessThan768 ? Infinity : 10
                         )"
