@@ -84,7 +84,7 @@ export default defineConfig(() => {
                     clientsClaim: true,
                     globPatterns: ['**/{main,vendor,index}*.{js,css}'],
                     globIgnores: ['**/*.html', '**/*.webmanifest'],
-                    maximumFileSizeToCacheInBytes: 2000 * 1000,
+                    maximumFileSizeToCacheInBytes: 50 * 1000 * 1000,
                     sourcemap: false,
                     navigateFallback: undefined,
                     cleanupOutdatedCaches: true,
@@ -114,6 +114,20 @@ export default defineConfig(() => {
                                     maxAgeSeconds: 60 * 24 * 60 * 60,
                                     maxEntries: 100
                                 }
+                            }
+                        },
+                        {
+                            urlPattern: /^https:\/\/.*126.net\/.*\.(mp3|flac)$/i,
+                            handler: 'StaleWhileRevalidate',
+                            options: {
+                                cacheName: 'music',
+                                cacheableResponse: {
+                                    statuses: [200, 206]
+                                },
+                                expiration: {
+                                    maxEntries: 50
+                                },
+                                rangeRequests: true
                             }
                         }
                     ]
