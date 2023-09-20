@@ -1,10 +1,9 @@
 import { computed, nextTick, ref } from 'vue'
 import type { ApiPersonalFm, ApiSongUrl } from 'api'
+import { ONE_MINUTE } from 'common'
 import { defineStore } from 'pinia'
 import { post, toHttps } from 'utils'
 import { useAudioStore } from './useAudioStore'
-
-const ONE_MINUTE = 60 * 1000
 
 export const usePlaylistStore = defineStore('playlist', () => {
     const playlist = ref<Song[]>([])
