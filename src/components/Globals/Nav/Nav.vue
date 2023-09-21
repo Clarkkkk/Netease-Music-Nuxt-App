@@ -22,7 +22,7 @@ const navRoutes = [
     },
     {
         name: 'My music',
-        to: 'user-center'
+        to: '/user-center'
     }
 ]
 const route = useRoute()
