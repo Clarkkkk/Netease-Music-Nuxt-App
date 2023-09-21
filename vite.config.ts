@@ -1,11 +1,9 @@
-import basicSsl from '@vitejs/plugin-basic-ssl'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-import debug from 'vite-plugin-debug'
 // import checker from 'vite-plugin-checker'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
@@ -45,14 +43,6 @@ export default defineConfig(() => {
                 types: [],
                 dts: 'src/types/components.d.ts',
                 resolvers: [IconsResolver()]
-            }),
-            basicSsl(),
-            debug({
-                enabled: true,
-                src: 'https://unpkg.com/eruda@3.0.1/eruda.js',
-                code: 'eruda.init();',
-                enabledByKey: 'debug',
-                enabledByValue: 'true'
             }),
             VitePWA({
                 injectRegister: 'inline',
@@ -147,7 +137,6 @@ export default defineConfig(() => {
         server: {
             port: 3200,
             host: '127.0.0.1',
-            https: true,
             open: 'http://dev.carllllo.work:3200/music',
             proxy: {
                 '/api': {
