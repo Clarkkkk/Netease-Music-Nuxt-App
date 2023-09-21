@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { usePlaylistStore } from 'stores'
 import Button from '../Button.vue'
@@ -8,6 +9,7 @@ const props = defineProps<{ song: Song }>()
 
 const { switchToThisSong, insertSongToNext } = usePlaylistStore()
 const { playMode } = storeToRefs(usePlaylistStore())
+const router = useRouter()
 
 async function onPlayClick() {
     await switchToThisSong(props.song)
@@ -15,6 +17,10 @@ async function onPlayClick() {
 
 async function onPlayNextClick() {
     await insertSongToNext(props.song)
+}
+
+async function onAlbumClick() {
+    await router.push(`/album/${props.song.albumId}`)
 }
 
 async function onClick() {
@@ -48,7 +54,7 @@ async function onClick() {
                 <i-solar-list-heart-minimalistic-line-duotone class="h-5 w-5" />
                 <span>收藏到歌单</span>
             </ContextMenuItem>
-            <ContextMenuItem @click="onClick">
+            <ContextMenuItem @click="onAlbumClick">
                 <i-solar-vinyl-line-duotone class="h-5 w-5" />
                 <span>查看专辑</span>
             </ContextMenuItem>
