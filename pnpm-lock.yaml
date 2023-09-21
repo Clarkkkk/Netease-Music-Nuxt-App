@@ -79,6 +79,9 @@ devDependencies:
   '@vite-pwa/assets-generator':
     specifier: ^0.0.4
     version: 0.0.4
+  '@vitejs/plugin-basic-ssl':
+    specifier: ^1.0.1
+    version: 1.0.1(vite@4.3.9)
   '@vitejs/plugin-vue':
     specifier: ^4.2.3
     version: 4.2.3(vite@4.3.9)(vue@3.3.4)
@@ -202,6 +205,9 @@ devDependencies:
   vite-plugin-checker:
     specifier: ^0.6.0
     version: 0.6.0(eslint@8.42.0)(typescript@5.1.6)(vite@4.3.9)(vue-tsc@1.8.11)
+  vite-plugin-debug:
+    specifier: ^1.0.1
+    version: 1.0.1
   vite-plugin-pwa:
     specifier: ^0.16.4
     version: 0.16.4(vite@4.3.9)(workbox-build@7.0.0)(workbox-window@7.0.0)
@@ -2503,6 +2509,15 @@ packages:
       sharp: 0.32.4
       sharp-ico: 0.1.5
       unconfig: 0.3.9
+    dev: true
+
+  /@vitejs/plugin-basic-ssl@1.0.1(vite@4.3.9):
+    resolution: {integrity: sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==}
+    engines: {node: '>=14.6.0'}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0
+    dependencies:
+      vite: 4.3.9(@types/node@20.2.5)(sass@1.62.1)
     dev: true
 
   /@vitejs/plugin-vue@4.2.3(vite@4.3.9)(vue@3.3.4):
@@ -9273,6 +9288,10 @@ packages:
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
       vue-tsc: 1.8.11(typescript@5.1.6)
+    dev: true
+
+  /vite-plugin-debug@1.0.1:
+    resolution: {integrity: sha512-php2qOvaWtESUUjhsWiHwRbIPWRylY0fuV2iWdwHlGqo3rwELdAT7RPxh+movu1H+mgr5lqRBMFZn4OjTt/rEg==}
     dev: true
 
   /vite-plugin-pwa@0.16.4(vite@4.3.9)(workbox-build@7.0.0)(workbox-window@7.0.0):
