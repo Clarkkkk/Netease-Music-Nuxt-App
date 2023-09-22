@@ -29,15 +29,11 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         zIndex: 0,
         transform: `perspective(300px) translateX(${positionPercentage.value * 60}px) translateY(${
             Math.abs(positionPercentage.value) < 0.1 ? '-10px' : '0'
-        }) rotateY(${positionPercentage.value * -50 + 3}deg) rotateX(${Math.abs(
-            relativePosition * 1 + 2
-        )}deg) rotate(${positionPercentage.value * 10}deg) scale(${minmax(
-            1 - Math.abs(positionPercentage.value),
-            {
-                min: 0.6,
-                max: 1
-            }
-        )})`
+        }) rotateY(${positionPercentage.value * -50 + 5}deg) rotateX(${
+            0 * (1 - Math.abs(positionPercentage.value))
+        }deg) rotate(${
+            positionPercentage.value * 10 + (1 - relativePosition / 100) * -1
+        }deg) scale(${(1 - Math.abs(positionPercentage.value)) * 0.5 + 0.6})`
     }
 })
 
@@ -75,27 +71,12 @@ function onClick() {
                     'flex-fixed',
                     'transition-all',
                     'duration-500',
-                    'opacity-50',
-                    { blur: true }
+                    'opacity-40',
+                    { 'blur-sm': true }
                 ]"
                 loading="lazy"
                 :size="300"
             />
-            <!-- <Image
-                :src="toHttps(img)"
-                :class="[
-                    'playing-cover-bottom-shadow',
-                    'absolute',
-                    'h-48',
-                    'w-48',
-                    'flex-fixed',
-                    'transition-all',
-                    'duration-500',
-                    'content-visible'
-                ]"
-                loading="lazy"
-                :size="300"
-            /> -->
             <Image
                 :src="toHttps(img)"
                 class="relative z-10 h-48 w-48 flex-fixed rounded-2xl content-visible"
@@ -132,12 +113,6 @@ function onClick() {
         img {
             mix-blend-mode: screen;
         }
-    }
-}
-
-@media (max-width: 639px) {
-    .album-container {
-        // scroll-snap-stop: normal;
     }
 }
 

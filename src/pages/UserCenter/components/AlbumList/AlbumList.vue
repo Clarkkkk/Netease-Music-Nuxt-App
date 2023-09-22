@@ -37,7 +37,9 @@ const { onScroll, onWheel, centerPosition } = useScrollPosition(containerRef)
                         }
                     }
                 "
-            />
+            >
+                {{ ' ' }}
+            </IntersectionObserver>
         </div>
     </div>
 </template>

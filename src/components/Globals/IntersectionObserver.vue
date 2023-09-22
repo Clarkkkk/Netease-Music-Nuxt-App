@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, useSlots } from 'vue'
 
 const props = defineProps<{
     isBottom: boolean
     onChange: (visible: boolean) => void
 }>()
+
+const slots = useSlots()
 
 const element = ref<HTMLElement | null>(null)
 const observer = ref<IntersectionObserver | null>(null)
@@ -48,7 +50,10 @@ onBeforeUnmount(() => {
             v-if="isBottom"
             class="text-center text-xs text-primary/70"
         >
-            — 到底啦 —
+            <template v-if="slots.default">
+                <slot></slot>
+            </template>
+            <template v-else> — 到底啦 — </template>
         </span>
         <span
             v-else
