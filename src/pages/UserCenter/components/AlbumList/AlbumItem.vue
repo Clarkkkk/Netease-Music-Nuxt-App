@@ -25,21 +25,19 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         (elementRef.value.offsetLeft + elementRef.value.clientWidth / 2 - props.position) /
         elementRef.value.clientWidth
 
-    console.log(relativePosition)
-    console.log(relativePosition * 10)
     return {
         zIndex: 0,
-        transform: `perspective(300px) translateX(${positionPercentage.value * 70}px) translateY(${
+        transform: `perspective(300px) translateX(${positionPercentage.value * 60}px) translateY(${
             Math.abs(positionPercentage.value) < 0.1 ? '-10px' : '0'
-        }) rotateY(${positionPercentage.value * -50 + 5}deg) rotateX(${Math.abs(
+        }) rotateY(${positionPercentage.value * -50 + 3}deg) rotateX(${Math.abs(
             relativePosition * 1 + 2
-        )}deg) rotate(${positionPercentage.value * 15}deg) scale(${
-            3 *
-            minmax(1 - Math.abs(positionPercentage.value), {
+        )}deg) rotate(${positionPercentage.value * 10}deg) scale(${minmax(
+            1 - Math.abs(positionPercentage.value),
+            {
                 min: 0.6,
                 max: 1
-            })
-        })`
+            }
+        )})`
     }
 })
 
@@ -71,9 +69,9 @@ function onClick() {
                 :class="[
                     'playing-cover-shadow',
                     'absolute',
-                    'h-16',
-                    'w-16',
-                    'rounded',
+                    'h-48',
+                    'w-48',
+                    'rounded-2xl',
                     'flex-fixed',
                     'transition-all',
                     'duration-500',
@@ -100,7 +98,7 @@ function onClick() {
             /> -->
             <Image
                 :src="toHttps(img)"
-                class="relative z-10 h-16 w-16 flex-fixed rounded-md content-visible"
+                class="relative z-10 h-48 w-48 flex-fixed rounded-2xl content-visible"
                 loading="lazy"
                 :size="300"
             />
@@ -119,6 +117,7 @@ function onClick() {
         left: 50%;
         transform: translate(-50%, -50%);
         content-visibility: visible;
+        contain: none;
     }
 
     .playing-cover-bottom-shadow {
