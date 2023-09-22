@@ -15,7 +15,7 @@ export function useScrollPosition(container: Ref<HTMLElement | null>) {
     function onWheel(e: WheelEvent) {
         if (!container.value) return
         container.value.scroll({
-            left: container.value.scrollLeft + (e.deltaY > 0 ? 40 : -40)
+            left: container.value.scrollLeft + (e.deltaY > 0 ? 64 : -64)
         })
     }
 

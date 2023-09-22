@@ -25,22 +25,21 @@ const transformStyle: ComputedRef<StyleValue> = computed(() => {
         (elementRef.value.offsetLeft + elementRef.value.clientWidth / 2 - props.position) /
         elementRef.value.clientWidth
 
-    let zIndex = 0
-    if (Math.abs(relativePosition) < 0.01) {
-        zIndex = 200
-    } else if (relativePosition < 0) {
-        zIndex = 1
-    } else {
-        zIndex = Math.max(Math.floor(100 - relativePosition), 1)
-    }
+    console.log(relativePosition)
+    console.log(relativePosition * 10)
     return {
-        zIndex,
+        zIndex: 0,
         transform: `perspective(300px) translateX(${positionPercentage.value * 70}px) translateY(${
             Math.abs(positionPercentage.value) < 0.1 ? '-10px' : '0'
-        }) rotateY(${positionPercentage.value * -75}deg) scale(${minmax(
-            1 - Math.abs(positionPercentage.value),
-            { min: 0.7, max: 1 }
-        )})`
+        }) rotateY(${positionPercentage.value * -50 + 5}deg) rotateX(${Math.abs(
+            relativePosition * 1 + 2
+        )}deg) rotate(${positionPercentage.value * 15}deg) scale(${
+            3 *
+            minmax(1 - Math.abs(positionPercentage.value), {
+                min: 0.6,
+                max: 1
+            })
+        })`
     }
 })
 
@@ -59,12 +58,12 @@ function onClick() {
 <template>
     <div
         ref="elementRef"
-        class="album-container h-8 w-8"
+        class="album-container h-16 w-16"
         @click="onClick"
     >
         <!-- use nested container to avoid quirk behaviours in chromium: https://stackoverflow.com/questions/75104680/css-scroll-snap-children-with-transform-on-hover-causes-janky-effect-in-chromi -->
         <div
-            class="relative flex h-8 w-8 flex-fixed cursor-pointer items-center justify-center duration-300 hover:scale-110 active:scale-100"
+            class="relative flex h-16 w-16 flex-fixed cursor-pointer items-center justify-center duration-300 hover:scale-110 active:scale-100"
             :style="transformStyle"
         >
             <Image
@@ -72,8 +71,9 @@ function onClick() {
                 :class="[
                     'playing-cover-shadow',
                     'absolute',
-                    'h-48',
-                    'w-48',
+                    'h-16',
+                    'w-16',
+                    'rounded',
                     'flex-fixed',
                     'transition-all',
                     'duration-500',
@@ -83,7 +83,7 @@ function onClick() {
                 loading="lazy"
                 :size="300"
             />
-            <Image
+            <!-- <Image
                 :src="toHttps(img)"
                 :class="[
                     'playing-cover-bottom-shadow',
@@ -97,10 +97,10 @@ function onClick() {
                 ]"
                 loading="lazy"
                 :size="300"
-            />
+            /> -->
             <Image
                 :src="toHttps(img)"
-                class="relative z-10 h-48 w-48 flex-fixed content-visible"
+                class="relative z-10 h-16 w-16 flex-fixed rounded-md content-visible"
                 loading="lazy"
                 :size="300"
             />
@@ -112,11 +112,13 @@ function onClick() {
 .album-container {
     scroll-snap-align: center;
     scroll-snap-stop: always;
+    transform-style: preserve-3d;
 
     .playing-cover-shadow {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        content-visibility: visible;
     }
 
     .playing-cover-bottom-shadow {
@@ -136,7 +138,7 @@ function onClick() {
 
 @media (max-width: 639px) {
     .album-container {
-        scroll-snap-stop: normal;
+        // scroll-snap-stop: normal;
     }
 }
 

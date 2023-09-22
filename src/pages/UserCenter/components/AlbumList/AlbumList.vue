@@ -15,36 +15,42 @@ const { onScroll, onWheel, centerPosition } = useScrollPosition(containerRef)
     <div
         id="user-album-list"
         ref="containerRef"
-        class="relative flex h-64 items-center overflow-x-auto overflow-y-hidden"
+        class="relative flex h-80 items-center overflow-x-auto overflow-y-hidden"
         @scroll.passive="onScroll"
         @wheel="onWheel"
     >
-        <AlbumItem
-            v-for="album in list"
-            :id="album.id"
-            :key="album.id"
-            :img="album.picUrl"
-            :position="centerPosition"
-        />
-        <IntersectionObserver
-            v-if="list.length"
-            :is-bottom="!more"
-            @change="
-                (visible) => {
-                    if (visible) {
-                        getData()
+        <div class="relative flex h-64 items-center">
+            <AlbumItem
+                v-for="album in list"
+                :id="album.id"
+                :key="album.id"
+                :img="album.picUrl"
+                :position="centerPosition"
+            />
+            <IntersectionObserver
+                v-if="list.length"
+                :is-bottom="!more"
+                @change="
+                    (visible) => {
+                        if (visible) {
+                            getData()
+                        }
                     }
-                }
-            "
-        />
+                "
+            />
+        </div>
     </div>
 </template>
 
 <style lang="scss">
 #user-album-list {
     // 16px is half width of the album image
-    padding: 0 calc(50% - 16px);
     scroll-snap-type: x proximity;
     overscroll-behavior: contain;
+
+    & > div {
+        padding: 0 calc(50% - 16px);
+        transform-style: preserve-3d;
+    }
 }
 </style>
