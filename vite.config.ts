@@ -137,12 +137,15 @@ export default defineConfig(() => {
         server: {
             port: 3200,
             host: '127.0.0.1',
-            open: 'http://dev.carllllo.work:3200/music',
+            open: 'http://carllllo.dev:3200/music',
             proxy: {
                 '/api': {
                     target: 'https://api.carllllo.work/music',
                     changeOrigin: true,
-                    rewrite: (url) => url.replace(/^\/api/, '')
+                    rewrite: (url) => url.replace(/^\/api/, ''),
+                    headers: {
+                        Referer: 'https://carllllo.work/'
+                    }
                 }
             }
         },
