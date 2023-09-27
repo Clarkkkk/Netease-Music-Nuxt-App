@@ -1,0 +1,6 @@
+*.webmanifest
+index.html
+build
+dist
+dist-test
+coverage
