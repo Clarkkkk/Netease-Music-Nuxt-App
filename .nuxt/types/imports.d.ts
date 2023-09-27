@@ -8,6 +8,8 @@ declare global {
   const clearNuxtData: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtData']
   const clearNuxtState: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtState']
   const computed: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['computed']
+  const convertKeyStyle: typeof import('../../utils/convertKeyStyle')['convertKeyStyle']
+  const createContext: typeof import('../../utils/createContext')['createContext']
   const createError: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['createError']
   const customRef: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['customRef']
   const defineAppConfig: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['defineAppConfig']
@@ -26,6 +28,7 @@ declare global {
   const defineSlots: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['defineSlots']
   const effect: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effect']
   const effectScope: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effectScope']
+  const get: typeof import('../../utils/request')['get']
   const getCurrentInstance: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentInstance']
   const getCurrentScope: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentScope']
   const h: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['h']
@@ -44,6 +47,7 @@ declare global {
   const loadPayload: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['loadPayload']
   const markRaw: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['markRaw']
   const mergeModels: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['mergeModels']
+  const minmax: typeof import('../../utils/minmax')['minmax']
   const navigateTo: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['navigateTo']
   const nextTick: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['nextTick']
   const onActivated: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onActivated']
@@ -62,10 +66,12 @@ declare global {
   const onServerPrefetch: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onServerPrefetch']
   const onUnmounted: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUnmounted']
   const onUpdated: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUpdated']
+  const post: typeof import('../../utils/request')['post']
   const prefetchComponents: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['prefetchComponents']
   const preloadComponents: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadComponents']
   const preloadPayload: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadPayload']
   const preloadRouteComponents: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadRouteComponents']
+  const prependZero: typeof import('../../utils/prependZero')['prependZero']
   const provide: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['provide']
   const proxyRefs: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['proxyRefs']
   const reactive: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['reactive']
@@ -81,6 +87,7 @@ declare global {
   const shallowReadonly: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowReadonly']
   const shallowRef: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowRef']
   const showError: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['showError']
+  const toHttps: typeof import('../../utils/toHttps')['toHttps']
   const toRaw: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRaw']
   const toRef: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRef']
   const toRefs: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRefs']
@@ -105,6 +112,7 @@ declare global {
   const useNuxtApp: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtApp']
   const useNuxtData: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtData']
   const useNuxtDevTools: typeof import('../../node_modules/.pnpm/@nuxt+devtools@0.8.5_nuxt@3.7.3_rollup@2.79.1_vite@4.4.9/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']
+  const usePinia: typeof import('../../node_modules/.pnpm/@pinia+nuxt@0.4.11_rollup@2.79.1_typescript@5.1.6_vue@3.3.4/node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']
   const useRequestEvent: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestEvent']
   const useRequestFetch: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestFetch']
   const useRequestHeaders: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestHeaders']
@@ -119,6 +127,7 @@ declare global {
   const useSlots: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useSlots']
   const useState: typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useState']
   const useTransitionState: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useTransitionState']
+  const wait: typeof import('../../utils/wait')['wait']
   const watch: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watch']
   const watchEffect: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchEffect']
   const watchPostEffect: typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchPostEffect']
@@ -146,6 +155,8 @@ declare module 'vue' {
     readonly clearNuxtData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtData']>
     readonly clearNuxtState: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtState']>
     readonly computed: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['computed']>
+    readonly convertKeyStyle: UnwrapRef<typeof import('../../utils/convertKeyStyle')['convertKeyStyle']>
+    readonly createContext: UnwrapRef<typeof import('../../utils/createContext')['createContext']>
     readonly createError: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['createError']>
     readonly customRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['customRef']>
     readonly defineAppConfig: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['defineAppConfig']>
@@ -164,6 +175,7 @@ declare module 'vue' {
     readonly defineSlots: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['defineSlots']>
     readonly effect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effect']>
     readonly effectScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effectScope']>
+    readonly get: UnwrapRef<typeof import('../../utils/request')['get']>
     readonly getCurrentInstance: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['h']>
@@ -182,6 +194,7 @@ declare module 'vue' {
     readonly loadPayload: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['loadPayload']>
     readonly markRaw: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['markRaw']>
     readonly mergeModels: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['mergeModels']>
+    readonly minmax: UnwrapRef<typeof import('../../utils/minmax')['minmax']>
     readonly navigateTo: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['navigateTo']>
     readonly nextTick: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onActivated']>
@@ -200,10 +213,12 @@ declare module 'vue' {
     readonly onServerPrefetch: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onServerPrefetch']>
     readonly onUnmounted: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUpdated']>
+    readonly post: UnwrapRef<typeof import('../../utils/request')['post']>
     readonly prefetchComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['prefetchComponents']>
     readonly preloadComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadComponents']>
     readonly preloadPayload: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadPayload']>
     readonly preloadRouteComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadRouteComponents']>
+    readonly prependZero: UnwrapRef<typeof import('../../utils/prependZero')['prependZero']>
     readonly provide: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['provide']>
     readonly proxyRefs: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['proxyRefs']>
     readonly reactive: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['reactive']>
@@ -219,6 +234,7 @@ declare module 'vue' {
     readonly shallowReadonly: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowRef']>
     readonly showError: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['showError']>
+    readonly toHttps: UnwrapRef<typeof import('../../utils/toHttps')['toHttps']>
     readonly toRaw: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRaw']>
     readonly toRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRefs']>
@@ -243,6 +259,7 @@ declare module 'vue' {
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtApp']>
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtData']>
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxt+devtools@0.8.5_nuxt@3.7.3_rollup@2.79.1_vite@4.4.9/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
+    readonly usePinia: UnwrapRef<typeof import('../../node_modules/.pnpm/@pinia+nuxt@0.4.11_rollup@2.79.1_typescript@5.1.6_vue@3.3.4/node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestFetch']>
     readonly useRequestHeaders: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestHeaders']>
@@ -257,6 +274,7 @@ declare module 'vue' {
     readonly useSlots: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useSlots']>
     readonly useState: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useState']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useTransitionState']>
+    readonly wait: UnwrapRef<typeof import('../../utils/wait')['wait']>
     readonly watch: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchPostEffect']>
@@ -278,6 +296,8 @@ declare module '@vue/runtime-core' {
     readonly clearNuxtData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtData']>
     readonly clearNuxtState: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['clearNuxtState']>
     readonly computed: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['computed']>
+    readonly convertKeyStyle: UnwrapRef<typeof import('../../utils/convertKeyStyle')['convertKeyStyle']>
+    readonly createContext: UnwrapRef<typeof import('../../utils/createContext')['createContext']>
     readonly createError: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['createError']>
     readonly customRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['customRef']>
     readonly defineAppConfig: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['defineAppConfig']>
@@ -296,6 +316,7 @@ declare module '@vue/runtime-core' {
     readonly defineSlots: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['defineSlots']>
     readonly effect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effect']>
     readonly effectScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['effectScope']>
+    readonly get: UnwrapRef<typeof import('../../utils/request')['get']>
     readonly getCurrentInstance: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['h']>
@@ -314,6 +335,7 @@ declare module '@vue/runtime-core' {
     readonly loadPayload: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['loadPayload']>
     readonly markRaw: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['markRaw']>
     readonly mergeModels: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['mergeModels']>
+    readonly minmax: UnwrapRef<typeof import('../../utils/minmax')['minmax']>
     readonly navigateTo: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['navigateTo']>
     readonly nextTick: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onActivated']>
@@ -332,10 +354,12 @@ declare module '@vue/runtime-core' {
     readonly onServerPrefetch: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onServerPrefetch']>
     readonly onUnmounted: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['onUpdated']>
+    readonly post: UnwrapRef<typeof import('../../utils/request')['post']>
     readonly prefetchComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['prefetchComponents']>
     readonly preloadComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadComponents']>
     readonly preloadPayload: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadPayload']>
     readonly preloadRouteComponents: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['preloadRouteComponents']>
+    readonly prependZero: UnwrapRef<typeof import('../../utils/prependZero')['prependZero']>
     readonly provide: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['provide']>
     readonly proxyRefs: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['proxyRefs']>
     readonly reactive: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['reactive']>
@@ -351,6 +375,7 @@ declare module '@vue/runtime-core' {
     readonly shallowReadonly: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['shallowRef']>
     readonly showError: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['showError']>
+    readonly toHttps: UnwrapRef<typeof import('../../utils/toHttps')['toHttps']>
     readonly toRaw: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRaw']>
     readonly toRef: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['toRefs']>
@@ -375,6 +400,7 @@ declare module '@vue/runtime-core' {
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtApp']>
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useNuxtData']>
     readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/.pnpm/@nuxt+devtools@0.8.5_nuxt@3.7.3_rollup@2.79.1_vite@4.4.9/node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
+    readonly usePinia: UnwrapRef<typeof import('../../node_modules/.pnpm/@pinia+nuxt@0.4.11_rollup@2.79.1_typescript@5.1.6_vue@3.3.4/node_modules/@pinia/nuxt/dist/runtime/composables')['usePinia']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestEvent']>
     readonly useRequestFetch: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestFetch']>
     readonly useRequestHeaders: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useRequestHeaders']>
@@ -389,6 +415,7 @@ declare module '@vue/runtime-core' {
     readonly useSlots: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useSlots']>
     readonly useState: UnwrapRef<typeof import('../../node_modules/.pnpm/nuxt@3.7.3_@types+node@20.7.0_eslint@8.42.0_rollup@2.79.1_sass@1.62.1_typescript@5.1.6_vue-tsc@1.8.11/node_modules/nuxt/dist/app')['useState']>
     readonly useTransitionState: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['useTransitionState']>
+    readonly wait: UnwrapRef<typeof import('../../utils/wait')['wait']>
     readonly watch: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('../../node_modules/.pnpm/vue@3.3.4/node_modules/vue')['watchPostEffect']>

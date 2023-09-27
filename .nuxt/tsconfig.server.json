@@ -50,6 +50,39 @@
       ],
       "public/*": [
         "../public/*"
+      ],
+      "common": [
+        "../common"
+      ],
+      "common/*": [
+        "../common/*"
+      ],
+      "services": [
+        "../services"
+      ],
+      "services/*": [
+        "../services/*"
+      ],
+      "api": [
+        "../api"
+      ],
+      "api/*": [
+        "../api/*"
+      ],
+      "utils": [
+        "../utils"
+      ],
+      "utils/*": [
+        "../utils/*"
+      ],
+      "stores": [
+        "../stores"
+      ],
+      "stores/*": [
+        "../stores/*"
+      ],
+      "pinia": [
+        "../node_modules/.pnpm/pinia@2.1.3_typescript@5.1.6_vue@3.3.4/node_modules/pinia/dist/pinia"
       ]
     }
   },
