@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@ark-ui/vue": "^0.5.3",
+    "@pinia/nuxt": "^0.4.11",
     "@unhead/vue": "^1.1.27",
     "@vueuse/core": "^10.1.2",
     "axios": "^1.4.0",
