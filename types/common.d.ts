@@ -21,7 +21,7 @@ interface ApiType {
     api: string
     method: 'get' | 'post'
     params?: Record<string, unknown>
-    return?: ApiResponse | ApiResponseWithoutData
+    return?: any
 }
 
 interface ApiGetType extends ApiType {

@@ -7,7 +7,7 @@ export { convertKeyStyle } from '../utils/convertKeyStyle';
 export { createContext } from '../utils/createContext';
 export { minmax } from '../utils/minmax';
 export { prependZero } from '../utils/prependZero';
-export { get, post } from '../utils/request';
+export { get, post, usePageData } from '../utils/request';
 export { toHttps } from '../utils/toHttps';
 export { wait } from '../utils/wait';
 export { usePinia } from '../node_modules/.pnpm/@pinia+nuxt@0.4.11_rollup@2.79.1_typescript@5.1.6_vue@3.3.4/node_modules/@pinia/nuxt/dist/runtime/composables';

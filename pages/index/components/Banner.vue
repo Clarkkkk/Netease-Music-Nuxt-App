@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { Image } from '#components'
 import type { ApiBanner, ApiSongDetail } from 'api'
 import { ONE_SECOND } from 'common'
 import { usePlaylistStore } from 'stores'
-import { post, toHttps } from 'utils'
-
-import { Image } from '#components'
+import { post, toHttps, usePageData } from 'utils'
 
 const pics = ref<ApiBanner['return']['banners']>([])
 const currentIndex = ref(0)
@@ -84,17 +83,14 @@ async function onImageClick(pic: ApiBanner['return']['banners'][number]) {
     }
 }
 
+const { data } = await usePageData<ApiBanner>('/banner', { type: 0 })
+
 onMounted(() => {
-    post<ApiBanner>('/banner', { type: 0 })
-        .then((res) => {
-            pics.value = res.banners
-            return nextTick()
-        })
-        .then(() => {
-            intervalId.value = window.setInterval(() => {
-                moveCurrentIndex()
-            }, 8 * ONE_SECOND)
-        })
+    if (!data.value) return
+    pics.value = data.value.banners
+    intervalId.value = window.setInterval(() => {
+        moveCurrentIndex()
+    }, 8 * ONE_SECOND)
 })
 
 onUnmounted(() => {

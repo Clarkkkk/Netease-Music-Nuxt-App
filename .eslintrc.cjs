@@ -39,7 +39,7 @@ module.exports = {
                         '^\\u0000',
                         // Packages. `vue` related packages come first.
                         '^vue',
-                        '^@?\\w',
+                        '^@?#?\\w',
                         // Internal packages.
                         '^(src|components|config|utils|pages|hooks|api)(/.*|$)',
                         // Parent imports. Put `..` last.
