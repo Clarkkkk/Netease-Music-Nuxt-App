@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 export default defineNuxtConfig({
     devtools: { enabled: true },
     components: [{ path: '~/components/Globals', pathPrefix: false }, '~/components'],
-    modules: ['@pinia/nuxt', 'unplugin-icons/nuxt'],
+    modules: ['@pinia/nuxt', 'unplugin-icons/nuxt', '@nuxtjs/tailwindcss'],
     alias: {
         common: fileURLToPath(new URL('./common', import.meta.url)),
         services: fileURLToPath(new URL('./services', import.meta.url)),
