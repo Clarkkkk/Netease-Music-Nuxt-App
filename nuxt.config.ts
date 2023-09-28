@@ -1,3 +1,6 @@
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import Components from 'unplugin-vue-components/vite'
 import { fileURLToPath } from 'url'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -11,6 +14,14 @@ export default defineNuxtConfig({
         api: fileURLToPath(new URL('./api', import.meta.url)),
         utils: fileURLToPath(new URL('./utils', import.meta.url)),
         stores: fileURLToPath(new URL('./stores', import.meta.url))
+    },
+    vite: {
+        plugins: [
+            Components({
+                resolvers: [IconsResolver()]
+            }),
+            Icons({})
+        ]
     },
     nitro: {
         // proxy the request from client
