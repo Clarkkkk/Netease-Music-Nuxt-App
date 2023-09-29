@@ -60,7 +60,6 @@ async function onPlayAll() {
 }
 
 async function getData(type: AreaValue) {
-    console.log(list.value)
     if (loading.value || list.value[type].length) return
     loading.value = true
     try {

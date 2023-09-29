@@ -20,7 +20,11 @@ const props = defineProps<{
 }>()
 
 const calculatedSize = computed(() => {
-    return Math.floor(props.size ? props.size * window.devicePixelRatio : 0)
+    if (process.server) {
+        return Math.floor(props.size || 0)
+    } else {
+        return Math.floor(props.size ? props.size * window.devicePixelRatio : 0)
+    }
 })
 
 const srcRef = toRef(props, 'src')

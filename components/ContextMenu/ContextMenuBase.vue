@@ -14,7 +14,6 @@ defineProps<ContextMenuProps>()
 
 const { isPc } = useDeviceType()
 const tippy = ref<Instance | null>(null)
-const body = document.body
 const visible = ref(false)
 
 function hideMenu() {
@@ -22,11 +21,15 @@ function hideMenu() {
     visible.value = false
 }
 
+function appendTo() {
+    return document.body
+}
+
 watch(visible, (val) => {
     if (val) {
-        body.classList.add('overflow-hidden')
+        document.body.classList.add('overflow-hidden')
     } else {
-        body.classList.remove('overflow-hidden')
+        document.body.classList.remove('overflow-hidden')
     }
 })
 
@@ -43,7 +46,7 @@ provide('ContextMenu', { hideMenu, visible })
             trigger="click"
             :delay="[0, 0]"
             :placement="placement || 'bottom-end'"
-            :append-to="() => body"
+            :append-to="appendTo"
             role="context-menu"
             :offset="[0, 15]"
             @show="
