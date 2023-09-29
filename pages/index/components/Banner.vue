@@ -83,10 +83,27 @@ async function onImageClick(pic: ApiBanner['return']['banners'][number]) {
     }
 }
 
-const { data } = await usePageData<ApiBanner>('/banner', { type: 0 })
+const { data } = await usePageData<ApiBanner>({
+    api: '/banner',
+    params: { type: 0 },
+    transform(input) {
+        return {
+            code: 200,
+            banners: input.banners.map((item) => {
+                return {
+                    targetId: item.targetId,
+                    targetType: item.targetType,
+                    url: item.url,
+                    imageUrl: item.imageUrl
+                }
+            }) as ApiBanner['return']['banners']
+        }
+    }
+})
 
 onMounted(() => {
     if (!data.value) return
+    console.log(data)
     pics.value = data.value.banners
     intervalId.value = window.setInterval(() => {
         moveCurrentIndex()

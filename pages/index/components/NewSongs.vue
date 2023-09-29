@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
+import { Button, SongItem, Tabs } from '#components'
 import type { ApiTopSong } from 'api'
 import { usePlaylistStore } from 'stores'
 import { post, toHttps } from 'utils'
-
-import { Button, SongItem, Tabs } from '#components'
 
 const AREA = {
     ALL: 0,
@@ -61,6 +60,7 @@ async function onPlayAll() {
 }
 
 async function getData(type: AreaValue) {
+    console.log(list.value)
     if (loading.value || list.value[type].length) return
     loading.value = true
     try {
@@ -84,6 +84,8 @@ async function getData(type: AreaValue) {
         loading.value = false
     }
 }
+
+await getData(AREA.ALL)
 
 onMounted(() => {
     getData(AREA.ALL)

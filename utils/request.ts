@@ -1,19 +1,6 @@
-import axios from 'axios'
 import type { AsyncData } from 'nuxt/app'
-import { useFetch } from 'nuxt/app'
-
-// 请求中间件
-axios.interceptors.request.use((config) => {
-    config.url = import.meta.env.VITE_API + config.url
-    config.withCredentials = true
-
-    return config
-})
-
-// 响应中间件
-axios.interceptors.response.use(async (response) => {
-    return response.data
-})
+import { useAsyncData } from 'nuxt/app'
+import type { MultiWatchSources } from 'nuxt/dist/app/composables/asyncData'
 
 type RequestArguments<T extends ApiType> = T['params'] extends Record<string, unknown> | FormData
     ? [api: T['api'], params: T['params']]
@@ -22,23 +9,62 @@ type RequestArguments<T extends ApiType> = T['params'] extends Record<string, un
 export function get<Type extends ApiGetType>(
     ...[api, params]: RequestArguments<Type>
 ): Promise<Type['return']> {
-    return axios.get(api, { params })
-}
+    const fullApi = '/api' + api
 
-export function post<Type extends ApiPostType>(
-    ...[api, params]: RequestArguments<Type>
-): Promise<Type['return']> {
-    return axios.post(api, params)
-}
-
-export function usePageData<Type extends ApiPostType>(
-    ...[api, params]: RequestArguments<Type>
-): AsyncData<Type['return'], any> {
-    return useFetch('/api' + api, {
+    return $fetch(fullApi, {
         params,
         method: 'get',
         headers: {
             referer: 'https://carllllo.work/'
         }
     })
+}
+
+export function post<Type extends ApiPostType>(
+    ...[api, params]: RequestArguments<Type>
+): Promise<Type['return']> {
+    const fullApi = '/api' + api
+
+    return $fetch(fullApi, {
+        body: params,
+        method: 'post',
+        headers: {
+            referer: 'https://carllllo.work/'
+        }
+    })
+}
+
+type usePageDataParams<T extends ApiPostType> = {
+    api: T['api']
+    params?: T['params']
+    key?: string
+    transform?: (input: T['return']) => T['return']
+    watch?: MultiWatchSources
+}
+
+export function usePageData<Type extends ApiPostType>({
+    api,
+    params,
+    key,
+    transform,
+    watch
+}: usePageDataParams<Type>): AsyncData<Type['return'], any> {
+    const fullApi = '/api' + api
+
+    return useAsyncData(
+        key || fullApi,
+        () => {
+            return $fetch(fullApi, {
+                body: params,
+                method: 'post',
+                headers: {
+                    referer: 'https://carllllo.work/'
+                }
+            })
+        },
+        {
+            transform,
+            watch
+        }
+    )
 }

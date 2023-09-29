@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { ApiAlbumNew } from 'api'
-import { post, toHttps } from 'utils'
+import { toHttps, usePageData } from 'utils'
 import AlbumItem from './AlbumItem.vue'
 
 interface Album {
@@ -17,25 +17,41 @@ interface Album {
 const albums = ref<Array<Album>>([])
 const loading = ref(false)
 
-onMounted(() => {
-    loading.value = true
-    post<ApiAlbumNew>('/album/new', { limit: 12 })
-        .then((res) => {
-            albums.value = res.albums.map((item) => {
+const { data } = await usePageData<ApiAlbumNew>({
+    api: '/album/new',
+    params: { limit: 12 },
+    transform(input) {
+        return {
+            code: input.code,
+            total: input.total,
+            albums: input.albums.map((item) => {
                 return {
                     name: item.name,
-                    subName: item.transNames?.[0] || item.alias[0] || '',
-                    artist: item.artist.name,
-                    artistPicUrl: item.artist.picUrl,
+                    transNames: item.transNames,
+                    alias: item.alias,
+                    artist: {
+                        name: item.artist.name,
+                        picUrl: item.artist.picUrl
+                    },
                     id: item.id,
                     picUrl: toHttps(item.picUrl),
-                    createTime: item.publishTime
+                    publishTime: item.publishTime
                 }
             })
-        })
-        .finally(() => {
-            loading.value = false
-        })
+        } as ApiAlbumNew['return']
+    }
+})
+
+albums.value = data.value.albums.map((item) => {
+    return {
+        name: item.name,
+        subName: item.transNames?.[0] || item.alias[0] || '',
+        artist: item.artist.name,
+        artistPicUrl: item.artist.picUrl,
+        id: item.id,
+        picUrl: toHttps(item.picUrl),
+        createTime: item.publishTime
+    }
 })
 </script>
 
