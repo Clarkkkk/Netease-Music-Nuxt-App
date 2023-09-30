@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { DefaultCover, Image } from '#components'
 import { useAudioStore, usePlaylistStore } from 'stores'
-import DefaultCover from 'components/DefaultCover.vue'
-
-import { Image } from '#components'
 
 const audio = useAudioStore()
 const playlist = usePlaylistStore()
