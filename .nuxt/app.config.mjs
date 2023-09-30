@@ -2,7 +2,9 @@
 import { updateAppConfig } from '#app'
 import { defuFn } from 'C:/Users/iouio/Workspace/Netease-Music-App-Nuxt/node_modules/.pnpm/defu@6.1.2/node_modules/defu/dist/defu.mjs'
 
-const inlineConfig = {}
+const inlineConfig = {
+  "nuxt": {}
+}
 
 // Vite - webpack is handled directly in #app/config
 if (import.meta.hot) {
