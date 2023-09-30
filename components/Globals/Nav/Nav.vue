@@ -26,7 +26,7 @@ const navRoutes = [
     }
 ]
 const route = useRoute()
-const isTop = ref(window.scrollY === 0)
+const isTop = ref(true)
 const searchTransition = ref(false)
 const lessThan1024 = useMediaQuery('(max-width: 1023px)')
 const lessThan768 = useMediaQuery('(max-width: 767px)')
@@ -42,6 +42,7 @@ watch(
 )
 
 onMounted(() => {
+    isTop.value = window.scrollY === 0
     window.addEventListener(
         'scroll',
         () => {
