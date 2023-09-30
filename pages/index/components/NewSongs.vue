@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 import { Button, SongItem, Tabs } from '#components'
 import type { ApiTopSong } from 'api'
 import { usePlaylistStore } from 'stores'
-import { post, toHttps } from 'utils'
+import { post, toHttps, usePageData } from 'utils'
 
 const AREA = {
     ALL: 0,
@@ -53,6 +53,32 @@ const loading = ref(false)
 const currentTab = ref<AreaValue>(AREA.ALL)
 const { switchToThisList } = usePlaylistStore()
 
+const { data } = await usePageData<ApiTopSong>({
+    api: '/top/song',
+    params: { type: AREA.ALL },
+    transform(input) {
+        return {
+            code: input.code,
+            data: input.data.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    alias: item.alias,
+                    transNames: item.transNames,
+                    artists: item.artists,
+                    album: {
+                        name: item.album.name,
+                        picUrl: item.album.picUrl,
+                        id: item.album.id
+                    }
+                }
+            })
+        } as ApiTopSong['return']
+    }
+})
+
+list.value[AREA.ALL] = parseData(data.value)
+
 async function onPlayAll() {
     if (list.value[currentTab.value].length) {
         await switchToThisList(list.value[currentTab.value])
@@ -64,31 +90,29 @@ async function getData(type: AreaValue) {
     loading.value = true
     try {
         const res = await post<ApiTopSong>('/top/song', { type })
-        list.value[type] = res.data.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                subName: item.alias[0] || item.transNames?.[0] || '',
-                artist: item.artists[0].name,
-                album: item.album.name,
-                cover: toHttps(item.album.picUrl),
-                artistId: item.artists[0].id,
-                albumId: item.album.id,
-                timestamp: 0,
-                url: '',
-                status: 'not-playing'
-            }
-        })
+        list.value[type] = parseData(res)
     } finally {
         loading.value = false
     }
 }
 
-await getData(AREA.ALL)
-
-onMounted(() => {
-    getData(AREA.ALL)
-})
+function parseData(data: ApiTopSong['return']): Song[] {
+    return data.data.map((item) => {
+        return {
+            id: item.id,
+            name: item.name,
+            subName: item.alias[0] || item.transNames?.[0] || '',
+            artist: item.artists[0].name,
+            album: item.album.name,
+            cover: toHttps(item.album.picUrl),
+            artistId: item.artists[0].id,
+            albumId: item.album.id,
+            timestamp: 0,
+            url: '',
+            status: 'not-playing'
+        }
+    })
+}
 </script>
 
 <template>
