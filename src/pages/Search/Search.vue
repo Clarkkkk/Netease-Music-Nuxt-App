@@ -72,7 +72,7 @@ watch(
                 v-view-transition-name="{ 'search-input': !viewTransitionEnded }"
                 type="search"
                 autofocus
-                class="input-primary input input-sm w-full pl-10 md:input-md md:w-128 md:pl-14 md:text-lg"
+                class="input-primary input input-sm w-full rounded-full bg-transparent pl-10 md:input-md md:w-128 md:pl-14 md:text-lg"
                 @keydown.enter="(e) => onSearch((e.target as HTMLInputElement).value)"
             />
         </form>
@@ -103,22 +103,4 @@ watch(
     </div>
 </template>
 
-<style lang="scss">
-::view-transition-old(search-input),
-::view-transition-new(search-icon) {
-    animation: none;
-    opacity: 0;
-}
-
-::view-transition-new(search-input),
-::view-transition-old(search-input),
-::view-transition-new(search-icon),
-::view-transition-old(search-icon) {
-    animation: none;
-    /* Use normal blending,
-  so the new view sits on top and obscures the old view */
-    mix-blend-mode: normal;
-    // animation-duration: 1000ms;
-    height: 100%;
-}
-</style>
+<style lang="scss"></style>

@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@vue/shared@3.3.4':
+    hash: xid2aysrcafvh7eicoc3dhypkq
+    path: patches/@vue__shared@3.3.4.patch
+
 dependencies:
   '@ark-ui/vue':
     specifier: ^0.5.3
@@ -2592,7 +2597,7 @@ packages:
     resolution: {integrity: sha512-cquyDNvZ6jTbf/+x+AgM2Arrp6G4Dzbb0R64jiG804HRMfRiFXWI6kqUVqZ6ZR0bQhIoQjB4+2bhNtVwndW15g==}
     dependencies:
       '@babel/parser': 7.22.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       estree-walker: 2.0.2
       source-map-js: 1.0.2
 
@@ -2600,7 +2605,7 @@ packages:
     resolution: {integrity: sha512-wyM+OjOVpuUukIq6p5+nwHYtj9cFroz9cwkfmP9O1nzH68BenTTv0u7/ndggT8cIQlnBeOo6sUT/gvHcIkLA5w==}
     dependencies:
       '@vue/compiler-core': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
 
   /@vue/compiler-sfc@3.3.4:
     resolution: {integrity: sha512-6y/d8uw+5TkCuzBkgLS0v3lSM3hJDntFEiUORM11pQ/hKvkhSKZrXW6i69UyXlJQisJxuUEJKAWEqWbWsLeNKQ==}
@@ -2610,7 +2615,7 @@ packages:
       '@vue/compiler-dom': 3.3.4
       '@vue/compiler-ssr': 3.3.4
       '@vue/reactivity-transform': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       estree-walker: 2.0.2
       magic-string: 0.30.0
       postcss: 8.4.24
@@ -2620,7 +2625,7 @@ packages:
     resolution: {integrity: sha512-m0v6oKpup2nMSehwA6Uuu+j+wEwcy7QmwMkVNVfrV9P2qE5KshC6RwOCq8fjGS/Eak/uNb8AaWekfiXxbBB6gQ==}
     dependencies:
       '@vue/compiler-dom': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
 
   /@vue/devtools-api@6.5.0:
     resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
@@ -2638,7 +2643,7 @@ packages:
       '@volar/source-map': 1.10.1
       '@vue/compiler-dom': 3.3.4
       '@vue/reactivity': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       minimatch: 9.0.3
       muggle-string: 0.3.1
       typescript: 5.1.6
@@ -2650,26 +2655,26 @@ packages:
     dependencies:
       '@babel/parser': 7.22.4
       '@vue/compiler-core': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       estree-walker: 2.0.2
       magic-string: 0.30.0
 
   /@vue/reactivity@3.3.4:
     resolution: {integrity: sha512-kLTDLwd0B1jG08NBF3R5rqULtv/f8x3rOFByTDz4J53ttIQEDmALqKqXY0J+XQeN0aV2FBxY8nJDf88yvOPAqQ==}
     dependencies:
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
 
   /@vue/runtime-core@3.3.4:
     resolution: {integrity: sha512-R+bqxMN6pWO7zGI4OMlmvePOdP2c93GsHFM/siJI7O2nxFRzj55pLwkpCedEY+bTMgp5miZ8CxfIZo3S+gFqvA==}
     dependencies:
       '@vue/reactivity': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
 
   /@vue/runtime-dom@3.3.4:
     resolution: {integrity: sha512-Aj5bTJ3u5sFsUckRghsNjVTtxZQ1OyMWCr5dZRAPijF/0Vy4xEoRCwLyHXcj4D0UFbJ4lbx3gPTgg06K/GnPnQ==}
     dependencies:
       '@vue/runtime-core': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       csstype: 3.1.2
 
   /@vue/server-renderer@3.3.4(vue@3.3.4):
@@ -2678,11 +2683,12 @@ packages:
       vue: 3.3.4
     dependencies:
       '@vue/compiler-ssr': 3.3.4
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
       vue: 3.3.4
 
-  /@vue/shared@3.3.4:
+  /@vue/shared@3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq):
     resolution: {integrity: sha512-7OjdcV8vQ74eiz1TZLzZP4JwqM5fA94K6yntPS5Z25r9HDuGNzaGdgvwKYq6S+MxwF0TFRwe50fIR/MYnakdkQ==}
+    patched: true
 
   /@vue/tsconfig@0.4.0:
     resolution: {integrity: sha512-CPuIReonid9+zOG/CGTT05FXrPYATEqoDGNrEaqS4hwcw5BUNM2FguC0mOwJD4Jr16UpRVl9N0pY3P+srIbqmg==}
@@ -9597,7 +9603,7 @@ packages:
       '@vue/compiler-sfc': 3.3.4
       '@vue/runtime-dom': 3.3.4
       '@vue/server-renderer': 3.3.4(vue@3.3.4)
-      '@vue/shared': 3.3.4
+      '@vue/shared': 3.3.4(patch_hash=xid2aysrcafvh7eicoc3dhypkq)
 
   /wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
