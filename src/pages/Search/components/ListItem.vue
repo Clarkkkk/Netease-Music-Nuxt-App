@@ -106,7 +106,7 @@ function onItemClick(id: number) {
                 'text-primary',
                 { 'opacity-0': !isHovering && isPc }
             ]"
-            @click.self="onPlayList(listItem.id)"
+            @click.stop="onPlayList(listItem.id)"
         >
             <template #icon>
                 <i-solar-play-circle-bold />
