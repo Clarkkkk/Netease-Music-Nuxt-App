@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0-beta.3    (2023-10-06)
+
+
+## **Features**
+
+* navigate to album page from song item ([e5394004](https://github.com/Clarkkkk/Netease-Music-App/commit/e539400411387ca9f9c77a0ae7b1e24c8b5c0f06))
+
+## **Bug Fixes**
+
+* improve accessibility of the search input ([975f5a10](https://github.com/Clarkkkk/Netease-Music-App/commit/975f5a105ef6cd9f300c89196e4047f5cfc3ecec))
+* fix a bug that cause unnecessary navigation when click play all button ([4ff62abe](https://github.com/Clarkkkk/Netease-Music-App/commit/4ff62abe1de8008c97a5718ef975269b9027a122))
+* reload image when loading failed ([dd03dded](https://github.com/Clarkkkk/Netease-Music-App/commit/dd03dded6b16b5c8d55aafa48bc7ade940086e5e))
+* fix wrong navigation link in navbar ([8d51064f](https://github.com/Clarkkkk/Netease-Music-App/commit/8d51064f0bf5cead0df5f84e32aa16a39751669e))
+* add music resources to pwa cache to avoid playing interrupted due to expired resources ([3aa2bf93](https://github.com/Clarkkkk/Netease-Music-App/commit/3aa2bf9300f1dbf86d207c3d5b8468525c22605f))
+* reload the song when play failed ([9e129120](https://github.com/Clarkkkk/Netease-Music-App/commit/9e1291203e7da281fde1b37ee571f83a8fe852c5))
+* fix a bug in homepage ([707e9487](https://github.com/Clarkkkk/Netease-Music-App/commit/707e9487b1fb28041c372bbf1811673eb9fb8407))
+
+## **Styles**
+
+* revamp the style of search bar ([626749de](https://github.com/Clarkkkk/Netease-Music-App/commit/626749de788f24ba2956c4739c159f3309ab4416))
+* add gradient to Lyrics ([2b56b070](https://github.com/Clarkkkk/Netease-Music-App/commit/2b56b070209feffce9057814b52187f502e69176))
+* fix a style error in RecommandSongs when the list is empty ([f4be7322](https://github.com/Clarkkkk/Netease-Music-App/commit/f4be73224eff60585639973fdebdca3f418d06f4))
+* improve navbar's style ([d836c4af](https://github.com/Clarkkkk/Netease-Music-App/commit/d836c4af83112b983e47b51b4a4446ff3ef4b4ea))
+* improve some details of cover flow ([77c090f5](https://github.com/Clarkkkk/Netease-Music-App/commit/77c090f5f39ff50b2ee61508bff46db931b22184))
+* fix blurry images due to transform scale ([db14ec02](https://github.com/Clarkkkk/Netease-Music-App/commit/db14ec02271ecbe88484a62ba06ca56fbc0dfd72))
+* improve the appearance of cover flow ([db46af01](https://github.com/Clarkkkk/Netease-Music-App/commit/db46af01fe33a5c566f727a4ae81d7e7b0b0bbcd))
+
+## **Chores**
+
+* modify config to bypass the restriction of HSTS ([d8f301dc](https://github.com/Clarkkkk/Netease-Music-App/commit/d8f301dc1cc892dbcbcb7eaa985aee8a150f58a1))
+* disable eruda ([d17b238b](https://github.com/Clarkkkk/Netease-Music-App/commit/d17b238bdedcdf6ede8df4f8f16aab52a19b3335))
+* add debug console ([9da5279a](https://github.com/Clarkkkk/Netease-Music-App/commit/9da5279a5ab4d92d69ea6aaf4f0539e90c121b95))
+* add debug console ([9802177e](https://github.com/Clarkkkk/Netease-Music-App/commit/9802177e3c570de5c9070a29c3a3b183e0d5e0c6))
+* update deps ([77dd4cbd](https://github.com/Clarkkkk/Netease-Music-App/commit/77dd4cbd975ed1b052e6b91aefc613df375262c4))
+* update deps ([3af27203](https://github.com/Clarkkkk/Netease-Music-App/commit/3af272035b87c240bd7140d0d550981694ff4abd))
+
+
+
 # 1.0.0-beta.2    (2023-08-05)
 
 
