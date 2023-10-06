@@ -101,10 +101,16 @@ async function onRadioClick() {
                     :key="item.name"
                     :class="[
                         'link',
+                        'mx-2',
                         'px-4',
+                        'h-8',
+                        'flex',
+                        'items-center',
+                        'rounded',
                         {
                             'link-primary': isActiveRoute(item.to),
-                            'font-bold': isActiveRoute(item.to)
+                            // 'font-bold': isActiveRoute(item.to),
+                            'bg-primary/5': isActiveRoute(item.to)
                         }
                     ]"
                     :to="item.to"
@@ -182,6 +188,11 @@ async function onRadioClick() {
 nav.navbar {
     padding-top: env(safe-area-inset-top);
     transition: background 200ms;
+
+    .link {
+        // transition: background 200ms;
+        text-decoration: none;
+    }
 }
 
 button.fm-playing {
