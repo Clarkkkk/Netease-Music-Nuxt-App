@@ -68,6 +68,13 @@ watch(lyricsCurrentIndex, (currentIndex) => {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     overscroll-behavior: contain;
+    mask-image: linear-gradient(
+        180deg,
+        transparent 5%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        transparent 95%
+    );
 
     li {
         scroll-snap-align: center;
@@ -80,6 +87,13 @@ watch(lyricsCurrentIndex, (currentIndex) => {
         margin: 8px;
         width: calc(100% - 16px);
         height: calc(100% - 16px);
+        mask-image: linear-gradient(
+            180deg,
+            transparent 5%,
+            rgba(0, 0, 0, 1) 15%,
+            rgba(0, 0, 0, 1) 85%,
+            transparent 95%
+        );
     }
 }
 
