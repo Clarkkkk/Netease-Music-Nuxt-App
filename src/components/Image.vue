@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, toRef, useAttrs, watch } from 'vue'
+import { wait } from '../utils/wait'
 
 import IconFileRemove from '~icons/solar/file-remove-bold-duotone'
 
 const loadingStatus = ref(true)
+const reload = ref(false)
+let reloadCount = 0
 const errorStatus = ref(false)
 const img = ref<HTMLImageElement>()
 const props = defineProps<{
@@ -30,6 +33,17 @@ const attrs = useAttrs()
 const roundedClass = computed(() => {
     return ((attrs.class || '') as string).split(' ').filter((item) => item.includes('rounded'))
 })
+
+async function onError() {
+    errorStatus.value = true
+    if (reloadCount < 3) {
+        reload.value = true
+        await wait(reloadCount * 100 + 100)
+        reload.value = false
+        errorStatus.value = false
+        reloadCount++
+    }
+}
 
 watch(srcRef, (curr, prev) => {
     if (curr !== prev) {
@@ -62,15 +76,19 @@ defineExpose({
         >
             <source
                 v-if="webpSrc && webpSrcSet"
-                :src="webpSrc"
-                :srcSet="webpSrcSet"
+                :src="reload ? '' : webpSrc"
+                :srcSet="reload ? '' : webpSrcSet"
                 type="image/webp"
             />
             <img
                 v-if="!errorStatus"
                 ref="img"
-                :src="`${src}${size ? `?param=${calculatedSize}y${calculatedSize}` : ''}`"
-                :srcSet="srcSet"
+                :src="
+                    reload
+                        ? ''
+                        : `${src}${size ? `?param=${calculatedSize}y${calculatedSize}` : ''}`
+                "
+                :srcSet="reload ? '' : srcSet"
                 :alt="alt || src"
                 :loading="loading"
                 :crossorigin="crossorigin"
@@ -81,7 +99,7 @@ defineExpose({
                         onLoad && onLoad(e.target as HTMLImageElement)
                     }
                 "
-                @error="errorStatus = true"
+                @error="onError"
             />
             <IconFileRemove v-else />
         </picture>
