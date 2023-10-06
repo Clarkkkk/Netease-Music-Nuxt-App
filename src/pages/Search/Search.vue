@@ -55,12 +55,14 @@ watch(
 </script>
 
 <template>
-    <div
+    <search
         id="search"
         class="container mx-auto flex flex-col items-center px-6 pt-16 md:px-12"
+        role="search"
     >
         <form
             class="relative mt-2 flex w-full justify-center md:mt-12 md:w-auto"
+            action=""
             @submit.prevent="() => {}"
         >
             <i-solar-magnifer-line-duotone
@@ -100,7 +102,7 @@ watch(
                 <LyricsPanel :active="currentTab.name === '歌词'" />
             </template>
         </Tabs>
-    </div>
+    </search>
 </template>
 
 <style lang="scss"></style>
