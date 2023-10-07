@@ -109,7 +109,9 @@ async function onRadioClick() {
                         'rounded',
                         {
                             'link-primary': isActiveRoute(item.to),
-                            'bg-primary/5': isActiveRoute(item.to)
+                            'bg-primary/5': isActiveRoute(item.to),
+                            'font-bold': isActiveRoute(item.to),
+                            'dark:bg-primary/20': isActiveRoute(item.to)
                         }
                     ]"
                     :to="item.to"
@@ -128,15 +130,20 @@ async function onRadioClick() {
             >
                 <button
                     v-view-transition-name="{ 'search-input': searchTransition }"
-                    class="flex h-8 items-center justify-between rounded-full bg-primary/10 px-4"
+                    class="flex h-8 items-center justify-between rounded-full bg-primary/10 px-4 dark:bg-secondary/20"
                     @click="onSearchClick"
                 >
                     <i-solar-magnifer-line-duotone
                         v-view-transition-name="{ 'search-icon': searchTransition }"
-                        class="z-10 mr-2 h-4 w-4 text-primary"
+                        class="z-10 mr-2 h-4 w-4 text-primary dark:text-secondary"
                     />
                     <span
-                        :class="['text-sm', 'text-neutral/50', { 'opacity-0': searchTransition }]"
+                        :class="[
+                            'text-sm',
+                            'text-base-content/50',
+                            'dark:text-base-content/80',
+                            { 'opacity-0': searchTransition }
+                        ]"
                     >
                         搜索
                     </span>
