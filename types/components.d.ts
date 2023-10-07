@@ -10,11 +10,13 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     IFluentDismiss32Regular: typeof import('~icons/fluent/dismiss32-regular')['default']
+    ISolarFileRemoveBoldDuotone: typeof import('~icons/solar/file-remove-bold-duotone')['default']
     ISolarGalleryBoldDuotone: typeof import('~icons/solar/gallery-bold-duotone')['default']
     ISolarHamburgerMenuLineDuotone: typeof import('~icons/solar/hamburger-menu-line-duotone')['default']
     ISolarListHeartMinimalisticLineDuotone: typeof import('~icons/solar/list-heart-minimalistic-line-duotone')['default']
     ISolarMagniferLineDuotone: typeof import('~icons/solar/magnifer-line-duotone')['default']
     ISolarMenuDotsBold: typeof import('~icons/solar/menu-dots-bold')['default']
+    ISolarMicrophoneBoldDuotone: typeof import('~icons/solar/microphone-bold-duotone')['default']
     ISolarMusicNotesBoldDuotone: typeof import('~icons/solar/music-notes-bold-duotone')['default']
     ISolarPauseBoldDuotone: typeof import('~icons/solar/pause-bold-duotone')['default']
     ISolarPlaaylistMinimalisticBoldDuotone: typeof import('~icons/solar/plaaylist-minimalistic-bold-duotone')['default']

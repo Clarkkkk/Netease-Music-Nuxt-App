@@ -2,22 +2,34 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { fileURLToPath } from 'url'
+import svgLoader from 'vite-svg-loader'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
-    components: [{ path: '~/components/Globals', pathPrefix: false }, '~/components'],
+    components: false, // [/* { path: '~/components/Globals', pathPrefix: false },  */ '~/components'],
     modules: ['@pinia/nuxt', 'unplugin-icons/nuxt', '@nuxtjs/tailwindcss'],
     alias: {
+        components: fileURLToPath(new URL('./components', import.meta.url)),
         common: fileURLToPath(new URL('./common', import.meta.url)),
         services: fileURLToPath(new URL('./services', import.meta.url)),
         api: fileURLToPath(new URL('./api', import.meta.url)),
         utils: fileURLToPath(new URL('./utils', import.meta.url)),
         stores: fileURLToPath(new URL('./stores', import.meta.url))
     },
+    imports: {
+        autoImport: false
+    },
     vite: {
         plugins: [
+            svgLoader({
+                defaultImport: 'component',
+                svgo: false
+            }),
             Components({
+                dirs: [],
+                types: [],
+                dts: 'types/components.d.ts',
                 resolvers: [IconsResolver()]
             }),
             Icons({})
@@ -43,5 +55,9 @@ export default defineNuxtConfig({
                 }
             }
         }
+        // plugins: [fileURLToPath(new URL('./nitro.ts', import.meta.url))]
+    },
+    experimental: {
+        viewTransition: true
     }
 })
