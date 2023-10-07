@@ -6,7 +6,8 @@ import { post } from 'utils'
 
 export function useLyricsEffect() {
     const { player } = storeToRefs(useLyricsStore())
-    const { updateLyrics, updateLyricsCurrentIndex, updateLyricsCurrentLine } = useLyricsStore()
+    const { updateLyrics, updateLyricsCurrentIndex, updateLyricsCurrentLine, updateLyricsStatus } =
+        useLyricsStore()
     const { currentSong } = storeToRefs(usePlaylistStore())
     const { currentTime } = storeToRefs(useAudioStore())
 
@@ -24,9 +25,15 @@ export function useLyricsEffect() {
     watch(currentSong, (song) => {
         if (song) {
             updateLyrics('')
-            post<ApiLyric>('/lyric', { id: song.id }).then((res) => {
-                updateLyrics(res.lrc.lyric, res.tlyric?.lyric)
-            })
+            updateLyricsStatus('loading')
+            post<ApiLyric>('/lyric', { id: song.id })
+                .then((res) => {
+                    updateLyrics(res.lrc.lyric, res.tlyric?.lyric)
+                    updateLyricsStatus('loaded')
+                })
+                .catch(() => {
+                    updateLyricsStatus('error')
+                })
         }
     })
 }
