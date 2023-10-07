@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# 1.0.0    (2023-10-07)
+
+
+## **Bug Fixes**
+
+* fix drag issues on mobile devices ([cf5909a3](https://github.com/Clarkkkk/Netease-Music-App/commit/cf5909a3f8f2e31bfe9b4e8e3b03b8e7cdbd08d9))
+* add reload button when lyrics loading failed ([c0f67924](https://github.com/Clarkkkk/Netease-Music-App/commit/c0f67924681bed1d13329b2d04a1c18cc15a8ff8))
+
+## **Styles**
+
+* improve some styles in dark mode ([20dea22c](https://github.com/Clarkkkk/Netease-Music-App/commit/20dea22c9541e487e53e860a120f364180f4e0c2))
+
+
+
 # 1.0.0-beta.3    (2023-10-06)
 
 
