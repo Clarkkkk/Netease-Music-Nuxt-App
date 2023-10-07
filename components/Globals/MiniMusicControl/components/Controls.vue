@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useAudioStore, usePlaylistStore } from 'stores'
-
-import { Button } from '#components'
+import { Button } from 'components'
 
 const { audioStatus } = storeToRefs(useAudioStore())
 const { play, pause, playAgain } = useAudioStore()

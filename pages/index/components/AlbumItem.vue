@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useIsHovering } from 'services'
-
-import { Image } from '#components'
+import { Image } from 'components'
 
 interface AlbumItemProps {
     name: string

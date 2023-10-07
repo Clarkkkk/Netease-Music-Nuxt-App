@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { Image } from '#components'
 import type { ApiBanner, ApiSongDetail } from 'api'
 import { ONE_SECOND } from 'common'
 import { usePlaylistStore } from 'stores'
+import { Image } from 'components'
 import { post, toHttps, usePageData } from 'utils'
 
 const pics = ref<ApiBanner['return']['banners']>([])
@@ -103,7 +103,6 @@ const { data } = await usePageData<ApiBanner>({
 
 onMounted(() => {
     if (!data.value) return
-    console.log(data)
     pics.value = data.value.banners
     intervalId.value = window.setInterval(() => {
         moveCurrentIndex()

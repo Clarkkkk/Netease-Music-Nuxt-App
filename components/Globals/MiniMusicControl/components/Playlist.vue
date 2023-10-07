@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { usePlaylistStore } from 'stores'
 import Button from '../../../Button.vue'
-import ContextMenu from '../../../ContextMenu/ContextMenuBase.vue'
+import ContextMenu from '../../../ContextMenu/ContextMenu.vue'
 import ContextMenuItem from '../../../ContextMenu/ContextMenuItem.vue'
 
 const { playlist, currentSong } = storeToRefs(usePlaylistStore())

@@ -29,7 +29,7 @@
 //  * 在`./components/share.tsx`中，
 //  * ```
 //  * import { btnShare } from '../assets'
-//  * import { Image } from '#components'
+//  * import { Image } from 'components'
 //  * const img = <Image {...btnShare} />
 //  * ```
 //  */

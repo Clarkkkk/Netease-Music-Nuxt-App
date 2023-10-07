@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import {
-    Button,
-    DrawerBackground,
-    DrawerBase as Drawer,
-    DrawerContent,
-    DrawerTrigger,
-    Image
-} from '#components'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, useProfileStore } from 'stores'
+import { Button, Drawer, DrawerBackground, DrawerContent, DrawerTrigger, Image } from 'components'
 import { wait } from 'utils'
 
 const { profile } = storeToRefs(useProfileStore())

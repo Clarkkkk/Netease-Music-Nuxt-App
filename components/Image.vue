@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, toRef, useAttrs, watch } from 'vue'
 
-import IconFileRemove from '~icons/solar/file-remove-bold-duotone'
-
 const loadingStatus = ref(true)
 const errorStatus = ref(false)
 const img = ref<HTMLImageElement>()
@@ -87,7 +85,7 @@ defineExpose({
                 "
                 @error="errorStatus = true"
             />
-            <IconFileRemove v-else />
+            <i-solar-file-remove-bold-duotone v-else />
         </picture>
     </div>
 </template>

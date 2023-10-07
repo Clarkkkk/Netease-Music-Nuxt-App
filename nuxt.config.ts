@@ -7,7 +7,7 @@ import svgLoader from 'vite-svg-loader'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
-    components: false, // [/* { path: '~/components/Globals', pathPrefix: false },  */ '~/components'],
+    components: false,
     modules: ['@pinia/nuxt', 'unplugin-icons/nuxt', '@nuxtjs/tailwindcss'],
     alias: {
         components: fileURLToPath(new URL('./components', import.meta.url)),

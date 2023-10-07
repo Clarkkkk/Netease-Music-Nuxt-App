@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useSlots, watch } from 'vue'
+import { Button } from 'components'
 import { wait } from '../utils/wait'
-
-import { Button } from '#components'
 
 const slots = useSlots()
 

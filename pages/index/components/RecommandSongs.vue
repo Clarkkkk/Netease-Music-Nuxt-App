@@ -2,9 +2,8 @@
 import { ref, watch } from 'vue'
 import type { ApiRecommendSongs } from 'api'
 import { useAuthStore, usePlaylistStore } from 'stores'
+import { Button, SongItem } from 'components'
 import { post, toHttps } from 'utils'
-
-import { Button, SongItem } from '#components'
 
 const auth = useAuthStore()
 const list = ref<Array<Song>>([])
