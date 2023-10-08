@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { Banner, NewAlbums, NewSongs } from './components'
+import { definePageMeta } from '#imports'
+import { useAuthStore } from 'stores'
+import { Banner, NewAlbums, NewSongs, RecommandSonglists, RecommandSongs } from './components'
+
+const auth = useAuthStore()
+
+definePageMeta({
+    keepalive: true
+})
 </script>
 
 <template>
@@ -11,11 +19,11 @@ import { Banner, NewAlbums, NewSongs } from './components'
             class="flex w-full flex-col items-center overflow-hidden lg:w-7/12 lg:overflow-visible"
         >
             <Banner />
-            <!-- <RecommandSonglists v-if="auth.loggedIn" /> -->
+            <RecommandSonglists v-if="auth.loggedIn" />
             <NewAlbums />
         </div>
         <div class="flex w-full flex-col items-center px-6 lg:w-1/3 lg:px-0">
-            <!-- <RecommandSongs v-if="auth.loggedIn" /> -->
+            <RecommandSongs v-if="auth.loggedIn" />
             <NewSongs class="new-songs" />
         </div>
     </div>

@@ -1,5 +1,5 @@
 import type { AsyncData } from 'nuxt/app'
-import { useAsyncData } from 'nuxt/app'
+import { useAsyncData, useRequestHeaders } from 'nuxt/app'
 import type { MultiWatchSources } from 'nuxt/dist/app/composables/asyncData'
 
 type RequestArguments<T extends ApiType> = T['params'] extends Record<string, unknown> | FormData
@@ -16,8 +16,8 @@ export function get<Type extends ApiGetType>(
         method: 'get',
         headers: {
             referer: 'https://carllllo.work/'
-        }
-    })
+        } as HeadersInit
+    }) as Promise<Type['return']>
 }
 
 export function post<Type extends ApiPostType>(
@@ -30,11 +30,29 @@ export function post<Type extends ApiPostType>(
         method: 'post',
         headers: {
             referer: 'https://carllllo.work/'
-        }
+        } as HeadersInit
     })
 }
 
-type usePageDataParams<T extends ApiPostType> = {
+export function useRequest() {
+    const cookie = useRequestHeaders(['cookie']).cookie
+
+    return function post<Type extends ApiPostType>(
+        ...[api, params]: RequestArguments<Type>
+    ): Promise<Type['return']> {
+        const fullApi = '/api' + api
+        return $fetch(fullApi, {
+            body: params,
+            method: 'post',
+            headers: {
+                cookie,
+                referer: 'https://carllllo.work/'
+            } as HeadersInit
+        })
+    }
+}
+
+type UsePageDataParams<T extends ApiPostType> = {
     api: T['api']
     params?: T['params']
     key?: string
@@ -48,8 +66,9 @@ export function usePageData<Type extends ApiPostType>({
     key,
     transform,
     watch
-}: usePageDataParams<Type>): AsyncData<Type['return'], any> {
+}: UsePageDataParams<Type>): AsyncData<Type['return'], any> {
     const fullApi = '/api' + api
+    const cookie = useRequestHeaders(['cookie']).cookie
 
     return useAsyncData(
         key || fullApi,
@@ -58,8 +77,9 @@ export function usePageData<Type extends ApiPostType>({
                 body: params,
                 method: 'post',
                 headers: {
+                    cookie,
                     referer: 'https://carllllo.work/'
-                }
+                } as HeadersInit
             })
         },
         {

@@ -9,10 +9,9 @@ import {
 } from '@ark-ui/vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from 'stores'
+import { Image } from 'components'
 import Loading from '../../Loading.vue'
 import { useQrcodeLogin } from './services'
-
-import { Image } from '#components'
 
 const { showLoginModal } = storeToRefs(useAuthStore())
 const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } = useQrcodeLogin()
@@ -44,7 +43,7 @@ watch(qrcodeLoginStatus, (val) => {
     if (val === 'logged-in') {
         window.setTimeout(() => {
             window.location.reload()
-        }, 800)
+        }, 600)
     }
 })
 </script>

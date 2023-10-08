@@ -1,5 +1,20 @@
+<script setup lang="ts">
+import { useRoute } from 'nuxt/app'
+import { LoginModal, MiniMusicControl, Nav } from 'components'
+import { useLoginInitEffect } from './services'
+
+useLoginInitEffect()
+const route = useRoute()
+</script>
+
 <template>
     <div>
+        <ClientOnly>
+            <Nav />
+            <component :is="route.path.includes('/playing') ? '' : MiniMusicControl" />
+        </ClientOnly>
+
+        <LoginModal />
         <NuxtPage />
     </div>
 </template>
