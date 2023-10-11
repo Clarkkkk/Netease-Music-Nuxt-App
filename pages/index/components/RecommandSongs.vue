@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import type { ApiRecommendSongs } from 'api'
-import { useAuthStore, usePlaylistStore } from 'stores'
+import { usePlaylistStore } from 'stores'
 import { Button, SongItem } from 'components'
-import { post, toHttps } from 'utils'
+import { toHttps, usePageData } from 'utils'
 
-const auth = useAuthStore()
 const list = ref<Array<Song>>([])
 const { switchToThisList } = usePlaylistStore()
 
@@ -15,31 +14,45 @@ async function onPlayAll() {
     }
 }
 
-watch(
-    auth,
-    (val) => {
-        if (val.loggedIn) {
-            post<ApiRecommendSongs>('/recommend/songs').then((res) => {
-                list.value = res.data.dailySongs.map((item) => {
+const { data } = await usePageData<ApiRecommendSongs>({
+    api: '/recommend/songs',
+    transform(input) {
+        return {
+            code: input.code,
+            data: {
+                dailySongs: input.data.dailySongs.map((item) => {
                     return {
                         id: item.id,
                         name: item.name,
-                        subName: item.alia[0] || item.tns?.[0] || '',
-                        artist: item.ar[0].name,
-                        artistId: item.ar[0]?.id || 0,
-                        album: item.al.name,
-                        albumId: item.al.id,
-                        cover: toHttps(item.al.picUrl),
-                        timestamp: 0,
-                        url: '',
-                        status: 'not-playing'
+                        alia: item.alia,
+                        tns: item.tns,
+                        ar: item.ar,
+                        al: {
+                            name: item.al.name,
+                            id: item.al.id,
+                            picUrl: item.al.picUrl
+                        }
                     }
                 })
-            })
-        }
-    },
-    { immediate: true }
-)
+            }
+        } as ApiRecommendSongs['return']
+    }
+})
+list.value = data.value.data.dailySongs.map((item) => {
+    return {
+        id: item.id,
+        name: item.name,
+        subName: item.alia[0] || item.tns?.[0] || '',
+        artist: item.ar[0].name,
+        artistId: item.ar[0]?.id || 0,
+        album: item.al.name,
+        albumId: item.al.id,
+        cover: toHttps(item.al.picUrl),
+        timestamp: 0,
+        url: '',
+        status: 'not-playing'
+    }
+})
 </script>
 
 <template>
@@ -59,11 +72,13 @@ watch(
             </Button>
         </h2>
         <ul class="song-list list relative w-full overflow-x-visible overflow-y-scroll">
-            <SongItem
-                v-for="song in list"
-                :key="song.id"
-                :song="song"
-            />
+            <ClientOnly>
+                <SongItem
+                    v-for="song in list"
+                    :key="song.id"
+                    :song="song"
+                />
+            </ClientOnly>
         </ul>
     </div>
 </template>

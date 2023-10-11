@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import type { ApiRecommendResource } from 'api'
-import { useAuthStore } from 'stores'
-import { post, toHttps } from 'utils'
+import { toHttps, usePageData } from 'utils'
 import ListItem from './ListItem.vue'
 
 interface Songlist {
@@ -14,30 +13,41 @@ interface Songlist {
     creatorAvatar: string
 }
 
-const auth = useAuthStore()
 const lists = ref<Array<Songlist>>([])
 
-watch(
-    auth,
-    (val) => {
-        if (val.loggedIn) {
-            post<ApiRecommendResource>('/recommend/resource').then((res) => {
-                lists.value = res.recommend.slice(res.featureFirst ? 1 : 0).map((item) => {
-                    return {
-                        name: item.name,
-                        listenCount: item.playcount,
-                        id: item.id,
-                        picUrl: toHttps(item.picUrl),
-                        creator: item.creator.nickname,
-                        creatorAvatar: toHttps(item.creator.avatarUrl),
-                        count: item.playcount
-                    }
-                })
+const { data } = await usePageData<ApiRecommendResource>({
+    api: '/recommend/resource',
+    transform(input) {
+        return {
+            code: input.code,
+            featureFirst: input.featureFirst,
+            recommend: input.recommend.map((item) => {
+                return {
+                    name: item.name,
+                    id: item.id,
+                    picUrl: item.picUrl,
+                    creator: {
+                        nickname: item.creator.nickname,
+                        avatarUrl: item.creator.avatarUrl
+                    },
+                    playcount: item.playcount
+                }
             })
-        }
-    },
-    { immediate: true }
-)
+        } as unknown as ApiRecommendResource['return']
+    }
+})
+
+lists.value = data.value.recommend.slice(data.value.featureFirst ? 1 : 0).map((item) => {
+    return {
+        name: item.name,
+        listenCount: item.playcount,
+        id: item.id,
+        picUrl: toHttps(item.picUrl),
+        creator: item.creator.nickname,
+        creatorAvatar: toHttps(item.creator.avatarUrl),
+        count: item.playcount
+    }
+})
 </script>
 
 <template>
