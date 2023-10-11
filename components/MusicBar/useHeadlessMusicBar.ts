@@ -80,6 +80,11 @@ export const useHeadlessMusicBar = ({
         onChange(duration.value * percentage.value)
     }
 
+    // avoid pointercancel event on mobile devices: https://stackoverflow.com/questions/66621894/setpointercapture-is-cancelled-on-mobile-devices-gestures-take-over
+    function onTouchStart(event: Event) {
+        event.preventDefault()
+    }
+
     watch([current, duration], ([newCurrent, newDuration]) => {
         if (isPointerDown.value) return
         percentage.value = newCurrent / (newDuration || 1)
@@ -92,6 +97,7 @@ export const useHeadlessMusicBar = ({
         tooltipStyle,
         onPointerDown,
         onPointerMove,
-        onPointerUp
+        onPointerUp,
+        onTouchStart
     }
 }

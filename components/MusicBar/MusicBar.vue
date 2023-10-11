@@ -12,6 +12,7 @@ const {
     onPointerDown,
     onPointerMove,
     onPointerUp,
+    onTouchStart,
     thumbStyle,
     rangeStyle,
     tooltipStyle,
@@ -57,6 +58,7 @@ function formatTime(time: number) {
             @pointerdown="onPointerDown"
             @pointermove="onPointerMove"
             @pointerup="onPointerUp"
+            @touchstart="onTouchStart"
         >
             <div class="flex h-full w-full items-center">
                 <div class="groove relative flex h-1 w-full items-center rounded-full bg-base-300">

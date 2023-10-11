@@ -7,6 +7,7 @@ export const useLyricsStore = defineStore('lyrics', () => {
     const player = ref<LyricsPlayer>(new LyricsPlayer(lyrics.value as Lyrics))
     const lyricsCurrentIndex = ref(0)
     const lyricsCurrentLine = ref('')
+    const lyricsStatus = ref<'loading' | 'loaded' | 'error' | ''>('')
 
     function updateLyrics(original: string, translated?: string) {
         const originalLyrics = new Lyrics(original)
@@ -28,13 +29,19 @@ export const useLyricsStore = defineStore('lyrics', () => {
         lyricsCurrentLine.value = val
     }
 
+    function updateLyricsStatus(val: 'loading' | 'loaded' | 'error' | '') {
+        lyricsStatus.value = val
+    }
+
     return {
         lyrics,
         player,
         lyricsCurrentIndex,
         lyricsCurrentLine,
+        lyricsStatus,
         updateLyrics,
         updateLyricsCurrentIndex,
-        updateLyricsCurrentLine
+        updateLyricsCurrentLine,
+        updateLyricsStatus
     }
 })

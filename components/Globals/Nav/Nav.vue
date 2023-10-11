@@ -60,7 +60,7 @@ function isActiveRoute(to: string) {
     }
 }
 
-async function onInputClick() {
+async function onSearchClick() {
     searchTransition.value = true
     await nextTick()
     router.push(`/search`)
@@ -102,10 +102,17 @@ async function onRadioClick() {
                     :key="item.name"
                     :class="[
                         'link',
+                        'mx-2',
                         'px-4',
+                        'h-8',
+                        'flex',
+                        'items-center',
+                        'rounded',
                         {
                             'link-primary': isActiveRoute(item.to),
-                            'font-bold': isActiveRoute(item.to)
+                            'bg-primary/5': isActiveRoute(item.to),
+                            'font-bold': isActiveRoute(item.to),
+                            'dark:bg-primary/20': isActiveRoute(item.to)
                         }
                     ]"
                     :to="item.to"
@@ -122,15 +129,26 @@ async function onRadioClick() {
                 v-if="!route.path.includes('/search')"
                 class="relative mr-8"
             >
-                <i-solar-magnifer-line-duotone
-                    v-view-transition-name="{ 'search-icon': searchTransition }"
-                    class="absolute left-2 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-primary"
-                />
-                <input
+                <button
                     v-view-transition-name="{ 'search-input': searchTransition }"
-                    class="input-primary input input-sm pl-8"
-                    @click="onInputClick"
-                />
+                    class="flex h-8 items-center justify-between rounded-full bg-primary/10 px-4 dark:bg-secondary/20"
+                    @click="onSearchClick"
+                >
+                    <i-solar-magnifer-line-duotone
+                        v-view-transition-name="{ 'search-icon': searchTransition }"
+                        class="z-10 mr-2 h-4 w-4 text-primary dark:text-secondary"
+                    />
+                    <span
+                        :class="[
+                            'text-sm',
+                            'text-base-content/50',
+                            'dark:text-base-content/80',
+                            { 'opacity-0': searchTransition }
+                        ]"
+                    >
+                        搜索
+                    </span>
+                </button>
             </div>
             <Button
                 v-if="auth.loggedIn"
@@ -183,6 +201,10 @@ async function onRadioClick() {
 nav.navbar {
     padding-top: env(safe-area-inset-top);
     transition: background 200ms;
+
+    .link {
+        text-decoration: none;
+    }
 }
 
 button.fm-playing {
@@ -197,5 +219,10 @@ button.fm-playing {
     100% {
         box-shadow: 0px 0px 0px 7px hsl(var(--p) / 0);
     }
+}
+
+::view-transition-new(search-input),
+::view-transition-old(search-input) {
+    height: 100%;
 }
 </style>

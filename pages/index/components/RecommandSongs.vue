@@ -71,7 +71,17 @@ list.value = data.value.data.dailySongs.map((item) => {
                 播放全部
             </Button>
         </h2>
-        <ul class="song-list list relative w-full overflow-x-visible overflow-y-scroll">
+        <ul
+            :class="[
+                'song-list',
+                'list',
+                'relative',
+                'w-full',
+                'overflow-x-visible',
+                'overflow-y-scroll',
+                { 'is-empty': !list.length }
+            ]"
+        >
             <ClientOnly>
                 <SongItem
                     v-for="song in list"
@@ -100,6 +110,10 @@ list.value = data.value.data.dailySongs.map((item) => {
         width: 100%;
         height: 15px;
         background: linear-gradient(to top, hsl(var(--b1)) 0%, hsl(var(--b1) / 0%));
+    }
+
+    .song-list.is-empty::after {
+        display: none;
     }
 }
 </style>

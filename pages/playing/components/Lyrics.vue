@@ -1,12 +1,27 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import type { ApiLyric } from 'api'
 import { storeToRefs } from 'pinia'
-import { useLyricsStore } from 'stores'
-// import { Button } from 'components'
+import { useLyricsStore, usePlaylistStore } from 'stores'
+import { Button } from 'components'
+import { post } from 'utils'
 
-const { lyrics, lyricsCurrentIndex } = storeToRefs(useLyricsStore())
-// const { seek } = useAudioStore()
+const { lyrics, lyricsCurrentIndex, lyricsStatus } = storeToRefs(useLyricsStore())
+const { updateLyrics, updateLyricsStatus } = useLyricsStore()
+const { currentSong } = storeToRefs(usePlaylistStore())
 const containerRef = ref<HTMLElement | null>(null)
+
+async function reloadLyrics() {
+    if (!currentSong.value) return
+    updateLyricsStatus('loading')
+    try {
+        const res = await post<ApiLyric>('/lyric', { id: currentSong.value.id })
+        updateLyrics(res.lrc.lyric, res.tlyric?.lyric)
+        updateLyricsStatus('loaded')
+    } catch {
+        updateLyricsStatus('error')
+    }
+}
 
 watch(lyricsCurrentIndex, (currentIndex) => {
     if (!containerRef.value || currentIndex < 0) return
@@ -24,38 +39,49 @@ watch(lyricsCurrentIndex, (currentIndex) => {
         ref="containerRef"
         class="flex aspect-square w-full flex-col items-center overflow-y-auto overflow-x-hidden"
     >
-        <li
-            v-for="(line, i) in lyrics.lines"
-            :key="line.text + line.time"
-            :class="[
-                'flex',
-                'h-14',
-                'w-full',
-                'relative',
-                'flex-fixed',
-                'flex-col',
-                'items-center',
-                'justify-center',
-                'transition-all',
-                'duration-500',
-                i === lyricsCurrentIndex ? 'text-base-content' : 'text-base-content/50',
-                { 'scale-125': i === lyricsCurrentIndex }
-            ]"
+        <template v-if="lyricsStatus === 'loading'">
+            <span class="loading loading-spinner h-full text-primary"></span>
+        </template>
+        <div
+            v-else-if="lyricsStatus === 'error'"
+            class="flex h-full flex-col items-center justify-center"
         >
-            <!-- <Button
-                class="btn-ghost btn-square btn-sm absolute left-0 top-1/2 -translate-y-1/2"
-                @click="() => seek(line.time)"
+            <span class="text-sm text-base-content/50">歌词加载失败</span>
+            <Button
+                class="btn-sm mt-2 bg-primary/10 text-sm text-primary/60"
+                @click.stop="reloadLyrics"
             >
-                <i-solar-play-bold class="h-3 w-3 flex-fixed overflow-hidden text-primary" />
-            </Button> -->
-            <span
-                v-for="(text, j) in line.text.split('\n')"
-                :key="j"
-                :class="[j === 0 ? 'text-sm' : 'text-xs']"
+                重试
+            </Button>
+        </div>
+        <template v-else>
+            <li
+                v-for="(line, i) in lyrics.lines"
+                :key="line.text + line.time"
+                :class="[
+                    'flex',
+                    'h-14',
+                    'w-full',
+                    'relative',
+                    'flex-fixed',
+                    'flex-col',
+                    'items-center',
+                    'justify-center',
+                    'transition-all',
+                    'duration-500',
+                    i === lyricsCurrentIndex ? 'text-base-content' : 'text-base-content/50',
+                    { 'scale-125': i === lyricsCurrentIndex }
+                ]"
             >
-                {{ text }}
-            </span>
-        </li>
+                <span
+                    v-for="(text, j) in line.text.split('\n')"
+                    :key="j"
+                    :class="[j === 0 ? 'text-sm' : 'text-xs']"
+                >
+                    {{ text }}
+                </span>
+            </li>
+        </template>
     </ul>
 </template>
 
@@ -68,6 +94,13 @@ watch(lyricsCurrentIndex, (currentIndex) => {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     overscroll-behavior: contain;
+    mask-image: linear-gradient(
+        180deg,
+        transparent 5%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 1) 90%,
+        transparent 95%
+    );
 
     li {
         scroll-snap-align: center;
@@ -80,6 +113,13 @@ watch(lyricsCurrentIndex, (currentIndex) => {
         margin: 8px;
         width: calc(100% - 16px);
         height: calc(100% - 16px);
+        mask-image: linear-gradient(
+            180deg,
+            transparent 5%,
+            rgba(0, 0, 0, 1) 15%,
+            rgba(0, 0, 0, 1) 85%,
+            transparent 95%
+        );
     }
 }
 
