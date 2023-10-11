@@ -2,6 +2,7 @@
 /// <reference types="@pinia/nuxt" />
 /// <reference types="unplugin-icons" />
 /// <reference types="@nuxtjs/tailwindcss" />
+/// <reference types="vue-view-transitions" />
 /// <reference types="@nuxt/devtools" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="nuxt" />

@@ -8,7 +8,12 @@ import svgLoader from 'vite-svg-loader'
 export default defineNuxtConfig({
     devtools: { enabled: true },
     components: false,
-    modules: ['@pinia/nuxt', 'unplugin-icons/nuxt', '@nuxtjs/tailwindcss'],
+    modules: [
+        '@pinia/nuxt',
+        'unplugin-icons/nuxt',
+        '@nuxtjs/tailwindcss',
+        'vue-view-transitions/nuxt'
+    ],
     alias: {
         components: fileURLToPath(new URL('./components', import.meta.url)),
         common: fileURLToPath(new URL('./common', import.meta.url)),
@@ -55,7 +60,6 @@ export default defineNuxtConfig({
                 }
             }
         }
-        // plugins: [fileURLToPath(new URL('./nitro.ts', import.meta.url))]
     },
     experimental: {
         viewTransition: true
