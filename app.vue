@@ -1,9 +1,21 @@
 <script setup lang="ts">
 import { useRoute } from 'nuxt/app'
-import { LoginModal, MiniMusicControl, Nav } from 'components'
-import { useLoginInitEffect } from './services'
+import { Audio, LoginModal, MiniMusicControl, Nav } from 'components'
+import {
+    useLoginInitEffect,
+    useLyricsEffect,
+    useMediaSessionEffect,
+    usePlayStatusEffect
+} from './services'
 
 useLoginInitEffect()
+
+if (!process.server) {
+    usePlayStatusEffect()
+    useMediaSessionEffect()
+    useLyricsEffect()
+}
+
 const route = useRoute()
 </script>
 
@@ -11,6 +23,7 @@ const route = useRoute()
     <div>
         <ClientOnly>
             <Nav />
+            <Audio />
             <component :is="route.path.includes('/playing') ? '' : MiniMusicControl" />
         </ClientOnly>
 
