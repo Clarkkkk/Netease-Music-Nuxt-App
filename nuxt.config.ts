@@ -44,7 +44,6 @@ export default defineNuxtConfig({
         ]
     },
     nitro: {
-        baseURL: '/music/',
         // proxy the request from client
         devProxy: {
             '/api': {
