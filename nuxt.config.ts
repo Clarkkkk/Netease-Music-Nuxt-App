@@ -22,10 +22,6 @@ export default defineNuxtConfig({
         utils: fileURLToPath(new URL('./utils', import.meta.url)),
         stores: fileURLToPath(new URL('./stores', import.meta.url))
     },
-    app: {
-        baseURL: '/',
-        buildAssetsDir: '/'
-    },
     imports: {
         autoImport: false
     },
