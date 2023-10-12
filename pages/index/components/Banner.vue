@@ -100,10 +100,10 @@ const { data } = await usePageData<ApiBanner>({
         }
     }
 })
+pics.value = data.value.banners
 
 onMounted(() => {
     if (!data.value) return
-    pics.value = data.value.banners
     intervalId.value = window.setInterval(() => {
         moveCurrentIndex()
     }, 8 * ONE_SECOND)
