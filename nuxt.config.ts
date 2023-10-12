@@ -44,6 +44,7 @@ export default defineNuxtConfig({
         ]
     },
     nitro: {
+        baseURL: '/music/',
         // proxy the request from client
         devProxy: {
             '/api': {
@@ -56,12 +57,12 @@ export default defineNuxtConfig({
         },
         // redirect the request from server
         routeRules: {
-            '/api/**': {
-                proxy: 'https://api.carllllo.work/music/**',
-                headers: {
-                    referer: 'https://carllllo.work'
-                }
-            }
+            // '/api/**': {
+            //     proxy: 'https://api.carllllo.work/music/**',
+            //     headers: {
+            //         referer: 'https://carllllo.work'
+            //     }
+            // }
         }
     },
     experimental: {
