@@ -23,7 +23,8 @@ export default defineNuxtConfig({
         stores: fileURLToPath(new URL('./stores', import.meta.url))
     },
     app: {
-        baseURL: '/music/'
+        baseURL: '/',
+        buildAssetsDir: '/'
     },
     imports: {
         autoImport: false
