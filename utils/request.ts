@@ -6,10 +6,12 @@ type RequestArguments<T extends ApiType> = T['params'] extends Record<string, un
     ? [api: T['api'], params: T['params']]
     : [api: T['api']]
 
+const requestUrl = process.env.NODE_ENV === 'development' ? '/api' : 'http://127.0.0.1:3000'
+
 export function get<Type extends ApiGetType>(
     ...[api, params]: RequestArguments<Type>
 ): Promise<Type['return']> {
-    const fullApi = '/api' + api
+    const fullApi = requestUrl + api
 
     return $fetch(fullApi, {
         params,
@@ -23,7 +25,7 @@ export function get<Type extends ApiGetType>(
 export function post<Type extends ApiPostType>(
     ...[api, params]: RequestArguments<Type>
 ): Promise<Type['return']> {
-    const fullApi = '/api' + api
+    const fullApi = requestUrl + api
 
     return $fetch(fullApi, {
         body: params,
@@ -40,7 +42,7 @@ export function useRequest() {
     return function post<Type extends ApiPostType>(
         ...[api, params]: RequestArguments<Type>
     ): Promise<Type['return']> {
-        const fullApi = '/api' + api
+        const fullApi = requestUrl + api
         return $fetch(fullApi, {
             body: params,
             method: 'post',
@@ -67,7 +69,7 @@ export function usePageData<Type extends ApiPostType>({
     transform,
     watch
 }: UsePageDataParams<Type>): AsyncData<Type['return'], any> {
-    const fullApi = '/api' + api
+    const fullApi = requestUrl + api
     const cookie = useRequestHeaders(['cookie']).cookie
 
     return useAsyncData(
