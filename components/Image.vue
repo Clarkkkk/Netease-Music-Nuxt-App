@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, toRef, useAttrs, watch } from 'vue'
+import { computed, onMounted, ref, toRef, useAttrs, watch } from 'vue'
 import { wait } from 'utils'
 
 const loadingStatus = ref(true)
@@ -50,6 +50,13 @@ async function onError() {
 watch(srcRef, (curr, prev) => {
     if (curr !== prev) {
         errorStatus.value = false
+    }
+})
+
+onMounted(() => {
+    // load event may fire before hydration finished, so check it again
+    if (img.value?.complete) {
+        loadingStatus.value = false
     }
 })
 
