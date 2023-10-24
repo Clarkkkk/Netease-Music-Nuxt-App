@@ -1,3 +1,4 @@
+import type { NuxtPage } from 'nuxt/schema'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -22,8 +23,29 @@ export default defineNuxtConfig({
         utils: fileURLToPath(new URL('./utils', import.meta.url)),
         stores: fileURLToPath(new URL('./stores', import.meta.url))
     },
+    app: {
+        buildAssetsDir: '/music/_nuxt/'
+    },
     imports: {
         autoImport: false
+    },
+    hooks: {
+        'pages:extend': function (pages) {
+            function removePagesMatching(pattern: RegExp, pages: NuxtPage[] = []) {
+                const pagesToRemove = []
+                for (const page of pages) {
+                    if (page.file && pattern.test(page.file)) {
+                        pagesToRemove.push(page)
+                    } else {
+                        removePagesMatching(pattern, page.children)
+                    }
+                }
+                for (const page of pagesToRemove) {
+                    pages.splice(pages.indexOf(page), 1)
+                }
+            }
+            removePagesMatching(/\/components\//, pages)
+        }
     },
     vite: {
         plugins: [
