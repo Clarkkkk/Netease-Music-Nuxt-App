@@ -73,10 +73,12 @@ const { isPc } = useDeviceType()
             {{ song.album }}
         </div>
         <slot></slot>
-        <SongItemOption
-            :song="song"
-            :class="['ml-2', 'transition-all', { 'opacity-0': !isHovering && isPc }]"
-        />
+        <ClientOnly>
+            <SongItemOption
+                :song="song"
+                :class="['ml-2', 'transition-all', { 'opacity-0': !isHovering && isPc }]"
+            />
+        </ClientOnly>
     </li>
 </template>
 

@@ -67,51 +67,53 @@ defineExpose({
 
 <template>
     <div class="picture transition-all duration-500 contain-content content-auto">
-        <picture
-            v-show="!!src"
-            class="picture"
-            :class="[
-                'transition-all',
-                'duration-500',
-                'h-full',
-                'w-full',
-                'flex',
-                'items-center',
-                'justify-center',
-                'overflow-hidden',
-                roundedClass,
-                { 'blur-lg': loadingStatus && !!blurBeforeLoaded }
-            ]"
-        >
-            <source
-                v-if="webpSrc && webpSrcSet"
-                :src="reload ? '' : webpSrc"
-                :srcSet="reload ? '' : webpSrcSet"
-                type="image/webp"
-            />
-            <img
-                v-if="!errorStatus"
-                ref="img"
-                :src="
-                    reload
-                        ? ''
-                        : `${src}${size ? `?param=${calculatedSize}y${calculatedSize}` : ''}`
-                "
-                :srcSet="reload ? '' : srcSet"
-                :alt="alt || src"
-                :loading="loading"
-                :crossorigin="crossorigin"
-                class="h-full w-full"
-                @load="
-                    (e) => {
-                        loadingStatus = false
-                        onLoad && onLoad(e.target as HTMLImageElement)
-                    }
-                "
-                @error="onError"
-            />
-            <i-solar-file-remove-bold-duotone v-else />
-        </picture>
+        <ClientOnly>
+            <picture
+                v-show="!!src"
+                class="picture"
+                :class="[
+                    'transition-all',
+                    'duration-500',
+                    'h-full',
+                    'w-full',
+                    'flex',
+                    'items-center',
+                    'justify-center',
+                    'overflow-hidden',
+                    roundedClass,
+                    { 'blur-lg': loadingStatus && !!blurBeforeLoaded }
+                ]"
+            >
+                <source
+                    v-if="webpSrc && webpSrcSet"
+                    :src="reload ? '' : webpSrc"
+                    :srcSet="reload ? '' : webpSrcSet"
+                    type="image/webp"
+                />
+                <img
+                    v-if="!errorStatus"
+                    ref="img"
+                    :src="
+                        reload
+                            ? ''
+                            : `${src}${size ? `?param=${calculatedSize}y${calculatedSize}` : ''}`
+                    "
+                    :srcSet="reload ? '' : srcSet"
+                    :alt="alt || src"
+                    :loading="loading"
+                    :crossorigin="crossorigin"
+                    class="h-full w-full"
+                    @load="
+                        (e) => {
+                            loadingStatus = false
+                            onLoad && onLoad(e.target as HTMLImageElement)
+                        }
+                    "
+                    @error="onError"
+                />
+                <i-solar-file-remove-bold-duotone v-else />
+            </picture>
+        </ClientOnly>
     </div>
 </template>
 
