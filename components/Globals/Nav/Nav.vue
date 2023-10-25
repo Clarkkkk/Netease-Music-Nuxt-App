@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { nextTick, onMounted, ref, watch } from 'vue'
-import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { usePrefetch } from 'vue-route-prefetch'
+import { useRoute, useRouter } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useAuthStore, usePlaylistStore } from 'stores'
@@ -30,6 +31,7 @@ const isTop = ref(true)
 const searchTransition = ref(false)
 const lessThan1024 = useMediaQuery('(max-width: 1023px)')
 const lessThan768 = useMediaQuery('(max-width: 767px)')
+const { prefetchRoute } = usePrefetch()
 
 watch(
     route,
@@ -88,16 +90,16 @@ async function onRadioClick() {
             { 'backdrop-blur-2xl': !isTop }
         ]"
     >
-        <RouterLink
+        <NuxtLink
             class="mr-4 flex items-center text-2xl font-bold text-primary"
             to="/"
         >
             <i-solar-vinyl-bold-duotone class="mr-3 h-9 w-9" />
             <span>Music</span>
-        </RouterLink>
+        </NuxtLink>
         <div class="mx-4 w-full flex-auto">
             <template v-if="!lessThan1024">
-                <RouterLink
+                <NuxtLink
                     v-for="item in navRoutes"
                     :key="item.name"
                     :class="[
@@ -118,7 +120,7 @@ async function onRadioClick() {
                     :to="item.to"
                 >
                     <span>{{ item.name }}</span>
-                </RouterLink>
+                </NuxtLink>
             </template>
         </div>
         <div
@@ -133,6 +135,7 @@ async function onRadioClick() {
                     v-view-transition-name="{ 'search-input': searchTransition }"
                     class="flex h-8 items-center justify-between rounded-full bg-primary/10 px-4 dark:bg-secondary/20"
                     @click="onSearchClick"
+                    @mouseenter="prefetchRoute('/search')"
                 >
                     <i-solar-magnifer-line-duotone
                         v-view-transition-name="{ 'search-icon': searchTransition }"

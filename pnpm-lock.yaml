@@ -47,6 +47,9 @@ dependencies:
   vue:
     specifier: ^3.3.4
     version: 3.3.4
+  vue-route-prefetch:
+    specifier: ^3.0.2
+    version: 3.0.2(vue-router@4.2.5)(vue@3.3.4)
   vue-router:
     specifier: ^4.2.2
     version: 4.2.5(vue@3.3.4)
@@ -12930,6 +12933,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-route-prefetch@3.0.2(vue-router@4.2.5)(vue@3.3.4):
+    resolution: {integrity: sha512-uu1v9aF6LTGBB+f4U33ZZYtZJHGZ7J2dwie+59ult+s8ma6OEYHHonBwbekdt586VLLimkq2D60KKE2ge901bg==}
+    peerDependencies:
+      vue: ^3
+      vue-router: ^4
+    dependencies:
+      vue: 3.3.4
+      vue-router: 4.2.5(vue@3.3.4)
+    dev: false
 
   /vue-router@4.2.5(vue@3.3.4):
     resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==}

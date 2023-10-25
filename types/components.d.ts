@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     ISolarPlaaylistMinimalisticBoldDuotone: typeof import('~icons/solar/plaaylist-minimalistic-bold-duotone')['default']
     ISolarPlayBold: typeof import('~icons/solar/play-bold')['default']
     ISolarPlayBoldDuotone: typeof import('~icons/solar/play-bold-duotone')['default']
+    ISolarPlayCircleBold: typeof import('~icons/solar/play-circle-bold')['default']
     ISolarPlayCircleLineDuotone: typeof import('~icons/solar/play-circle-line-duotone')['default']
     ISolarPlayLineDuotone: typeof import('~icons/solar/play-line-duotone')['default']
     ISolarPlayStreamLineDuotone: typeof import('~icons/solar/play-stream-line-duotone')['default']
@@ -32,7 +33,5 @@ declare module '@vue/runtime-core' {
     ISolarUserCircleBoldDuotone: typeof import('~icons/solar/user-circle-bold-duotone')['default']
     ISolarVinylBoldDuotone: typeof import('~icons/solar/vinyl-bold-duotone')['default']
     ISolarVinylLineDuotone: typeof import('~icons/solar/vinyl-line-duotone')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
   }
 }
