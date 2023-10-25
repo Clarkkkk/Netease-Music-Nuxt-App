@@ -9,10 +9,10 @@ type RequestArguments<T extends ApiType> = T['params'] extends Record<string, un
 let requestUrl = ''
 if (process.env.NODE_ENV === 'development') {
     requestUrl = '/api'
-} else if (process.server) {
-    requestUrl = 'http://127.0.0.1:3000'
-} else {
+} else if (globalThis.window) {
     requestUrl = 'https://api.carllllo.work/music'
+} else {
+    requestUrl = 'http://127.0.0.1:3000'
 }
 
 export function get<Type extends ApiGetType>(
