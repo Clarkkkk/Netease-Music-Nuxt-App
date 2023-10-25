@@ -6,7 +6,14 @@ type RequestArguments<T extends ApiType> = T['params'] extends Record<string, un
     ? [api: T['api'], params: T['params']]
     : [api: T['api']]
 
-const requestUrl = process.env.NODE_ENV === 'development' ? '/api' : 'http://127.0.0.1:3000'
+let requestUrl = ''
+if (process.env.NODE_ENV === 'development') {
+    requestUrl = '/api'
+} else if (process.server) {
+    requestUrl = 'http://127.0.0.1:3000'
+} else {
+    requestUrl = 'https://api.carllllo.work/music'
+}
 
 export function get<Type extends ApiGetType>(
     ...[api, params]: RequestArguments<Type>

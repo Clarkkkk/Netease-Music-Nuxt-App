@@ -24,6 +24,7 @@ export default defineNuxtConfig({
         stores: fileURLToPath(new URL('./stores', import.meta.url))
     },
     app: {
+        baseURL: '/music/',
         buildAssetsDir: '/music/_nuxt/'
     },
     imports: {
