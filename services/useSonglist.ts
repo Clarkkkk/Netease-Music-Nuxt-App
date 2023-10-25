@@ -1,8 +1,9 @@
 import { ref } from 'vue'
 import type { ApiPlaylistDetail, ApiSongDetail } from 'api'
-import { post, toHttps } from 'utils'
+import { toHttps, usePageData, useRequest } from 'utils'
 
 export function useSonglist() {
+    const post = useRequest()
     const info = ref<ApiPlaylistDetail['return']['playlist'] | null>(null)
     const songlist = ref<Song[]>([])
     const songlistId = ref(0)
@@ -13,18 +14,56 @@ export function useSonglist() {
     const PAGE_SIZE = 30
 
     async function initSonglist(id: number) {
-        if (loading.value) return
-        try {
-            const res = await getSonglistDetail(id)
-            songlistId.value = id
-            info.value = res.info
-            songIdList.value = res.songIdList
-            songlist.value = res.songlist
-            more.value = res.more
-            offset.value = res.songlist.length
-        } finally {
-            loading.value = false
-        }
+        const { data } = await usePageData<ApiPlaylistDetail>({
+            api: '/playlist/detail',
+            params: {
+                id,
+                s: 1
+            },
+            transform(input) {
+                return {
+                    code: input.code,
+                    playlist: {
+                        ...input.playlist,
+                        tracks: input.playlist.tracks.map((item) => {
+                            return {
+                                id: item.id,
+                                name: item.name,
+                                alia: item.alia,
+                                ar: [
+                                    {
+                                        name: item.ar[0].name
+                                    }
+                                ],
+                                al: {
+                                    name: item.al.name,
+                                    picUrl: item.al.picUrl
+                                }
+                            }
+                        })
+                    }
+                } as unknown as ApiPlaylistDetail['return']
+            }
+        })
+        songlistId.value = id
+        info.value = data.value.playlist
+        songIdList.value = data.value.playlist.trackIds.map((item) => item.id)
+        songlist.value = data.value.playlist.tracks.map((item) => {
+            return {
+                id: item.id,
+                name: item.name,
+                subName: item.alia[0] || '',
+                artist: item.ar[0]?.name || '',
+                album: item.al.name,
+                cover: toHttps(item.al.picUrl) || '',
+                sourceid: id,
+                timestamp: 0,
+                url: '',
+                status: 'not-playing'
+            } as Song
+        })
+        more.value = data.value.playlist.trackIds.length > data.value.playlist.tracks.length
+        offset.value = data.value.playlist.tracks.length
     }
 
     async function onIncrementalLoad() {
@@ -54,6 +93,30 @@ export function useSonglist() {
         songlist.value.push(...list)
     }
 
+    function getSongsByIds(ids: number[], songlistId: number) {
+        return post<ApiSongDetail>('/song/detail', {
+            ids: ids.join(',')
+        }).then(({ songs }) => {
+            const list: Song[] = songs.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    subName: item.alia[0] || '',
+                    artist: item.ar[0]?.name || '',
+                    artistId: item.ar[0]?.id || 0,
+                    album: item.al.name,
+                    cover: toHttps(item.al.picUrl) || '',
+                    albumId: item.al.id,
+                    sourceid: songlistId,
+                    timestamp: 0,
+                    url: '',
+                    status: 'not-playing'
+                }
+            })
+            return list
+        })
+    }
+
     return {
         info,
         songlist,
@@ -63,55 +126,4 @@ export function useSonglist() {
         onIncrementalLoad,
         onFullLoad
     }
-}
-
-function getSongsByIds(ids: number[], songlistId: number) {
-    return post<ApiSongDetail>('/song/detail', {
-        ids: ids.join(',')
-    }).then(({ songs }) => {
-        const list: Song[] = songs.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                subName: item.alia[0] || '',
-                artist: item.ar[0]?.name || '',
-                artistId: item.ar[0]?.id || 0,
-                album: item.al.name,
-                cover: toHttps(item.al.picUrl) || '',
-                albumId: item.al.id,
-                sourceid: songlistId,
-                timestamp: 0,
-                url: '',
-                status: 'not-playing'
-            }
-        })
-        return list
-    })
-}
-
-function getSonglistDetail(id: number) {
-    return post<ApiPlaylistDetail>('/playlist/detail', {
-        id,
-        s: 1
-    }).then((res) => {
-        return {
-            info: res.playlist,
-            songIdList: res.playlist.trackIds.map((item) => item.id),
-            more: res.playlist.trackIds.length > res.playlist.tracks.length,
-            songlist: res.playlist.tracks.map((item) => {
-                return {
-                    id: item.id,
-                    name: item.name,
-                    subName: item.alia[0] || '',
-                    artist: item.ar[0]?.name || '',
-                    album: item.al.name,
-                    cover: toHttps(item.al.picUrl) || '',
-                    sourceid: id,
-                    timestamp: 0,
-                    url: '',
-                    status: 'not-playing'
-                } as Song
-            })
-        }
-    })
 }
