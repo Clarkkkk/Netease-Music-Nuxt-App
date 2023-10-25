@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     requestUrl = 'http://127.0.0.1:3000'
 }
+console.log(requestUrl)
 
 export function get<Type extends ApiGetType>(
     ...[api, params]: RequestArguments<Type>
@@ -80,7 +81,7 @@ export function usePageData<Type extends ApiPostType>({
     const cookie = useRequestHeaders(['cookie']).cookie
 
     return useAsyncData(
-        key || fullApi,
+        key || api + JSON.stringify(params),
         () => {
             return $fetch(fullApi, {
                 body: params,
