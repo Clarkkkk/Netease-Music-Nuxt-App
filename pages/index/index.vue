@@ -13,7 +13,11 @@ const auth = useAuthStore()
         <div
             class="flex w-full flex-col items-center overflow-hidden lg:w-7/12 lg:overflow-visible"
         >
-            <Banner />
+            <Banner lazy>
+                <template #fallback>
+                    <div>loading</div>
+                </template>
+            </Banner>
             <RecommandSonglists v-if="auth.loggedIn" />
             <NewAlbums />
         </div>
