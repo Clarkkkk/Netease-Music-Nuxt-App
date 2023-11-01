@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     requestUrl = 'http://127.0.0.1:3000'
 }
-console.log(requestUrl)
 
 export function get<Type extends ApiGetType>(
     ...[api, params]: RequestArguments<Type>

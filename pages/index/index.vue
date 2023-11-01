@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { definePageMeta } from '#imports'
 import { useAuthStore } from 'stores'
 import { Banner, NewAlbums, NewSongs, RecommandSonglists, RecommandSongs } from './components'
 
 const auth = useAuthStore()
-
-definePageMeta({
-    keepalive: true
-})
 </script>
 
 <template>
