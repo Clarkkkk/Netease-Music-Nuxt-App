@@ -13,7 +13,7 @@ import { Image } from 'components'
 import Loading from '../../Loading.vue'
 import { useQrcodeLogin } from './services'
 
-const { showLoginModal } = storeToRefs(useAuthStore())
+const { showLoginModal, loggedIn } = storeToRefs(useAuthStore())
 const { qrcodeImg, qrcodeLoginStatus, generateQrcode, resetQrcodeStatus } = useQrcodeLogin()
 
 const message = computed(() => {
@@ -50,6 +50,7 @@ watch(qrcodeLoginStatus, (val) => {
 
 <template>
     <Dialog
+        v-if="!loggedIn"
         v-model:open="showLoginModal"
         :close-on-outside-click="false"
     >
