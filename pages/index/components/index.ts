@@ -1,4 +1,4 @@
-export { default as Banner } from './Banner.server.vue'
+export { default as Banner } from './Banner.vue'
 export { default as NewAlbums } from './NewAlbums.vue'
 export { default as NewSongs } from './NewSongs.vue'
 export { default as RecommandSonglists } from './RecommandSonglists.vue'
