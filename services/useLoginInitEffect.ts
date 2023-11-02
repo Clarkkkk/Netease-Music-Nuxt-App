@@ -17,7 +17,7 @@ export const useLoginInitEffect = async () => {
             sameSite: 'strict'
         })
         const musicCookie = useCookie('MUSIC_U')
-        if (musicCookie) {
+        if (musicCookie.value) {
             const info = JSON.parse(atob(userCookie.value || '') || '{}') as { userId: number }
             if (!info.userId) {
                 try {
